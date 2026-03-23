@@ -60,7 +60,7 @@ SIDM_LABELS = ['dwarf (30 km/s)', 'LSB (100 km/s)', 'cluster (1000 km/s)']
 
 # SIDM cuts:  σ/m in cm²/g
 SIDM_LO = [0.1, 0.1, 0.1]
-SIDM_HI = [50.0, 10.0, 1.0]
+SIDM_HI = [10.0, 10.0, 1.0]
 
 # ═══════════════════════════════════════════════════════════════
 #  g_*(T) table (Drees+ 2015)
@@ -283,7 +283,7 @@ def main():
                 break
         
         # In the allowed regime: σ/m ~ 1 cm²/g at clusters is the tightest
-        # but σ/m ~ 1-50 at dwarfs is also needed
+        # but σ/m ~ 1-10 at dwarfs is also needed
         
         viable = pert_ok and sidm_pass
         

@@ -8,6 +8,10 @@
 | 1b | **Sensitivity analysis** (25,200 pts) | ואלידציה | ⭐⭐⭐⭐⭐ | בינוני | ✅ הושלם |
 | 2 | **Fornax core profile** (Jeans solver) | תחזית | ⭐⭐⭐⭐ | בינוני | 🔴 פתוח |
 | 3 | **Fermi-LAT dSph bounds** (φφ → dark, secondary γ) | constraint | ⭐⭐⭐ | בינוני | 🔴 פתוח |
+| 4 | **MCMC שרשרת ארוכה יותר** (3000+ צעדים, 50τ) | סטטיסטי | ⭐⭐⭐ | ~50 דק' | 🔴 פתוח |
+| 5 | **דיון yₛ ≫ yₚ hierarchy** בפרי-פרינט | טקסט | ⭐⭐ | נמוך | 🔴 פתוח |
+| 6 | **ξ evolution** — power law vs log (Farina+16 eq.9) | טקסט | ⭐ | נמוך | 🔴 פתוח |
+| 7 | **small-μ₃ inconsistency** — Ω_φ overclosed note | טקסט | ⭐ | נמוך | 🔴 פתוח |
 
 ## פירוט
 
@@ -31,6 +35,27 @@
 - Secondary γ from bremsstrahlung / inverse Compton
 - בדיקת upper limits מול Fermi-LAT dSph stacking
 
+### 4. MCMC שרשרת ארוכה יותר
+- emcee מזהיר ש-chain length < 50τ (כרגע 2000 צעדים, צריך ≥3000)
+- הרצה מחדש של `stats_mcmc/opusB_run_mcmc.py` עם `N_STEPS = 3000`
+- ~50 דקות ריצה
+- נדרש לגרסה סופית של הפרי-פרינט
+
+### 5. דיון yₛ ≫ yₚ Hierarchy
+- Opus B העיר: הסבירו למה yₛ ≫ yₚ (יחס 13–212) טבעי
+- אפשרויות: radiative origin ל-yₚ, approximate CP symmetry, loop-suppression
+- להוסיף פסקה בדיון (Discussion section) של הפרי-פרינט
+
+### 6. ξ Evolution — Power Law vs Logarithmic
+- Opus B ציין: ξ = T_φ/T_γ מתפתח כ-power law (gₛ ratios), לא log-correction
+- ההערה נכונה אבל ההשפעה על התוצאות קטנה (qualitative argument)
+- להוסיף footnote או הבהרה בפרי-פרינט
+
+### 7. Small-μ₃ Inconsistency Note
+- Opus B ציין: באזור μ₃/m_φ < threshold, φ overclosed → inconsistency
+- אין השפעה על viable region (שם cannibal עובד)
+- להוסיף משפט הבהרה שאזור ה-overclosure הוא excluded by construction
+
 ## הושלם
 
 - [x] Gravothermal collapse timescales (predictions/gravothermal/)
@@ -46,3 +71,4 @@
 - [x] BBN / mediator cosmology (cosmology/)
 - [x] SPARC + baryons rotation curve fit (predictions/rotation_curves/)
 - [x] Sensitivity analysis — 25,200 point parameter scan (predictions/rotation_curves/)
+- [x] SIDM dwarf upper bound 50→10 cm²/g (Opus B review, condition2 rescan)
