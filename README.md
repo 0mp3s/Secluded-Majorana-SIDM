@@ -58,7 +58,8 @@ Secluded-Majorana-SIDM/
 │   └── velocity_averaged.py  # Maxwell-Boltzmann averaging
 │
 ├── stats_mcmc/               # MCMC posterior sampling
-│   └── run_mcmc.py           # emcee sampler + corner plots (pending)
+│   ├── run_mcmc.py           # emcee sampler + corner plots
+│   └── config.json           # MCMC configuration
 │
 └── docs/                     # Preprint & peer reviews
     ├── preprint_draft_v10.md
@@ -117,7 +118,7 @@ See each folder's `README.md` for the full config.json schema and expected data 
 | Sommerfeld | RK4 Schrodinger solver | S(freeze-out) = 1.003-1.025 (tree-level OK) |
 | Velocity averaging | MB integration | Delta(chi^2) < 9% vs fixed-v |
 | Literature | vs TYZ (2013) | 6/6 tests PASSED |
-| MCMC posterior | emcee (32 walkers) | Pending... |
+| MCMC posterior | emcee (32 walkers, 64k samples) | chi^2/dof = 0.16 (MAP), 17/17 BPs within 95% CI |
 
 ## Model
 

@@ -14,7 +14,7 @@ We construct a minimal **secluded** dark matter model in which a Majorana fermio
 
 We compute the self-interaction transfer cross section using the **Variable Phase Method (VPM)** — a full partial-wave analysis that captures quasi-bound-state resonances of the Yukawa potential. A systematic scan over $(m_\chi, m_\phi, \alpha)$ — with $m_\chi \in [0.1, 100]$ GeV, $m_\phi \in [0.1, 200]$ MeV — identifies **80,142 parameter points** satisfying the SIDM sweet-spot criteria $\sigma/m(30\text{ km/s}) \in [1, 10]\text{ cm}^2/\text{g}$ and $\sigma/m(1000\text{ km/s}) < 0.1\text{ cm}^2/\text{g}$.
 
-The annihilation $\chi\chi \to \phi\phi$ is **s-wave**, yielding a thermal relic density $\Omega h^2 = 0.120$ for $\alpha \sim 5 \times 10^{-4}$–$5 \times 10^{-3}$ — squarely within the SIDM-viable region. A dedicated cosmological scan using an exact numerical Boltzmann solver identifies **17 benchmark points** forming an "island of viability" at $m_\chi \in [10, 100]$ GeV, $m_\phi \in [7.6, 14.8]$ MeV that simultaneously satisfy relic density, SIDM, and cluster constraints. The primary benchmark has $m_\chi = 20.69$ GeV, $m_\phi = 11.34$ MeV, $\alpha = 1.05 \times 10^{-3}$, $\Omega h^2 = 0.120$, $\sigma/m(30) = 0.52$ cm$^2$/g, and $\sigma/m(1000) = 0.072$ cm$^2$/g. A quantitative $\chi^2$ fit to 13 astrophysical systems spanning $v = 12$–$4700$ km/s yields $\chi^2/\nu = 0.54$ for the best relic-constrained point and $\chi^2/\nu = 0.26$ for the unconstrained best fit, with all pulls below $1.2\sigma$. We show that a Higgs portal coupling to the SM is generically **excluded** for light mediators ($m_\phi \lesssim \mathcal{O}(\text{GeV})$) by the tension between direct detection ($\sigma_{\rm SI} \propto 1/m_\phi^4$) and BBN lifetime constraints; a secluded dark sector is the natural resolution. The scalar has only 1 degree of freedom and contributes $\Delta N_{\rm eff} \approx 0.027$ — well below the Planck limit.
+The annihilation $\chi\chi \to \phi\phi$ is **s-wave**, yielding a thermal relic density $\Omega h^2 = 0.120$ for $\alpha \sim 5 \times 10^{-4}$–$5 \times 10^{-3}$ — squarely within the SIDM-viable region. A dedicated cosmological scan using an exact numerical Boltzmann solver identifies **17 benchmark points** forming an "island of viability" at $m_\chi \in [10, 100]$ GeV, $m_\phi \in [7.6, 14.8]$ MeV that simultaneously satisfy relic density, SIDM, and cluster constraints. The primary benchmark has $m_\chi = 20.69$ GeV, $m_\phi = 11.34$ MeV, $\alpha = 1.05 \times 10^{-3}$, $\Omega h^2 = 0.120$, $\sigma/m(30) = 0.52$ cm$^2$/g, and $\sigma/m(1000) = 0.072$ cm$^2$/g. A quantitative $\chi^2$ fit to 13 astrophysical systems spanning $v = 12$–$4700$ km/s yields $\chi^2/\nu = 0.54$ for the best relic-constrained point and $\chi^2/\nu = 0.26$ for the unconstrained best fit, with all pulls below $1.2\sigma$. A Bayesian MCMC posterior analysis confirms that all 17 relic benchmarks lie within the 95% credible region, with marginalized constraints $m_\chi = 73^{+43}_{-56}$ GeV, $m_\phi = 10.8^{+4.8}_{-4.3}$ MeV (68% CI). We show that a Higgs portal coupling to the SM is generically **excluded** for light mediators ($m_\phi \lesssim \mathcal{O}(\text{GeV})$) by the tension between direct detection ($\sigma_{\rm SI} \propto 1/m_\phi^4$) and BBN lifetime constraints; a secluded dark sector is the natural resolution. The scalar has only 1 degree of freedom and contributes $\Delta N_{\rm eff} \approx 0.027$ — well below the Planck limit.
 
 ---
 
@@ -294,6 +294,36 @@ All 17 relic benchmarks yield $\chi^2/\nu < 1$, confirming that the relic-densit
 
 ![Figure 4: Best-fit $\sigma/m(v)$ curves with 13 observational data points and 68% CL error bars. The relic-constrained best fit (BP1, $\chi^2/\nu = 0.54$) reproduces the velocity-dependent pattern from dwarfs to clusters.](v34_chi2_fit.png)
 
+### 4.7 Bayesian Posterior Constraints
+
+To quantify the allowed parameter space beyond the frequentist $\chi^2$ analysis, we perform a Bayesian posterior sampling of the three-dimensional parameter space $(m_\chi, m_\phi, \alpha)$ using the emcee affine-invariant ensemble sampler [23]. We adopt flat (uninformative) priors in $\log_{10}$ space:
+
+$$\log_{10}(m_\chi/\text{GeV}) \in [\log_{10}(5),\, \log_{10}(200)], \quad \log_{10}(m_\phi/\text{MeV}) \in [\log_{10}(3),\, \log_{10}(30)], \quad \log_{10}\alpha \in [-5,\, \log_{10}(0.05)]$$
+
+The likelihood is Gaussian: $\ln\mathcal{L} = -\chi^2/2$ with the same $\chi^2$ function used in §4.6 (asymmetric errors, 13 observational systems). The sampler uses 32 walkers initialized around the 17 relic benchmark points plus the unconstrained best fit of §4.6, with a Gaussian scatter of $\sigma = 0.05$ in log-space. After 300 burn-in steps, we collect 2,000 production steps (64,000 total samples, computed in parallel on 12 CPU cores).
+
+**Convergence diagnostics.** The mean acceptance fraction is 0.522, and the maximum autocorrelation time is 73.3 steps, yielding $\sim$874 effective independent samples. The chain trace plots (Figure S1) show good mixing with no residual drift.
+
+**Results.** The maximum a posteriori (MAP) estimate is:
+$$m_\chi = 90.6~\text{GeV},\quad m_\phi = 13.9~\text{MeV},\quad \alpha = 2.5 \times 10^{-2},\quad \chi^2/\nu = 0.16$$
+
+The marginalized parameter constraints (median $\pm$ 68% credible interval) are:
+
+| Parameter | Median | 16th %ile | 84th %ile |
+|-----------|--------|-----------|-----------|
+| $m_\chi$ [GeV] | 73.0 | 17.0 | 115.9 |
+| $m_\phi$ [MeV] | 10.8 | 6.5 | 15.6 |
+| $\alpha$ | $4 \times 10^{-3}$ | $1 \times 10^{-3}$ | $2.2 \times 10^{-2}$ |
+| $\lambda = 2\alpha m_\chi/m_\phi$ | 59.0 | 3.6 | 272.2 |
+
+The broad credible intervals reflect the large astrophysical uncertainties ($\sim$0.5 dex) in the observational data — the model fits the data well across a wide parameter range. The derived coupling parameter $\lambda$ is peaked in the resonant regime ($\lambda > 1$), consistent with the need for strong velocity dependence.
+
+Crucially, **all 17 relic benchmark points** (§4.4) lie within the 95% credible region of the posterior, with $\chi^2$ values ranging from 5.4 to 8.4 (compared to the 95th percentile threshold of the posterior $\chi^2$ distribution). This confirms that the island of viability identified by the cosmological scan coincides with the statistically preferred region of the SIDM parameter space.
+
+![Figure 5: Corner plot showing the 2D marginalized posterior distributions of $\log_{10}(m_\chi)$, $\log_{10}(m_\phi)$, and $\log_{10}\alpha$, with 68% and 95% contour levels. Red lines mark the MAP estimate. All 17 relic BPs fall within the 95% contours.](v38_corner.png)
+
+![Figure 6: Posterior distribution of the derived parameter $\lambda = 2\alpha m_\chi/m_\phi$. The median is $\lambda = 59$ with a broad 68% CI of [3.6, 272]. The distribution peaks in the resonant scattering regime ($\lambda > 1$).](v38_lambda_posterior.png)
+
 ---
 
 ## 5. Secluded Dark Sector and Direct Detection
@@ -463,6 +493,7 @@ The scalar mediator resolves the primary limitations of the axial-vector approac
 3. The Higgs portal coupling is **generically excluded** for light mediators ($m_\phi \lesssim$ GeV) due to the $1/m_\phi^4$ enhancement of $\sigma_{\rm SI}$ (§5.1). A secluded dark sector is the natural resolution.
 4. The model is minimal (3 parameters), anomaly-free, and cosmologically safe ($\Delta N_{\rm eff} \approx 0.027$).
 5. The predicted $\sigma/m(v)$ curves are **quantitatively consistent with all 13 astrophysical observations** spanning $v = 12$–$4700$ km/s (§4.5–4.6). A $\chi^2$ fit to data from five independent analyses [13, 19, 20, 21, 22] yields $\chi^2/\nu = 0.26$ (unconstrained) and $\chi^2/\nu = 0.54$ (relic-constrained BP1), with all pulls $< 1.2\sigma$. All 17 relic benchmarks achieve $\chi^2/\nu < 0.85$. Maxwell–Boltzmann velocity averaging shifts the $\chi^2$ by only $\sim$6% on average (Appendix D), well within observational uncertainties.
+6. A Bayesian MCMC posterior analysis (§4.7) with flat log-priors yields a broad 68% credible region: $m_\chi \in [17, 116]$ GeV, $m_\phi \in [6.5, 15.6]$ MeV, $\alpha \in [10^{-3}, 2.2 \times 10^{-2}]$. All 17 relic benchmark points lie within the 95% credible posterior, and the MAP estimate achieves $\chi^2/\nu = 0.16$.
 
 ### 8.3 Falsifiability
 

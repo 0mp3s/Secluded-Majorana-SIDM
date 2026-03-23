@@ -323,3 +323,134 @@ $$\langle\sigma/m\rangle_{\rm MB} = \frac{\int_0^\infty (\sigma/m)(v)\;v^3\,e^{-
 - v37_velocity_averaged.py: סקריפט (Gauss–Legendre MB averaging)
 - v37_velocity_averaged.png: Figure D1 (BP1 fixed vs averaged + ratio)
 - v37_output2.txt: פלט מלא
+
+---
+
+## v38: MCMC Posterior Sampling — Bayesian Constraints
+
+### מטרה
+דגימת פוסטריור בייסיאנית של מרחב הפרמטרים $(m_\chi, m_\phi, \alpha)$ תוך שימוש ב-13 אילוצי תצפית. 
+מטרות: (1) corner plot עם contours של 68% ו-95%; (2) אילוצים כמותיים על הפרמטרים; (3) אימות שכל 17 relic BPs נמצאים בתוך ה-posterior.
+
+### שיטה
+- **Sampler:** emcee (affine-invariant ensemble sampler)
+- **Walkers:** 32
+- **Burn-in:** 300 steps, **Production:** 2,000 steps
+- **Total evaluations:** 73,600 likelihood calls
+- **Workers:** 12 processes מתוך 14 ליבות (multiprocessing.Pool)
+- **פריורים:** uniform ב-log₁₀ space:
+  - $\log_{10}(m_\chi/\text{GeV}) \in [\log_{10}(5), \log_{10}(200)]$
+  - $\log_{10}(m_\phi/\text{MeV}) \in [\log_{10}(3), \log_{10}(30)]$
+  - $\log_{10}\alpha \in [\log_{10}(10^{-5}), \log_{10}(0.05)]$
+- **Likelihood:** $\ln\mathcal{L} = -\chi^2/2$ עם asymmetric σ (same as v34)
+- **Seeds:** 17 relic BPs + v34 unconstrained best fit, perturbation $\mathcal{N}(0, 0.05)$ ב-log space
+- **Seed:** `np.random.default_rng(42)` — reproducible
+
+### אבחון התכנסות
+- **Acceptance fraction:** 0.522 (optimal range 0.2–0.5, מעט גבוה אבל תקין)
+- **Max autocorrelation time:** 73.3 steps
+- **Effective samples:** ~874 (64,000 / 73.3)
+- **Chain traces:** רואים mixing טוב ב-chains plot — אין drift מתמשך
+
+### תוצאות
+
+**Best-fit (MAP):**
+
+| פרמטר | ערך |
+|---------|------|
+| $m_\chi$ | 90.64 GeV |
+| $m_\phi$ | 13.85 MeV |
+| $\alpha$ | 2.546×10⁻² |
+| $\lambda = 2\alpha m_\chi / m_\phi$ | 333.37 |
+| $\chi^2$ | 1.575 |
+| $\chi^2/\text{dof}$ | **0.1575** (dof = 10) |
+
+**אילוצים (median ± 68% CI):**
+
+| פרמטר | Median | 16th %ile | 84th %ile |
+|---------|--------|-----------|-----------|
+| $m_\chi$ [GeV] | 72.98 | 16.97 | 115.91 |
+| $m_\phi$ [MeV] | 10.83 | 6.51 | 15.59 |
+| $\alpha$ | 0.004 | 0.001 | 0.022 |
+| $\lambda$ (derived) | 59.0 | 3.6 | 272.2 |
+
+**Relic BPs vs posterior — 17/17 within 95% CI:**
+
+| BP | $m_\chi$ | $m_\phi$ [MeV] | $\alpha$ | $\lambda$ | $\chi^2$ | within 95% |
+|----|----------|-----------------|----------|-----------|----------|------------|
+| 1 | 20.7 | 11.34 | 1.048e-03 | 3.83 | 8.418 | ✅ |
+| 2 | 29.8 | 12.98 | 1.473e-03 | 6.76 | 8.282 | ✅ |
+| 3 | 16.2 | 9.91 | 8.414e-04 | 2.76 | 7.796 | ✅ |
+| 4 | 23.4 | 11.34 | 1.173e-03 | 4.83 | 7.203 | ✅ |
+| 5 | 33.6 | 12.98 | 1.654e-03 | 8.56 | 7.507 | ✅ |
+| 6 | 12.7 | 8.66 | 6.796e-04 | 2.00 | 7.448 | ✅ |
+| 7 | 18.3 | 9.91 | 9.386e-04 | 3.47 | 6.389 | ✅ |
+| 8 | 26.4 | 11.34 | 1.314e-03 | 6.11 | 6.304 | ✅ |
+| 9 | 37.9 | 12.98 | 1.858e-03 | 10.86 | 6.951 | ✅ |
+| 10 | 88.6 | 14.85 | 4.262e-03 | 50.85 | 6.562 | ✅ |
+| 11 | 100.0 | 14.85 | 4.806e-03 | 64.73 | 6.147 | ✅ |
+| 12 | 10.0 | 7.56 | 5.538e-04 | 1.46 | 7.286 | ✅ |
+| 13 | 78.5 | 14.85 | 3.781e-03 | 39.96 | 6.979 | ✅ |
+| 14 | 14.4 | 8.66 | 7.555e-04 | 2.51 | 5.814 | ✅ |
+| 15 | 42.8 | 12.98 | 2.089e-03 | 13.78 | 6.495 | ✅ |
+| 16 | 20.7 | 9.91 | 1.048e-03 | 4.38 | **5.396** | ✅ |
+| 17 | 29.8 | 11.34 | 1.473e-03 | 7.73 | 5.692 | ✅ |
+
+### ניתוח
+1. **MAP vs relic BPs:** ה-MAP ($m_\chi \approx 91$ GeV) שונה מ-relic BPs ($m_\chi \sim 10$–$100$ GeV), אבל שניהם בתוך ה-posterior — ללא relic constraint, מסות גבוהות יותר מועדפות
+2. **broad posterior:** ה-CI רחב ($m_\chi = 17$–$116$ GeV ב-68%) — הנתונים התצפיתיים עם אי-ודאויות $\sim$0.5 dex לא מצליחים לאלץ חזק
+3. **λ posterior:** האטם bimodal/long-tailed, median ≈ 59, range 3.6–272 — resonant regime ($\lambda > 1$) מועדף
+4. **17/17 BPs within 95%:** תוצאה מרכזית — ה-island of viability שלנו תואמת את ה-posterior הבייסיאני
+5. **BP16 ($\chi^2 = 5.4$) הטוב ביותר מבין relic BPs** — $(m_\chi, m_\phi) = (20.7, 9.91)$ ב-center של ה-island
+
+### הערות טכניות
+- 874 effective samples מספיקים לאמידת contours ותיעוד credible intervals, אבל לא לאמידת tails באופן מדויק
+- אם נרצה tails מדויקים יותר: $N_{\text{steps}} \times 3$–$5$ (6,000–10,000 production)
+- ה-acceptance fraction (0.52) מעט גבוה — ייתכן שה-proposal stretch parameter (a=2 default) צריך עדכון, אבל לא קריטי
+
+### עדכונים ל-preprint
+- **§4.7 חדש:** "Bayesian Posterior Constraints" — MCMC methodology + corner plot + credible intervals
+- **Table 5 חדש:** Parameter constraints table (median ± CI)
+- **Figure 5 חדש:** v38_corner.png — corner plot with 68%/95% contours
+- **Figure 6 חדש:** v38_lambda_posterior.png — posterior density of derived λ
+- **§8.2 point 6:** הוספת "MCMC posterior sampling confirms all 17 BPs within 95% CI"
+
+### קבצים
+- run_mcmc.py (stats_mcmc/): סקריפט MCMC (emcee + corner + multiprocessing)
+- output/v38_corner.png: Corner plot 3×3
+- output/v38_mcmc_chains.png: Chain trace plot (convergence diagnostic)
+- output/v38_lambda_posterior.png: Posterior density of λ
+- output/v38_mcmc_samples.csv: Full chain (64,000 rows × 8 columns)
+
+---
+
+## סיכום סטטוס מעודכן (אחרי v38)
+
+### Validation Summary
+
+| Script | Purpose | Result |
+|--------|---------|--------|
+| v21 | Born validation | PASS |
+| v23 | Error budget | 2-7% at 30 km/s |
+| v25 | Mediator cosmology | 5/5 PASS |
+| v26 | BSF | 6/6 PASS |
+| v27 | Boltzmann solver | 6/6 PASS |
+| v28/v29 | Blind sanity | 3/4 + 3/3 PASS |
+| v30 | Benchmark extraction | PASS |
+| v31 | Cosmological scan | 17 viable BPs |
+| **v32** | **Literature cross-check** | **6/6 PASS** |
+| **v33** | **Observational comparison** | **11/13 compatible** |
+| **v34** | **χ² fit to 13 systems** | **χ²/dof = 0.26 (free), 0.54 (relic)** |
+| **v35** | **VPM vs Born transfer** | **VPM/Born ≈ 0.8–0.9 in Born regime** |
+| **v36** | **Sommerfeld enhancement** | **S < 1.026 at freeze-out** |
+| **v37** | **MB velocity averaging** | **Δχ² < 9%** |
+| **v38** | **MCMC posterior** | **χ²/dof = 0.16 (MAP), 17/17 BPs in 95% CI** |
+
+### Figures עבור ה-preprint
+
+1. v31_island_of_viability.png — Island of 17 BPs
+2. v31_bp1_velocity_profile.png — BP1 σ/m(v)
+3. v33_observational_comparison.png — BP1/BP5/BP17 vs real data
+4. v34_chi2_fit.png — Best-fit σ/m(v) עם 13 data points + error bars
+5. **v38_corner.png** — MCMC corner plot עם 68%/95% contours (NEW)
+6. **v38_lambda_posterior.png** — Posterior density of λ (NEW)
