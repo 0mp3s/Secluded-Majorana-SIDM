@@ -1,0 +1,8 @@
+name,V_max_km_s,R_last_kpc,L_36_1e9Lsun,distance_Mpc,category,ref
+DDO_154,47,8.1,0.007,3.7,low_surface_brightness,Oh+2015
+IC_2574,66,12.4,0.18,4.0,low_surface_brightness,Oh+2015
+NGC_2366,55,8.0,0.05,3.4,low_surface_brightness,Oh+2015
+NGC_2403,136,21.8,4.9,3.2,spiral,deBlok+2008
+NGC_2976,90,3.6,1.2,3.6,spiral,Adams+2014
+NGC_3198,150,33.5,11.0,13.8,spiral,deBlok+2008
+UGC_128,58,30.0,0.35,64.6,low_surface_brightness,deBlok+2001
