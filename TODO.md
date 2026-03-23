@@ -9,9 +9,9 @@
 | 2 | **Fornax core profile** (Jeans solver) | תחזית | ⭐⭐⭐⭐ | בינוני | 🔴 פתוח |
 | 3 | **Fermi-LAT dSph bounds** (φφ → dark, secondary γ) | constraint | ⭐⭐⭐ | בינוני | 🔴 פתוח |
 | 4 | **MCMC שרשרת ארוכה יותר** (3000+ צעדים, 50τ) | סטטיסטי | ⭐⭐⭐ | ~50 דק' | 🔴 פתוח |
-| 5 | **דיון yₛ ≫ yₚ hierarchy** בפרי-פרינט | טקסט | ⭐⭐ | נמוך | 🔴 פתוח |
-| 6 | **ξ evolution** — power law vs log (Farina+16 eq.9) | טקסט | ⭐ | נמוך | 🔴 פתוח |
-| 7 | **small-μ₃ inconsistency** — Ω_φ overclosed note | טקסט | ⭐ | נמוך | 🔴 פתוח |
+| 5 | **דיון yₛ ≫ yₚ hierarchy** בפרי-פרינט | טקסט | ⭐⭐ | נמוך | ✅ הושלם |
+| 6 | **ξ evolution** — power law vs log (Farina+16 eq.9) | טקסט | ⭐ | נמוך | ✅ הושלם |
+| 7 | **small-μ₃ inconsistency** — Ω_φ overclosed note | טקסט | ⭐ | נמוך | ✅ הושלם |
 
 ## פירוט
 
@@ -72,3 +72,7 @@
 - [x] SPARC + baryons rotation curve fit (predictions/rotation_curves/)
 - [x] Sensitivity analysis — 25,200 point parameter scan (predictions/rotation_curves/)
 - [x] SIDM dwarf upper bound 50→10 cm²/g (Opus B review, condition2 rescan)
+- [x] §7 Phenomenological Predictions — all 6 subsections (§7.1–§7.6) integrated into preprint
+- [x] דיון yₛ ≫ yₚ hierarchy — §8.4 naturalness paragraph added
+- [x] ξ evolution — power law clarification with Farina+16 reference in §5.2
+- [x] small-μ₃ overclosure — cannibal annihilation note added in §5.3

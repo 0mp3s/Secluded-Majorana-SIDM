@@ -362,7 +362,7 @@ We set $\lambda_{H\phi} = 0$ (equivalently, $\sin\theta = 0$), removing any tree
 - The CMB energy injection constraint (§6.3) does not apply — annihilation products remain in the dark sector
 - The model is fully described by **three parameters**: $(m_\chi, m_\phi, \alpha)$
 
-**Thermal history:** We assume the dark sector was in thermal equilibrium with the SM at early times ($T \gg m_\chi$). A concrete realization is a heavy scalar or fermionic mediator $\Sigma$ with mass $M_\Sigma \gg m_\chi$ and couplings to both sectors (e.g., $\Sigma\bar{f}f + \Sigma\bar{\chi}\chi$). For $M_\Sigma \sim 1$–$10$ TeV, the thermalization rate $\Gamma \sim T^5/M_\Sigma^4$ exceeds the Hubble rate for $T \gtrsim \mathcal{O}(10)$ GeV, establishing equilibrium well before freeze-out at $T_f \sim m_\chi/25 \sim 0.4$–$4$ GeV. At $T \ll M_\Sigma$ the interaction decouples and is negligible at the scales relevant to SIDM and freeze-out. After decoupling, the dark-sector temperature tracks $T_{\rm dark} = \xi\, T_{\rm SM}$ with $\xi \lesssim 1$. For $\xi \approx 1$ (as assumed throughout), the standard Boltzmann calculation applies without modification.
+**Thermal history:** We assume the dark sector was in thermal equilibrium with the SM at early times ($T \gg m_\chi$). A concrete realization is a heavy scalar or fermionic mediator $\Sigma$ with mass $M_\Sigma \gg m_\chi$ and couplings to both sectors (e.g., $\Sigma\bar{f}f + \Sigma\bar{\chi}\chi$). For $M_\Sigma \sim 1$–$10$ TeV, the thermalization rate $\Gamma \sim T^5/M_\Sigma^4$ exceeds the Hubble rate for $T \gtrsim \mathcal{O}(10)$ GeV, establishing equilibrium well before freeze-out at $T_f \sim m_\chi/25 \sim 0.4$–$4$ GeV. At $T \ll M_\Sigma$ the interaction decouples and is negligible at the scales relevant to SIDM and freeze-out. After decoupling, the dark-sector temperature tracks $T_{\rm dark} = \xi\, T_{\rm SM}$ with $\xi \lesssim 1$. More precisely, $\xi$ evolves as a power law in the entropy degrees of freedom: $\xi(T) = \xi_{\rm dec}\,[g_{*S}(T_{\rm dec})/g_{*S}(T)]^{1/3}$, where $T_{\rm dec}$ is the decoupling temperature [Farina et al. 2016, eq. 9]. For decoupling above the QCD transition ($T_{\rm dec} \gtrsim \text{few GeV}$, as implied by the heavy-mediator thermalization scenario), $g_{*S}$ changes by a factor $\sim$3 between decoupling and recombination, giving $\xi_0/\xi_{\rm dec} \approx 0.5$–$0.8$. Since $\Delta N_{\rm eff} \propto \xi^4$, adopting $\xi \approx 1$ (as we do throughout) is conservative — the true contribution is smaller. The standard Boltzmann calculation applies without modification.
 
 ### 5.3 Cosmological Safety of Stable $\phi$
 
@@ -376,7 +376,7 @@ The energy density in stable $\phi$ particles at late times is:
 
 $$\frac{\Omega_\phi}{\Omega_\chi} \sim \frac{m_\phi}{m_\chi} \sim 5 \times 10^{-4}$$
 
-— a negligible correction to the total DM energy budget.
+— a negligible correction to the total DM energy budget. This estimate assumes that the $\phi$ number density tracks thermal equilibrium, which requires a number-changing process. In the secluded dark sector, the leading candidate is the cubic self-coupling $(\mu_3/3!)\,\phi^3$ enabling $3\phi \leftrightarrow 2\phi$ ("cannibal") annihilation. A coupled Boltzmann analysis [Farina et al. 2016] shows that for $\mu_3/m_\phi \gtrsim 1.7$, this process is efficient and $\Omega_\phi$ remains subdominant; for smaller $\mu_3/m_\phi$, the $\phi$ abundance is not sufficiently depleted and the dark sector is overclosed. We restrict to the former regime, where the cubic coupling does not introduce additional free parameters into the SIDM or relic density phenomenology.
 
 ### 5.4 Falsifiability
 
@@ -601,6 +601,16 @@ The model can be tested or constrained by:
 4. **Relic density:** if $\alpha$ is measured independently (e.g., from halo observations), the relic prediction is fixed — a non-trivial consistency test.
 
 The absence of a direct detection signal is a **prediction**, not a deficit: we have shown (§5.1) that the Higgs portal is incompatible with light-mediator SIDM, making $\sigma_{\rm SI} = 0$ the expected outcome.
+
+### 8.4 Naturalness of the Coupling Hierarchy
+
+The CP-separation analysis (§7.1) shows that the viable parameter space generically favors $\alpha_s \gg \alpha_p$, with coupling ratios spanning $\alpha_s/\alpha_p \in [13, 212]$ for BP1 masses and $[1.8, 11{,}532]$ for MAP masses. At the MAP point itself, $\alpha_s/\alpha_p \approx 4{,}674$. A natural question is whether such a hierarchy requires fine-tuning.
+
+We argue it does not, for three reasons. First, the most general renormalizable Yukawa coupling of a Majorana fermion to a real scalar is $\frac{1}{2}\bar{\chi}(y_s + iy_p\gamma_5)\chi\,\phi$. There is no symmetry that enforces $y_s = y_p$; the CP-symmetric point is a measure-zero subset of the full parameter space. From an anarchic perspective, any ratio $y_s/y_p$ is equally natural.
+
+Second, in UV completions where CP is an approximate symmetry of the dark sector — broken either explicitly by a small parameter or spontaneously by a scalar vacuum expectation value — the pseudoscalar coupling $y_p$ is naturally suppressed. For instance, if $\phi$ is the radial mode of a complex scalar $\Phi = (v_\phi + \phi + i\,a)/\sqrt{2}$ and CP violation arises radiatively, then $y_p \sim (\alpha_{\rm dark}/4\pi)\,y_s$, yielding $\alpha_s/\alpha_p \sim (4\pi/\alpha_{\rm dark})^2 \sim 10^3$–$10^4$ — precisely the range preferred by the MAP posterior.
+
+Third, the relic constraint $\alpha_s \alpha_p = \text{const}$ means that increasing $\alpha_s$ (which strengthens self-interactions) automatically suppresses $\alpha_p$. The hierarchy is therefore not imposed but *selected* by the joint relic-SIDM constraints: points with larger $\alpha_s$ have stronger SIDM cross sections at dwarf scales while remaining safe at cluster scales, and the relic density is maintained by the compensating decrease in $\alpha_p$. The CP band thus represents a natural feature of the parameter space rather than a tuning.
 
 ---
 
