@@ -23,6 +23,7 @@ Output: per-galaxy fits, Υ_* table, combined residual plot.
 import sys, os, csv, math
 import numpy as np
 from scipy.optimize import minimize_scalar
+from scipy.interpolate import interp1d
 
 # ---------- path bootstrap ----------
 import sys as _sys, os as _os
@@ -112,6 +113,147 @@ def sidm_v_circ(r_kpc, rho_s, r_s, r_1, rho_core):
     return math.sqrt(G_N * M_enc / r_kpc)
 
 # =========================================================================
+#  Concentration–mass relation (Dutton & Macciò 2014)
+# =========================================================================
+
+def concentration_mass(M_200_Msun, h=0.674):
+    """Dutton & Macciò 2014 eq.7 (Planck cosmology, z=0)."""
+    log_M = math.log10(max(M_200_Msun * h / 1e12, 1e-30))
+    return 10**(0.905 - 0.101 * log_M)
+
+def nfw_params_with_cM(V_max, h=0.674):
+    """NFW params with self-consistent c(M_200). Returns (rho_s, r_s, c, M_200)."""
+    rho_crit = 126.0  # M_sun/kpc^3
+    c = 12.0
+    for _ in range(30):
+        rho_s, r_s = nfw_params_from_vmax(V_max, c=c)
+        R_200 = c * r_s
+        M_200 = (4.0 / 3.0) * math.pi * 200.0 * rho_crit * R_200**3
+        c_new = concentration_mass(M_200, h)
+        if abs(c_new - c) / max(c, 0.1) < 1e-3:
+            break
+        c = 0.5 * (c + c_new)
+    rho_s, r_s = nfw_params_from_vmax(V_max, c=c)
+    return rho_s, r_s, c, M_200
+
+# =========================================================================
+#  Adiabatic contraction (Blumenthal+1986)
+# =========================================================================
+
+F_B = 0.157  # Omega_b / Omega_m (Planck 2018)
+
+def solve_ac_ri(r_f, M_bar_rf, rho_s, r_s):
+    """
+    Blumenthal invariant:  r_i * M_NFW(r_i) = r_f * [(1-f_b)*M_NFW(r_i) + M_bar(r_f)]
+    Solve for initial DM-shell radius r_i >= r_f.
+    """
+    if M_bar_rf <= F_B * nfw_mass(r_f, rho_s, r_s):
+        return r_f  # no net contraction at this radius
+
+    def residual(r_i):
+        M_nfw = nfw_mass(r_i, rho_s, r_s)
+        return r_i * M_nfw - r_f * ((1 - F_B) * M_nfw + M_bar_rf)
+
+    r_lo, r_hi = r_f, 50.0 * r_f
+    for _ in range(10):
+        if residual(r_hi) > 0:
+            break
+        r_hi *= 5.0
+    if residual(r_hi) <= 0:
+        return r_hi
+
+    for _ in range(80):
+        mid = 0.5 * (r_lo + r_hi)
+        if residual(mid) < 0:
+            r_lo = mid
+        else:
+            r_hi = mid
+    return 0.5 * (r_lo + r_hi)
+
+
+def fit_galaxy_ac_sidm(r_data, V_obs, V_err, V_bar_template,
+                       rho_s, r_s, sigma_m, sigma_v, t_age_s):
+    """
+    Iterative fit: Υ_* → AC'd DM profile → SIDM core → fit Υ_* → converge.
+    Returns (upsilon, chi2, ndof, r_1, V_DM_array).
+    """
+    V_bar2 = V_bar_template**2
+    V_bar_func = interp1d(r_data, V_bar_template, kind='linear',
+                          bounds_error=False,
+                          fill_value=(V_bar_template[0], V_bar_template[-1]))
+
+    upsilon = 0.5
+    best_chi2 = 1e30
+    V_DM_result = np.zeros(len(r_data))
+    r_1_result = 0.0
+
+    for iteration in range(8):
+        # Fine grid for density estimation
+        r_min = max(r_data.min() * 0.3, 0.02)
+        r_max = r_data.max() * 2.0
+        r_fine = np.geomspace(r_min, r_max, 200)
+
+        # AC'd DM mass profile on fine grid
+        M_DM_AC = np.empty(len(r_fine))
+        for i, rf in enumerate(r_fine):
+            Vb = float(V_bar_func(rf))
+            m_bar = max(upsilon * Vb**2 * rf / G_N, 0.0)
+            ri = solve_ac_ri(rf, m_bar, rho_s, r_s)
+            M_DM_AC[i] = (1 - F_B) * nfw_mass(ri, rho_s, r_s)
+
+        # Density from mass profile
+        rho_AC = np.gradient(M_DM_AC, r_fine) / (4.0 * np.pi * r_fine**2)
+        rho_AC = np.maximum(rho_AC, 1e-10)
+
+        # SIDM core radius from scattering condition
+        v_cm = sigma_v * KM_S_TO_CM_S
+        target_rho_cgs = 1.0 / (sigma_m * v_cm * t_age_s)
+        target_rho = target_rho_cgs * KPC_CM**3 / MSUN_G
+
+        r_1 = r_fine[-1]
+        for i in range(len(r_fine)):
+            if rho_AC[i] < target_rho:
+                r_1 = r_fine[i]
+                break
+        rho_core = target_rho
+
+        # V_DM at data radii with SIDM coring on AC'd profile
+        M_DM_AC_at_r1 = float(np.interp(r_1, r_fine, M_DM_AC))
+        M_DM_AC_data = np.interp(r_data, r_fine, M_DM_AC)
+
+        V_DM = np.empty(len(r_data))
+        for i, r in enumerate(r_data):
+            if r <= r_1:
+                M_enc = (4.0 / 3.0) * math.pi * rho_core * r**3
+            else:
+                M_core = (4.0 / 3.0) * math.pi * rho_core * r_1**3
+                M_enc = M_core + (M_DM_AC_data[i] - M_DM_AC_at_r1)
+            V_DM[i] = math.sqrt(max(G_N * M_enc / r, 0))
+
+        V_DM2 = V_DM**2
+
+        def chi2_func(ups):
+            V_tot2 = ups * V_bar2 + V_DM2
+            V_tot = np.sqrt(np.maximum(V_tot2, 1e-10))
+            return np.sum(((V_obs - V_tot) / V_err)**2)
+
+        result = minimize_scalar(chi2_func, bounds=(0.01, 3.0), method='bounded')
+        new_upsilon = result.x
+        new_chi2 = result.fun
+
+        V_DM_result = V_DM.copy()
+        r_1_result = r_1
+        best_chi2 = new_chi2
+
+        if abs(new_upsilon - upsilon) < 0.01:
+            upsilon = new_upsilon
+            break
+        upsilon = new_upsilon
+
+    ndof = len(V_obs) - 1
+    return upsilon, best_chi2, ndof, r_1_result, V_DM_result
+
+# =========================================================================
 #  Data loading
 # =========================================================================
 
@@ -185,15 +327,15 @@ def main():
     os.makedirs(out_dir, exist_ok=True)
 
     bps = cfg['benchmark_points']
-    conc = cfg.get('nfw_concentration', 12.0)
     t_age_s = cfg.get('halo_age_Gyr', 10.0) * SEC_PER_GYR
 
     galaxies = load_rotation_data(rc_csv)
     meta = load_galaxy_meta(meta_csv)
 
-    print("=" * 95)
+    print("=" * 105)
     print("  SPARC Rotation Curve Fit: V²_tot = Υ_* × V²_bar + V²_SIDM")
-    print("=" * 95)
+    print("  Improvements: c(M_200) Dutton+2014 + adiabatic contraction Blumenthal+1986")
+    print("=" * 105)
     print(f"  Physical Υ_* range at 3.6μm: 0.2 – 0.8 M_sun/L_sun (Meidt+2014)")
     print(f"  Galaxies: {len(galaxies)}, Benchmark points: {len(bps)}")
 
@@ -210,9 +352,9 @@ def main():
         print(f"  {label}: m_chi={m_chi:.1f} GeV, m_phi={bp['m_phi_MeV']:.2f} MeV, "
               f"alpha={alpha:.3e}, lambda={lam:.1f}")
         print(f"{'='*95}")
-        print(f"  {'Galaxy':<12s} {'V_max':>6s} {'sigma/m':>8s} {'r_1':>6s} "
+        print(f"  {'Galaxy':<12s} {'V_max':>6s} {'c(M)':>5s} {'sigma/m':>8s} {'r_1':>6s} "
               f"{'Υ_*':>6s} {'chi2/dof':>9s} {'Υ_* OK?':>8s}")
-        print("  " + "-" * 65)
+        print("  " + "-" * 72)
 
         fit_results = []
         for gal_name in sorted(galaxies.keys()):
@@ -222,37 +364,30 @@ def main():
             gal_meta = meta[gal_name]
             V_max = gal_meta['V_max']
 
-            # NFW halo
-            rho_s, r_s = nfw_params_from_vmax(V_max, c=conc)
+            # NFW halo with c(M_200) relation
+            rho_s, r_s, conc, M_200 = nfw_params_with_cM(V_max)
 
             # SIDM cross section at this halo's velocity
-            sigma_v = V_max / math.sqrt(2.0)  # estimate: V_max ~ sqrt(2) * sigma_v
+            sigma_v = V_max / math.sqrt(2.0)
             v_rel = sigma_v * math.sqrt(2.0)
             sigma_m = sigma_T_vpm(m_chi, m_phi_GeV, alpha, v_rel)
 
-            # Core radius
-            r_1 = find_r1(rho_s, r_s, sigma_m, sigma_v, t_age_s)
-            rho_core = nfw_rho(r_1, rho_s, r_s)
-
-            # V_DM at each observed radius
-            V_DM_arr = np.array([sidm_v_circ(r, rho_s, r_s, r_1, rho_core)
-                                 for r in gal['r']])
-
-            # Fit Υ_*
-            upsilon, chi2, ndof = chi2_fit(
-                gal['r'], gal['V_obs'], gal['V_err'],
-                gal['V_bar'], V_DM_arr)
+            # Full fit: AC + SIDM + χ² minimize (iterative)
+            upsilon, chi2, ndof, r_1, V_DM_arr = fit_galaxy_ac_sidm(
+                gal['r'], gal['V_obs'], gal['V_err'], gal['V_bar'],
+                rho_s, r_s, sigma_m, sigma_v, t_age_s)
 
             chi2_dof = chi2 / ndof if ndof > 0 else chi2
             physical = 0.1 <= upsilon <= 1.5
             status = "OK" if physical else "BAD"
 
-            print(f"  {gal_name:<12s} {V_max:>6.0f} {sigma_m:>8.3f} {r_1:>6.2f} "
+            print(f"  {gal_name:<12s} {V_max:>6.0f} {conc:>5.1f} {sigma_m:>8.3f} {r_1:>6.2f} "
                   f"{upsilon:>6.2f} {chi2_dof:>9.2f} {status:>8s}")
 
             fit_results.append({
                 'name': gal_name,
                 'V_max': V_max,
+                'conc': conc,
                 'category': gal_meta['category'],
                 'sigma_m': sigma_m,
                 'r_1': r_1,
@@ -326,10 +461,10 @@ def main():
                     label=f'Baryons (×√Υ*)')
             ax.plot(r, V_DM, 'g:', lw=1.2, alpha=0.7, label='SIDM halo')
 
-            # NFW for reference
-            rho_s, r_s = nfw_params_from_vmax(fr['V_max'], c=12.0)
+            # NFW for reference (using c(M) for this galaxy)
+            rho_s_ref, r_s_ref, _, _ = nfw_params_with_cM(fr['V_max'])
             r_fine = np.linspace(0.1, max(r) * 1.1, 100)
-            V_nfw_fine = [nfw_v_circ(ri, rho_s, r_s) for ri in r_fine]
+            V_nfw_fine = [nfw_v_circ(ri, rho_s_ref, r_s_ref) for ri in r_fine]
             ax.plot(r_fine, V_nfw_fine, 'g--', lw=0.8, alpha=0.3, label='NFW (no core)')
 
             ax.set_ylim(bottom=0)
@@ -343,7 +478,7 @@ def main():
             if ig == 0 and ib == 0:
                 ax.legend(fontsize=7, loc='lower right')
 
-    fig.suptitle('SPARC Rotation Curve Fits: V²_tot = Υ_* V²_bar + V²_SIDM',
+    fig.suptitle('SPARC Rotation Curve Fits: V²_tot = Υ_* V²_bar + V²_SIDM  [c(M) + AC]',
                  fontsize=13, y=1.01)
     fig.tight_layout()
     fig_path = os.path.join(out_dir, 'sparc_baryons_fit.png')

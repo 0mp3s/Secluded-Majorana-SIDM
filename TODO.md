@@ -4,18 +4,20 @@
 
 | # | משימה | סוג | Impact | מאמץ | סטטוס |
 |---|--------|------|--------|------|--------|
-| 1 | **SPARC + baryons rotation curve fit** | ואלידציה | ⭐⭐⭐⭐⭐ | בינוני | 🔴 פתוח |
+| 1 | **SPARC + baryons rotation curve fit** | ואלידציה | ⭐⭐⭐⭐⭐ | בינוני | ✅ הושלם |
+| 1b | **Sensitivity analysis** (25,200 pts) | ואלידציה | ⭐⭐⭐⭐⭐ | בינוני | ✅ הושלם |
 | 2 | **Fornax core profile** (Jeans solver) | תחזית | ⭐⭐⭐⭐ | בינוני | 🔴 פתוח |
 | 3 | **Fermi-LAT dSph bounds** (φφ → dark, secondary γ) | constraint | ⭐⭐⭐ | בינוני | 🔴 פתוח |
 
 ## פירוט
 
-### 1. SPARC + Baryons Fit
-- Fit עקומות סיבוב מלאות: V²_tot = V²_bar + V²_SIDM
-- נתוני SPARC (Lelli+2016): photometry 3.6μm → V_bar(r)
-- פרמטר חופשי: Υ_* (mass-to-light ratio)
-- ניבוי: Υ_* צריך לצאת 0.2–0.8 M_⊙/L_⊙ (פיזיקלי)
-- אם עובד → פותר Diversity Problem (Oman+2015)
+### 1. SPARC + Baryons Fit  ✅
+- Fit עקומות סיבוב מלאות: V²_tot = Υ_* V²_bar + V²_SIDM
+- 7 גלקסיות מ-SPARC (~80 data points), c(M₂₀₀) Dutton+2014 + adiabatic contraction
+- **תוצאה:** 3/4 ננסיות נותנות Υ_* פיזיקלי (0.2–0.8)
+- Sensitivity analysis: 25,200 חישובים, סריקת 4 פרמטרים אסטרופיזיקליים
+- **פרמטר דומיננטי:** c_factor (concentration scatter); ננסיות לא צריכות AC
+- ספירליות דורשות AC מתוחכם יותר (Gnedin+2004) — לא כשל של SIDM
 
 ### 2. Fornax Core Profile
 - לפתור Jeans equation עם פוטנציאל SIDM
@@ -42,3 +44,5 @@
 - [x] Sommerfeld enhancement (cross_checks/)
 - [x] Velocity-averaged cross sections (cross_checks/)
 - [x] BBN / mediator cosmology (cosmology/)
+- [x] SPARC + baryons rotation curve fit (predictions/rotation_curves/)
+- [x] Sensitivity analysis — 25,200 point parameter scan (predictions/rotation_curves/)
