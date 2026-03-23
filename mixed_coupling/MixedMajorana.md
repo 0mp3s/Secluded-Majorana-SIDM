@@ -211,10 +211,10 @@ B הציב 4 תנאים. אני מקבל את כולם — הם לגיטימיי
 
 | # | תנאי | סטטוס | הערכה |
 |---|-------|--------|-------|
-| 1 | חישוב amplitude $\|\mathcal{M}\|^2(y_s, y_p)$ | ⏳ TODO | ~2 עמודים של אלגברה. Standard Feynman diagram. |
-| 2 | Scan 2D $(\alpha_s, \alpha_p)$ | ⏳ TODO | הרחבה של `smart_scan.py`. Grid עובר מ-3D ל-4D. |
-| 3 | Coupled Boltzmann ($n_\chi, n_\phi, T_\phi$) | ⏳ TODO | 3 ODEs. נדרש בכל מקרה (גם ל-Dirac). |
-| 4 | NR potential check — $y_p$ negligible | ⏳ TODO | VPM run עם/בלי $y_p$ correction, measure Δσ/m. |
+| 1 | חישוב amplitude $\|\mathcal{M}\|^2(y_s, y_p)$ | ✅ PASSED | $a_0 = y_s^2 y_p^2/(8\pi m_\chi^2)$. Script: `opusA/condition1_amplitude.py` |
+| 2 | Scan 2D $(\alpha_s, \alpha_p)$ | ✅ PASSED | Band: $\alpha_s \in [1.3\times10^{-3}, 5.4\times10^{-3}]$, $\alpha_s/\alpha_p \in [13, 212]$ — 1.2 decades, NOT fine-tuned. Script: `opusA/condition2_coupling_scan.py` |
+| 3 | Coupled Boltzmann ($n_\chi, n_\phi, T_\phi$) | ✅ PASSED | Viable for $\mu_3/m_\phi \gtrsim 4.4$, one-sided bound. Script: `opusA/condition3_cannibal_sensitivity.py` |
+| 4 | NR potential check — $y_p$ negligible | ✅ PASSED | $\Delta\sigma/\sigma < 6\times10^{-7}$. Script: `opusA/condition4_nr_potential.py` |
 
 ### על הנקודה ש-$\alpha_s \sim \alpha_p$ היא fine-tuning
 
@@ -268,7 +268,7 @@ $$\langle\sigma v\rangle_0 = \frac{y_s^2 y_p^2}{64\pi m_\chi^2} = \frac{\pi \alp
 | # | תנאי | סטטוס | הערה |
 |---|-------|--------|------|
 | 1 | חישוב amplitude $|\mathcal{M}|^2(\chi\chi \to \phi\phi)$ עם $(y_s, y_p)$ — אשר $a_0 \propto y_s^2 y_p^2 \neq 0$ | ✅ **PASSED** | $a_0 = y_s^2 y_p^2/(8\pi m_\chi^2) = 2\pi\alpha_s\alpha_p/m_\chi^2$. Pure scalar/pseudoscalar $\to 0$. Scaling verified to $10^{-5}\%$. Script: `mixed_coupling/condition1_amplitude.py` |
-| 2 | Scan 2D ב-$(\alpha_s, \alpha_p)$ — הראה island width | ⏳ TODO | Relic = היפרבולה, SIDM = strip ← חיתוך = band |
+| 2 | Scan 2D ב-$(\alpha_s, \alpha_p)$ — הראה island width | ✅ **PASSED** | Band: $\alpha_s \in [1.34\times10^{-3}, 5.42\times10^{-3}]$ (0.61 decades). $\alpha_s/\alpha_p \in [12.9, 212]$ — 1.2 decades wide. 13 viable grid points. NOT fine-tuned. Script: `mixed_coupling/opusA/condition2_coupling_scan.py` |
 | 3 | Coupled Boltzmann $(n_\chi, n_\phi, T_\phi)$ עם cannibal $3\phi \to 2\phi$ | ✅ **PASSED** | Sensitivity scan on μ₃ ∈ [10⁻⁶, 10⁻¹] GeV: overclosure for μ₃/m_φ ≲ 0.4, viable (Ω_φ < 0.001) for μ₃/m_φ ≳ 4.4. One-sided bound — no fine-tuning. Ω_χ independent of μ₃. Script: `mixed_coupling/opusA/condition3_cannibal_sensitivity.py` |
 | 4 | NR potential check — $y_p$ contribution negligible ב-VPM | ✅ **PASSED** | $\alpha_p r^2/\alpha_s \sim 10^{-7}$. max $|\Delta\sigma/\sigma| < 6\times 10^{-7}$ לכל 3 BPs × 8 velocities. Script: `mixed_coupling/opusA/condition4_nr_potential.py` |
 
