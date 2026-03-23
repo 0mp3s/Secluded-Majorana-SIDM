@@ -81,7 +81,7 @@ def main():
         m_chi     = bp['m_chi_GeV']
         m_phi_GeV = bp['m_phi_MeV'] / 1000.0
         alpha     = bp['alpha']
-        lam       = 2.0 * alpha * m_chi / m_phi_GeV
+        lam       = alpha * m_chi / m_phi_GeV
 
         print(f"\n  --- {label}: m_chi={m_chi:.1f} GeV, "
               f"m_phi={bp['m_phi_MeV']:.2f} MeV, "

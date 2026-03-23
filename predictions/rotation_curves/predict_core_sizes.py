@@ -79,7 +79,7 @@ def nfw_params_from_vmax(V_max, c=12.0):
     rho_crit = 126.0  # h=0.674 → M_sun/kpc^3
     f_c = math.log(1.0 + c) - c / (1.0 + c)
     delta_c = (200.0 / 3.0) * c ** 3 / f_c
-    rho_s = rho_crit * delta_c / 3.0
+    rho_s = rho_crit * delta_c
 
     x_max = 2.163
     f_xmax = math.log(1.0 + x_max) - x_max / (1.0 + x_max)
@@ -175,7 +175,7 @@ def main():
         m_chi     = bp['m_chi_GeV']
         m_phi_GeV = bp['m_phi_MeV'] / 1000.0
         alpha     = bp['alpha']
-        lam       = 2.0 * alpha * m_chi / m_phi_GeV
+        lam       = alpha * m_chi / m_phi_GeV
 
         print(f"\n  --- {label}: m_chi={m_chi:.1f} GeV, m_phi={bp['m_phi_MeV']:.2f} MeV, "
               f"alpha={alpha:.3e}, lambda={lam:.1f} ---")
@@ -248,7 +248,7 @@ def main():
         for i in range(len(results)):
             ax.plot([vm[i], vm[i]], [v2o[i], v2s[i]], 'r-', alpha=0.3, lw=1)
 
-        lam = 2 * bp['alpha'] * bp['m_chi_GeV'] / (bp['m_phi_MeV'] / 1000.0)
+        lam = bp['alpha'] * bp['m_chi_GeV'] / (bp['m_phi_MeV'] / 1000.0)
         ax.set_title(f'{label}  (λ = {lam:.0f})', fontsize=12)
         ax.set_xlabel(r'$V_{\rm max}$ (km s$^{-1}$)', fontsize=11)
         if ax is axes[0]:

@@ -101,8 +101,7 @@ def compute_predictions(dsphs, benchmark_points):
             # Convert units for rate:
             # Gamma = (sigma/m) [cm^2/g] * rho_DM [g/cm^3] * v_rel [cm/s]
             # rho_DM in g/cm^3:
-            rho_g_cm3 = rho_s * MSUN_PER_KPC3_TO_GEV_PER_CM3 * 1.783e-24  # GeV/cm^3 * g/GeV
-            # Actually: 1 M_sun = 1.989e33 g, 1 kpc = 3.086e21 cm
+            # 1 M_sun = 1.989e33 g, 1 kpc = 3.086e21 cm
             rho_g_cm3 = rho_s * 1.989e33 / (3.086e21)**3  # g/cm^3
 
             v_rel_cm_s = v_rel * KM_S_TO_CM_S
@@ -115,7 +114,7 @@ def compute_predictions(dsphs, benchmark_points):
             n_scatter = gamma * t_age_s
 
             # lambda = 2*alpha*m_chi/m_phi_GeV
-            lam = 2 * alpha * m_chi / m_phi_GeV
+            lam = alpha * m_chi / m_phi_GeV
 
             row[f'{label}_sigma_m'] = sigma_over_m
             row[f'{label}_gamma_Gyr'] = gamma * SEC_PER_GYR
@@ -159,7 +158,7 @@ def main():
     # Print results table per benchmark
     for bp in bps:
         label = bp['label']
-        lam = 2 * bp['alpha'] * bp['m_chi_GeV'] / (bp['m_phi_MeV'] / 1000.0)
+        lam = bp['alpha'] * bp['m_chi_GeV'] / (bp['m_phi_MeV'] / 1000.0)
         print(f"\n  --- {label}: m_chi={bp['m_chi_GeV']:.1f} GeV, "
               f"m_phi={bp['m_phi_MeV']:.2f} MeV, alpha={bp['alpha']:.3e}, lambda={lam:.1f} ---")
         print(f"  {'dSph':<14s} {'v_rel':>6s} {'sigma/m':>10s} {'N_scatter':>10s} "

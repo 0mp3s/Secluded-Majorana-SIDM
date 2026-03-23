@@ -72,7 +72,7 @@ def nfw_params_from_vmax(V_max, c=12.0):
     rho_crit = 126.0  # M_sun/kpc^3 (h=0.674)
     f_c = math.log(1 + c) - c / (1 + c)
     delta_c = (200.0 / 3.0) * c**3 / f_c
-    rho_s = rho_crit * delta_c / 3.0
+    rho_s = rho_crit * delta_c
     x_max = 2.163
     f_xmax = math.log(1 + x_max) - x_max / (1 + x_max)
     r_s = math.sqrt(V_max**2 * x_max / (G_N * 4 * math.pi * rho_s * f_xmax))
@@ -346,7 +346,7 @@ def main():
         m_chi = bp['m_chi_GeV']
         m_phi_GeV = bp['m_phi_MeV'] / 1000.0
         alpha = bp['alpha']
-        lam = 2.0 * alpha * m_chi / m_phi_GeV
+        lam = alpha * m_chi / m_phi_GeV
 
         print(f"\n{'='*95}")
         print(f"  {label}: m_chi={m_chi:.1f} GeV, m_phi={bp['m_phi_MeV']:.2f} MeV, "

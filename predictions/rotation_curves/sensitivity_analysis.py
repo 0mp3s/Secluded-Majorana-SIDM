@@ -72,7 +72,7 @@ def nfw_params_from_vmax(V_max, c):
     rho_crit = 126.0
     f_c = math.log(1 + c) - c / (1 + c)
     delta_c = (200 / 3) * c**3 / f_c
-    rho_s = rho_crit * delta_c / 3
+    rho_s = rho_crit * delta_c
     x_max = 2.163
     f_xmax = math.log(1 + x_max) - x_max / (1 + x_max)
     r_s = math.sqrt(V_max**2 * x_max / (G_N * 4 * math.pi * rho_s * f_xmax))

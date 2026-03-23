@@ -231,13 +231,13 @@ if __name__ == '__main__':
     csv_all = _csv_all_rel if os.path.isabs(_csv_all_rel) else os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), _csv_all_rel))
     with open(csv_all, 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(['m_chi_GeV', 'm_phi_GeV', 'alpha', 'omega_h2',
+        writer.writerow(['m_chi_GeV', 'm_phi_MeV', 'alpha', 'omega_h2',
                          'lambda', 'sigma_m_30', 'sigma_m_1000', 'sidm_viable'])
         for r in all_results:
             is_viable = (SIGMA_M_30_LO <= r['sigma_m_30'] <= SIGMA_M_30_HI and
                          r['sigma_m_1000'] < SIGMA_M_1000_HI)
             writer.writerow([
-                f"{r['m_chi_GeV']:.6f}", f"{r['m_phi_GeV']:.6e}",
+                f"{r['m_chi_GeV']:.6f}", f"{r['m_phi_GeV'] * 1000:.6e}",
                 f"{r['alpha']:.6e}", f"{r['omega_h2']:.6f}",
                 f"{r['lambda']:.4f}", f"{r['sigma_m_30']:.6f}",
                 f"{r['sigma_m_1000']:.6f}", int(is_viable)])
@@ -249,11 +249,11 @@ if __name__ == '__main__':
         csv_viable = _csv_viable_rel if os.path.isabs(_csv_viable_rel) else os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), _csv_viable_rel))
         with open(csv_viable, 'w', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(['m_chi_GeV', 'm_phi_GeV', 'alpha', 'omega_h2',
+            writer.writerow(['m_chi_GeV', 'm_phi_MeV', 'alpha', 'omega_h2',
                              'lambda', 'sigma_m_30', 'sigma_m_1000'])
             for r in viable:
                 writer.writerow([
-                    f"{r['m_chi_GeV']:.6f}", f"{r['m_phi_GeV']:.6e}",
+                    f"{r['m_chi_GeV']:.6f}", f"{r['m_phi_GeV'] * 1000:.6e}",
                     f"{r['alpha']:.6e}", f"{r['omega_h2']:.6f}",
                     f"{r['lambda']:.4f}", f"{r['sigma_m_30']:.6f}",
                     f"{r['sigma_m_1000']:.6f}"])
