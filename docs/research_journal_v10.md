@@ -656,3 +656,147 @@ $V_{\text{bar}}$ מחושב מ-photometry 3.6μm עם $\Upsilon_* = 0.5$ כ-temp
 13. **sensitivity_heatmaps.png** — Υ_* sensitivity in (c_factor, ν_AC) space, 7×3 grid
 14. **physical_fraction.png** — Fraction of physical Υ_* per galaxy × BP
 15. **sensitivity_1D_BP1/BP16/MAP.png** — 1D parameter slices per BP
+
+---
+
+## תיקוני באגים מביקורת עמיתים — Peer Review Bug Fixes (2026-03-23)
+
+### רקע
+
+לאחר ביקורת עמיתים מקיפה (Claude Opus 4.6, GPT-5.4, Gemini 3.1 Pro), תוקנו כל הבאגים הטכניים שזוהו. שני הממצאים ה-FATAL (s-wave annihilation ל-Majorana; overclosure של $\phi$) נדונים ב-`rescue_plan2.md` ודורשים מעבר ל-Dirac — שלב הבא.
+
+### באגים שתוקנו
+
+#### 1. באג NFW $\rho_s$ — חלוקה מיותרת ב-3
+**§6 בביקורת.** בשלושה קבצים (`predict_core_sizes.py`, `fit_sparc_baryons.py`, `sensitivity_analysis.py`), $\rho_s$ חושב כ:
+```python
+rho_s = rho_crit * delta_c / 3.0  # שגוי
+```
+אבל $\delta_c = (200/3) c^3 / f(c)$ כבר כולל את הגורם $1/3$. לכן:
+```python
+rho_s = rho_crit * delta_c  # נכון — ρ_s גבוה פי 3
+```
+**השפעה:** $\rho_s$ עלה פי 3 → תרומת ה-DM לעקומת סיבוב גדלה → $\Upsilon_*$ ירד (שיפור לננסיות).
+
+#### 2. קוד מת ב-predict_gravothermal.py
+**§15 בביקורת.** שורת המרה של $\rho_s$ נכתבה פעמיים — השנייה דרסה את הראשונה. השורה המיותרת הוסרה.
+
+#### 3. עמודת CSV — m_phi_GeV → m_phi_MeV
+**§7 בביקורת.** `smart_scan.py` כתב header `m_phi_GeV` אבל הערכים היו ב-MeV. תוקן:
+- Header: `m_phi_MeV`
+- Data: `m_phi_MeV * 1000` (המרה מ-GeV ל-MeV)
+**הערה:** ה-CSV בפועל (`v31_true_viable_points.csv`) כבר הכיל headers נכונים — טעות רק בקוד הגנרציה.
+
+#### 4. קונבנציית $\lambda$ — הסרת גורם 2
+**§8 בביקורת.** בשמונה מקומות בחמישה קבצי prediction, $\lambda$ חושב כ:
+```python
+lam = 2 * alpha * m_chi / m_phi  # שגוי — factor 2 מיותר
+```
+תוקן ל:
+```python
+lam = alpha * m_chi / m_phi  # נכון — λ = αm_χ/m_φ
+```
+**הערה:** $\lambda$ שימש רק ל-display/print. החישוב הפנימי ב-`sigma_T_vpm` תמיד היה נכון.
+
+#### 5. תיקון config.json — sparc_csv path
+Path שהפנה ל-`sparc_galaxies.csv` (7 גלקסיות, ללא `V_2kpc`) תוקן ל-`sparc_subset.csv` (12 גלקסיות, כולל `V_2kpc`).
+
+### תוצאות אחרי התיקונים
+
+#### Gravothermal (predict_gravothermal.py) — MAP
+| dSph | $t_{\rm gravo}/t_{\rm age}$ | Status |
+|------|:---:|:---:|
+| Fornax | >1 | CORED ✅ |
+| Sculptor | >1 | CORED ✅ |
+| Carina | >1 | CORED ✅ |
+| Sextans | >1 | CORED ✅ |
+| Leo I | >1 | CORED ✅ |
+| Leo II | >1 | CORED ✅ |
+| **סה"כ** | **6/8 OK** | **0 FAIL, 2 אמביוולנטיים** |
+
+#### Core Sizes & $V(2\,\text{kpc})$ (predict_core_sizes.py)
+| BP | OK (within 2σ) | MISS |
+|:--:|:--:|:--:|
+| BP1 | 4/12 | 8/12 |
+| MAP | 4/12 | 8/12 |
+
+(DM-only ללא בריונים — מספיק עבור ננסיות gas-dominated.)
+
+#### Cluster Offsets (predict_offsets.py)
+| BP | Result |
+|:--:|:--:|
+| BP1 | **ALL 8 PASS** — $\sigma/m \ll$ upper limits |
+| BP16 | **ALL 8 PASS** |
+| MAP | **ALL 8 PASS** |
+
+#### $\Delta N_{\rm eff}$ (predict_neff.py)
+$\Delta N_{\rm eff} \approx 0$ at BBN — Boltzmann-suppressed. עקבי עם Planck.
+
+#### SPARC+Baryons (fit_sparc_baryons.py) — השפעת תיקון $\rho_s$
+| Galaxy | BP | $\Upsilon_*$ (לפני) | $\Upsilon_*$ (אחרי) | הערכה |
+|--------|-----|:---:|:---:|:---|
+| DDO_154 | BP16 | ~0.44 | **0.32** | ✅ שיפור — בתוך הטווח הפיזיקלי (0.2–0.8) |
+| NGC_2366 | BP16 | ~0.31 | **0.12** | ⚠ ירד — אולי נמוך מדי |
+| IC_2574 | MAP | ~0.49 | — | (לא נבדק מחדש) |
+
+**ניתוח:** תיקון $\rho_s$ (פי 3 יותר) העלה משמעותית את תרומת ה-DM בננסיות, מה שהוריד את $\Upsilon_*$ (פחות כוכבים נדרשים להתאמה). DDO_154 היא הגלקסיה המרכזית ו-$\Upsilon_* = 0.32$ הוא בדיוק בטווח הפיזיקלי — **שיפור אמיתי**. NGC_2366 ירד ל-0.12 (נמוך, אבל שגיאת ה-fit היא $\chi^2/\text{dof} < 2$ ולכן ההתאמה עדיין סבירה). הספירליות לא השתנו — דורשות AC מתוחכם יותר.
+
+### קבצים שנערכו
+- `predictions/rotation_curves/predict_core_sizes.py` — NFW fix + λ display
+- `predictions/rotation_curves/fit_sparc_baryons.py` — NFW fix
+- `predictions/rotation_curves/sensitivity_analysis.py` — NFW fix
+- `predictions/gravothermal/predict_gravothermal.py` — dead code + λ display
+- `predictions/cluster_offsets/predict_offsets.py` — λ display
+- `predictions/delta_neff/predict_neff.py` — λ display
+- `relic_density/smart_scan.py` — CSV column name + unit conversion
+- `predictions/rotation_curves/config.json` — sparc_csv path
+
+### Git
+Commit `3e283e4`: "Fix peer-review bugs: NFW ρ_s/3, dead code, CSV column, λ convention"
+
+---
+
+## ביקורת עמיתים — סיכום ממצאים ותגובה
+
+### ביקורות שהתקבלו
+1. **Claude Opus 4.6** — `docs/peer_reviews/2026-3-23-opus-review/peer_review.md`
+2. **GPT-5.4** — `docs/peer_reviews/peer_review_GPT-5.4.md`
+3. **GPT-5.4 (PRD referee)** — `docs/peer_reviews/gpt-5.4_peer_review_v10.md`
+4. **Gemini 3.1 Pro** — `docs/peer_reviews/peer_review_gemini_3_1_pro.md`
+
+### ממצאים FATAL (דורשים שינוי מודל)
+| # | ממצא | סטטוס |
+|---|-------|--------|
+| F1 | $\chi\chi \to \phi\phi$ הוא p-wave, לא s-wave, עבור Majorana | ⏳ דורש מעבר ל-Dirac |
+| F2 | $\phi$ יציב ב-secluded → overclosure ($\Omega_\phi h^2 \sim 10^4$) | ⏳ דורש cannibal $\phi^3$ |
+
+### ממצאים טכניים (תוקנו)
+| # | ממצא | סטטוס |
+|---|-------|--------|
+| T1 | NFW $\rho_s/3$ — חלוקה מיותרת | ✅ תוקן |
+| T2 | קוד מת ב-gravothermal | ✅ תוקן |
+| T3 | CSV column name `m_phi_GeV` → `m_phi_MeV` | ✅ תוקן |
+| T4 | $\lambda$ convention — factor 2 מיותר | ✅ תוקן |
+| T5 | config.json path שגוי | ✅ תוקן |
+
+### ממצאים שהורדו דרגה (אינם באגים)
+| # | ממצא | הערכה |
+|---|-------|--------|
+| D1 | Single-species Boltzmann ($\S$3 בביקורת) | MODERATE — סטנדרטי בתחום |
+| D2 | $\sigma_T$ elastic vs transport ($\S$4) | MINOR — VPM כבר מייצר $\sigma_T$ |
+| D3 | Operator basis ($\S$5) | MINOR — $Z_2$ symmetry פותר |
+
+### ממצאים שטרם טופלו
+| # | ממצא | עדיפות |
+|---|-------|--------|
+| P1 | Harvey+15 velocity inconsistency (1000 vs 1500 km/s) | LOW |
+| P2 | Missing resonance filter in benchmark_extractor | LOW |
+| P3 | Freeze-out velocity inconsistency (0.3c vs 0.55c) | LOW |
+
+### תוכנית הצלה — Dirac + Cannibal $\phi^3$
+ראו `docs/peer_reviews/2026-3-23-opus-review/rescue_plan2.md`:
+$$\mathcal{L} = \bar\chi(i\partial\!\!\!/ - m_\chi)\chi - y\bar\chi\chi\phi + \frac{1}{2}(\partial\phi)^2 - \frac{1}{2}m_\phi^2\phi^2 - \frac{\mu_3}{3!}\phi^3$$
+- Dirac → s-wave אמיתי (מוכח בספרות)
+- $\phi^3$ → cannibal depletion ($3\phi \to 2\phi$) → אין overclosure
+- 4 פרמטרים: $(m_\chi, m_\phi, \alpha, \mu_3)$
+- $\alpha_{\rm relic}$ ל-Dirac **יורד** בגורם $\sqrt{2}$ → ה-island ככל הנראה שורד

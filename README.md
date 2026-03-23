@@ -131,6 +131,17 @@ See each folder's `README.md` for the full config.json schema and expected data 
 | Velocity averaging | MB integration | Delta(chi^2) < 9% vs fixed-v |
 | Literature | vs TYZ (2013) | 6/6 tests PASSED |
 | MCMC posterior | emcee (32 walkers, 64k samples) | chi^2/dof = 0.16 (MAP), 17/17 BPs within 95% CI |
+| **Gravothermal** | dSph core formation | MAP: 6/8 CORED (Fornax, Sculptor, Carina, Sextans, Leo I, Leo II) |
+| **Cluster mergers** | Harvey+2015 bounds | ALL PASS (8 systems × 3 BPs) |
+| **SPARC rotation** | Baryons + SIDM fit | DDO_154: Υ_* = 0.32 (physical range) |
+| **ΔN_eff** | Light mediator BBN | ≈ 0 (Boltzmann-suppressed) |
+
+### Peer Review Status
+
+Four peer reviews received (Claude Opus 4.6, GPT-5.4 ×2, Gemini 3.1 Pro).
+Technical bugs fixed (NFW ρ_s normalization, CSV columns, λ convention).
+Two FATAL physics issues identified (s-wave for Majorana; φ overclosure)
+— resolved in `rescue_plan2.md`: switch Majorana → Dirac + cannibal φ³.
 
 ## Model
 

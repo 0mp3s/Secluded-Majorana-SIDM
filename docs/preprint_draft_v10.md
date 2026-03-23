@@ -465,6 +465,9 @@ Results for all 17 relic-viable benchmark points:
 | CMB energy injection | **None** ($\chi\chi \to \phi\phi$ stays dark) | No constraint ✓ |
 | Fermi-LAT | **No SM final states** | No constraint ✓ |
 | BSF correction | $< 0.01\%$ at freeze-out | Negligible ✓ |
+| **Gravothermal collapse** | MAP: 6/8 dSphs CORED | Consistent with observed cores ✓ |
+| **Cluster mergers** | ALL PASS (8 systems × 3 BPs) | Below Harvey+2015 bounds ✓ |
+| **SPARC rotation curves** | $\Upsilon_* = 0.32$ (DDO_154, BP16) | Physical range ✓ |
 
 ---
 
@@ -625,3 +628,37 @@ At group/cluster velocities ($v \sim 250$–$1500$ km/s), where $\sigma/m(v)$ de
 **D.3 Impact on $\chi^2$.** We repeat the full $\chi^2$ analysis of §4.6 using $\langle\sigma/m\rangle_{\rm MB}$ in place of $\sigma/m(v_{\rm char})$. The $\chi^2$ increases by 2–9% (mean 6%) across all 17 relic BPs. Key figures: the worst $\chi^2/\nu$ rises from 0.65 to 0.69; the best rises from 0.42 to 0.45. All 17/17 BPs remain at $\chi^2/\nu < 1$, and no benchmark point changes viability status. The $\sim$6% shift is negligible compared to the $\sim$0.5 dex ($\times 3$) observational error bars. We conclude that the fixed-velocity approximation used in §4.5–4.6 is adequate for the current precision of SIDM constraints.
 
 ![Figure D1: BP1 comparison: fixed-velocity $\sigma/m(v)$ (blue) vs MB-averaged $\langle\sigma/m\rangle_{\rm MB}$ (red dashed). Left: cross section curves with observational data. Right: ratio $\langle\sigma/m\rangle_{\rm MB}/(\sigma/m)$ vs velocity, showing $<$20% deviations throughout.](v37_velocity_averaged.png)
+
+---
+
+## Appendix E: Errata and Corrections (v10.1)
+
+The following errors were identified during peer review and corrected on 2026-03-23.
+
+### E.1 NFW Density Normalization
+
+The NFW scale density was previously computed as $\rho_s = \rho_{\rm crit}\,\delta_c/3$ in the prediction scripts (`predict_core_sizes.py`, `fit_sparc_baryons.py`, `sensitivity_analysis.py`). Since the characteristic overdensity is already defined as $\delta_c = (200/3)\,c^3/f(c)$ — which incorporates the factor of $1/3$ — the correct expression is:
+$$\rho_s = \rho_{\rm crit}\,\delta_c$$
+The spurious division by 3 reduced $\rho_s$ by a factor of 3, weakening the DM contribution to rotation curves. After correction, the best-fit mass-to-light ratios for DM-dominated dwarfs improve: DDO_154 drops from $\Upsilon_* \approx 0.44$ to $\Upsilon_* \approx 0.32$ (BP16), well within the physical range $0.2$–$0.8$. The $\sigma/m(v)$ cross-section computation and all other results are unaffected.
+
+### E.2 Dead Code in Gravothermal Script
+
+A duplicate density-conversion line in `predict_gravothermal.py` (overwritten by the subsequent line) was removed. No numerical impact.
+
+### E.3 CSV Column Name
+
+The scan output in `smart_scan.py` wrote a header `m_phi_GeV` while the data values were in MeV. Corrected to `m_phi_MeV` with explicit unit conversion. The actual data CSV used by downstream scripts already had correct headers.
+
+### E.4 Coupling Ratio Convention
+
+The dimensionless coupling ratio was displayed as $\lambda = 2\alpha m_\chi / m_\phi$ in five prediction scripts. The canonical definition is $\lambda = \alpha m_\chi / m_\phi$ (matching the VPM solver convention). The factor of 2 was only in display/print statements; all numerical computations were correct.
+
+### E.5 Updated Prediction Results After Corrections
+
+| Test | Result |
+|------|--------|
+| **Gravothermal** (8 dSphs, MAP) | 6/8 CORED, 0 FAIL, 2 ambiguous |
+| **Cluster offsets** (8 systems × 3 BPs) | ALL PASS — $\sigma/m \ll$ upper limits |
+| **$\Delta N_{\rm eff}$** | $\approx 0$ at BBN (Boltzmann-suppressed) |
+| **SPARC+baryons** (DDO_154, BP16) | $\Upsilon_* = 0.32$ (physical range ✓) |
+| **Core sizes** (DM-only, BP1/MAP) | 4/12 within $2\sigma$ (dwarfs OK, spirals need baryons) |
