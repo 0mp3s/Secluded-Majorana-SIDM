@@ -71,6 +71,18 @@ def _init_worker():
     _solver(20.0, 10e-3, 1e-3, 100.0)  # warm up
 
 
+def _vpm_with_timeout(m_chi, m_phi_GeV, alpha, v_km_s, timeout=10.0):
+    """Call VPM solver with a thread-based timeout to prevent hangs."""
+    import threading
+    result = [np.nan]
+    def _target():
+        result[0] = _solver(m_chi, m_phi_GeV, alpha, v_km_s)
+    t = threading.Thread(target=_target, daemon=True)
+    t.start()
+    t.join(timeout=timeout)
+    return result[0]
+
+
 def _log_prob_worker(theta):
     """Worker-safe log_prob using the per-process solver."""
     log_m_chi, log_m_phi_MeV, log_alpha = theta
@@ -81,10 +93,14 @@ def _log_prob_worker(theta):
     m_phi_MeV = 10.0 ** log_m_phi_MeV
     m_phi_GeV = m_phi_MeV / 1000.0
     alpha = 10.0 ** log_alpha
+    # Reject large lambda: VPM solver hangs at resonances for lambda >> 1
+    lam = alpha * m_chi / m_phi_GeV
+    if lam > 50.0:
+        return -np.inf
     chi2 = 0.0
     for name, v, central, lo, hi, ref in OBSERVATIONS:
         try:
-            theory = _solver(m_chi, m_phi_GeV, alpha, float(v))
+            theory = _vpm_with_timeout(m_chi, m_phi_GeV, alpha, float(v))
         except Exception:
             return -np.inf
         if np.isnan(theory) or np.isinf(theory) or theory < 0:
@@ -177,6 +193,10 @@ def compute_chi2(m_chi, m_phi_GeV, alpha):
 # ================================================================
 def log_prior(theta):
     if np.all(theta >= LO) and np.all(theta <= HI):
+        log_m_chi, log_m_phi_MeV, log_alpha = theta
+        lam = 10**log_alpha * 10**log_m_chi / (10**log_m_phi_MeV / 1000.0)
+        if lam > 50.0:
+            return -np.inf
         return 0.0
     return -np.inf
 
