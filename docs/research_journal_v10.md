@@ -838,3 +838,59 @@ $$a_0 = \frac{y_s^2 y_p^2}{8\pi m_\chi^2} = \frac{2\pi \alpha_s \alpha_p}{m_\chi
 **פיזיקת CP:** מצב ¹S₀ של שני Majorana זהים → CP = −1. שני סקלרים זהים ב-s-wave → CP = +1. מעבר ¹S₀ → φφ **דורש** שבירת CP. רק הגורם המעורב $y_s^2 y_p^2$ שובר CP.
 
 **באג שתוקן:** סימן בין $M_t$ ו-$M_u$. הסימן הנכון הוא $M = M_t + M_u$ (**פלוס** — Bose symmetry לשני $\phi$ זהים ב-final state). עם מינוס, pure couplings נתנו $a_0 \neq 0$ בשגיאה.
+
+### תנאי 2: 2D Coupling Scan — PASSED ✓
+
+**סקריפט:** `mixed_coupling/opusA/condition2_coupling_scan.py`
+
+**שיטה:** Phase A — Boltzmann bisection למציאת product $\alpha_s \times \alpha_p$ שנותן $\Omega h^2 = 0.120$. Phase B — VPM scan (80 נקודות, 14 cores מקבילי) ב-$\alpha_s \in [10^{-5}, 10^{-1}]$, 3 velocities (30, 100, 1000 km/s). Phase C — חיתוך relic hyperbola × SIDM strip.
+
+**תוצאות:**
+| כמות | ערך |
+|------|-----|
+| Relic hyperbola | $\alpha_s \times \alpha_p = 1.387 \times 10^{-7}$ |
+| Symmetric point | $\alpha_s = \alpha_p = 3.72 \times 10^{-4}$ |
+| SIDM strip | $\alpha_s \in [1.34 \times 10^{-3}, 5.42 \times 10^{-3}]$ (0.61 decades) |
+| **Viable band** | **13 grid points**, $\alpha_s/\alpha_p \in [13, 212]$ |
+| Band width | **1.2 decades** in $\alpha_s/\alpha_p$ |
+
+**מסקנה:** $y_s \neq y_p$ — המודל עובד ל**טווח רחב** של יחסי coupling. **NOT fine-tuned.**
+
+### תנאי 3: Cannibal $\phi^3$ Sensitivity — PASSED ✓
+
+**סקריפט:** `mixed_coupling/opusA/condition3_cannibal_sensitivity.py`
+
+**שיטה:** Operator-split: Phase 1 = χ Boltzmann (RK4), Phase 2 = Γ vs H comparison עבור cannibal $3\phi \to 2\phi$. Scan $\mu_3 \in [10^{-6}, 10^{-1}]$ GeV.
+
+**באג קריטי שתוקן (Opus B review):** נוסחת $\langle\sigma v^2\rangle_{3\to 2}$ הייתה $\mu_3^6/m_\phi^9$ (ממד $E^{-3}$, שגוי). תוקנה ל:
+$$\langle\sigma v^2\rangle_{3\to 2} = \frac{25\sqrt{5}}{512\pi(4\pi)^6}\frac{\mu_3^6}{m_\phi^{11}} \qquad [E^{-5}] \quad \text{(Farina+ 2016, eq. 7)}$$
+
+**תוצאות (מתוקנות):**
+| משטר | תנאי | $\Omega_\phi h^2$ |
+|------|-------|----------|
+| Overclosure | $\mu_3/m_\phi \lesssim 1.3$ | $> 0.12$ |
+| Subdominant | $\mu_3/m_\phi \gtrsim 1.7$ | $< 0.12$ |
+| Reference ($\mu_3 = 0$) | No cannibal | $15{,}410$ (overclosure ×128,000!) |
+
+**מפתח:** $\Omega_\chi$ **בלתי תלוי לחלוטין** ב-$\mu_3$. One-sided bound, no fine-tuning.
+
+### תנאי 4: NR Potential Check — PASSED ✓
+
+**סקריפט:** `mixed_coupling/opusA/condition4_nr_potential.py`
+
+**תוצאה:** $\Delta\sigma/\sigma < 6 \times 10^{-7}$ לכל 3 BPs × 8 velocities. $y_p$ negligible ב-VPM.
+
+---
+
+### סיכום: כל 4 התנאים עברו ✅✅✅✅
+
+| # | תנאי | סטטוס |
+|---|-------|--------|
+| 1 | Amplitude $a_0 \propto y_s^2 y_p^2$ | ✅ PASSED |
+| 2 | 2D $(α_s, α_p)$ band width | ✅ PASSED — 1.2 decades |
+| 3 | Cannibal $\mu_3$ sensitivity | ✅ PASSED — $\mu_3/m_\phi \gtrsim 1.7$ |
+| 4 | NR potential $y_p$ negligible | ✅ PASSED — $\Delta\sigma/\sigma < 10^{-6}$ |
+
+**Mixed Majorana עם $(y_s + iy_p\gamma_5)$ + $\mu_3\phi^3$ הוא מודל viable לפרסום.**
+
+Git commits: `b537d0e` (conditions 1,3,4), `804aea4` (condition 2), `0db800a` (condition 3 fix).

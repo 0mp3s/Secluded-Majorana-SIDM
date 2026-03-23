@@ -26,7 +26,7 @@
         {"name": "Abell 2537",       "v_km_s": 1100, "central": 0.15, "lo": 0.03, "hi": 0.4,  "ref": "KTY16"},
         {"name": "Diverse RC band",  "v_km_s": 40,   "central": 3.0,  "lo": 0.5,  "hi": 10.0, "ref": "KKPY17"},
         {"name": "Bullet Cluster",   "v_km_s": 4700, "central": 0.7,  "lo": 0.0,  "hi": 1.25, "ref": "Randall+08"},
-        {"name": "72 cluster mergers","v_km_s": 1500, "central": 0.2,  "lo": 0.0,  "hi": 0.47, "ref": "Harvey+15"},
+        {"name": "72 cluster mergers","v_km_s": 1000, "central": 0.2,  "lo": 0.0,  "hi": 0.47, "ref": "Harvey+15"},
         {"name": "TBTF dwarfs",      "v_km_s": 30,   "central": 1.0,  "lo": 0.5,  "hi": 5.0,  "ref": "Elbert+15"}
     ]
 }
