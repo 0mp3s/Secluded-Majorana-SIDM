@@ -2,16 +2,16 @@
 
 משימות פתוחות לאחר השלמת ה-consistency checks (predictions/).
 
-| # | משימה | סוג | Impact | מאמץ | סטטוס |
-|---|--------|------|--------|------|--------|
-| 1 | **SPARC + baryons rotation curve fit** | ואלידציה | ⭐⭐⭐⭐⭐ | בינוני | ✅ הושלם |
-| 1b | **Sensitivity analysis** (25,200 pts) | ואלידציה | ⭐⭐⭐⭐⭐ | בינוני | ✅ הושלם |
-| 2 | **Fornax core profile** (Jeans solver) | תחזית | ⭐⭐⭐⭐ | בינוני | 🔴 פתוח |
-| 3 | **Fermi-LAT dSph bounds** (φφ → dark, secondary γ) | constraint | ⭐⭐⭐ | בינוני | 🔴 פתוח |
-| 4 | **MCMC שרשרת ארוכה יותר** (3000+ צעדים, 50τ) | סטטיסטי | ⭐⭐⭐ | ~50 דק' | 🔴 פתוח |
-| 5 | **דיון yₛ ≫ yₚ hierarchy** בפרי-פרינט | טקסט | ⭐⭐ | נמוך | ✅ הושלם |
-| 6 | **ξ evolution** — power law vs log (Farina+16 eq.9) | טקסט | ⭐ | נמוך | ✅ הושלם |
-| 7 | **small-μ₃ inconsistency** — Ω_φ overclosed note | טקסט | ⭐ | נמוך | ✅ הושלם |
+| # | משימה | סוג | Impact | מאמץ | עלול לשבור מודל | זמן עבודה | זמן הרצה | סטטוס |
+|---|--------|------|--------|------|----------------|-----------|-----------|--------|
+| 1 | **SPARC + baryons rotation curve fit** | ואלידציה | ⭐⭐⭐⭐⭐ | בינוני | לא | — | — | ✅ הושלם |
+| 1b | **Sensitivity analysis** (25,200 pts) | ואלידציה | ⭐⭐⭐⭐⭐ | בינוני | לא | — | — | ✅ הושלם |
+| 2 | **Fornax core profile** (Jeans solver) | תחזית | ⭐⭐⭐⭐ | בינוני | לא — תחזית עצמאית, לא משנה פרמטרים | ~2 שעות | ~5 דק' | 🔴 פתוח |
+| 3 | **Fermi-LAT dSph bounds** (φφ → dark, secondary γ) | constraint | ⭐⭐⭐ | בינוני | לא — secluded → zero SM signal | ~1 שעה | ~1 שניה | ✅ הושלם |
+| 4 | **MCMC שרשרת ארוכה יותר** (3000+ צעדים, 50τ) | סטטיסטי | ⭐⭐⭐ | ~50 דק' | לא — אותו מודל, סטטיסטיקה טובה יותר | ~30 דק' | ~50 דק' | 🔴 פתוח |
+| 5 | **דיון yₛ ≫ yₚ hierarchy** בפרי-פרינט | טקסט | ⭐⭐ | נמוך | לא | — | — | ✅ הושלם |
+| 6 | **ξ evolution** — power law vs log (Farina+16 eq.9) | טקסט | ⭐ | נמוך | לא | — | — | ✅ הושלם |
+| 7 | **small-μ₃ inconsistency** — Ω_φ overclosed note | טקסט | ⭐ | נמוך | לא | — | — | ✅ הושלם |
 
 ## פירוט
 
@@ -76,3 +76,4 @@
 - [x] דיון yₛ ≫ yₚ hierarchy — §8.4 naturalness paragraph added
 - [x] ξ evolution — power law clarification with Farina+16 reference in §5.2
 - [x] small-μ₃ overclosure — cannibal annihilation note added in §5.3
+- [x] Fermi-LAT dSph bounds — trivially satisfied (secluded → zero SM signal, cosmology/fermi_lat_dsph.py)
