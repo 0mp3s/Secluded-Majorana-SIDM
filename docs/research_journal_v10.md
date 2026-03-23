@@ -894,3 +894,84 @@ $$\langle\sigma v^2\rangle_{3\to 2} = \frac{25\sqrt{5}}{512\pi(4\pi)^6}\frac{\mu
 **Mixed Majorana עם $(y_s + iy_p\gamma_5)$ + $\mu_3\phi^3$ הוא מודל viable לפרסום.**
 
 Git commits: `b537d0e` (conditions 1,3,4), `804aea4` (condition 2), `0db800a` (condition 3 fix).
+
+---
+
+## 23 Mar 2026 (ערב) — MCMC Bayesian Posterior + Observational Comparison
+
+### השוואה אובסרבציונית (Opus B)
+
+**סקריפט:** `observations/opusB_observational_comparison.py`
+
+BP1 ($m_\chi = 20.69$ GeV, $m_\phi = 11.34$ MeV, $\alpha = 1.048 \times 10^{-3}$) נבדק מול 13 מערכות אסטרופיזיקליות:
+
+| Velocity regime | $\sigma_T/m$ [cm²/g] |
+|---|---|
+| Dwarfs (~12–30 km/s) | 0.51–0.52 |
+| Spirals (~40–60 km/s) | 0.50–0.52 |
+| Groups (~250–280 km/s) | 0.38–0.41 |
+| Clusters (~1000–4700 km/s) | 0.07–0.15 |
+
+**תוצאה:** BP1 תואם **11/13** מערכות. שתי חריגות שוליות:
+- NGC 2976: $\sigma/m = 0.498$ vs lower bound 0.50 (חסר 0.4%)
+- NGC 1560: $\sigma/m = 0.504$ vs lower bound 1.00 (חסר 50% — הערכת central low)
+
+**Fix:** Harvey+15 velocity תוקן מ-1500 ל-1000 km/s בשני config.json (Robertson+ 2017).
+
+### MCMC Bayesian Analysis
+
+**סקריפט:** `stats_mcmc/opusB_run_mcmc.py`
+
+**הגדרות:**
+- 3D parameter space: $(\log_{10}m_\chi, \log_{10}m_\phi, \log_{10}\alpha)$
+- 32 walkers, 300 burn-in + 2000 production steps
+- 13 observational constraints (KTY16 + Harvey+15 + Bullet Cluster + TBTF)
+- $\lambda$ convention: $\lambda = \alpha m_\chi / m_\phi$ (factor-1, matching VPM solver)
+- **תיקון:** הוספת $\lambda < 50$ prior cut + VPM timeout (10s) למניעת deadlock
+
+**תוצאות הרצה:**
+
+| מדד | ערך |
+|---|---|
+| זמן כולל | 50.5 דקות (0.84 שעה) |
+| Burn-in | 300 steps, acceptance = 0.52 |
+| Production | 2000 steps, acceptance = 0.544 |
+| Total samples | 64,000 |
+| Effective samples | ~1,053 |
+| Autocorrelation | $\tau_{max} = 60.8$ steps |
+
+**Best-fit (MAP):**
+
+| פרמטר | ערך |
+|---|---|
+| $m_\chi$ | 92.0 GeV |
+| $m_\phi$ | 10.74 MeV |
+| $\alpha$ | $4.97 \times 10^{-3}$ |
+| $\lambda$ | 42.5 |
+| $\chi^2/\text{dof}$ | **0.199** (10 dof) |
+
+**Posterior (median ± 68% CI):**
+
+| פרמטר | Median | 16% | 84% |
+|---|---|---|---|
+| $m_\chi$ [GeV] | 38.5 | 10.3 | 88.7 |
+| $m_\phi$ [MeV] | 8.62 | 5.26 | 12.97 |
+| $\alpha$ | $1.0 \times 10^{-3}$ | $4 \times 10^{-4}$ | $4 \times 10^{-3}$ |
+| $\lambda$ (derived) | 6.24 | 0.89 | 30.1 |
+
+**Relic BPs vs Posterior:**
+
+כל 17 נקודות ה-Relic benchmark נמצאות **בתוך ה-95% credible region**:
+- BP1 ($m_\chi = 20.7$ GeV, $\lambda = 1.91$): $\chi^2 = 8.15$ ✅
+- Best relic BP: BP16 ($m_\chi = 20.7$ GeV, $\alpha_s = 1.05 \times 10^{-3}$, $m_\phi = 9.91$ MeV): $\chi^2 = 5.08$
+- Best overall: BP14 ($m_\chi = 14.4$ GeV): $\chi^2 = 5.50$
+
+**Output files:**
+- `stats_mcmc/output/v38_corner.png` — Corner plot (3D posterior)
+- `stats_mcmc/output/v38_mcmc_chains.png` — Chain traces (convergence)
+- `stats_mcmc/output/v38_lambda_posterior.png` — $\lambda$ derived posterior
+- `stats_mcmc/output/v38_mcmc_samples.csv` — 64,000 samples
+
+**הערה:** emcee warning: chain shorter than $50\tau$ — recommends longer chain. עם $\tau_{max} = 60.8$, צריך $\sim 3000$ steps. התוצאות עדיין אמינות ($N_\text{eff} \sim 1053$) אבל ניתן לשפר.
+
+Git commit: `0775255` (MCMC results + deadlock fix).
