@@ -800,3 +800,41 @@ $$\mathcal{L} = \bar\chi(i\partial\!\!\!/ - m_\chi)\chi - y\bar\chi\chi\phi + \f
 - $\phi^3$ → cannibal depletion ($3\phi \to 2\phi$) → אין overclosure
 - 4 פרמטרים: $(m_\chi, m_\phi, \alpha, \mu_3)$
 - $\alpha_{\rm relic}$ ל-Dirac **יורד** בגורם $\sqrt{2}$ → ה-island ככל הנראה שורד
+
+---
+
+## Mixed Majorana — כיוון חדש (2026-03-23)
+
+### רקע: למה לא לוותר על Majorana?
+
+לאחר ניתוח מעמיק עם שני סוכני AI (דיון A-B מתועד ב-`mixed_coupling/MixedMajorana.md`), התגבשה תובנה: הממצא ה-FATAL (F1) **אינו מחייב מעבר ל-Dirac**. במקום זאת, Mixed scalar-pseudoscalar coupling פותר את הבעיה:
+
+$$\mathcal{L} \supset \frac{1}{2}\bar\chi(y_s + iy_p\gamma_5)\chi\phi + \frac{\mu_3}{3!}\phi^3$$
+
+**הנימוק:** ה-Lagrangian הכי כללי עם $Z_2$ symmetry ($\chi \to -\chi$) **חייב** לכלול גם $y_s$ וגם $y_p$. צריך סימטריה ייעודית (CP) כדי לאפס את $y_p$ — ואין לנו סיבה להניח CP conservation ב-dark sector.
+
+**Novelty:** CP-violating Majorana SIDM **חדש בספרות** — אף paper קודם לא חקר את זה.
+
+**החלטה:** Majorana = מודל ראשי, Dirac = cross-check (§6B).
+
+### תנאי 1: Amplitude — PASSED ✓
+
+**סקריפט:** `mixed_coupling/opusA/condition1_amplitude.py`
+
+**שיטה:** חישוב נומרי של $\Sigma_{\rm spins} |M|^2$ עם 4×4 gamma matrices (Dirac rep), Gauss-Legendre integration על $\cos\theta$ ב-CM frame, ו-threshold expansion $\sigma v = a_0 + a_1 v^2$.
+
+**תוצאות:**
+| בדיקה | תוצאה |
+|--------|--------|
+| Pure scalar $a_0(y_s, 0)$ | $5.7 \times 10^{-11}$ → **אפס** (CP conserved) |
+| Pure pseudoscalar $a_0(0, y_p)$ | $1.7 \times 10^{-12}$ → **אפס** (CP conserved) |
+| Mixed $a_0(1, 1)$ | $9.295 \times 10^{-5}$ GeV$^{-2}$ → **לא אפס** (CP violated) |
+| Scaling $a_0 \propto y_s^2 y_p^2$ | 9/9 נקודות, ratio = 1.00000 → **PASS** |
+| Analytical match | deviation $5 \times 10^{-5}$% → **מושלם** |
+
+**נוסחה אנליטית (מאומתת נומרית):**
+$$a_0 = \frac{y_s^2 y_p^2}{8\pi m_\chi^2} = \frac{2\pi \alpha_s \alpha_p}{m_\chi^2}$$
+
+**פיזיקת CP:** מצב ¹S₀ של שני Majorana זהים → CP = −1. שני סקלרים זהים ב-s-wave → CP = +1. מעבר ¹S₀ → φφ **דורש** שבירת CP. רק הגורם המעורב $y_s^2 y_p^2$ שובר CP.
+
+**באג שתוקן:** סימן בין $M_t$ ו-$M_u$. הסימן הנכון הוא $M = M_t + M_u$ (**פלוס** — Bose symmetry לשני $\phi$ זהים ב-final state). עם מינוס, pure couplings נתנו $a_0 \neq 0$ בשגיאה.
