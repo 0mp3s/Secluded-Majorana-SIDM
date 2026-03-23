@@ -28,6 +28,7 @@ from functools import partial
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from config_loader import load_config
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -39,9 +40,11 @@ if _DIR not in sys.path:
     sys.path.insert(0, _DIR)
 
 # ================================================================
-#  OBSERVATIONAL DATA  (same 13 points as v33)
+#  OBSERVATIONAL DATA  — loaded from config.json if available
 # ================================================================
-OBSERVATIONS = [
+_CFG = load_config(__file__)
+
+_DEFAULT_OBS = [
     ("Draco dSph",          12,   0.6,  0.1,  2.0,  "KTY16"),
     ("Fornax dSph",         12,   0.8,  0.2,  3.0,  "KTY16"),
     ("NGC 2976",            60,   2.0,  0.5,  5.0,  "KTY16"),
@@ -56,6 +59,8 @@ OBSERVATIONS = [
     ("72 cluster mergers", 1500,  0.2,  0.0,  0.47, "Harvey+15"),
     ("TBTF dwarfs",         30,   1.0,  0.5,  5.0,  "Elbert+15"),
 ]
+
+OBSERVATIONS = [tuple(o) for o in _CFG.get("observations", _DEFAULT_OBS)]
 
 OBS_VELOCITIES = sorted(set(v for _, v, *_ in OBSERVATIONS))
 
@@ -112,32 +117,35 @@ def run():
     t0 = time.time()
     hdr = "=" * 72
     ncpu = os.cpu_count() or 4
-    # leave 2 cores for OS
-    nworkers = max(1, ncpu - 2)
+    nworkers = _CFG.get("n_workers", max(1, ncpu - 2))
 
     print(hdr)
     print("  V10 — v34 chi2 Fit to Observational Data")
-    print(f"  13 systems x 80k scan points + 17 relic BPs")
+    print(f"  {len(OBSERVATIONS)} systems x scan points + relic BPs")
     print(f"  Parallel: {nworkers} workers on {ncpu} cores")
     print(hdr)
 
     # ============================================================
-    # LOAD EXISTING DATA
+    # LOAD EXISTING DATA  (paths overridable via config.json)
     # ============================================================
-    raw_csv = os.path.join(DATA_DIR, 'all_viable_raw_v8.csv')
+    raw_csv_path = _CFG.get("scan_data_csv", os.path.join(DATA_DIR, 'all_viable_raw_v8.csv'))
+    if not os.path.isabs(raw_csv_path):
+        raw_csv_path = os.path.normpath(os.path.join(_DIR, raw_csv_path))
     raw_points = []
-    with open(raw_csv) as f:
+    with open(raw_csv_path) as f:
         reader = csv.DictReader(f)
         for row in reader:
             mc = float(row['m_chi_GeV'])
             mp_gev = float(row['m_phi_GeV'])   # keep GeV for solver
             al = float(row['alpha'])
             raw_points.append((mc, mp_gev, al))
-    print(f"  Loaded {len(raw_points)} raw viable points from v22 scan")
+    print(f"  Loaded {len(raw_points)} raw viable points from scan")
 
-    relic_csv = os.path.join(DATA_DIR, 'v31_true_viable_points.csv')
+    relic_csv_path = _CFG.get("relic_bp_csv", os.path.join(DATA_DIR, 'v31_true_viable_points.csv'))
+    if not os.path.isabs(relic_csv_path):
+        relic_csv_path = os.path.normpath(os.path.join(_DIR, relic_csv_path))
     relic_points = []
-    with open(relic_csv) as f:
+    with open(relic_csv_path) as f:
         reader = csv.DictReader(f)
         for row in reader:
             mc = float(row['m_chi_GeV'])

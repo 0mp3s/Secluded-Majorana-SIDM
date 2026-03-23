@@ -1,0 +1,16 @@
+{
+    "_comment": "Cross-check scripts configuration",
+
+    "benchmark_csv": "../data/v31_true_viable_points.csv",
+    "representative_csv": "../data/all_viable_representative_v8.csv",
+
+    "sommerfeld": {
+        "velocities_km_s": [30, 200, 1000, 90000],
+        "_comment": "90000 km/s ~ v_fo at freeze-out (T ~ m_chi/25)"
+    },
+
+    "velocity_averaged": {
+        "velocities_km_s": [12, 30, 50, 200, 1000, 1500],
+        "n_integration_points": 50
+    }
+}

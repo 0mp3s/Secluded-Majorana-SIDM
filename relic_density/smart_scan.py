@@ -23,29 +23,38 @@ DATA_DIR = _os.path.join(_ROOT, 'data')
 import sys, os, math, time, csv
 import numpy as np
 from concurrent.futures import ProcessPoolExecutor, as_completed
+from config_loader import load_config
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 
 # ==============================================================
-#  Grid definition
+#  Configuration — loaded from config.json if available
 # ==============================================================
-N_CHI = 20
-N_PHI = 30
+_CFG = load_config(__file__)
+_GRID = _CFG.get("grid", {})
+_BOLTZ = _CFG.get("boltzmann", {})
+_SIDM = _CFG.get("sidm_cuts", {})
 
-M_CHI_VALS = np.logspace(np.log10(10.0), np.log10(100.0), N_CHI)   # 10–100 GeV
-M_PHI_VALS = np.logspace(np.log10(1.0e-3), np.log10(50.0e-3), N_PHI)  # 1–50 MeV
+N_CHI = _GRID.get("n_chi", 20)
+N_PHI = _GRID.get("n_phi", 30)
 
-TARGET_OMEGA = 0.1200
-BISECT_RTOL  = 1e-4       # relative tolerance on Ωh²
-BISECT_MAX   = 50         # max bisection iterations
-ALPHA_LO     = 1.0e-5     # bracket lower bound
-ALPHA_HI     = 5.0e-2     # bracket upper bound
+_m_chi_range = _GRID.get("m_chi_range_GeV", [10.0, 100.0])
+_m_phi_range = _GRID.get("m_phi_range_GeV", [1.0e-3, 50.0e-3])
+
+M_CHI_VALS = np.logspace(np.log10(_m_chi_range[0]), np.log10(_m_chi_range[1]), N_CHI)
+M_PHI_VALS = np.logspace(np.log10(_m_phi_range[0]), np.log10(_m_phi_range[1]), N_PHI)
+
+TARGET_OMEGA = _BOLTZ.get("target_omega_h2", 0.1200)
+BISECT_RTOL  = _BOLTZ.get("bisect_rtol", 1e-4)
+BISECT_MAX   = _BOLTZ.get("bisect_max_iter", 50)
+ALPHA_LO     = _BOLTZ.get("alpha_range", [1.0e-5, 5.0e-2])[0]
+ALPHA_HI     = _BOLTZ.get("alpha_range", [1.0e-5, 5.0e-2])[1]
 
 # SIDM cuts
-SIGMA_M_30_LO  = 1.0      # cm²/g
-SIGMA_M_30_HI  = 10.0
-SIGMA_M_1000_HI = 0.1
+SIGMA_M_30_LO   = _SIDM.get("sigma_m_30_lo", 1.0)
+SIGMA_M_30_HI   = _SIDM.get("sigma_m_30_hi", 10.0)
+SIGMA_M_1000_HI = _SIDM.get("sigma_m_1000_hi", 0.1)
 
 # ==============================================================
 #  Worker function (runs in child process)
@@ -217,7 +226,9 @@ if __name__ == '__main__':
 
     # --- Save ALL results to CSV (including non-viable, for diagnostics) ---
     all_results.sort(key=lambda r: (r['m_chi_GeV'], r['m_phi_GeV']))
-    csv_all = os.path.join(DATA_DIR, "v31_all_relic_points.csv")
+    _OUT = _CFG.get("output", {})
+    _csv_all_rel = _OUT.get("all_relic_csv", os.path.join(DATA_DIR, "v31_all_relic_points.csv"))
+    csv_all = _csv_all_rel if os.path.isabs(_csv_all_rel) else os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), _csv_all_rel))
     with open(csv_all, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(['m_chi_GeV', 'm_phi_GeV', 'alpha', 'omega_h2',
@@ -234,7 +245,8 @@ if __name__ == '__main__':
 
     # --- Save viable-only CSV ---
     if viable:
-        csv_viable = os.path.join(DATA_DIR, "v31_true_viable_points.csv")
+        _csv_viable_rel = _OUT.get("viable_csv", os.path.join(DATA_DIR, "v31_true_viable_points.csv"))
+        csv_viable = _csv_viable_rel if os.path.isabs(_csv_viable_rel) else os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), _csv_viable_rel))
         with open(csv_viable, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(['m_chi_GeV', 'm_phi_GeV', 'alpha', 'omega_h2',

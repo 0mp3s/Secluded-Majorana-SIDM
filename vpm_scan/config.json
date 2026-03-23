@@ -1,0 +1,18 @@
+{
+    "_comment": "VPM raw scan configuration (core scanner)",
+
+    "grid": {
+        "n_chi": 50,
+        "n_phi": 70,
+        "n_res": 4,
+        "n_alpha": 200,
+        "m_chi_range_GeV": [0.1, 100.0],
+        "m_phi_range_GeV": [0.1e-3, 200e-3],
+        "lambda_crits": [1.68, 6.45, 14.7, 26.0]
+    },
+
+    "output": {
+        "raw_csv": "../data/all_viable_raw_v8.csv",
+        "representative_csv": "../data/all_viable_representative_v8.csv"
+    }
+}

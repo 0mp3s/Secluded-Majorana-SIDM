@@ -18,11 +18,18 @@ Key physics:
   Decay: φ → e+e- (tree, if m_φ > 2m_e), φ → γγ (loop, always)
   Thermal contact: φφ ↔ hh, φ ↔ ff̄ via mixing
 """
-import sys, math
+import sys, math, os
 import numpy as np
+
+# === path setup ================================================
+_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+sys.path.insert(0, os.path.join(_ROOT, 'core'))
+from config_loader import load_config
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
+
+_CFG = load_config(__file__)
 
 # ==============================================================
 #  Constants [natural units, GeV]
@@ -114,7 +121,7 @@ def test_1_lifetime():
     print("    any m_φ:     φ → γγ   (loop, suppressed)")
     print()
 
-    m_phi = 4.233e-3  # benchmark [GeV]
+    m_phi = _CFG.get("benchmark", {}).get("m_phi_GeV", 4.233e-3)  # benchmark [GeV]
     print(f"  Benchmark: m_φ = {m_phi*1e3:.3f} MeV (> 2m_e = 1.022 MeV)")
     print()
     print(f"  {'sin θ':>12}  {'λ_{Hφ}':>12}  {'Γ_ee [GeV]':>12}  {'Γ_γγ [GeV]':>12}  "

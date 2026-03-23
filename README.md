@@ -82,6 +82,31 @@ cd observations && python chi2_fit.py
 cd stats_mcmc && python run_mcmc.py
 ```
 
+## Configuration
+
+All scripts support external configuration via JSON files, so you can run them
+with **new data** without editing source code.
+
+Each folder has a `config.json` with the default parameter values.
+Override them by editing the file or using the `--config` CLI flag:
+
+```bash
+# Use custom config
+python observations/chi2_fit.py --config my_observations.json
+
+# Or edit the default config in-place
+nano observations/config.json
+```
+
+Key configurable parameters per folder:
+- **observations/**: observational data (systems, velocities, σ/m bounds), input CSVs, worker count
+- **relic_density/**: scan grid (m_χ, m_φ ranges, resolution), Boltzmann solver settings, SIDM cuts
+- **cross_checks/**: benchmark CSV path, test velocities
+- **cosmology/**: benchmark point (m_χ, m_φ, α), Higgs-portal coupling
+- **core/**: VPM scan grid (when run as standalone script)
+
+See each folder's `README.md` for the full config.json schema and expected data formats.
+
 ## Physics Summary
 
 | Component | Method | Key Result |

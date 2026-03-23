@@ -31,6 +31,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from config_loader import load_config
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -44,55 +45,42 @@ if _DIR not in sys.path:
 from v22_raw_scan import sigma_T_vpm
 
 # ==============================================================
-#  REAL OBSERVATIONAL DATA
-#  All values from published peer-reviewed papers
+#  REAL OBSERVATIONAL DATA — loaded from config.json if available
 # ==============================================================
+_CFG = load_config(__file__)
 
-# Format: (name, v_km_s, sigma_m_central, sigma_m_lo, sigma_m_hi, ref)
-# v is characteristic velocity dispersion of the system
-# sigma_m_lo/hi are 1σ bounds (or upper/lower limits)
-
-OBSERVATIONS = [
-    # --- Kaplinghat, Tulin & Yu (2016) PRL 116, 041302, Table I ---
-    # Dwarf galaxies (NFW halo fits → core size → σ/m)
+_DEFAULT_OBS = [
     ("Draco dSph",          12,   0.6,  0.1,  2.0,  "KTY16"),
     ("Fornax dSph",         12,   0.8,  0.2,  3.0,  "KTY16"),
-    # LSB galaxies
     ("NGC 2976",            60,   2.0,  0.5,  5.0,  "KTY16"),
     ("NGC 1560",            55,   3.0,  1.0,  8.0,  "KTY16"),
     ("IC 2574",             50,   1.5,  0.3,  5.0,  "KTY16"),
-    # Galaxy groups & clusters
     ("NGC 720 (group)",    250,   0.5,  0.1,  1.5,  "KTY16"),
     ("NGC 1332 (group)",   280,   0.3,  0.05, 1.0,  "KTY16"),
-    # Clusters
     ("Abell 611",         1200,   0.1,  0.02, 0.3,  "KTY16"),
     ("Abell 2537",        1100,   0.15, 0.03, 0.4,  "KTY16"),
-
-    # --- Kamada, Kaplinghat, Pace, Yu (2017) PRL 119, 111102 ---
-    # Diverse rotation curve requirement
     ("Diverse RC band",     40,   3.0,  0.5,  10.0, "KKPY17"),
-
-    # --- Bullet Cluster constraints ---
-    # Randall, Markevitch, Clowe, Gonzalez (2008) ApJ 679, 1173
     ("Bullet Cluster",    4700,   0.7,  0.0,  1.25, "Randall+08"),
-    # Harvey, Massey, Kitching+ (2015) Science 347, 1462
     ("72 cluster mergers", 1500,  0.2,  0.0,  0.47, "Harvey+15"),
-
-    # --- Elbert, Bullock, Garrison-Kimmel+ (2015) MNRAS 453, 29 ---
-    # Too-big-to-fail: require σ/m ≥ 0.5 at dwarf scales
     ("TBTF dwarfs",         30,   1.0,  0.5,  5.0,  "Elbert+15"),
 ]
 
+OBSERVATIONS = [tuple(o) for o in _CFG.get("observations", _DEFAULT_OBS)]
+
 # ==============================================================
-#  Our benchmark points
+#  Our benchmark points (overridable via config)
 # ==============================================================
 
-BENCHMARKS = [
-    # (name, m_chi, m_phi, alpha)
+_DEFAULT_BENCHMARKS = [
     ("BP1", 20.69, 11.34e-3, 1.048e-3),
     ("BP5", 10.0,   7.564e-3, 5.538e-4),
     ("BP17", 100.0, 14.849e-3, 4.806e-3),
 ]
+
+if "benchmarks" in _CFG:
+    BENCHMARKS = [tuple(b) for b in _CFG["benchmarks"]]
+else:
+    BENCHMARKS = _DEFAULT_BENCHMARKS
 
 VELOCITIES = np.logspace(np.log10(5), np.log10(5000), 100)
 

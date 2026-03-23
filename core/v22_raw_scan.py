@@ -173,16 +173,22 @@ def sigma_T_vpm(m_chi, m_phi, alpha, v_km_s):
 
 
 # ==============================================================
-#  Scan grid (same as V7)
+#  Scan grid  — configurable via --config or vpm_scan/config.json
 # ==============================================================
-N_CHI   = 50
-N_PHI   = 70
-N_RES   = 4
-N_ALPHA = 200
+from config_loader import load_config as _load_config
+_SCAN_CFG = _load_config(__file__).get("grid", {})
 
-M_CHI_VALS = np.logspace(np.log10(0.1), np.log10(100.0), N_CHI)
-M_PHI_VALS = np.logspace(np.log10(0.1e-3), np.log10(200e-3), N_PHI)
-LAM_CRITS  = np.array([1.68, 6.45, 14.7, 26.0])
+N_CHI   = _SCAN_CFG.get("n_chi", 50)
+N_PHI   = _SCAN_CFG.get("n_phi", 70)
+N_RES   = _SCAN_CFG.get("n_res", 4)
+N_ALPHA = _SCAN_CFG.get("n_alpha", 200)
+
+_m_chi_range = _SCAN_CFG.get("m_chi_range_GeV", [0.1, 100.0])
+_m_phi_range = _SCAN_CFG.get("m_phi_range_GeV", [0.1e-3, 200e-3])
+
+M_CHI_VALS = np.logspace(np.log10(_m_chi_range[0]), np.log10(_m_chi_range[1]), N_CHI)
+M_PHI_VALS = np.logspace(np.log10(_m_phi_range[0]), np.log10(_m_phi_range[1]), N_PHI)
+LAM_CRITS  = np.array(_SCAN_CFG.get("lambda_crits", [1.68, 6.45, 14.7, 26.0]))
 
 
 # ==============================================================

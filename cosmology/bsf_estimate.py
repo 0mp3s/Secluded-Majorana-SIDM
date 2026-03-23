@@ -19,20 +19,31 @@ Key references:
   - Petraki, Kusenko & Volkas (2014), JCAP 02:005 — General BSF formalism
   - von Harling & Petraki (2014), JCAP 12:033 — BSF in dark matter models
 """
-import sys, math
+import sys, math, os, json
 import numpy as np
+
+# === path setup ================================================
+_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+sys.path.insert(0, os.path.join(_ROOT, 'core'))
+from config_loader import load_config
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 
 # ==============================================================
+#  Configuration — loaded from config.json if available
+# ==============================================================
+_CFG = load_config(__file__)
+_BENCH = _CFG.get("benchmark", {})
+
+# ==============================================================
 #  Constants
 # ==============================================================
-# Benchmark from V8 scan
-M_CHI_BENCH = 42.919    # GeV
-M_PHI_BENCH = 4.233e-3  # GeV (4.233 MeV)
-ALPHA_BENCH = 6.172e-4
-LAMBDA_BENCH = 6.259
+# Benchmark from scan (overridable via config.json)
+M_CHI_BENCH = _BENCH.get("m_chi_GeV", 42.919)
+M_PHI_BENCH = _BENCH.get("m_phi_GeV", 4.233e-3)
+ALPHA_BENCH = _BENCH.get("alpha", 6.172e-4)
+LAMBDA_BENCH = ALPHA_BENCH * M_CHI_BENCH / M_PHI_BENCH
 
 
 # ==============================================================

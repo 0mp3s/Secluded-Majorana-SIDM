@@ -1,0 +1,14 @@
+{
+    "_comment": "Cosmology scripts configuration",
+
+    "benchmark": {
+        "m_chi_GeV": 42.919,
+        "m_phi_GeV": 4.233e-3,
+        "alpha": 6.172e-4
+    },
+
+    "higgs_portal": {
+        "lambda_h_phi": 1e-6,
+        "_comment": "Higgs-portal coupling for mediator thermalization"
+    }
+}

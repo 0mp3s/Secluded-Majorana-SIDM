@@ -29,6 +29,7 @@ DATA_DIR = _os.path.join(_ROOT, 'data')
 import sys, os, time, math
 import numpy as np
 from scipy.integrate import quad
+from config_loader import load_config
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -43,6 +44,8 @@ from v22_raw_scan import sigma_T_vpm
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+
+_CFG = load_config(__file__)
 
 # Warm up JIT
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
@@ -103,9 +106,9 @@ def sigma_m_averaged(m_chi, m_phi_GeV, alpha, v_char_km_s, n_gauss=30):
 
 
 # ================================================================
-#  Observational data (same as v34)
+#  Observational data — loaded from config.json if available
 # ================================================================
-OBSERVATIONS = [
+_DEFAULT_OBS = [
     ("Draco dSph",          12,   0.6,  0.1,  2.0,  "KTY16"),
     ("Fornax dSph",         12,   0.8,  0.2,  3.0,  "KTY16"),
     ("NGC 2976",            60,   2.0,  0.5,  5.0,  "KTY16"),
@@ -120,6 +123,8 @@ OBSERVATIONS = [
     ("72 cluster mergers", 1500,  0.2,  0.0,  0.47, "Harvey+15"),
     ("TBTF dwarfs",         30,   1.0,  0.5,  5.0,  "Elbert+15"),
 ]
+
+OBSERVATIONS = [tuple(o) for o in _CFG.get("observations", _DEFAULT_OBS)]
 
 
 def compute_chi2(sigma_dict):
@@ -142,8 +147,11 @@ def compute_chi2(sigma_dict):
 def main():
     import csv as csv_mod
 
-    # Load relic BPs
-    csv_path = os.path.join(DATA_DIR, "v31_true_viable_points.csv")
+    # Load relic BPs (path overridable via config.json)
+    _bp_csv = _CFG.get("benchmark_csv", os.path.join(DATA_DIR, "v31_true_viable_points.csv"))
+    if not os.path.isabs(_bp_csv):
+        _bp_csv = os.path.normpath(os.path.join(_DIR, _bp_csv))
+    csv_path = _bp_csv
     bps = []
     with open(csv_path) as f:
         reader = csv_mod.DictReader(f)

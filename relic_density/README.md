@@ -3,51 +3,78 @@
 Scripts that solve the Boltzmann equation numerically to find parameter
 points with Ω_χ h² = 0.120 ± 0.001 (Planck 2018) while satisfying SIDM constraints.
 
-## benchmark_extractor.py (v30)
+All scripts support `--config custom_config.json` to override default parameters.
 
-Extracts top benchmark points from the raw VPM scan:
-1. Loads `data/all_viable_raw_v8.csv` (80k SIDM-passing points)
-2. Applies Kolb-Turner relic filter (0.115 ≤ Ωh² ≤ 0.125)
-3. Ranks by proximity to Planck central value
-4. Saves top results
+## Configuration — config.json
 
-**Input:** `data/all_viable_raw_v8.csv`  
-**Output:** `data/v30_perfect_benchmarks.csv`, stdout
+Edit `config.json` to change the scan grid, Boltzmann solver parameters, or SIDM cuts:
 
-## boltzmann_correction.py (v30)
+```jsonc
+{
+    "grid": {
+        "n_chi": 20,                        // number of m_χ grid points
+        "n_phi": 30,                        // number of m_φ grid points
+        "m_chi_range_GeV": [10.0, 100.0],   // DM mass range [GeV]
+        "m_phi_range_GeV": [1e-3, 50e-3]    // mediator mass range [GeV]
+    },
+    "boltzmann": {
+        "target_omega_h2": 0.1200,          // target relic density
+        "bisect_rtol": 1e-4,                // bisection relative tolerance
+        "bisect_max_iter": 50,              // maximum bisection iterations
+        "alpha_range": [1e-5, 0.05]         // coupling bracket [lo, hi]
+    },
+    "sidm_cuts": {
+        "sigma_m_30_lo": 1.0,               // σ/m(30 km/s) lower bound [cm²/g]
+        "sigma_m_30_hi": 10.0,              // σ/m(30 km/s) upper bound [cm²/g]
+        "sigma_m_1000_hi": 0.1              // σ/m(1000 km/s) upper bound [cm²/g]
+    },
+    "output": {
+        "all_relic_csv": "../data/v31_all_relic_points.csv",
+        "viable_csv": "../data/v31_true_viable_points.csv"
+    }
+}
+```
 
-Verifies benchmark points via exact numerical Boltzmann (not KT approximation).
-Uses bisection on α to find exact Ωh² = 0.120.
+### Output CSV Formats
 
-**Input:** Benchmark points (hardcoded from v30 results)  
-**Output:** stdout
+**all_relic_csv** — All points that converged (viable or not):
+
+| Column | Type | Unit | Description |
+|--------|------|------|-------------|
+| m_chi_GeV | float | GeV | Dark matter mass |
+| m_phi_GeV | float | GeV | Mediator mass |
+| alpha | float | — | Dark coupling |
+| omega_h2 | float | — | Relic density |
+| lambda | float | — | Dimensionless coupling α·m_χ/m_φ |
+| sigma_m_30 | float | cm²/g | σ/m at v=30 km/s |
+| sigma_m_1000 | float | cm²/g | σ/m at v=1000 km/s |
+| sidm_viable | int | — | 1 if passes SIDM cuts, 0 otherwise |
+
+**viable_csv** — Same columns minus `sidm_viable` (all are viable).
 
 ## smart_scan.py (v31)
 
 Full-grid numerical Boltzmann scan:
-- For each (m_χ, m_φ) cell, bisects α to find exact Ωh² = 0.120
+- For each (m_χ, m_φ) cell, bisects α to find exact Ωh² = target
 - Checks SIDM viability at each solution
-- Produces the final 17 viable benchmark points
 
-**Input:** None (scans parameter space directly)  
-**Output:** `data/v31_true_viable_points.csv`, `data/v31_all_relic_points.csv`
+**Input:** None (scans parameter space directly)
+**Output:** CSVs as configured above
+
+## benchmark_extractor.py (v30)
+
+Extracts top benchmark points from the raw VPM scan.
+
+**Input:** `data/all_viable_raw_v8.csv`
+**Output:** `data/v30_perfect_benchmarks.csv`
+
+## boltzmann_correction.py (v30)
+
+Verifies benchmark points via exact numerical Boltzmann.
 
 ## plot_island.py (v31)
 
-Visualizes the "island of viability" in the (m_χ, m_φ) plane:
-- σ/m heatmap with SIDM-viable region overlay
-- BP1 velocity-dependent cross section profile
+Visualizes the "island of viability" in the (m_χ, m_φ) plane.
 
-**Input:** `data/v31_all_relic_points.csv`  
+**Input:** `data/v31_all_relic_points.csv`
 **Output:** `output/v31_island_of_viability.png`, `output/v31_bp1_velocity_profile.png`
-
-## Example Output
-
-```
-output/
-├── v27_output.txt              # Boltzmann solver verification
-├── v30_output.txt              # Benchmark extraction summary
-├── v31_output.txt              # Smart scan results
-├── v31_island_of_viability.png # Figure: parameter island
-└── v31_bp1_velocity_profile.png # Figure: BP1 σ/m(v) curve
-```

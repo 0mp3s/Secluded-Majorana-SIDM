@@ -1,0 +1,28 @@
+{
+    "_comment": "Relic density scan configuration",
+
+    "grid": {
+        "n_chi": 20,
+        "n_phi": 30,
+        "m_chi_range_GeV": [10.0, 100.0],
+        "m_phi_range_GeV": [1.0e-3, 50.0e-3]
+    },
+
+    "boltzmann": {
+        "target_omega_h2": 0.1200,
+        "bisect_rtol": 1e-4,
+        "bisect_max_iter": 50,
+        "alpha_range": [1.0e-5, 5.0e-2]
+    },
+
+    "sidm_cuts": {
+        "sigma_m_30_lo": 1.0,
+        "sigma_m_30_hi": 10.0,
+        "sigma_m_1000_hi": 0.1
+    },
+
+    "output": {
+        "all_relic_csv": "../data/v31_all_relic_points.csv",
+        "viable_csv": "../data/v31_true_viable_points.csv"
+    }
+}
