@@ -61,11 +61,19 @@ Secluded-Majorana-SIDM/
 │   ├── run_mcmc.py           # emcee sampler + corner plots
 │   └── config.json           # MCMC configuration
 │
+├── mixed_coupling/           # Mixed scalar/pseudoscalar coupling analysis
+│   └── opusB/                # Condition validation (C1–C4)
+│
 ├── predictions/              # Testable predictions vs published data
 │   ├── gravothermal/         # dSph gravothermal evolution
 │   ├── rotation_curves/      # SPARC diversity (V(2kpc) vs V_max)
 │   ├── cluster_offsets/      # Cluster merger σ/m bounds
-│   └── delta_neff/           # ΔN_eff from light mediator
+│   ├── delta_neff/           # ΔN_eff from light mediator
+│   ├── fornax_jeans/         # Fornax Jeans analysis (SIDM + feedback + β)
+│   └── multi_dsph_jeans/     # Multi-dSph cross-validation (5 dSphs)
+│
+├── discussion/               # A–B discussion notes
+│   └── MixedMajorana.md
 │
 └── docs/                     # Preprint & peer reviews
     ├── preprint_draft_v10.md
@@ -93,6 +101,12 @@ cd predictions/gravothermal && python predict_gravothermal.py
 cd ../rotation_curves && python predict_core_sizes.py
 cd ../cluster_offsets && python predict_offsets.py
 cd ../delta_neff && python predict_neff.py
+
+# Fornax Jeans analysis (SIDM + feedback + Osipkov-Merritt anisotropy)
+cd ../fornax_jeans && python predict_fornax_jeans_aniso.py
+
+# Multi-dSph cross-validation (Fornax, Sculptor, Draco, Carina, Sextans)
+cd ../multi_dsph_jeans && python predict_multi_dsph_jeans.py
 ```
 
 ## Configuration
@@ -135,6 +149,9 @@ See each folder's `README.md` for the full config.json schema and expected data 
 | **Cluster mergers** | Harvey+2015 bounds | ALL PASS (8 systems × 3 BPs) |
 | **SPARC rotation** | Baryons + SIDM fit | DDO_154: Υ_* = 0.32 (physical range) |
 | **ΔN_eff** | Light mediator BBN | ≈ 0 (Boltzmann-suppressed) |
+| **Fermi-LAT** | dSph indirect detection | Tree-level = 0 (secluded); loop 16 orders below UL |
+| **Fornax Jeans** | σ_los(R) profile fit | MAP+fb+β: **χ²/dof = 1.7/7** (all residuals < 1σ) |
+| **Multi-dSph** | 5 classical dSphs | **4/5 with χ²/dof < 2** — not a statistical fluke |
 
 ### Peer Review Status
 
