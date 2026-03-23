@@ -1,0 +1,25 @@
+{
+    "benchmark_points": [
+        {"label": "BP1",  "m_chi_GeV": 20.69,  "m_phi_MeV": 11.34,  "alpha": 1.048e-3},
+        {"label": "BP9",  "m_chi_GeV": 37.9,   "m_phi_MeV": 16.36,  "alpha": 1.84e-3},
+        {"label": "MAP",  "m_chi_GeV": 90.64,  "m_phi_MeV": 13.85,  "alpha": 2.546e-2}
+    ],
+    "fornax": {
+        "M200_Msun": 3.16e9,
+        "c200": 18,
+        "sigma_v_km_s": 11.7,
+        "r_half_pc": 710,
+        "M_star_Msun": 2.0e7,
+        "t_age_Gyr": 10,
+        "distance_kpc": 147,
+        "ref": "Read+2019, Walker+2009"
+    },
+    "walker2009_sigma_los": {
+        "description": "Binned σ_los(R) for Fornax from Walker+2009 (2633 member stars)",
+        "R_pc": [100, 250, 400, 550, 710, 900, 1100, 1400, 1800],
+        "sigma_los_km_s": [11.4, 11.8, 12.0, 11.7, 11.5, 11.1, 10.5, 9.6, 8.1],
+        "sigma_err_km_s": [1.0, 0.7, 0.6, 0.6, 0.6, 0.8, 1.0, 1.3, 2.0],
+        "ref": "Walker, Mateo, Olszewski et al. 2009, ApJ 704, 1274"
+    },
+    "output_dir": "output"
+}

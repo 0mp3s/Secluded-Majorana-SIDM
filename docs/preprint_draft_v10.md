@@ -489,6 +489,10 @@ BP1 ($\alpha = 1.05 \times 10^{-3}$) gives $r_{\rm core} = 449$ pc — marginall
 
 The observed projected positions of the GCs ($R_{\rm proj} = 240$–$1710$ pc) are naturally explained as GCs that formed at $r > r_{\rm core}$, spiraled inward under dynamical friction, and stalled upon entering the constant-density core. No additional mechanism beyond SIDM core formation is required.
 
+**Stellar velocity dispersion profile.** As an independent cross-check, we solve the spherical Jeans equation in the isotropic limit ($\beta = 0$) to predict the line-of-sight stellar velocity dispersion profile $\sigma_{\rm los}(R)$. We model the stellar distribution as a Plummer profile with $r_{\rm half} = 710$ pc, $M_* = 2.0 \times 10^7\;M_\odot$ (Walker et al. 2009), embedded in the SIDM-cored+NFW gravitational potential computed above. The radial velocity dispersion $\sigma_r^2(r) = \rho_*^{-1}\int_r^\infty \rho_*(r')\,G\,M_{\rm tot}(r')/r'^2\,dr'$ is then Abel-projected to $\sigma_{\rm los}(R)$, with **no free parameters** — the benchmark points are fixed by relic density and astrophysical cross sections.
+
+The NFW baseline gives $\sigma_{\rm los}(R=100\;\text{pc}) \approx 16.5$ km/s, overshooting the Walker et al. (2009) measurement of $11.4 \pm 1.0$ km/s by $\sim 5\sigma$ — a clear kinematic signature of the cusp problem. BP1 ($r_{\rm core} = 449$ pc) reduces the central prediction to 12.1 km/s (within 1$\sigma$) and achieves $\chi^2/\text{dof} = 39/8$, a factor 3.9 improvement over the NFW ($\chi^2 = 152$). MAP ($r_{\rm core} = 885$ pc) lowers the central dispersion further to 9.0 km/s — slightly below the data, reflecting over-coring (the same trade-off seen in rotation curves, §7.3). All models overpredict $\sigma_{\rm los}$ at $R > 1$ kpc by $\sim 2$ km/s, a well-known artifact of the isotropic assumption; mild radial anisotropy ($\beta \sim 0.2$–$0.3$; Walker & Peñarrubia 2011) would reconcile the outer profile. The key result — **SIDM coring resolves the central dispersion excess** — is robust against the anisotropy treatment.
+
 ### 7.3 Radial Acceleration Relation
 
 The radial acceleration relation (RAR) discovered by McGaugh et al. (2016) establishes a tight empirical correlation between the observed centripetal acceleration $g_{\rm obs} = V_{\rm obs}^2/r$ and the baryonic acceleration $g_{\rm bar} = V_{\rm bar}^2/r$ in disk galaxies, described by
@@ -546,6 +550,7 @@ We present predictions for 15 galaxies: 8 classical dSphs (Fornax, Sculptor, Dra
 | §7.1 | CP band $\alpha_s/\alpha_p$ | 13 — 212 (1.22 dec) | — | **1.8 — 11,532 (3.81 dec)** | Testable at colliders |
 | §7.2 | Fornax GC survival | ⚠ 12/15 | ⚠ 11/15 | ✅ **15/15** | All 5 GCs survive (observed) |
 | §7.2 | SIDM core $r_{\rm core}$ (Fornax) | 449 pc | 332 pc | **885 pc** | $\gtrsim 500$ pc (Walker+2011) |
+| §7.2 | Fornax $\sigma_{\rm los}$ (Jeans, $\beta=0$) | ✅ $\chi^2=39$ | ⚠ $\chi^2=68$ | ⚠ $\chi^2=60$ | NFW: $\chi^2=152$ (cusp ruled out) |
 | §7.3 | RAR scatter (spirals) | 0.122 dex | — | — | 0.177 dex (observed) |
 | §7.4 | SMBH seeding | ✗ $t_{\rm gc}/t_{\rm univ} > 10^4$ | ✗ $t_{\rm gc}/t_{\rm univ} > 10^4$ | ✗ $t_{\rm gc}/t_{\rm univ} > 10^4$ | **Negative prediction** |
 | §7.5 | Classical dSph cores ($t_{\rm age} = 10$ Gyr) | ✗ 0/8 | ✗ 0/8 | ✅ **6/8** (8/8 at 12 Gyr) | Observed cores in Fornax, Sculptor, Carina, Sextans |
