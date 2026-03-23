@@ -1,0 +1,9 @@
+name,sigma_v_km_s,r_half_pc,rho_0_Msun_kpc3,r_s_kpc,rho_s_Msun_kpc3,core_observed,t_age_Gyr,ref_kinematics,ref_density
+Fornax,11.7,710,7.5e7,1.8,5.0e7,YES,12,Walker+2009,Read+2019
+Sculptor,9.2,283,2.6e8,0.5,2.0e8,YES,12,Walker+2009,Read+2019
+Draco,9.1,221,3.5e8,0.3,3.0e8,AMBIGUOUS,12,Walker+2009,Read+2019
+Carina,6.6,250,1.0e8,0.6,8.0e7,YES,12,Walker+2009,Read+2019
+Sextans,7.9,695,3.0e7,1.5,2.5e7,YES,12,Walker+2009,Read+2019
+Leo_I,9.2,251,2.0e8,0.4,1.5e8,YES,7,Walker+2009,Read+2019
+Leo_II,6.6,176,2.5e8,0.3,2.0e8,YES,10,Walker+2009,Read+2019
+Ursa_Minor,9.5,181,4.0e8,0.3,3.5e8,AMBIGUOUS,12,Walker+2009,Read+2019

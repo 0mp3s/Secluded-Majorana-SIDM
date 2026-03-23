@@ -61,6 +61,12 @@ Secluded-Majorana-SIDM/
 │   ├── run_mcmc.py           # emcee sampler + corner plots
 │   └── config.json           # MCMC configuration
 │
+├── predictions/              # Testable predictions vs published data
+│   ├── gravothermal/         # dSph gravothermal evolution
+│   ├── rotation_curves/      # SPARC diversity (V(2kpc) vs V_max)
+│   ├── cluster_offsets/      # Cluster merger σ/m bounds
+│   └── delta_neff/           # ΔN_eff from light mediator
+│
 └── docs/                     # Preprint & peer reviews
     ├── preprint_draft_v10.md
     ├── research_journal_v10.md
@@ -81,6 +87,12 @@ cd observations && python chi2_fit.py
 
 # Run MCMC posterior sampling
 cd stats_mcmc && python run_mcmc.py
+
+# Run testable predictions
+cd predictions/gravothermal && python predict_gravothermal.py
+cd ../rotation_curves && python predict_core_sizes.py
+cd ../cluster_offsets && python predict_offsets.py
+cd ../delta_neff && python predict_neff.py
 ```
 
 ## Configuration
