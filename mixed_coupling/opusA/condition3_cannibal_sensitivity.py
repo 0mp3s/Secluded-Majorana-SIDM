@@ -34,7 +34,7 @@ Actually, the SIMPLEST correct approach:
 This is the "instant freeze-out" analog for cannibal.
 
 Cannibal rate: Γ_cann = n_φ² ⟨σv²⟩ vs H(T)
-⟨σv²⟩_{3→2} = (25√5)/(512π) × μ₃⁶ / m_φ⁹
+⟨σv²⟩_{3→2} = (25√5)/(512π(4π)⁶) × μ₃⁶ / m_φ¹¹  [Farina+ 2016, eq. 7]
 
 Date: 23 March 2026
 """
@@ -188,7 +188,7 @@ def cannibal_analysis(mu3):
             'cannibal_active': False, 'Y_phi_source': 0.0
         }
     
-    sv2 = 25.0 * math.sqrt(5.0) / (512.0 * math.pi) * mu3**6 / M_PHI**9
+    sv2 = 25.0 * math.sqrt(5.0) / (512.0 * math.pi * (4.0 * math.pi)**6) * mu3**6 / M_PHI**11
     
     # Source term: χχ → φφ produces 2 φ per annihilation at freeze-out
     # Total φ's produced: 2 × (Y_χ,eq(x_fo) - Y_χ(∞)) × (m_χ/m_φ)

@@ -213,7 +213,7 @@ B הציב 4 תנאים. אני מקבל את כולם — הם לגיטימיי
 |---|-------|--------|-------|
 | 1 | חישוב amplitude $\|\mathcal{M}\|^2(y_s, y_p)$ | ✅ PASSED | $a_0 = y_s^2 y_p^2/(8\pi m_\chi^2)$. Script: `opusA/condition1_amplitude.py` |
 | 2 | Scan 2D $(\alpha_s, \alpha_p)$ | ✅ PASSED | Band: $\alpha_s \in [1.3\times10^{-3}, 5.4\times10^{-3}]$, $\alpha_s/\alpha_p \in [13, 212]$ — 1.2 decades, NOT fine-tuned. Script: `opusA/condition2_coupling_scan.py` |
-| 3 | Coupled Boltzmann ($n_\chi, n_\phi, T_\phi$) | ✅ PASSED | Viable for $\mu_3/m_\phi \gtrsim 4.4$, one-sided bound. Script: `opusA/condition3_cannibal_sensitivity.py` |
+| 3 | Coupled Boltzmann ($n_\chi, n_\phi, T_\phi$) | ✅ PASSED | Corrected [Farina+ 2016]: subdominant for $\mu_3/m_\phi \gtrsim 1.7$, one-sided bound. Script: `opusA/condition3_cannibal_sensitivity.py` |
 | 4 | NR potential check — $y_p$ negligible | ✅ PASSED | $\Delta\sigma/\sigma < 6\times10^{-7}$. Script: `opusA/condition4_nr_potential.py` |
 
 ### על הנקודה ש-$\alpha_s \sim \alpha_p$ היא fine-tuning
@@ -269,7 +269,7 @@ $$\langle\sigma v\rangle_0 = \frac{y_s^2 y_p^2}{64\pi m_\chi^2} = \frac{\pi \alp
 |---|-------|--------|------|
 | 1 | חישוב amplitude $|\mathcal{M}|^2(\chi\chi \to \phi\phi)$ עם $(y_s, y_p)$ — אשר $a_0 \propto y_s^2 y_p^2 \neq 0$ | ✅ **PASSED** | $a_0 = y_s^2 y_p^2/(8\pi m_\chi^2) = 2\pi\alpha_s\alpha_p/m_\chi^2$. Script: `mixed_coupling/opusA/condition1_amplitude.py` |
 | 2 | Scan 2D ב-$(\alpha_s, \alpha_p)$ — הראה island width | ✅ **PASSED** | Band: $\alpha_s \in [1.34\times10^{-3}, 5.42\times10^{-3}]$ (0.61 decades). $\alpha_s/\alpha_p \in [12.9, 212]$ — 1.2 decades wide. 13 viable grid points. NOT fine-tuned. Script: `mixed_coupling/opusA/condition2_coupling_scan.py` |
-| 3 | Coupled Boltzmann $(n_\chi, n_\phi, T_\phi)$ עם cannibal $3\phi \to 2\phi$ | ✅ **PASSED** | Sensitivity scan on μ₃ ∈ [10⁻⁶, 10⁻¹] GeV: viable for μ₃/m_φ ≳ 4.4. Script: `mixed_coupling/opusA/condition3_cannibal_sensitivity.py` |
+| 3 | Coupled Boltzmann $(n_\chi, n_\phi, T_\phi)$ עם cannibal $3\phi \to 2\phi$ | ✅ **PASSED** | Formula corrected per Opus B review [Farina+ 2016]: subdominant (Ω_φ < 0.12) for μ₃/m_φ ≳ 1.7. One-sided bound. Script: `mixed_coupling/opusA/condition3_cannibal_sensitivity.py` |
 | 4 | NR potential check — $y_p$ contribution negligible ב-VPM | ✅ **PASSED** | max $|\Delta\sigma/\sigma| < 6\times 10^{-7}$. Script: `mixed_coupling/opusA/condition4_nr_potential.py` |
 
 ### סדר ביצוע
