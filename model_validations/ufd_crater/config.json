@@ -1,0 +1,12 @@
+{
+    "description": "§7.5 — UFD core size predictions + Crater II case study",
+    "benchmark_points": [
+        {"label": "BP1",  "m_chi_GeV": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3},
+        {"label": "BP9",  "m_chi_GeV": 37.9,  "m_phi_MeV": 16.36, "alpha": 1.840e-3},
+        {"label": "MAP",  "m_chi_GeV": 90.64, "m_phi_MeV": 13.85, "alpha": 2.546e-2}
+    ],
+    "output_dir": "output",
+    "t_age_Gyr": 12.0,
+    "core_formation_threshold": 1.0,
+    "collapse_threshold": 100.0
+}

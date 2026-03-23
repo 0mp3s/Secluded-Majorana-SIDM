@@ -1,0 +1,9 @@
+{
+    "benchmark_points": [
+        {"label": "BP1",  "m_chi_GeV": 20.69,  "m_phi_MeV": 11.34,  "alpha": 1.048e-3},
+        {"label": "BP9",  "m_chi_GeV": 37.9,   "m_phi_MeV": 16.36,  "alpha": 1.84e-3},
+        {"label": "MAP",  "m_chi_GeV": 90.64,  "m_phi_MeV": 13.85,  "alpha": 2.546e-2}
+    ],
+    "velocities_km_s": [1, 3, 5, 8, 10, 12, 15, 20, 30, 50, 100, 300, 1000],
+    "output_dir": "output"
+}
