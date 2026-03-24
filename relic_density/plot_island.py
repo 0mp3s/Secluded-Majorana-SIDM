@@ -31,7 +31,7 @@ with open(os.path.join(DATA_DIR, 'v31_all_relic_points.csv')) as f:
     for r in reader:
         all_data.append({
             'm_chi': float(r['m_chi_GeV']),
-            'm_phi': float(r['m_phi_GeV']) * 1e3,   # → MeV
+            'm_phi': float(r.get('m_phi_MeV', 0) or float(r.get('m_phi_GeV', 0)) * 1e3),  # MeV
             'alpha': float(r['alpha']),
             'omega': float(r['omega_h2']),
             'sm30':  float(r['sigma_m_30']),

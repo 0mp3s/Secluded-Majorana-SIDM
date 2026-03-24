@@ -12,28 +12,33 @@ points where σ/m(30 km/s) ∈ [0.1, 10] cm²/g AND σ/m(1000) < 1.
 
 Output: model_validations/cp_separation/output/cp_separation_MAP.csv
 """
-import sys, os, csv, math
+import sys, os, csv, math, json
 import numpy as np
 
-_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_ROOT = os.path.join(_SCRIPT_DIR, '..', '..')
 sys.path.insert(0, os.path.join(_ROOT, 'core'))
 from v22_raw_scan import sigma_T_vpm
 
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)  # JIT warmup
 
-# ── MAP mass point ──
-M_CHI = 94.07       # GeV
-M_PHI = 11.10e-3    # GeV
-RELIC_PRODUCT = 1.387474e-7
+# ── load config ──
+with open(os.path.join(_SCRIPT_DIR, 'config.json')) as f:
+    _cfg = json.load(f)
+
+_bp = _cfg['MAP']
+M_CHI = _bp['m_chi_GeV']          # GeV
+M_PHI = _bp['m_phi_MeV'] * 1e-3   # GeV (VPM needs GeV)
+RELIC_PRODUCT = _bp['relic_product']  # α_s × α_p
 
 # SIDM viability window (same as condition2)
 SIGMA_30_MIN  = 0.1    # cm²/g
 SIGMA_30_MAX  = 10.0   # cm²/g
 SIGMA_1000_MAX = 1.0   # cm²/g (Bullet Cluster / Harvey+15)
 
-VELOCITIES = [10, 30, 50, 100, 200, 500, 1000]
+VELOCITIES = _cfg.get('velocities_km_s', [10, 30, 50, 100, 200, 500, 1000])
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output')
+OUT_DIR = os.path.join(_SCRIPT_DIR, _cfg.get('output_dir', 'output'))
 os.makedirs(OUT_DIR, exist_ok=True)
 
 

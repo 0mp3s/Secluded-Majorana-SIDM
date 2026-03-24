@@ -136,7 +136,11 @@ def run():
         reader = csv.DictReader(f)
         for row in reader:
             mc = float(row['m_chi_GeV'])
-            mp_gev = float(row['m_phi_GeV'])   # keep GeV for solver
+            # Support both m_phi_MeV and legacy m_phi_GeV headers
+            if 'm_phi_MeV' in row:
+                mp_gev = float(row['m_phi_MeV']) / 1000.0
+            else:
+                mp_gev = float(row['m_phi_GeV'])
             al = float(row['alpha'])
             raw_points.append((mc, mp_gev, al))
     print(f"  Loaded {len(raw_points)} raw viable points from scan")

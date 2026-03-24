@@ -521,17 +521,17 @@ def section_2_analysis(raw_points, rep_points):
 
     csv_raw = os.path.join(base, 'all_viable_raw_v8.csv')
     with open(csv_raw, 'w') as f:
-        f.write("m_chi_GeV,m_phi_GeV,alpha,sigma_m_30,sigma_m_1000,resonance_idx\n")
+        f.write("m_chi_GeV,m_phi_MeV,alpha,sigma_m_30,sigma_m_1000,resonance_idx\n")
         for p in raw_points:
-            f.write(f"{p['m_chi']:.6f},{p['m_phi']:.10e},{p['alpha']:.10e},"
+            f.write(f"{p['m_chi']:.6f},{p['m_phi']*1e3:.10e},{p['alpha']:.10e},"
                     f"{p['sigma_30']:.6f},{p['sigma_1000']:.8f},{p['resonance']}\n")
     print(f"\n  Saved raw: {csv_raw}")
 
     csv_rep = os.path.join(base, 'all_viable_representative_v8.csv')
     with open(csv_rep, 'w') as f:
-        f.write("m_chi_GeV,m_phi_GeV,alpha,sigma_m_30,sigma_m_1000\n")
+        f.write("m_chi_GeV,m_phi_MeV,alpha,sigma_m_30,sigma_m_1000\n")
         for p in rep_points:
-            f.write(f"{p['m_chi']:.6f},{p['m_phi']:.10e},{p['alpha']:.10e},"
+            f.write(f"{p['m_chi']:.6f},{p['m_phi']*1e3:.10e},{p['alpha']:.10e},"
                     f"{p['sigma_30']:.6f},{p['sigma_1000']:.8f}\n")
     print(f"  Saved representative: {csv_rep}")
 

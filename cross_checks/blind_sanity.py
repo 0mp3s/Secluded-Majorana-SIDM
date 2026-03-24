@@ -56,9 +56,14 @@ def load_representatives():
     with open(os.path.join(DATA_DIR, "all_viable_representative_v8.csv"), newline='') as f:
         reader = csv.DictReader(f)
         for row in reader:
+            # Support both m_phi_MeV and legacy m_phi_GeV headers
+            if 'm_phi_MeV' in row:
+                mp_gev = float(row['m_phi_MeV']) / 1000.0
+            else:
+                mp_gev = float(row['m_phi_GeV'])
             reps.append({
                 'm_chi': float(row['m_chi_GeV']),
-                'm_phi': float(row['m_phi_GeV']),
+                'm_phi': mp_gev,
                 'alpha': float(row['alpha']),
                 'sigma30': float(row['sigma_m_30']),
             })

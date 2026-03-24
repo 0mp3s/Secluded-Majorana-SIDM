@@ -16,7 +16,7 @@
     },
 
     "sidm_cuts": {
-        "sigma_m_30_lo": 1.0,
+        "sigma_m_30_lo": 0.5,
         "sigma_m_30_hi": 10.0,
         "sigma_m_1000_hi": 0.1
     },

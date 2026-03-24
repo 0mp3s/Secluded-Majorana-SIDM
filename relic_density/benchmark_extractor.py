@@ -85,6 +85,11 @@ print()
 print(f"[1] Loading {CSV_IN} ...")
 t0 = time.time()
 df = pd.read_csv(CSV_IN)
+# Support both m_phi_MeV (current) and legacy m_phi_GeV headers
+if 'm_phi_MeV' in df.columns:
+    df['m_phi_GeV'] = df['m_phi_MeV'] / 1000.0
+elif 'm_phi_GeV' not in df.columns:
+    raise KeyError("CSV must contain 'm_phi_MeV' or 'm_phi_GeV' column")
 print(f"    Loaded {len(df):,} points  ({time.time()-t0:.2f}s)")
 print(f"    Columns: {list(df.columns)}")
 print()
@@ -169,8 +174,9 @@ df_final = df_relic.sort_values("delta_omega").reset_index(drop=True)
 # ---------------------------------------------------------------------------
 #  Step 6: Save full filtered list
 # ---------------------------------------------------------------------------
+df_final["m_phi_MeV"] = df_final["m_phi_GeV"] * 1000.0
 cols_out = [
-    "m_chi_GeV", "m_phi_GeV", "alpha", "omega_h2",
+    "m_chi_GeV", "m_phi_MeV", "alpha", "omega_h2",
     "sigma_m_5", "sigma_m_10", "sigma_m_30", "sigma_m_1000",
     "resonance_idx", "delta_omega"
 ]

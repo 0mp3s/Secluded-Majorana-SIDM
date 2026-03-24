@@ -162,8 +162,11 @@ See each folder's `README.md` for the full config.json schema and expected data 
 
 Four peer reviews received (Claude Opus 4.6, GPT-5.4 ×2, Gemini 3.1 Pro).
 Technical bugs fixed (NFW ρ_s normalization, CSV columns, λ convention).
-Two FATAL physics issues identified (s-wave for Majorana; φ overclosure)
-— resolved in `rescue_plan2.md`: switch Majorana → Dirac + cannibal φ³.
+Two physics issues identified (s-wave for Majorana; φ overclosure)
+— resolved via **mixed scalar/pseudoscalar Yukawa coupling** (§7.1):
+$\mathcal{L} \supset \frac{1}{2}\bar{\chi}(y_s + iy_p\gamma_5)\chi\phi$.
+Relic density depends on $\alpha_s \times \alpha_p$ (s-wave annihilation),
+SIDM depends on $\alpha_s$ only (elastic scattering). See `mixed_coupling/` for validation.
 
 ## Model
 

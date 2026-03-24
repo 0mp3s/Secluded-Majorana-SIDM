@@ -17,34 +17,32 @@ This script:
 
 Output: model_validations/cp_separation/output/
 """
-import sys, os, csv, math
+import sys, os, csv, math, json
 import numpy as np
 
 # ── path bootstrap ──
-_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_ROOT = os.path.join(_SCRIPT_DIR, '..', '..')
 sys.path.insert(0, os.path.join(_ROOT, 'core'))
 from v22_raw_scan import sigma_T_vpm
 
 # Warm up JIT
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
 
-# ── constants ──
-M_CHI = 20.69       # GeV
-M_PHI = 11.34e-3    # GeV (must be in GeV for VPM)
-RELIC_PRODUCT = 1.387474e-7   # α_s × α_p from relic constraint
+# ── load config ──
+with open(os.path.join(_SCRIPT_DIR, 'config.json')) as f:
+    _cfg = json.load(f)
 
-# ── 13 viable points from condition2 ──
-VIABLE_ALPHA_S = [
-    1.3384e-03, 1.5039e-03, 1.6898e-03, 1.8988e-03,
-    2.1336e-03, 2.3974e-03, 2.6939e-03, 3.0270e-03,
-    3.4013e-03, 3.8219e-03, 4.2945e-03, 4.8255e-03,
-    5.4222e-03,
-]
+_bp = _cfg['BP1']
+M_CHI = _bp['m_chi_GeV']          # GeV
+M_PHI = _bp['m_phi_MeV'] * 1e-3   # GeV (VPM needs GeV)
+RELIC_PRODUCT = _bp['relic_product']  # α_s × α_p
 
-VELOCITIES = [10, 30, 50, 100, 200, 500, 1000]  # km/s
+VIABLE_ALPHA_S = _cfg['viable_alpha_s_BP1']
+VELOCITIES = _cfg['velocities_km_s']
 
 # ── output directory ──
-OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output')
+OUT_DIR = os.path.join(_SCRIPT_DIR, _cfg.get('output_dir', 'output'))
 os.makedirs(OUT_DIR, exist_ok=True)
 
 
