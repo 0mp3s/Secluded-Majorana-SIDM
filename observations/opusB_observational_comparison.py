@@ -127,42 +127,39 @@ def main():
         print(f"  {name:<25} {v:10.0f} {sm:8.2f} {lo:8.2f} {hi:8.2f} {ref:<12}")
     print()
 
-    # --- Compatibility check ---
-    print("  COMPATIBILITY CHECK (BP1 vs observations):")
-    print("  " + "-" * 60)
-    bp1_mc, bp1_mp, bp1_alpha = 20.69, 11.34e-3, 1.048e-3
-    n_compat = 0
-    n_total = len(OBSERVATIONS)
-    for name, v, sm_obs, lo, hi, ref in OBSERVATIONS:
-        sm_theory = sigma_T_vpm(bp1_mc, bp1_mp, bp1_alpha, float(v))
-        in_range = lo <= sm_theory <= hi
-        if in_range:
-            n_compat += 1
-            status = "COMPATIBLE"
-        else:
-            if sm_theory < lo:
-                status = f"BELOW (theory={sm_theory:.3f} < {lo:.2f})"
+    # --- Compatibility check (all benchmarks) ---
+    for bp_name, bp_mc, bp_mp, bp_alpha in BENCHMARKS:
+        print(f"  COMPATIBILITY CHECK ({bp_name} vs observations):")
+        print("  " + "-" * 60)
+        n_compat = 0
+        n_total = len(OBSERVATIONS)
+        for name, v, sm_obs, lo, hi, ref in OBSERVATIONS:
+            sm_theory = sigma_T_vpm(bp_mc, bp_mp, bp_alpha, float(v))
+            in_range = lo <= sm_theory <= hi
+            if in_range:
+                n_compat += 1
+                status = "COMPATIBLE"
             else:
-                status = f"ABOVE (theory={sm_theory:.3f} > {hi:.2f})"
-        print(f"  {name:<25} v={v:5.0f}  theory={sm_theory:.4f}  obs=[{lo:.2f},{hi:.2f}]  {status}")
+                if sm_theory < lo:
+                    status = f"BELOW (theory={sm_theory:.3f} < {lo:.2f})"
+                else:
+                    status = f"ABOVE (theory={sm_theory:.3f} > {hi:.2f})"
+            print(f"  {name:<25} v={v:5.0f}  theory={sm_theory:.4f}  obs=[{lo:.2f},{hi:.2f}]  {status}")
 
-    print()
-    print(f"  BP1 compatible with {n_compat}/{n_total} observations")
-    print()
+        print()
+        print(f"  {bp_name} compatible with {n_compat}/{n_total} observations")
+        print()
 
     # --- Generate Figure 3 ---
     fig, ax = plt.subplots(1, 1, figsize=(10, 7))
 
-    # Plot theoretical curves
-    colors = {'BP1': '#2563EB', 'BP5': '#16A34A', 'BP17': '#DC2626'}
-    labels = {
-        'BP1': r'BP1: $m_\chi$=20.7 GeV, $m_\phi$=11.3 MeV',
-        'BP5': r'BP5: $m_\chi$=10 GeV, $m_\phi$=7.6 MeV',
-        'BP17': r'BP17: $m_\chi$=100 GeV, $m_\phi$=14.8 MeV',
-    }
-    for name in ['BP1', 'BP5', 'BP17']:
-        ax.plot(VELOCITIES, curves[name], color=colors[name],
-                linewidth=2.5, label=labels[name], zorder=5)
+    # Plot theoretical curves (dynamic from config benchmarks)
+    _palette = ['#2563EB', '#DC2626', '#16A34A', '#F59E0B', '#8B5CF6', '#6B7280']
+    for i, (bname, mc, mp, alpha) in enumerate(BENCHMARKS):
+        color = _palette[i % len(_palette)]
+        label = rf'{bname}: $m_\chi$={mc:.1f} GeV, $m_\phi$={mp*1e3:.1f} MeV'
+        ax.plot(VELOCITIES, curves[bname], color=color,
+                linewidth=2.5, label=label, zorder=5)
 
     # Plot observational data with error bars
     obs_colors = {
