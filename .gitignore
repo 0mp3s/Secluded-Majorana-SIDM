@@ -2,3 +2,12 @@ __pycache__/
 *.pyc
 *.npy
 .venv/
+
+# Internal work files — not for publication
+discussion/
+mixed_coupling/
+docs/peer_reviews/
+docs/research_journal_v10.md
+OMER.MD
+TODO.md
+gemini_talk_with_omer.md
