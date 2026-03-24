@@ -133,9 +133,10 @@ def main():
     fig.subplots_adjust(hspace=0.08, left=0.12, right=0.95, top=0.97, bottom=0.07)
     os.makedirs(os.path.join(_DIR, 'output'), exist_ok=True)
     for ext in ['png', 'pdf']:
-        path = os.path.join(_DIR, 'output', f'r_v_ratio_paper.{ext}')
+        path = os.path.join(_DIR, 'output', f'r_v_ratio_paper_10k.{ext}')
         fig.savefig(path, dpi=300, bbox_inches='tight')
-        print(f"Saved: {path}")
+        size_bytes = os.path.getsize(path)
+        print(f"Saved: {path}  [{size_bytes:,} bytes = {size_bytes/1024:.1f} KB]")
     plt.close()
 
 
