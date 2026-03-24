@@ -302,7 +302,9 @@ $$\log_{10}(m_\chi/\text{GeV}) \in [\log_{10}(5),\, \log_{10}(200)], \quad \log_
 
 The likelihood is Gaussian: $\ln\mathcal{L} = -\chi^2/2$ with the same $\chi^2$ function used in §4.6 (asymmetric errors, 13 observational systems). The sampler uses 32 walkers initialized around the 17 relic benchmark points plus the unconstrained best fit of §4.6, with a Gaussian scatter of $\sigma = 0.05$ in log-space. After 300 burn-in steps, we collect 5,000 production steps (160,000 total samples, computed in parallel on 12 CPU cores).
 
-**Convergence diagnostics.** The mean acceptance fraction is 0.542, and the maximum integrated autocorrelation time is $\tau_{\rm max} = 75.1$ steps, yielding $N_{\rm eff} \approx 2{,}132$ effective independent samples. The ratio $N_{\rm steps}/\tau_{\rm max} = 66.6 > 50$ confirms convergence [Foreman-Mackey+ 2013]. The chain trace plots (Figure S1) show good mixing with no residual drift.
+**Convergence diagnostics.** The mean acceptance fraction is 0.542, and the maximum integrated autocorrelation time is $\tau_{\rm max} = 75.1$ steps, yielding $N_{\rm eff} \approx 2{,}132$ effective independent samples. The ratio $N_{\rm steps}/\tau_{\rm max} = 66.6 > 50$ confirms convergence [Foreman-Mackey+ 2013]. The chain trace plots (Figure S1) show good mixing with no residual drift. Figure 7 shows the integrated autocorrelation time $\hat{\tau}_{\rm int}$ as a function of chain length: all three parameters plateau well before the end of the chain, and the autocorrelation function decays to zero within $\sim$200 lag steps, confirming that the posterior is fully equilibrated.
+
+**Selection methodology.** We emphasize that no post-hoc parameter tuning enters the analysis. The 17 relic benchmark points are identified by the cosmological scan (§4.4) — selected solely by the objective criterion $\Omega h^2 = 0.120 \pm 0.001$ combined with the SIDM viability window — before any $\chi^2$ comparison with observations. The MAP estimate emerges as the maximum of the full three-dimensional posterior density, not from manual inspection of individual points. The broad posterior (68\% CI spanning $\sim$1 dex in each parameter) further demonstrates that the good fit is not confined to an isolated fine-tuned point but extends across a wide parameter region.
 
 **Results.** The maximum a posteriori (MAP) estimate is:
 $$m_\chi = 94.1~\text{GeV},\quad m_\phi = 11.1~\text{MeV},\quad \alpha = 5.7 \times 10^{-3},\quad \chi^2/\nu = 0.20$$
@@ -323,6 +325,8 @@ Crucially, **all 17 relic benchmark points** (§4.4) lie within the 95% credible
 ![Figure 5: Corner plot showing the 2D marginalized posterior distributions of $\log_{10}(m_\chi)$, $\log_{10}(m_\phi)$, and $\log_{10}\alpha$, with 68% and 95% contour levels. Red lines mark the MAP estimate. All 17 relic BPs fall within the 95% contours.](v38_corner.png)
 
 ![Figure 6: Posterior distribution of the derived parameter $\lambda = \alpha m_\chi/m_\phi$. The median is $\lambda = 5.5$ with a broad 68% CI of [0.8, 29]. The distribution spans both the Born ($\lambda < 1$) and resonant ($\lambda > 1$) regimes.](v38_lambda_posterior.png)
+
+![Figure 7: MCMC convergence diagnostics. Left: integrated autocorrelation time $\hat{\tau}_{\rm int}$ vs chain length for each parameter. All three converge well below the $N/50$ threshold (dashed). Right: autocorrelation function (walker-averaged) showing decay to zero within $\sim$200 steps.](v38_autocorr_diagnostic.png)
 
 ---
 
