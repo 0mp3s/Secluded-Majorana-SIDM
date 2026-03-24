@@ -1,0 +1,55 @@
+Order,Stage,Script,Reads,Writes,Paper Section,Dependencies
+1,0 - VPM Scan,core/v22_raw_scan.py,nothing (grid scan from scratch),"data/all_viable_raw_v8.csv, data/all_viable_representative_v8.csv",§3,none
+2,1 - Relic Density,relic_density/smart_scan.py,nothing (own grid scan + Boltzmann bisection),"data/v31_all_relic_points.csv, data/v31_true_viable_points.csv (17 BPs)","§4.4, §6.2",none
+3,1 - Relic Density,relic_density/benchmark_extractor.py,data/all_viable_raw_v8.csv,data/v30_perfect_benchmarks.csv,§4.3,v22_raw_scan
+4,1 - Relic Density,relic_density/boltzmann_correction.py,config params,console only,§4.4 verify,none
+5,1 - Relic Density,relic_density/plot_island.py,data/v31_all_relic_points.csv,"v31_island_of_viability.png, v31_bp1_velocity_profile.png",Figure 2,smart_scan
+6,2 - Observations,observations/chi2_fit.py,"data/all_viable_raw_v8.csv, data/v31_true_viable_points.csv","v34_results.csv, v34_chi2_fit.png, v34_output.txt",§6,"v22_raw_scan, smart_scan"
+7,2 - Observations,observations/observational_comparison.py,global_config.json (BPs + obs),output/v33_observational_comparison.png,Figure 3,global_config only
+8,2 - Observations,observations/opusB_observational_comparison.py,global_config.json (BPs + obs),output/v33_observational_comparison.png (Harvey+15 fix),Figure 3 (fixed),global_config only
+9,2 - Observations,observations/map_compat_check.py,global_config.json,console only,Quick check,global_config only
+10,3 - MCMC,stats_mcmc/run_mcmc.py,data/v31_true_viable_points.csv,"v38_corner.png, v38_mcmc_chains.png, v38_lambda_posterior.png, v38_mcmc_samples.csv, v38_mcmc_samples.npy",§6,smart_scan
+11,3 - MCMC,stats_mcmc/opusB_run_mcmc.py,data/v31_true_viable_points.csv,same as run_mcmc (lambda + Harvey fix),§6 (fixed),smart_scan
+12,3 - MCMC,stats_mcmc/autocorr_diagnostic.py,output/v38_mcmc_samples.npy,autocorrelation plot,§6 convergence,run_mcmc
+13,4 - VPM Validation,vpm_scan/error_budget.py,data/v31_true_viable_points.csv (BP17),console,Appendix B,smart_scan
+14,4 - VPM Validation,vpm_scan/grid_convergence.py,none,"output/grid_convergence.png, PDF",Appendix B.1,global_config only
+15,4 - VPM Validation,vpm_scan/attractive_repulsive_ratio.py,none,"output/attractive_repulsive_ratio.png, PDF",Appendix C,global_config only
+16,4 - VPM Validation,vpm_scan/transfer_elastic_ratio.py,none,"output/transfer_elastic_ratio.png, PDF",Appendix C,global_config only
+17,4 - VPM Validation,vpm_scan/partial_wave_decomposition.py,none,"output/partial_wave_decomposition.png, PDF",Appendix C,global_config only
+18,4 - VPM Validation,vpm_scan/vpm_born_ratio.py,none,"output/vpm_born_ratio.png, PDF",Appendix C,global_config only
+19,5 - Cross-checks,cross_checks/blind_sanity.py,data/all_viable_representative_v8.csv,console,§4 validation,v22_raw_scan
+20,5 - Cross-checks,cross_checks/blind_large.py,data/all_viable_representative_v8.csv,console,§4 validation,v22_raw_scan
+21,5 - Cross-checks,cross_checks/tyz_comparison.py,none,output/v35_tyz_comparison.png,§3 vs TYZ13,global_config only
+22,5 - Cross-checks,cross_checks/literature_crosscheck.py,none,console,§3 vs TYZ13 Table I,hardcoded TYZ13
+23,5 - Cross-checks,cross_checks/velocity_averaged.py,data/v31_true_viable_points.csv,output/v37_velocity_averaged.png,§4 MB averaging,smart_scan
+24,5 - Cross-checks,cross_checks/sommerfeld.py,data/v31_true_viable_points.csv,output/v36_sommerfeld.png,§4 Sommerfeld,smart_scan
+25,5 - Cross-checks,cross_checks/bullet_onesided.py,data/v31_true_viable_points.csv,console,§6 chi2 method,smart_scan
+26,5 - Cross-checks,cross_checks/transfer_vs_elastic.py,none,console,§3 sigma_T = sigma_el,global_config only
+27,6 - Cosmology,cosmology/mediator_cosmology.py,none,console,§5.1 (Higgs portal excluded),global_config only
+28,6 - Cosmology,cosmology/bsf_estimate.py,none,console,§5.2 (BSF irrelevant),global_config only
+29,6 - Cosmology,cosmology/fermi_lat_dsph.py,none,console,§5.3 (Fermi-LAT PASS),global_config only
+30,7 - Predictions,predictions/gravothermal/predict_gravothermal.py,gravothermal/dsphs_data.csv,output/*.png,§7.2,global_config + local CSV
+31,7 - Predictions,predictions/cluster_offsets/predict_offsets.py,cluster_offsets/clusters_data.csv,output/*.png,§7.3,global_config + local CSV
+32,7 - Predictions,predictions/rotation_curves/predict_core_sizes.py,rotation_curves/sparc_subset.csv,output/*.png,§7.4,global_config + local CSV
+33,7 - Predictions,predictions/rotation_curves/fit_sparc_baryons.py,"sparc_rotation_data.csv, sparc_galaxies.csv",output/*.png,§7.4,local CSVs
+34,7 - Predictions,predictions/rotation_curves/sensitivity_analysis.py,"sparc_rotation_data.csv, sparc_galaxies.csv","output/*.png, CSV",§7.4 sensitivity,local CSVs
+35,7 - Predictions,predictions/delta_neff/predict_neff.py,none,output/*.png,§7.5,global_config only
+36,7 - Predictions,predictions/delta_neff/sensitivity_scan.py,none,"output/*.png, PDF",§7.5 contour,global_config only
+37,7 - Predictions,predictions/fornax_jeans/predict_fornax_jeans.py,global_config.json (Walker+2009),output/*.png,§7.6 (isotropic),global_config only
+38,7 - Predictions,predictions/fornax_jeans/predict_fornax_jeans_feedback.py,global_config.json (Walker+2009),output/*.png,§7.6 (+feedback),global_config only
+39,7 - Predictions,predictions/fornax_jeans/predict_fornax_jeans_aniso.py,global_config.json (Walker+2009),output/*.png,§7.6 (final: +OM beta),global_config only
+40,7 - Predictions,predictions/multi_dsph_jeans/predict_multi_dsph_jeans.py,embedded dSph data,output/*.png,§7.7,global_config only
+41,7 - Predictions,predictions/majorana_vs_dirac/predict_maj_vs_dir.py,none,"output/*.png, maj_vs_dir_data.csv",§7.8,global_config only
+42,7 - Predictions,predictions/majorana_vs_dirac/analyze_ratio_function.py,none,"output/r_v_analysis.png, .csv",§7.8 analysis,global_config only
+43,7 - Predictions,predictions/majorana_vs_dirac/plot_r_v_paper.py,none (imports from #42),publication figure,§7.8 figure,analyze_ratio_function
+44,7 - Predictions,predictions/mc_diversity/mc_diversity.py,rotation_curves/sparc_subset.csv,"output/*.png, .pdf, CSV",§7.9,global_config + local CSV
+45,7 - Predictions,predictions/resonance_sensitivity/resonance_sensitivity.py,none,"output/*.png, .pdf, CSV",§7.10,global_config only
+46,7 - Predictions,predictions/sweep_all_bps.py,"v31_true_viable_points.csv, dsphs_data.csv, clusters_data.csv",output/*.csv,Grand summary,"smart_scan + local CSVs"
+47,8 - Model Validations,model_validations/cp_separation/cp_separation_table.py,cp_separation/config.json,"CSV, markdown",§7.1,global_config only
+48,8 - Model Validations,model_validations/cp_separation/cp_separation_MAP.py,cp_separation/config.json,"CSV, markdown",§7.1 (MAP),global_config only
+49,8 - Model Validations,model_validations/fornax_gc/predict_fornax_gc.py,global_config.json (Fornax halo),output/*.png,§7.2 (GC survival),global_config only
+50,8 - Model Validations,model_validations/ufd_crater/predict_ufd.py,embedded data,"output/*.png, CSV",§7.5 (UFDs),global_config only
+51,8 - Model Validations,model_validations/rar_mcgaugh/rar_analysis.py,SPARC data (via fit_sparc_baryons),"output/*.png, CSV",§7.3 (RAR),fit_sparc_baryons
+52,8 - Model Validations,model_validations/rar_mcgaugh/rar_analysis_v2.py,SPARC data + gas fractions,"output/*.png, CSV",§7.3 (gas fix),fit_sparc_baryons
+53,8 - Model Validations,model_validations/vpm_low_velocity/vpm_diagnostic.py,none,"output/*.png, CSV",§7.2/7.5 diagnostic,global_config only
+54,8 - Model Validations,model_validations/smbh_seeds/predict_smbh_seeds.py,none,output/*.png,§7.4 (SMBH seeds),global_config only
