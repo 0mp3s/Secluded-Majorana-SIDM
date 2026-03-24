@@ -14,5 +14,10 @@
     "output": {
         "raw_csv": "../data/all_viable_raw_v8.csv",
         "representative_csv": "../data/all_viable_representative_v8.csv"
-    }
+    },
+
+    "benchmark_points": [
+        {"label": "BP1", "m_chi_GeV": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3},
+        {"label": "MAP", "m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 5.734e-3}
+    ]
 }

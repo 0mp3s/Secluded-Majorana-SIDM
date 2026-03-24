@@ -752,7 +752,9 @@ We note that this prediction is generic to all elastic SIDM models and is not un
 
 ## Appendix B: Error Budget Details
 
-**B.1 Integrator Convergence.** Doubling step count (4000→16000): $< 0.001\%$ change at all benchmarks.
+**B.1 Integrator Convergence.** We test the RK4 step-count convergence for both BP1 ($\lambda = 1.91$) and the MAP point ($\lambda = 48.6$, deep in the resonant regime) across nine SIDM-relevant velocities ($v = 12$–$4700$ km/s). The step count is varied from the default ($4000$–$12000$ depending on $\kappa$) through $\times 2$, $\times 4$, and $\times 8$ refinements. For BP1, the maximum deviation between default and $\times 8$ resolution is $< 10^{-6}$ across all velocities. For the MAP point — which at $\lambda = 48.6$ probes a deeply resonant regime with many contributing partial waves — the maximum deviation is $6 \times 10^{-4}\%$, occurring only at $v = 4700$ km/s. We also test $x_{\rm max}$ convergence ($\times 1$, $\times 1.5$, $\times 2$): the maximum change is $0.007\%$ (MAP, $v = 4700$ km/s). These results confirm that the default integration parameters are fully converged even deep in the resonant regime. Figure 8 shows the $\sigma/m(v)$ curves at all four step-count refinements overlaid — they are visually indistinguishable.
+
+![Figure 8: VPM integrator convergence test. $\sigma/m(v)$ computed at default step count ($\times 1$) and successively refined ($\times 2$, $\times 4$, $\times 8$) for BP1 ($\lambda = 1.91$, left) and MAP ($\lambda = 48.6$, right). All curves overlap to within $< 0.001\%$, confirming full numerical convergence.](grid_convergence.png)
 
 **B.2 Truncation Error.** Extending $l_{\rm max}$ by +20: $< 0.01\%$ at 30 km/s, 10–13% at 1000 km/s.
 
