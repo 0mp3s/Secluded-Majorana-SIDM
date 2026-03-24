@@ -83,7 +83,7 @@ GALAXIES = [
 # Benchmark points
 BPS = [
     {"label": "BP1", "m_chi": 20.69, "m_phi": 11.34e-3, "alpha": 1.048e-3},
-    {"label": "BP9", "m_chi": 37.9,  "m_phi": 16.36e-3, "alpha": 1.840e-3},
+    {"label": "BP9", "m_chi": 37.93, "m_phi": 12.98e-3, "alpha": 1.858e-3},
     {"label": "MAP", "m_chi": 94.07, "m_phi": 11.10e-3, "alpha": 5.734e-3},
 ]
 

@@ -66,10 +66,10 @@ for threshold, name in [(0.06, "CMB-S4 2sig"), (0.03, "CMB-S4 1sig"), (0.34, "Pl
         print(f"  {name}: massless limit dN={dn0:.5f} -- {status}")
 
 # 4. 2D scan of viable region
-print("\n--- 2D scan: viable region m_chi=[10,100], m_phi=[9,14] ---")
+print("\n--- 2D scan: viable region m_chi=[10,100], m_phi=[7.5,15] ---")
 max_dn = 0; max_p = None
 for mc in np.linspace(10, 100, 100):
-    for mp in np.linspace(9, 14, 100):
+    for mp in np.linspace(7.5, 15, 100):
         dn, _, _, _, _ = delta_neff(mc, mp)
         if dn > max_dn: max_dn = dn; max_p = (mc, mp)
 print(f"  Max dN_eff = {max_dn:.2e} at m_chi={max_p[0]:.1f}, m_phi={max_p[1]:.1f} MeV")
