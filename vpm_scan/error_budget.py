@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-V8 - v23_error_budget.py
+V10 - error_budget.py
 =========================
 Systematic numerical error analysis for the VPM solver.
 
@@ -9,12 +9,12 @@ Three independent error components:
   2. Truncation error:   l_max  vs  l_max+5  vs  l_max+10  vs  l_max+20
   3. Prescription error:  x_min = 0.8*l/kappa  vs  l/kappa  vs  1.2*l/kappa
 
-Tested on 3 benchmarks x 2 velocities (30, 1000 km/s).
+Tested on BP1 + MAP + BP17 (marginal) x 2 velocities (30, 1000 km/s).
 
 Uses Numba JIT for truncation/prescription tests (fast),
 scipy only for integrator ground truth comparison.
 """
-import sys, os, math, time
+import sys, os, math, time, json
 import numpy as np
 from numba import jit
 from scipy.special import spherical_jn, spherical_yn
@@ -32,16 +32,43 @@ GEV_IN_G    = 1.78266e-24
 C_KM_S      = 299792.458
 
 # ==============================================================
-#  Benchmarks
+#  Benchmarks — loaded from config.json + relic CSV
 # ==============================================================
-BENCHMARKS = [
-    {"name": "BM1 (best BBN-safe)",
-     "m_chi": 42.919, "m_phi": 4.233e-3, "alpha": 6.172e-4},
-    {"name": "BM2 (low mass)",
-     "m_chi": 13.9,   "m_phi": 2.0e-3,   "alpha": 3.0e-4},
-    {"name": "BM3 (high mass)",
-     "m_chi": 75.0,   "m_phi": 5.0e-3,   "alpha": 1.0e-4},
-]
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_CONFIG_PATH = os.path.join(_SCRIPT_DIR, "config.json")
+_CSV_PATH = os.path.join(_SCRIPT_DIR, "..", "data", "v31_true_viable_points.csv")
+
+def _load_benchmarks():
+    """Load BP1, MAP from config.json and BP17 (marginal) from relic CSV."""
+    with open(_CONFIG_PATH, "r") as f:
+        cfg = json.load(f)
+    bps = {}
+    for bp in cfg["benchmark_points"]:
+        bps[bp["label"]] = bp
+
+    # BP17 = last row of the relic CSV (highest sigma_m_1000 among viable)
+    import csv
+    with open(_CSV_PATH, "r") as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+    bp17 = rows[-1]  # BP17 is the last row (sorted by sigma_m_1000)
+
+    return [
+        {"name": "BP1 (relic, λ≈1.9)",
+         "m_chi": bps["BP1"]["m_chi_GeV"],
+         "m_phi": bps["BP1"]["m_phi_MeV"] * 1e-3,
+         "alpha": bps["BP1"]["alpha"]},
+        {"name": "MAP (MCMC best-fit, λ≈48.6)",
+         "m_chi": bps["MAP"]["m_chi_GeV"],
+         "m_phi": bps["MAP"]["m_phi_MeV"] * 1e-3,
+         "alpha": bps["MAP"]["alpha"]},
+        {"name": "BP17 (marginal, σ/m(1000)≈0.099)",
+         "m_chi": float(bp17["m_chi_GeV"]),
+         "m_phi": float(bp17["m_phi_MeV"]) * 1e-3,
+         "alpha": float(bp17["alpha"])},
+    ]
+
+BENCHMARKS = _load_benchmarks()
 VELOCITIES = [30.0, 1000.0]
 
 # ==============================================================
@@ -397,8 +424,9 @@ def summary_table():
 
 def main():
     print("=" * 75)
-    print("V8 - v23_error_budget.py")
+    print("V10 - error_budget.py")
     print("Systematic Numerical Error Analysis for VPM Solver")
+    print("  Benchmarks: BP1, MAP, BP17 (from config.json + relic CSV)")
     print("=" * 75)
     t0 = time.time()
 

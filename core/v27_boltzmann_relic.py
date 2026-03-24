@@ -31,11 +31,11 @@ OMEGA_CDM_H2 = 0.120   # Planck 2018
 RHO_CRIT_H2 = 1.0539e-5  # h² × ρ_crit [GeV/cm³]
 S_0 = 2891.2            # entropy density today [cm⁻³]
 
-# V9 benchmark (same point as V8 — same potential, same scan)
-M_CHI_BENCH = 42.919    # GeV
-M_PHI_BENCH = 4.233e-3  # GeV
-ALPHA_BENCH = 6.172e-4
-LAMBDA_BENCH = 6.259
+# V10 benchmark (scalar mediator φ, Majorana χ)
+M_CHI_BENCH = 20.691    # GeV  (BP1)
+M_PHI_BENCH = 11.34e-3  # GeV  (BP1)
+ALPHA_BENCH = 1.048e-3
+LAMBDA_BENCH = 1.913
 
 
 # ==============================================================
