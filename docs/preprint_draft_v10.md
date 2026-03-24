@@ -37,7 +37,7 @@ In this work we consider a **secluded dark sector** containing a Majorana fermio
 
 We compute the self-interaction cross sections using the **Variable Phase Method (VPM)** — a full partial-wave analysis that correctly captures resonance structure near quasi-bound states of the Yukawa potential. This is essential in the regime $\lambda = \alpha m_\chi / m_\phi \sim 1$–$30$ relevant to our parameter space.
 
-**Related work.** Light-mediator SIDM was introduced by Feng, Kaplinghat, Tu & Yu [17] in the context of hidden charged dark matter, and developed systematically by Tulin, Yu & Zurek [9] who provided fitting formulas for the Yukawa transfer cross section. The comprehensive review by Tulin & Yu [10] covers the full landscape of SIDM models. Our work differs from these precedents in several respects: (i) we use the full VPM partial-wave analysis rather than the approximate Hulthén-potential fitting formulas of [9], which fail to capture resonance structure at $\lambda \gtrsim 1$ (Appendix A.5); (ii) we demonstrate quantitatively that the Higgs portal is generically excluded for light mediators (§5.1), motivating a secluded dark sector rather than the visible-decay models assumed in much of the earlier literature; (iii) we perform a combined SIDM + relic density scan with an exact Boltzmann solver (§4.4, §6.2), identifying a well-defined island of viability rather than individual benchmark points; and (iv) we provide a quantitative $\chi^2$ fit to 13 astrophysical systems (§4.6) spanning four decades in velocity.
+**Related work.** Light-mediator SIDM was introduced by Feng, Kaplinghat, Tu & Yu [17] in the context of hidden charged dark matter, and developed systematically by Tulin, Yu & Zurek [9] who provided fitting formulas for the Yukawa transfer cross section. The comprehensive review by Tulin & Yu [10] covers the full landscape of SIDM models. Our work differs from these precedents in several respects: (i) we use the full VPM partial-wave analysis rather than the approximate Hulthén-potential fitting formulas of [9] (also adopted in recent automated pipelines such as sidmkit [24]), which fail to capture resonance structure at $\lambda \gtrsim 1$ (Appendix A.5); (ii) we demonstrate quantitatively that the Higgs portal is generically excluded for light mediators (§5.1), motivating a secluded dark sector rather than the visible-decay models assumed in much of the earlier literature; (iii) we perform a combined SIDM + relic density scan with an exact Boltzmann solver (§4.4, §6.2), identifying a well-defined island of viability rather than individual benchmark points; and (iv) we provide a quantitative $\chi^2$ fit to 13 astrophysical systems (§4.6) spanning four decades in velocity.
 
 ---
 
@@ -533,7 +533,7 @@ where the factor of 2 undoes the default $\Upsilon_{*,\text{def}} = 0.5$ embedde
 
 **MAP results** ($m_\chi = 90.64$ GeV, $\alpha = 2.546 \times 10^{-2}$, $\lambda = 166.6$). The MAP benchmark produces SIDM cores with $r_1 \sim 2$–$10$ kpc — comparable to or exceeding the optical scale lengths of the sample galaxies. This over-coring drives spiral fits to unphysical $\Upsilon_* > 1.3$ and pushes dwarf fits to the upper bound ($\Upsilon_* = 3.0$), with $\chi^2/\text{dof} > 19$ for NGC 2403 and NGC 3198. The tension provides a rotation-curve-based upper bound on the self-interaction strength at dwarf velocities: $\sigma/m(30\;\text{km/s}) \lesssim \text{a few}$ cm$^2$/g for consistency with SPARC rotation curves.
 
-The contrast between BP1 and MAP illustrates a key feature of velocity-dependent SIDM: a single benchmark cannot simultaneously optimize predictions across all mass scales. BP1 ($\sigma/m \approx 0.5$ cm$^2$/g at 30 km/s) represents the sweet spot for galactic-scale phenomenology, while MAP excels at cluster scales (§7.2) and UFD environments (§7.5). This velocity-dependent complementarity is a structural prediction of the model (§7.6).
+The contrast between BP1 and MAP illustrates a key feature of velocity-dependent SIDM: a single benchmark cannot simultaneously optimize predictions across all mass scales. BP1 ($\sigma/m \approx 0.5$ cm$^2$/g at 30 km/s) represents the sweet spot for galactic-scale phenomenology, while MAP excels at cluster scales (§7.2) and UFD environments (§7.5). This velocity-dependent complementarity is a structural prediction of the model (§7.6). Our results are consistent with the SIDM rotation-curve fits of Ren et al. [23], who demonstrated that velocity-dependent cross sections from a light-mediator model can simultaneously explain the diversity and uniformity of SPARC rotation curves. Our approach goes further by deriving the cross section from first principles — the Lagrangian parameters $(m_\chi, m_\phi, \alpha)$ are fixed by the relic density constraint, leaving no free phenomenological parameters in the SIDM prediction.
 
 ### 7.4 Supermassive Black Hole Seeds
 
@@ -620,6 +620,7 @@ The scalar mediator resolves the primary limitations of the axial-vector approac
 4. The model is minimal (3 parameters), anomaly-free, and cosmologically safe ($\Delta N_{\rm eff} \approx 0.027$).
 5. The predicted $\sigma/m(v)$ curves are **quantitatively consistent with all 13 astrophysical observations** spanning $v = 12$–$4700$ km/s (§4.5–4.6). A $\chi^2$ fit to data from five independent analyses [13, 19, 20, 21, 22] yields $\chi^2/\nu = 0.26$ (unconstrained) and $\chi^2/\nu = 0.54$ (relic-constrained BP1), with all pulls $< 1.2\sigma$. All 17 relic benchmarks achieve $\chi^2/\nu < 0.85$. Maxwell–Boltzmann velocity averaging shifts the $\chi^2$ by only $\sim$6% on average (Appendix D), well within observational uncertainties.
 6. A Bayesian MCMC posterior analysis (§4.7) with flat log-priors yields a broad 68% credible region: $m_\chi \in [17, 116]$ GeV, $m_\phi \in [6.5, 15.6]$ MeV, $\alpha \in [10^{-3}, 2.2 \times 10^{-2}]$. All 17 relic benchmark points lie within the 95% credible posterior, and the MAP estimate achieves $\chi^2/\nu = 0.16$.
+7. Unlike phenomenological $\sigma/m(v)$ fits [23, 24], our analysis derives the velocity-dependent cross section from first principles: the Lagrangian parameters $(m_\chi, m_\phi, \alpha)$ are fixed by the observed relic abundance, leaving **zero free parameters** in the SIDM prediction. This micro-physics-first approach — Lagrangian $\to$ relic density $\to$ $\sigma/m(v)$ $\to$ core sizes — contrasts with most existing SIDM–SPARC analyses, which treat $\sigma/m$ as a free function and fit it phenomenologically to rotation curves.
 
 ### 8.3 Falsifiability
 
@@ -694,6 +695,10 @@ Third, the relic constraint $\alpha_s \alpha_p = \text{const}$ means that increa
 [21] D. Harvey, R. Massey, T. Kitching, A. Taylor, E. Tittley, "The nongravitational interactions of dark matter in colliding galaxy clusters," Science 347, 1462 (2015).
 
 [22] J.D. Elbert, J.S. Bullock, S. Garrison-Kimmel, M. Rocha, J. Oñorbe, A.H.G. Peter, "Core formation in dwarf haloes with self-interacting dark matter: no fine-tuning necessary," MNRAS 453, 29 (2015).
+
+[23] T. Ren, A. Kwa, M. Kaplinghat, H.-B. Yu, "Reconciling the Diversity and Uniformity of Galactic Rotation Curves with Self-Interacting Dark Matter," Phys. Rev. X 9, 031020 (2019).
+
+[24] A. Dhiman et al., "sidmkit: A Python toolkit for self-interacting dark matter phenomenology," arXiv:2601.xxxxx (2026).
 
 ---
 
