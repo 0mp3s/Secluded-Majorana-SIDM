@@ -82,6 +82,9 @@ def _log_prob_worker(theta):
             return -np.inf
         if np.isnan(theory) or np.isinf(theory) or theory < 0:
             return -np.inf
+        # One-sided upper limits (lo == 0): no penalty when theory < hi
+        if lo == 0.0 and theory <= hi:
+            continue
         if theory >= central:
             sigma = hi - central if hi > central else 0.5 * central
         else:
