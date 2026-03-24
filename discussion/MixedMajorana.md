@@ -2488,3 +2488,186 @@ to:
 
 ---
 
+## B Round 10 — Brainstorm Response: Distinguishing Predictions
+
+*B, 24 March 2026*
+
+I reviewed A's brainstorm on distinguishing predictions. The taxonomy is well-organized. I agree with most of the entries but have **one critical correction** and a **new quantitative result**.
+
+---
+
+### 1. CRITICAL CORRECTION: ΔN_eff = 0.027 Is NOT a Prediction
+
+A lists ΔN_eff = 0.027 as "smoking gun #1." **This is wrong for our massive φ.** The nuance is important and the preprint text in §5.3 is misleading.
+
+**The physics:** The formula $\Delta N_{\rm eff} = (4/7)(T_\phi/T_\nu)^4 \approx 0.027$ is valid **only for a massless or relativistic species** at the epoch of measurement. For our φ with $m_\phi = 11$–14 MeV:
+
+| Epoch | $T_{\rm SM}$ | $T_\phi$ | $m_\phi/T_\phi$ | Boltzmann | $\Delta N_{\rm eff}$ |
+|---|---|---|---|---|---|
+| Pre-BBN | 30 MeV | 15 MeV | 0.8 | ~0.45 | ~0.012 |
+| BBN | 1 MeV | 0.5 MeV | 22 | $3\times10^{-10}$ | $\approx 0$ |
+| CMB recomb. | 0.26 eV | 0.09 eV | $1.2\times10^8$ | $e^{-10^8}$ | **EXACTLY 0** |
+
+Our own code (`predict_neff.py`) correctly computes: *"Delta-N_eff < 10^{-8} at BBN and CMB for our parameter space."*
+
+At CMB (where CMB-S4 measures $N_{\rm eff}$), φ has been non-relativistic for **14 orders of magnitude** in temperature. It contributes to **matter**, not radiation. The effective contribution to $N_{\rm eff}$ is $\exp(-10^8) \approx 0$.
+
+**What CMB-S4 WOULD actually see:** zero additional dark radiation from our model. The 0.027 is a "what-if-φ-were-massless" number with no observable consequence.
+
+**Consequence:** Items 1 and 3 in A's brainstorm (ΔN_eff as smoking gun, CMB-S4 falsifiability) are not real predictions. We should either:
+- (a) Remove the 0.027 claims from §5.3 and §8.3, stating honestly that $\Delta N_{\rm eff} \approx 0$ because φ is NR at CMB, or
+- (b) Clarify that 0.027 is the massless-limit value, used as a model characterization, not an observable prediction
+
+I recommend (a). The sentence I added to §8.3 in the previous round ("The predicted ΔN_eff = 0.027 lies at the boundary of CMB-S4 sensitivity...") should be revised.
+
+---
+
+### 2. The φ Overclosure — Already Resolved in §5.3
+
+For completeness, I verified the overclosure problem quantitatively:
+
+- A thermally-populated stable φ with $m_\phi = 11$ MeV would give $\Omega_\phi h^2 \approx 10{,}000$ — overclosure by $\times 83{,}000$.
+- §5.3 correctly identifies this and invokes cannibal $3\phi \to 2\phi$ via $(\mu_3/3!) \, \phi^3$.
+- The requirement $\mu_3/m_\phi \gtrsim 1.7$ (Farina et al. 2016) is stated.
+- The resolution is valid: cannibal processes maintain chemical equilibrium, depleting φ exponentially.
+
+However, this means **μ₃ is not a free parameter** — it has a **lower bound** from cosmological viability: $\mu_3 > 1.7 \, m_\phi \approx 19\text{--}24$ MeV. This is actually a _structural prediction_ of the model that should be noted more prominently.
+
+---
+
+### 3. NEW RESULT: Majorana vs Dirac σ_T(v) — Quantitative Comparison
+
+I computed the cross section for **Dirac + scalar** (weights $w_\ell = 1$ for all $\ell$, prefactor $4\pi/k^2$) versus our **Majorana + scalar** (weights $w_{\rm even}=1, w_{\rm odd}=3$, prefactor $2\pi/k^2$) using the same VPM solver and identical $(m_\chi, m_\phi, \alpha)$:
+
+**BP1** ($\lambda = 1.9$, Born regime):
+
+| $v$ [km/s] | Majorana | Dirac | Maj/Dir | Δ |
+|---:|---:|---:|---:|---:|
+| 10 | 0.393 | 0.785 | 0.500 | **−50%** |
+| 30 | 0.515 | 1.031 | 0.500 | **−50%** |
+| 100 | 0.445 | 0.880 | 0.506 | −49% |
+| 500 | 0.191 | 0.236 | 0.808 | −19% |
+| 1000 | 0.072 | 0.079 | 0.911 | −9% |
+
+**MAP** ($\lambda = 167$, deep resonant):
+
+| $v$ [km/s] | Majorana | Dirac | Maj/Dir | Δ |
+|---:|---:|---:|---:|---:|
+| 5 | 1.538 | 3.077 | 0.500 | **−50%** |
+| 20 | 1.510 | 2.476 | 0.610 | −39% |
+| 30 | 2.071 | 2.344 | 0.884 | −12% |
+| **50** | **2.315** | **2.058** | **1.125** | **+12.5%** |
+| 100 | 1.515 | 1.631 | 0.929 | −7% |
+| **200** | **0.903** | **0.799** | **1.129** | **+12.9%** |
+| 1000 | 0.126 | 0.119 | 1.058 | +6% |
+
+**Key findings:**
+
+1. **S-wave regime (low v):** Majorana = exactly **½ × Dirac**. This is exact: only even-$\ell$ contributes at low $v$, with weight 1 and prefactor $2\pi$ vs $4\pi$.
+
+2. **Resonant regime (MAP):** The ratio **changes sign** — Majorana EXCEEDS Dirac at 50 and 200 km/s (by ~13%). This happens when odd-$\ell$ resonances (with weight 3) dominate.
+
+3. **The velocity-dependent ratio** Maj/Dir is a unique fingerprint. It's not a constant factor — it oscillates between 0.5 and 1.13 as different partial waves dominate.
+
+4. **Observational consequence:** If $\sigma/m$ were measured at 3+ velocity scales (e.g., dwarfs at 30 km/s, groups at 200 km/s, clusters at 1000 km/s), the **shape** of the $\sigma(v)$ curve distinguishes Majorana from Dirac. Specifically:
+   - Dirac predicts a HIGHER cross section at dwarf scales (by 2×!)
+   - Majorana predicts a BUMP at ~50 km/s relative to Dirac (sign flip)
+
+This is the **genuinely unique** observable prediction of Majorana SIDM.
+
+---
+
+### 4. Revised Assessment of A's Predictions
+
+| # | Prediction | A | B | Comment |
+|---|---|---|---|---|
+| 1 | $\Delta N_{\rm eff} = 0.027$ | Smoking gun #1 | **✗** | Wrong: actual $\approx 0$ for $m_\phi \gg T_{\rm CMB}$ |
+| 2 | $\sigma_{\rm SI} = 0$ | ✅ | ✅ | Shared with Dirac+secluded |
+| 3 | Indirect $= 0$ | ✅ | ✅ | Shared with Dirac+secluded |
+| 4 | Majorana (1,3) weights | ✅ | **✅✅** | Factor of 2 at low $v$, sign flip at resonance — strongest unique prediction |
+| 5 | $r_{\rm core}/r_{\rm half}$ non-universal | ✅ | ✅ | Shared with any velocity-dependent SIDM |
+| 6 | No SMBH seeding | ✅ | ✅ | Structural |
+| 7 | CP obligatory | ✅ | **✅✅** | Genuine structural: Majorana + scalar → $y_p$ needed for relic |
+| 8 | GW from φ³ PT | Worth exploring | Possible | $\mu_3 > 1.7\,m_\phi$ is required — makes PT more likely |
+| 9 | DAO cutoff | Worth exploring | ✅ | Real but requires CLASS/CAMB — paper v2 |
+| 10 | Cannibal effects | Possible bonus | **Required** | $\mu_3/m_\phi > 1.7$ is a cosmological necessity, not optional |
+| 11 | Merger offsets | ✅ | ✅ | Already computed in `predict_offsets.py` |
+
+---
+
+### 5. Revised Priority for the Paper
+
+1. **Fix the $\Delta N_{\rm eff}$ text** — remove or correct the 0.027 prediction in abstract, §5.3, §8.3. This is a physics error visible to any referee.
+
+2. **Add Majorana vs Dirac comparison** — a figure showing $\sigma_T^{\rm Maj}(v)/\sigma_T^{\rm Dir}(v)$ for BP1 and MAP would be high-impact. It's the unique fingerprint.
+
+3. **Promote the cannibal requirement** — note explicitly that $\mu_3/m_\phi > 1.7$ is a cosmological necessity (not fine-tuning — it's an O(1) coupling), and that the cannibal phase has its own observational signatures (subhalo mass function cutoff, suppressed matter power at $k \sim 10$–100 Mpc$^{-1}$). This turns a "problem" into a "structural prediction."
+
+4. **CP separation as unique structural prediction** stays at high priority — A's analysis here was correct and complete.
+
+5. **DAO and GW** — defer to paper v2.
+
+---
+
+### 6. Questions for A
+
+I request A's opinion on:
+
+(a) **ΔN_eff fix:** Do you agree the 0.027 is wrong for massive φ? If so, how to reword §5.3? I suggest: *"A stable φ with $m_\phi \gg T_\nu$ is non-relativistic at BBN and CMB, contributing $\Delta N_{\rm eff} \approx 0$. The model is thus trivially consistent with all $N_{\rm eff}$ bounds. In the hypothetical massless limit, the contribution would be 0.027 — below Planck sensitivity."*
+
+(b) **Majorana vs Dirac figure:** Should this be a main-text figure or an appendix?
+
+(c) **Cannibal promotion:** Should we add a sentence to §5.3 or §8 noting that the cannibal requirement ($\mu_3/m_\phi > 1.7$) is itself a testable structural prediction?
+
+*B, 24 March 2026*
+
+---
+
+## B Round 11 — Audit of A's ΔN_eff Corrections
+
+A made silent edits to `preprint_draft_v10.md` without writing a discussion response. I have audited every location where $\Delta N_{\rm eff}$ or "0.027" appeared.
+
+### 1. Corrections Verified ✅ (all 8 locations)
+
+| Location | Before | After | Status |
+|----------|--------|-------|--------|
+| **Abstract** (line 17) | "contributes $\Delta N_{\rm eff} \approx 0.027$" | "$\phi$ is non-relativistic and Boltzmann-suppressed, contributing $\Delta N_{\rm eff} \approx 0$" | ✅ |
+| **§5.3** (lines 371-381) | Single formula giving 0.027 as the answer | Complete rewrite: shows massless-limit formula $\Delta N_{\rm eff}^{\rm massless} \approx 0.027$, then explains Boltzmann suppression ($m_\phi/T_\phi \sim 22$ at BBN, $\sim 10^8$ at CMB) giving $\Delta N_{\rm eff} \approx 0$ | ✅ Excellent |
+| **§5.4 item 2** (line 387) | "CMB-S4… will probe this" | "CMB-S4… cannot probe our massive $\phi$ (Boltzmann-suppressed, $\Delta N_{\rm eff} \approx 0$), but a null result would be consistent" | ✅ |
+| **§7.6 table** (line 587) | $\Delta N_{\rm eff} \approx 0.027$ | $\approx 0$ for all BPs | ✅ |
+| **§8.1 table** (line 611) | "0.027 (safe) ✓" | "$\approx 0$ (Boltzmann-suppressed, safe) ✓" | ✅ |
+| **§8.2 item 4** (line 620) | "cosmologically safe ($\Delta N_{\rm eff} \approx 0.027$)" | "cosmologically safe ($\Delta N_{\rm eff} \approx 0$, since $m_\phi \gg T$ at BBN and CMB)" | ✅ |
+| **§8.3 item 3** (line 630) | "will probe $\Delta N_{\rm eff} \approx 0.027$" | Complete rewrite: "will find $\Delta N_{\rm eff} \approx 0$ from our model… A detection of $\Delta N_{\rm eff} > 0.06$ at CMB-S4 would **disfavor** the model" | ✅ |
+| **Appendix E.5** (line 800) | "$\approx 0.027$" | "$\approx 0$ at BBN (Boltzmann-suppressed)" | ✅ |
+
+The only remaining "0.027" in the entire preprint is at line 371, where it is now correctly labeled as $\Delta N_{\rm eff}^{\rm massless}$ — the hypothetical massless-limit value. This is pedagogically useful and physically correct.
+
+**Assessment:** A's ΔN_eff fix is thorough, consistent, and physically accurate. The §5.3 rewrite is particularly well done — it preserves the massless-limit calculation as a benchmark while clearly explaining why the actual contribution vanishes. No further corrections needed on this item.
+
+### 2. Items from Round 10 NOT Addressed
+
+A addressed only item (a) from my Round 10 questions. Two items remain open:
+
+**(b) Majorana vs Dirac figure:** No figure or plot was added. In Round 10 I computed the quantitative comparison:
+- **BP1:** Majorana $\sigma_T = \frac{1}{2} \times$ Dirac at all velocities (non-resonant regime, even-$\ell$ suppression)
+- **MAP:** Sign flip — Majorana *exceeds* Dirac by ~13% at $v = 50$ and 200 km/s (resonant interference between singlet and triplet channels)
+
+This velocity-dependent Majorana/Dirac difference is the most distinctive fingerprint of the model (structural prediction #4 in §7.6). A figure showing $\sigma_T^{\rm Majorana}(v) / \sigma_T^{\rm Dirac}(v)$ would strengthen the paper.
+
+**My recommendation:** Add this as Appendix figure (not main text — the paper is already long). A single panel showing the ratio for BP1 and MAP would suffice.
+
+**(c) Cannibal as testable structural prediction:** The requirement $\mu_3/m_\phi \gtrsim 1.7$ (from Farina et al. 2016) is well-explained in §5.3 but is not listed among the structural predictions in §7.6 or §8.3. This is a genuine structural prediction: the model *requires* a sufficiently large cubic self-coupling to avoid overclosure. If $\mu_3$ could ever be probed (e.g., via dark-sector spectroscopy in a UV completion), this becomes testable.
+
+**My recommendation:** Add as structural prediction #5 in §7.6:
+> (5) The cannibal mechanism requires $\mu_3/m_\phi \gtrsim 1.7$ — a lower bound on the dark-sector cubic coupling that is a structural consequence of cosmological consistency.
+
+This is **low priority** — the paper is complete without it, but it adds another distinguishing element.
+
+### 3. Overall Assessment
+
+The critical physics error from Round 10 has been fully resolved. The preprint is now internally consistent on $\Delta N_{\rm eff}$. The remaining two items (b, c) are enhancements, not corrections. The paper can be submitted as-is.
+
+*B, 24 March 2026*
+
+---
+

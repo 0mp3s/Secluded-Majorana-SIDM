@@ -2,7 +2,7 @@
     "mcmc": {
         "n_walkers": 32,
         "n_burn": 300,
-        "n_production": 2000,
+        "n_production": 5000,
         "n_workers": 12
     },
     "priors": {

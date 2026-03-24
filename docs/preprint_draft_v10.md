@@ -590,7 +590,7 @@ $^\dagger$ Global maximum $\sigma/m(1000) = 0.19$ cm$^2$/g at $\lambda \approx 8
 
 The dual-benchmark strategy is strongly justified by the data. **MAP** ($\lambda = 167$, deep resonant regime) is the astrophysical champion: it produces observable cores in most dSphs (6/8 classical, 5/6 UFDs), achieves perfect Fornax GC survival (15/15), shows a true $\sigma/m$ plateau at low velocities (7% variation across $v = 1$–$12$ km/s), and spans 3.81 decades of CP violation. **BP1** ($\lambda = 1.9$, Born-to-classical transition) is the collider-accessible benchmark: lower $m_\chi = 20.7$ GeV is potentially accessible to future DM searches, and it provides the sweet spot for galactic-scale phenomenology (31–37% RAR scatter improvement). Both benchmarks satisfy relic density, cluster constraints, and $\Delta N_{\rm eff}$ by construction.
 
-**Structural predictions:** (1) SMBH seeds do NOT form via gravothermal collapse — a structural consequence of cluster-safe $\sigma/m(v)$; (2) $r_{\rm core}/r_{\rm half}$ is NOT universal in velocity-dependent SIDM — distinguishing from constant-$\sigma/m$ models; (3) Crater II requires tidal processing in addition to SIDM — not a pure SIDM test; (4) the partial-wave weights for identical Majorana scattering produce a $\sigma_T(v)$ profile quantitatively distinguishable from Dirac+scalar models (see §7.7).
+**Structural predictions:** (1) SMBH seeds do NOT form via gravothermal collapse — a structural consequence of cluster-safe $\sigma/m(v)$; (2) $r_{\rm core}/r_{\rm half}$ is NOT universal in velocity-dependent SIDM — distinguishing from constant-$\sigma/m$ models; (3) Crater II requires tidal processing in addition to SIDM — not a pure SIDM test; (4) the partial-wave weights for identical Majorana scattering produce a $\sigma_T(v)$ profile quantitatively distinguishable from Dirac+scalar models (see §7.7); (5) cosmological consistency requires an efficient cannibal process $3\phi \to 2\phi$, imposing a lower bound $\mu_3/m_\phi \gtrsim 1.7$ on the dark-sector cubic coupling (§5.3).
 
 ### 7.7 Majorana vs Dirac Fingerprint
 
@@ -647,6 +647,7 @@ The model can be tested or constrained by:
 2. **Cluster constraints** tightening to $\sigma/m < 0.01$ cm$^2$/g at 1000 km/s.
 3. **CMB-S4:** improved $\Delta N_{\rm eff}$ sensitivity ($\sigma \sim 0.03$) will find $\Delta N_{\rm eff} \approx 0$ from our model, since $\phi$ is massive ($m_\phi \sim 11$–14 MeV $\gg T$ at recombination) and Boltzmann-suppressed. A detection of $\Delta N_{\rm eff} > 0.06$ at CMB-S4 would **disfavor** the model or require additional light species.
 4. **Relic density:** if $\alpha$ is measured independently (e.g., from halo observations), the relic prediction is fixed — a non-trivial consistency test.
+5. **Cannibal coupling:** the requirement $\mu_3/m_\phi \gtrsim 1.7$ for cosmological consistency (§5.3) is a structural prediction — any UV completion of the model must accommodate a sufficiently large cubic self-coupling.
 
 The absence of a direct detection signal is a **prediction**, not a deficit: we have shown (§5.1) that the Higgs portal is incompatible with light-mediator SIDM, making $\sigma_{\rm SI} = 0$ the expected outcome.
 
