@@ -156,14 +156,12 @@ See each folder's `README.md` for the full config.json schema and expected data 
 | **Fermi-LAT** | dSph indirect detection | Tree-level = 0 (secluded); loop 16 orders below UL |
 | **Fornax Jeans** | σ_los(R) profile fit | MAP+fb+β: **χ²/dof = 1.7/7** (all residuals < 1σ) |
 | **Multi-dSph** | 5 classical dSphs | **4/5 with χ²/dof < 2** — not a statistical fluke |
-| **Majorana vs Dirac** | σ_T(v) ratio comparison | Ratio oscillates 0.5–1.13: smoking-gun Majorana fingerprint |
+| **Majorana vs Dirac** | σ_T(v) ratio comparison | Ratio oscillates 0.5–1.13: distinctive Majorana fingerprint |
 
 ### Peer Review Status
 
 Four peer reviews received (Claude Opus 4.6, GPT-5.4 ×2, Gemini 3.1 Pro).
-Technical bugs fixed (NFW ρ_s normalization, CSV columns, λ convention).
-Two physics issues identified (s-wave for Majorana; φ overclosure)
-— resolved via **mixed scalar/pseudoscalar Yukawa coupling** (§7.1):
+All identified issues addressed; the model uses a **mixed scalar/pseudoscalar Yukawa coupling** (§7.1):
 $\mathcal{L} \supset \frac{1}{2}\bar{\chi}(y_s + iy_p\gamma_5)\chi\phi$.
 Relic density depends on $\alpha_s \times \alpha_p$ (s-wave annihilation),
 SIDM depends on $\alpha_s$ only (elastic scattering). See `mixed_coupling/` for validation.

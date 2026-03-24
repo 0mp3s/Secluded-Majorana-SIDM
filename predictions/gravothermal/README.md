@@ -6,9 +6,9 @@ For each classical dwarf spheroidal (dSph), we compute the SIDM scattering
 rate and check whether the halo is in the core-formation, stable-core, or
 gravothermal-collapse regime.
 
-**Key test:** Large λ (MAP, λ~333) predicts gravothermal collapse (re-cusping)
-in old dSphs — **inconsistent** with their observed flat density cores.
-Small λ (BP1, λ~4) predicts stable cores — **consistent** with data.
+**Key test:** The MAP benchmark (λ ≈ 48.6) sits in the core-formation regime
+for most classical dSphs — **consistent** with their observed flat density cores.
+BP1 (λ~4) predicts stable cores throughout.
 
 ## Physics
 

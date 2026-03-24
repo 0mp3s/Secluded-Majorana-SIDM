@@ -13,7 +13,7 @@ Dirac fermion + same scalar mediator:
 
 Same VPM phase shifts δ_l(k), same (m_χ, m_φ, α) — only the statistical
 weights differ.  The ratio σ_T^Maj / σ_T^Dir oscillates with velocity,
-providing a smoking-gun discriminant at ≥ 3 velocity scales.
+providing a distinctive discriminant at ≥ 3 velocity scales.
 
 Output
 ------

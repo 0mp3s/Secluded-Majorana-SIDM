@@ -31,7 +31,7 @@ orders of magnitude below the Harvey+15 upper bound:
 | Benchmark | σ/m at 3000 km/s | Harvey+15 bound | Status |
 |-----------|-------------------|-----------------|--------|
 | BP1 (λ~4) | ~10⁻⁴ cm²/g | 0.47 cm²/g | ✓ |
-| MAP (λ~333) | ~10⁻³ cm²/g | 0.47 cm²/g | ✓ |
+| MAP (λ~49) | ~10⁻³ cm²/g | 0.47 cm²/g | ✓ |
 
 This is a **generic success** of Yukawa-mediated models: the cross section
 is strongly velocity-suppressed, naturally satisfying cluster bounds while

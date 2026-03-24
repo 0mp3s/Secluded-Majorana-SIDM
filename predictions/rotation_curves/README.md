@@ -33,7 +33,7 @@ Galaxies span three categories:
 |-----------|---|-------------------|
 | BP1 | ~4 | Modest cores; good match to observed diversity |
 | BP16 | ~4 | Similar to BP1 |
-| MAP | ~333 | Very large σ/m at low v → large cores → may over-predict diversity for low-mass halos |
+| MAP | ~49 | Resonant-regime σ/m → larger cores → enhanced diversity for low-mass halos |
 
 ## Usage
 

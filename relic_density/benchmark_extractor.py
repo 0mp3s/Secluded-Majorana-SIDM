@@ -185,7 +185,7 @@ print(f"[5] Saved {len(df_final):,} benchmark points → {CSV_OUT}")
 print()
 
 # ---------------------------------------------------------------------------
-#  Step 6: Print all benchmark points ("The Holy Grail")
+#  Step 6: Print all benchmark points
 # ---------------------------------------------------------------------------
 print("=" * 70)
 print("  COSMOLOGICAL BENCHMARK POINTS  (SIDM + Ωh² = 0.120 ± 0.005)")

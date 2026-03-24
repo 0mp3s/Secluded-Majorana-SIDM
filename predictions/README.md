@@ -13,7 +13,7 @@ Each sub-folder contains:
 
 | # | Prediction | Data Source | Key Test |
 |---|-----------|-------------|----------|
-| 1 | [Gravothermal collapse timescales in dSphs](gravothermal/) | Read+2019, Walker+2009 (GAIA DR3) | λ~333 (MAP) predicts collapse; λ~4 (BP1) predicts stable cores |
+| 1 | [Gravothermal collapse timescales in dSphs](gravothermal/) | Read+2019, Walker+2009 (GAIA DR3) | λ~49 (MAP) → core formation; λ~4 (BP1) → stable cores |
 | 2 | [SPARC rotation curve diversity](rotation_curves/) | Lelli+2016 (SPARC), Oman+2015 | Core size predictions vs measured inner slopes |
 | 3 | [DM–galaxy offsets in cluster mergers](cluster_offsets/) | Harvey+2015 (72 clusters) | σ/m(v_cluster) → predicted offset vs upper bound |
 | 4 | [Extra radiation ΔN_eff](delta_neff/) | Planck 2018, CMB-S4 forecast | ΔN_eff ≈ 0 (m_φ ≫ T at BBN/CMB → Boltzmann-suppressed) |
@@ -34,7 +34,7 @@ cd ../fornax_jeans && python predict_fornax_jeans.py
 
 The MCMC posterior (v38) shows that **without** the relic-density constraint,
 astrophysical data prefer higher masses (m_χ ~ 70–90 GeV) with stronger
-coupling (α ~ 0.02). This leads to λ ~ 60–330, deep in the resonant regime.
-The relic-constrained BPs have λ ~ 2–65.
+coupling (α ~ 0.02). The relic-constrained posterior has MAP λ ≈ 48.6,
+with the 17 benchmark points spanning λ ~ 2–65.
 
 These predictions discriminate between the two regimes using independent data.

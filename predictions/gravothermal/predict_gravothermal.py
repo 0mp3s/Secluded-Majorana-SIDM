@@ -18,9 +18,9 @@ Physics:
       1 < N_scatter < ~100  --> core formation phase (observed cored dSphs)
       N_scatter > ~100-300  --> gravothermal collapse begins --> re-cusping
 
-  Prediction: if lambda is large (MAP, lambda~333), N_scatter may exceed
-  the collapse threshold in old dSphs --> inconsistent with observed cores.
-  If lambda ~ 4 (BP1), N_scatter ~ 1-10 --> stable cores.
+  Prediction: MAP (lambda~49) sits in the core-formation regime for most
+  classical dSphs (N_scatter ~ 1-100). BP1 (lambda~4) gives N_scatter ~ 1-10
+  --> stable cores throughout.
 
 Output: table + bar chart comparing BP1/BP16/MAP predictions.
 """
