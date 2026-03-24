@@ -14,7 +14,10 @@ Method
 3. Build an NFW profile from (V_max, c) and compute the SIDM
    thermalized core via the Kaplinghat+2016 criterion:
        ρ(r_1) × (σ/m) × v × t_age = 1
-4. Record V_SIDM(2 kpc) and ρ_core = ρ_NFW(r_1).
+4. Add baryonic contribution from exponential disk:
+   - M_* from Moster+2010 SHMR (with 0.15 dex scatter)
+   - R_d from Kravtsov (2013) size relation (with 0.2 dex scatter)
+   - V²_total = V²_SIDM + Υ_* × V²_disk
 5. Plot the scatter cloud vs SPARC observed points.
 6. Compare BP1 (λ = 1.91, near Ramsauer-Townsend) with MAP
    (λ = 48.6, deep resonant): BP1 should produce wider scatter
@@ -22,12 +25,14 @@ Method
 
 Output
 ------
-- Figure 1: V(2 kpc) vs V_max (Oman+2015 diversity plot)
-- Figure 2: ρ_core vs V_max
+- Figure 1: V(2 kpc) vs V_max (Oman+2015 diversity plot) — with baryons
+- Figure 2: ρ_core vs V_max with percentile bands
+- Figure 3: overlay all BPs on single panel
 - CSV with all MC results
 """
 import sys, os, csv, math, time
 import numpy as np
+from scipy.special import i0, i1, k0, k1
 
 # ---------- path bootstrap ----------
 _DIR = os.path.dirname(os.path.abspath(__file__))
@@ -144,6 +149,45 @@ def sidm_v_circ(r_kpc, rho_s, r_s, r_1, rho_core):
 
 
 # =========================================================================
+#  Baryon model: exponential disk + SHMR
+# =========================================================================
+
+def shmr_moster(M_200):
+    """Stellar-to-halo-mass ratio M_*/M_200 from Moster+2010.
+
+    log10(M_*/M_200) = log10(2N) - log10[(M/M_1)^-β + (M/M_1)^γ]
+    Parameters: z=0 values from Moster+2010 Table 1.
+    """
+    log_M1 = 11.884   # log10(M_1 / M_sun)
+    N      = 0.0282
+    beta   = 1.057
+    gamma  = 0.556
+    x = M_200 / 10**log_M1
+    return 2.0 * N / (x**(-beta) + x**gamma)
+
+
+def exp_disk_vcirc(r_kpc, M_disk, R_d):
+    """Circular velocity [km/s] from an exponential disk.
+
+    V²(r) = (G M_d / R_d) × y² × [I₀(y)K₀(y) − I₁(y)K₁(y)]
+    where y = r / (2 R_d).
+    """
+    if r_kpc < 1e-6 or R_d < 1e-6 or M_disk < 1e-3:
+        return 0.0
+    y = r_kpc / (2.0 * R_d)
+    # Bessel functions can overflow for large y; clamp
+    y = min(y, 500.0)
+    bf = y**2 * (i0(y) * k0(y) - i1(y) * k1(y))
+    v2 = G_N * M_disk / R_d * bf
+    return math.sqrt(max(v2, 0.0))
+
+
+def disk_scale_length(R_200, lambda_spin=0.035):
+    """Disk scale length from Kravtsov (2013): R_d ≈ 0.015 × R_200 × (λ/0.035)."""
+    return 0.015 * R_200 * (lambda_spin / 0.035)
+
+
+# =========================================================================
 #  SPARC loader
 # =========================================================================
 
@@ -207,6 +251,41 @@ def run():
     log_c_scattered = np.log10(c_median) + rng.normal(0, sigma_logc, n_halos)
     c_scattered = 10**log_c_scattered
 
+    # --- Baryon parameters: SHMR + scatter, disk size + scatter ---
+    rho_crit_val = 126.0
+    R_200_arr = np.empty(n_halos)
+    M_star_arr = np.empty(n_halos)
+    R_d_arr = np.empty(n_halos)
+    V2_bar_arr = np.empty(n_halos)  # V_bar at 2 kpc
+
+    sigma_log_mstar = cfg.get('sigma_log10_mstar', 0.15)
+    sigma_log_Rd    = cfg.get('sigma_log10_Rd', 0.20)
+    upsilon_star    = cfg.get('upsilon_star', 0.5)
+
+    for i in range(n_halos):
+        c = c_scattered[i]
+        vm = V_max_arr[i]
+        rho_s, r_s = nfw_params_from_vmax(vm, c=c)
+        R_200 = c * r_s
+        M_200 = (4.0 / 3.0) * math.pi * 200.0 * rho_crit_val * R_200**3
+        R_200_arr[i] = R_200
+        M_200_arr[i] = M_200
+
+        # Stellar mass with log-normal scatter
+        fstar = shmr_moster(M_200)
+        log_fstar = math.log10(max(fstar, 1e-10)) + \
+            rng.normal(0, sigma_log_mstar)
+        M_star = M_200 * 10**log_fstar
+        M_star_arr[i] = M_star
+
+        # Disk scale length: Kravtsov (2013) with spin scatter
+        lambda_spin = 10**(math.log10(0.035) + rng.normal(0, sigma_log_Rd))
+        R_d = disk_scale_length(R_200, lambda_spin)
+        R_d_arr[i] = R_d
+
+        # V_bar at 2 kpc (with mass-to-light ratio)
+        V2_bar_arr[i] = exp_disk_vcirc(2.0, upsilon_star * M_star, R_d)
+
     print("=" * 76)
     print("  Monte Carlo Halo Diversity Simulation")
     print(f"  {n_halos} halos, V_max ∈ [{vmax_lo}, {vmax_hi}] km/s")
@@ -229,6 +308,7 @@ def run():
         lam = alpha * m_chi / m_phi_GeV
 
         V2_sidm = np.empty(n_halos)
+        V2_total = np.empty(n_halos)
         V2_nfw  = np.empty(n_halos)
         rho_core_arr = np.empty(n_halos)
         r1_arr = np.empty(n_halos)
@@ -259,6 +339,7 @@ def run():
 
             V2_nfw[i]  = nfw_v_circ(2.0, rho_s, r_s)
             V2_sidm[i] = sidm_v_circ(2.0, rho_s, r_s, r_1, rho_core)
+            V2_total[i] = math.sqrt(V2_sidm[i]**2 + V2_bar_arr[i]**2)
             rho_core_arr[i] = rho_core
             r1_arr[i] = r_1
             sigma_m_arr[i] = sigma_m
@@ -266,9 +347,11 @@ def run():
             all_csv.append({
                 'bp': label, 'V_max': vm, 'c_median': c_median[i],
                 'c_draw': c, 'M_200': M_200_arr[i],
+                'M_star': M_star_arr[i], 'R_d_kpc': R_d_arr[i],
                 'sigma_m': sigma_m, 'v_rel': v_rel,
                 'r_1_kpc': r_1, 'rho_core_Msun_kpc3': rho_core,
                 'V2_nfw': V2_nfw[i], 'V2_sidm': V2_sidm[i],
+                'V2_bar': V2_bar_arr[i], 'V2_total': V2_total[i],
             })
 
         dt = time.time() - t_bp
@@ -276,7 +359,8 @@ def run():
 
         mc_results[label] = {
             'V_max': V_max_arr, 'c': c_scattered,
-            'V2_sidm': V2_sidm, 'V2_nfw': V2_nfw,
+            'V2_sidm': V2_sidm, 'V2_total': V2_total,
+            'V2_nfw': V2_nfw, 'V2_bar': V2_bar_arr,
             'rho_core': rho_core_arr, 'r_1': r1_arr,
             'sigma_m': sigma_m_arr,
         }
@@ -284,8 +368,9 @@ def run():
         # --- Summary stats in V_max bins ---
         edges = [30, 60, 100, 160, 250]
         print(f"\n  {'V_max bin':>15s} {'<V2_nfw>':>9s} {'<V2_sidm>':>10s} "
-              f"{'σ(V2_sidm)':>11s} {'<ρ_core>':>12s} {'σ(log ρ)':>10s}")
-        print("  " + "-" * 68)
+              f"{'σ(V2_sidm)':>11s} {'<V2_tot>':>9s} {'σ(V2_tot)':>10s} "
+              f"{'<ρ_core>':>12s} {'σ(log ρ)':>10s}")
+        print("  " + "-" * 90)
         for j in range(len(edges) - 1):
             mask = (V_max_arr >= edges[j]) & (V_max_arr < edges[j+1])
             if mask.sum() == 0:
@@ -293,10 +378,13 @@ def run():
             v2n_m = np.mean(V2_nfw[mask])
             v2s_m = np.mean(V2_sidm[mask])
             v2s_s = np.std(V2_sidm[mask])
+            v2t_m = np.mean(V2_total[mask])
+            v2t_s = np.std(V2_total[mask])
             rho_m = np.mean(rho_core_arr[mask])
             rho_ls = np.std(np.log10(np.maximum(rho_core_arr[mask], 1e-3)))
             print(f"  [{edges[j]:>3d},{edges[j+1]:>3d}) km/s "
                   f"{v2n_m:>9.1f} {v2s_m:>10.1f} {v2s_s:>11.1f} "
+                  f"{v2t_m:>9.1f} {v2t_s:>10.1f} "
                   f"{rho_m:>12.1f} {rho_ls:>10.3f}")
 
     # =====================================================================
@@ -306,8 +394,9 @@ def run():
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=[
             "bp", "V_max", "c_median", "c_draw", "M_200",
+            "M_star", "R_d_kpc",
             "sigma_m", "v_rel", "r_1_kpc", "rho_core_Msun_kpc3",
-            "V2_nfw", "V2_sidm",
+            "V2_nfw", "V2_sidm", "V2_bar", "V2_total",
         ])
         w.writeheader()
         w.writerows(all_csv)
@@ -338,10 +427,15 @@ def run():
         ax.plot(vm_line, v2_nfw_ref, 'k--', lw=1.5, alpha=0.4,
                 label='NFW (no SIDM)')
 
-        # MC cloud
-        ax.scatter(mc['V_max'], mc['V2_sidm'], s=6, alpha=0.25,
+        # DM-only cloud (faint)
+        ax.scatter(mc['V_max'], mc['V2_sidm'], s=4, alpha=0.10,
+                   c='grey', edgecolors='none',
+                   label='SIDM only (DM)')
+
+        # DM + baryons cloud (main)
+        ax.scatter(mc['V_max'], mc['V2_total'], s=6, alpha=0.25,
                    c='steelblue', edgecolors='none',
-                   label=f'MC halos (N={n_halos})')
+                   label=f'SIDM + baryons (N={n_halos})')
 
         # SPARC data
         sp_vm = [g['V_max'] for g in sparc]
@@ -362,7 +456,7 @@ def run():
         ax.legend(fontsize=8, loc='upper left')
         ax.grid(True, alpha=0.3)
 
-    fig.suptitle('Rotation-Curve Diversity: SIDM + Concentration Scatter vs SPARC',
+    fig.suptitle('Rotation-Curve Diversity: SIDM + Baryons + c-Scatter vs SPARC',
                  fontsize=14, y=1.02)
     fig.tight_layout()
     p1 = os.path.join(out_dir, 'mc_v2kpc_vs_vmax.png')
@@ -390,6 +484,47 @@ def run():
                    c='steelblue', edgecolors='none',
                    label=f'MC halos (N={n_halos})')
 
+        # --- Percentile bands in V_max bins ---
+        vbins = np.logspace(np.log10(30), np.log10(250), 12)
+        v_cen = []
+        p16, p50, p84 = [], [], []
+        for jj in range(len(vbins) - 1):
+            m = (mc['V_max'] >= vbins[jj]) & (mc['V_max'] < vbins[jj+1])
+            if m.sum() < 10:
+                continue
+            v_cen.append(np.sqrt(vbins[jj] * vbins[jj+1]))
+            vals = rho_pc3[m]
+            p16.append(np.percentile(vals, 16))
+            p50.append(np.percentile(vals, 50))
+            p84.append(np.percentile(vals, 84))
+        v_cen = np.array(v_cen)
+        ax.fill_between(v_cen, p16, p84, alpha=0.25, color='steelblue',
+                        label='16–84th pctl')
+        ax.plot(v_cen, p50, '-', color='steelblue', lw=2, alpha=0.8,
+                label='Median')
+
+        # --- NFW reference band (no SIDM) ---
+        v_cen_nfw = []
+        nfw_p16, nfw_p50, nfw_p84 = [], [], []
+        rho_nfw_pc3 = np.array([
+            nfw_rho(mc['r_1'][k], *nfw_params_from_vmax(mc['V_max'][k],
+                    c=mc['c'][k])) / 1e9
+            for k in range(n_halos)
+        ])
+        for jj in range(len(vbins) - 1):
+            m = (mc['V_max'] >= vbins[jj]) & (mc['V_max'] < vbins[jj+1])
+            if m.sum() < 10:
+                continue
+            v_cen_nfw.append(np.sqrt(vbins[jj] * vbins[jj+1]))
+            vals = rho_nfw_pc3[m]
+            nfw_p16.append(np.percentile(vals, 16))
+            nfw_p50.append(np.percentile(vals, 50))
+            nfw_p84.append(np.percentile(vals, 84))
+        v_cen_nfw = np.array(v_cen_nfw)
+        ax.fill_between(v_cen_nfw, nfw_p16, nfw_p84, alpha=0.12,
+                        color='grey', label='NFW 16–84th')
+        ax.plot(v_cen_nfw, nfw_p50, '--', color='grey', lw=1.5, alpha=0.6)
+
         # SPARC observed ρ_central (estimated from σ_v, r_core)
         sp_vm = [g['V_max'] for g in sparc]
         sp_rho = [g['rho_central'] / 1e9 for g in sparc]  # → M_sun/pc³
@@ -412,7 +547,7 @@ def run():
         ax.legend(fontsize=8, loc='upper left')
         ax.grid(True, alpha=0.3, which='both')
 
-    fig.suptitle('Central Density Diversity: SIDM + Concentration Scatter',
+    fig.suptitle(r'Central Density Diversity: SIDM + $c$-Scatter (with percentile bands)',
                  fontsize=14, y=1.02)
     fig.tight_layout()
     p2 = os.path.join(out_dir, 'mc_rho_core_vs_vmax.png')
@@ -441,7 +576,7 @@ def run():
             lam = bp['alpha'] * bp['m_chi_GeV'] / (bp['m_phi_MeV'] / 1000)
             mc = mc_results[label_bp]
             c, a, m = bp_styles[idx % len(bp_styles)]
-            ax.scatter(mc['V_max'], mc['V2_sidm'], s=8, alpha=a,
+            ax.scatter(mc['V_max'], mc['V2_total'], s=8, alpha=a,
                        c=c, edgecolors='none', marker=m,
                        label=f'{label_bp} ($\\lambda = {lam:.1f}$)')
 
@@ -459,7 +594,8 @@ def run():
         ax.plot([30, 250], [30, 250], 'gray', ls=':', alpha=0.3)
         ax.set_xlabel(r'$V_{\rm max}$ [km s$^{-1}$]', fontsize=13)
         ax.set_ylabel(r'$V(2\,{\rm kpc})$ [km s$^{-1}$]', fontsize=13)
-        ax.set_title('Halo Diversity: Full MC Comparison', fontsize=14)
+        ax.set_title('Halo Diversity: SIDM + Baryons — Full MC Comparison',
+                    fontsize=14)
         ax.set_xlim(25, 260)
         ax.set_ylim(0, 180)
         ax.legend(fontsize=9, loc='upper left')
@@ -476,7 +612,7 @@ def run():
     #  Quantitative diversity comparison
     # =====================================================================
     print(f"\n{'='*76}")
-    print("  DIVERSITY QUANTIFICATION: σ(V2_sidm) / σ(V2_nfw) in V_max bins")
+    print("  DIVERSITY QUANTIFICATION: σ(V2_total) / σ(V2_nfw) in V_max bins")
     print(f"{'='*76}")
     edges = [30, 60, 100, 160, 250]
     print(f"  {'V_max bin':>15s}", end='')
@@ -494,22 +630,22 @@ def run():
         nfw_std = np.std(v2nfw)
         print(f"  [{edges[j]:>3d},{edges[j+1]:>3d}) km/s ", end='')
         for bp in bps:
-            v2s = mc_results[bp['label']]['V2_sidm'][mask]
-            print(f"  {np.std(v2s):>12.1f}", end='')
+            v2t = mc_results[bp['label']]['V2_total'][mask]
+            print(f"  {np.std(v2t):>12.1f}", end='')
         print(f"  {nfw_std:>12.1f}")
 
     # SPARC coverage check
-    print(f"\n  SPARC data points inside MC cloud:")
+    print(f"\n  SPARC data points inside MC cloud (V2_total):")
     for bp in bps:
         label = bp['label']
         mc = mc_results[label]
         inside = 0
         for g in sparc:
-            # Check if any MC halo within ΔV_max=15 has V2 within 2σ
+            # Check if any MC halo within ΔV_max=15 has V2_total within 2σ
             near = np.abs(mc['V_max'] - g['V_max']) < 15
             if near.sum() == 0:
                 continue
-            v2_near = mc['V2_sidm'][near]
+            v2_near = mc['V2_total'][near]
             lo, hi = np.percentile(v2_near, [5, 95])
             if lo <= g['V_2kpc_obs'] <= hi:
                 inside += 1
