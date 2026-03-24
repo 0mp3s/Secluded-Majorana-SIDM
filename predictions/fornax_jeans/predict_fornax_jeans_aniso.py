@@ -337,7 +337,7 @@ def main():
     })
 
     # Per-BP scenarios
-    colors_bp = {'BP1': '#2196F3', 'BP9': '#4CAF50', 'MAP': '#E91E63'}
+    colors_bp = {'BP1': '#2196F3', 'BP9': '#4CAF50', 'MAP': '#E91E63', 'MAP_relic': '#9C27B0'}
     for bp in bps:
         label = bp['label']
         m_chi = bp['m_chi_GeV']

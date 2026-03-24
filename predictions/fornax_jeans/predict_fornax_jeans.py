@@ -273,8 +273,8 @@ def main():
 
     # ── SIDM benchmarks ──
     results = []
-    colors = {'BP1': '#2196F3', 'BP9': '#4CAF50', 'MAP': '#E91E63'}
-    styles = {'BP1': '-', 'BP9': '--', 'MAP': '-.'}
+    colors = {'BP1': '#2196F3', 'BP9': '#4CAF50', 'MAP': '#E91E63', 'MAP_relic': '#9C27B0'}
+    styles = {'BP1': '-', 'BP9': '--', 'MAP': '-.', 'MAP_relic': ':'}
 
     for bp in bps:
         label = bp['label']

@@ -340,7 +340,7 @@ def main():
     # --- Scenarios C (SIDM only) and D (SIDM + feedback) per benchmark ---
     all_results = []
 
-    colors_bp = {'BP1': '#2196F3', 'BP9': '#4CAF50', 'MAP': '#E91E63'}
+    colors_bp = {'BP1': '#2196F3', 'BP9': '#4CAF50', 'MAP': '#E91E63', 'MAP_relic': '#9C27B0'}
 
     for bp in bps:
         label = bp['label']

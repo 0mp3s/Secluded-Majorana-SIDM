@@ -20,7 +20,8 @@
 
     "benchmarks": [
         ["BP1", 20.69, 11.34e-3, 1.048e-3],
-        ["MAP", 94.07, 11.10e-3, 5.734e-3]
+        ["MAP", 94.07, 11.10e-3, 5.734e-3],
+        ["MAP_relic", 94.07, 11.10e-3, 4.523e-3]
     ],
 
     "scan_data_csv": "../data/all_viable_raw_v8.csv",
