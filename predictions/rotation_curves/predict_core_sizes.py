@@ -234,7 +234,7 @@ def main():
         v2s  = [r['V2_sidm'] for r in results]
 
         # NFW curve
-        vm_line = np.linspace(30, 260, 120)
+        vm_line = np.linspace(30, 320, 150)
         v2_nfw_line = []
         for v in vm_line:
             rs, rss = nfw_params_from_vmax(v, c=conc)
