@@ -110,6 +110,7 @@ DSPHS = {
 #  NFW
 # ═══════════════════════════════════════════════════════════════════
 def nfw_params(M200, c200):
+    """Compute NFW scale density rho_s [M_sun/kpc^3], scale radius r_s [kpc], and R200 [kpc]."""
     rho_crit = 277.5 * 0.674**2
     R200 = (3*M200 / (4*math.pi*200*rho_crit))**(1/3)
     r_s = R200 / c200
@@ -118,10 +119,12 @@ def nfw_params(M200, c200):
     return rho_s, r_s, R200
 
 def rho_nfw(r, rho_s, r_s):
+    """NFW density profile rho(r) [M_sun/kpc^3]."""
     x = r/r_s
     return rho_s / (x*(1+x)**2)
 
 def M_nfw(r, rho_s, r_s):
+    """NFW enclosed mass M(<r) [M_sun]."""
     x = r/r_s
     return 4*math.pi*rho_s*r_s**3*(math.log(1+x) - x/(1+x))
 
@@ -130,12 +133,15 @@ def M_nfw(r, rho_s, r_s):
 #  coreNFW (Read+2016)
 # ═══════════════════════════════════════════════════════════════════
 def core_nfw_n(M_star, M_halo, kappa=80.0):
+    """coreNFW feedback index n = tanh(kappa * M_star/M_halo) (Read+2016)."""
     return math.tanh(kappa * M_star / M_halo)
 
 def M_core_nfw(r, rho_s, r_s, r_c, n):
+    """coreNFW enclosed mass: M_NFW(r) * tanh(r/r_c)^n."""
     return M_nfw(r, rho_s, r_s) * math.tanh(r/r_c)**n
 
 def rho_core_nfw(r, rho_s, r_s, r_c, n, dr_frac=1e-4):
+    """coreNFW density via numerical differentiation of M_core_nfw."""
     dr = max(r*dr_frac, 1e-6)
     Mp = M_core_nfw(r+dr, rho_s, r_s, r_c, n)
     Mm = M_core_nfw(r-dr if r>dr else 0.0, rho_s, r_s, r_c, n)
@@ -147,6 +153,7 @@ def rho_core_nfw(r, rho_s, r_s, r_c, n, dr_frac=1e-4):
 #  SIDM coring
 # ═══════════════════════════════════════════════════════════════════
 def sidm_matching(r_arr, rho_base, sigma_over_m, sigma_v, t_age_Gyr):
+    """Find SIDM coring radius r1 where rho * (sigma/m) * v * t = 1."""
     rho_conv = MSUN_G / KPC_CM**3
     v_rel = sigma_v * math.sqrt(2) * KM_S_CM_S
     t_age = t_age_Gyr * GYR_S
@@ -166,6 +173,7 @@ def sidm_matching(r_arr, rho_base, sigma_over_m, sigma_v, t_age_Gyr):
     return 0.0, rho_base[0]
 
 def build_combined(r_arr, rho_base, M_base, sigma_over_m, sigma_v, t_age):
+    """Build SIDM-cored density/mass profile: isothermal core inside r1, NFW outside."""
     if sigma_over_m < 1e-10:
         return rho_base.copy(), M_base.copy(), 0.0
     r1, rho0 = sidm_matching(r_arr, rho_base, sigma_over_m, sigma_v, t_age)
@@ -187,9 +195,11 @@ def build_combined(r_arr, rho_base, M_base, sigma_over_m, sigma_v, t_age):
 #  Plummer stellar profile
 # ═══════════════════════════════════════════════════════════════════
 def rho_plummer(r, M_star, a):
+    """Plummer stellar density profile [M_sun/kpc^3]."""
     return (3*M_star)/(4*math.pi*a**3) * (1+(r/a)**2)**(-2.5)
 
 def M_plummer(r, M_star, a):
+    """Plummer enclosed stellar mass [M_sun]."""
     return M_star * r**3 / (r**2+a**2)**1.5
 
 
@@ -197,6 +207,7 @@ def M_plummer(r, M_star, a):
 #  Anisotropic Jeans: Osipkov-Merritt
 # ═══════════════════════════════════════════════════════════════════
 def solve_jeans_OM(r_arr, rho_star, M_tot, r_a):
+    """Solve anisotropic Jeans equation with Osipkov-Merritt beta(r) = r^2/(r^2+r_a^2)."""
     Q = 1.0 + (r_arr/r_a)**2
     integ = rho_star * Q * G_KPC_MSUN * M_tot / r_arr**2
     cum = np.zeros(len(r_arr))
@@ -209,6 +220,7 @@ def solve_jeans_OM(r_arr, rho_star, M_tot, r_a):
     return sr2
 
 def project_sigma_los_OM(R_proj, r_arr, rho_star, sr2, r_a):
+    """Project sigma_r^2 to line-of-sight sigma_los(R) with OM anisotropy kernel."""
     slv = np.zeros(len(R_proj))
     for j, R in enumerate(R_proj):
         mask = r_arr > R*1.001
@@ -224,6 +236,7 @@ def project_sigma_los_OM(R_proj, r_arr, rho_star, sr2, r_a):
     return slv
 
 def chi2_calc(smod, R_proj, R_obs, s_obs, s_err):
+    """Compute chi-squared between model and observed sigma_los profiles."""
     sm = np.interp(R_obs, R_proj, smod)
     return np.sum(((s_obs-sm)/s_err)**2), sm
 

@@ -64,11 +64,13 @@ _G_S   = _G_STAR_TABLE[:, 2]
 
 
 def g_star_rho(T):
+    """Effective relativistic degrees of freedom g_*(T) for energy density."""
     logT = math.log(T) if T > 0 else -50
     return float(np.interp(logT, _LOG_T[::-1], _G_RHO[::-1]))
 
 
 def g_star_S(T):
+    """Effective relativistic degrees of freedom g_*S(T) for entropy density."""
     logT = math.log(T) if T > 0 else -50
     return float(np.interp(logT, _LOG_T[::-1], _G_S[::-1]))
 

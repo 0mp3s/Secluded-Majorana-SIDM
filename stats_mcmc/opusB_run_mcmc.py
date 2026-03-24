@@ -192,6 +192,7 @@ def compute_chi2(m_chi, m_phi_GeV, alpha):
 #  Log-probability for emcee
 # ================================================================
 def log_prior(theta):
+    """Flat prior in log10 space, rejecting lambda > 50 to avoid VPM resonance hangs."""
     if np.all(theta >= LO) and np.all(theta <= HI):
         log_m_chi, log_m_phi_MeV, log_alpha = theta
         lam = 10**log_alpha * 10**log_m_chi / (10**log_m_phi_MeV / 1000.0)
@@ -202,6 +203,7 @@ def log_prior(theta):
 
 
 def log_likelihood(theta):
+    """Log-likelihood = -chi2/2 from 13 astrophysical sigma/m constraints."""
     log_m_chi, log_m_phi_MeV, log_alpha = theta
     m_chi = 10.0 ** log_m_chi
     m_phi_MeV = 10.0 ** log_m_phi_MeV
@@ -214,6 +216,7 @@ def log_likelihood(theta):
 
 
 def log_prob(theta):
+    """Log-posterior = log_prior + log_likelihood."""
     lp = log_prior(theta)
     if not np.isfinite(lp):
         return -np.inf
@@ -227,6 +230,7 @@ def log_prob(theta):
 #  MCMC sampling
 # ================================================================
 def run_mcmc():
+    """Run full MCMC pipeline: burn-in, production, diagnostics, corner plot, CSV output."""
     t0_total = time.time()
     hdr = "=" * 72
 

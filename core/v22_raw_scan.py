@@ -50,6 +50,7 @@ G_STAR      = 86.25
 
 @jit(nopython=True, cache=True)
 def sph_jn_numba(l, z):
+    """Spherical Bessel function j_l(z) via upward recurrence (Numba JIT)."""
     if z < 1e-30:
         return 1.0 if l == 0 else 0.0
     j0 = math.sin(z) / z
@@ -70,6 +71,7 @@ def sph_jn_numba(l, z):
 
 @jit(nopython=True, cache=True)
 def sph_yn_numba(l, z):
+    """Spherical Bessel function y_l(z) via upward recurrence (Numba JIT)."""
     if z < 1e-30:
         return -1e300
     y0 = -math.cos(z) / z
@@ -94,6 +96,7 @@ def sph_yn_numba(l, z):
 
 @jit(nopython=True, cache=True)
 def _vpm_rhs(l, kappa, lam, x, delta):
+    """RHS of the VPM ODE: d(delta_l)/dx for Yukawa potential."""
     if x < 1e-20:
         return 0.0
     z = kappa * x
@@ -115,6 +118,7 @@ def _vpm_rhs(l, kappa, lam, x, delta):
 
 @jit(nopython=True, cache=True)
 def vpm_phase_shift(l, kappa, lam, x_max=50.0, N_steps=4000):
+    """Compute partial-wave phase shift delta_l via RK4 integration of the VPM ODE."""
     if lam < 1e-30 or kappa < 1e-30:
         return 0.0
     x_min = max(1e-5, 0.05 / (kappa + 0.01))
@@ -140,6 +144,11 @@ def vpm_phase_shift(l, kappa, lam, x_max=50.0, N_steps=4000):
 
 @jit(nopython=True, cache=True)
 def sigma_T_vpm(m_chi, m_phi, alpha, v_km_s):
+    """Transfer cross section sigma_T/m [cm^2/g] for identical Majorana fermions.
+
+    Sums partial waves with weights w=1 (even l) and w=3 (odd l).
+    Args: m_chi [GeV], m_phi [GeV], alpha (coupling), v_km_s [km/s].
+    """
     v = v_km_s / C_KM_S
     mu = m_chi / 2.0
     k = mu * v

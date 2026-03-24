@@ -75,6 +75,7 @@ KM_S_CM_S  = 1e5               # cm/s
 # ════════════════════════════════════════════════════════════════
 
 def nfw_params(M200, c200):
+    """Compute NFW scale density rho_s [M_sun/kpc^3], scale radius r_s [kpc], and R200 [kpc]."""
     h = 0.674
     rho_crit = 277.5 * h**2
     R200 = (3 * M200 / (4 * math.pi * 200 * rho_crit))**(1.0/3.0)
@@ -84,10 +85,12 @@ def nfw_params(M200, c200):
     return rho_s, r_s, R200
 
 def rho_nfw(r, rho_s, r_s):
+    """NFW density profile rho(r) [M_sun/kpc^3]."""
     x = r / r_s
     return rho_s / (x * (1 + x)**2)
 
 def M_nfw(r, rho_s, r_s):
+    """NFW enclosed mass M(<r) [M_sun]."""
     x = r / r_s
     return 4 * math.pi * rho_s * r_s**3 * (math.log(1 + x) - x / (1 + x))
 
@@ -97,13 +100,16 @@ def M_nfw(r, rho_s, r_s):
 # ════════════════════════════════════════════════════════════════
 
 def core_nfw_n(M_star, M_halo, kappa=80.0):
+    """coreNFW feedback index n = tanh(kappa * M_star/M_halo) (Read+2016)."""
     return math.tanh(kappa * M_star / M_halo)
 
 def M_core_nfw(r, rho_s, r_s, r_c, n):
+    """coreNFW enclosed mass: M_NFW(r) * tanh(r/r_c)^n."""
     f = math.tanh(r / r_c)
     return M_nfw(r, rho_s, r_s) * f**n
 
 def rho_core_nfw(r, rho_s, r_s, r_c, n, dr_frac=1e-4):
+    """coreNFW density via numerical differentiation of M_core_nfw."""
     dr = max(r * dr_frac, 1e-6)
     M_plus  = M_core_nfw(r + dr, rho_s, r_s, r_c, n)
     M_minus = M_core_nfw(r - dr if r > dr else 0.0, rho_s, r_s, r_c, n)
@@ -117,6 +123,7 @@ def rho_core_nfw(r, rho_s, r_s, r_c, n, dr_frac=1e-4):
 
 def sidm_matching_on_profile(r_arr, rho_base_arr, sigma_over_m,
                               sigma_v_km_s, t_age_Gyr):
+    """Find SIDM coring radius r1 where rho * (sigma/m) * v * t = 1."""
     rho_conv = MSUN_G / KPC_CM**3
     v_rel = sigma_v_km_s * math.sqrt(2) * KM_S_CM_S
     t_age = t_age_Gyr * GYR_S
@@ -137,6 +144,7 @@ def sidm_matching_on_profile(r_arr, rho_base_arr, sigma_over_m,
 
 def build_combined_profile(r_arr, rho_base_arr, M_base_arr,
                             sigma_over_m, sigma_v_km_s, t_age_Gyr):
+    """Build SIDM-cored density/mass profile: isothermal core inside r1, NFW outside."""
     if sigma_over_m < 1e-10:
         return rho_base_arr.copy(), M_base_arr.copy(), 0.0, rho_base_arr[0]
     r1, rho0 = sidm_matching_on_profile(
@@ -163,9 +171,11 @@ def build_combined_profile(r_arr, rho_base_arr, M_base_arr,
 # ════════════════════════════════════════════════════════════════
 
 def rho_plummer(r, M_star, a):
+    """Plummer stellar density profile [M_sun/kpc^3]."""
     return (3 * M_star) / (4 * math.pi * a**3) * (1 + (r / a)**2)**(-2.5)
 
 def M_plummer(r, M_star, a):
+    """Plummer enclosed stellar mass [M_sun]."""
     return M_star * r**3 / (r**2 + a**2)**1.5
 
 
