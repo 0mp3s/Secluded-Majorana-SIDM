@@ -27,7 +27,7 @@ from analyze_ratio_function import sigma_T_dirac, partial_wave_decomposition
 BP1 = {"label": r"BP1 ($\lambda=1.9$)",  "m_chi": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3, "color": "#1565C0"}
 MAP = {"label": r"MAP ($\lambda=48.6$)", "m_chi": 94.07, "m_phi_MeV": 11.10, "alpha": 5.734e-3, "color": "#C62828"}
 
-V_GRID = np.logspace(np.log10(2.0), np.log10(3000.0), 500)
+V_GRID = np.logspace(np.log10(2.0), np.log10(3000.0), 10000)
 V_SCALES = {'dSph\n30 km/s': 30.0, 'MW\n220 km/s': 220.0, 'Cluster\n1200 km/s': 1200.0}
 
 
