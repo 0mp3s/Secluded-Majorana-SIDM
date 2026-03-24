@@ -1,14 +1,7 @@
 {
     "_comment": "Cross-check scripts configuration",
 
-    "benchmark_csv": "../data/v31_true_viable_points.csv",
-    "representative_csv": "../data/all_viable_representative_v8.csv",
-
-    "benchmark_points": [
-        {"label": "BP1",  "m_chi_GeV": 20.69,  "m_phi_MeV": 11.34,  "alpha": 1.048e-3},
-        {"label": "MAP",  "m_chi_GeV": 94.07,  "m_phi_MeV": 11.10,  "alpha": 5.734e-3},
-        {"label": "MAP_relic",  "m_chi_GeV": 94.07,  "m_phi_MeV": 11.10,  "alpha": 4.523e-3}
-    ],
+    "benchmark_labels": ["BP1", "MAP", "MAP_relic"],
 
     "sommerfeld": {
         "velocities_km_s": [30, 200, 1000, 90000],

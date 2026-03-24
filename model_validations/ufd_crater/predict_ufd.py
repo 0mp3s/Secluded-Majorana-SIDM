@@ -80,12 +80,12 @@ GALAXIES = [
     ("Crater II",   2.7, 1066, 5.0e8,  18,  "YES (inferred)", 10.0),
 ]
 
-# Benchmark points
-BPS = [
-    {"label": "BP1", "m_chi": 20.69, "m_phi": 11.34e-3, "alpha": 1.048e-3},
-    {"label": "BP9", "m_chi": 37.93, "m_phi": 12.98e-3, "alpha": 1.858e-3},
-    {"label": "MAP", "m_chi": 94.07, "m_phi": 11.10e-3, "alpha": 5.734e-3},
-]
+# Benchmark points — loaded from global_config.json
+from global_config import GC
+BPS = []
+for _lbl in ["BP1", "BP9", "MAP"]:
+    _b = GC.benchmark(_lbl)
+    BPS.append({"label": _lbl, "m_chi": _b["m_chi_GeV"], "m_phi": _b["m_phi_MeV"] * 1e-3, "alpha": _b["alpha"]})
 
 
 def nfw_rho(r, rho_s, r_s):

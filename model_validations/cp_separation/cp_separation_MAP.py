@@ -22,14 +22,16 @@ from v22_raw_scan import sigma_T_vpm
 
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)  # JIT warmup
 
+from global_config import GC
+
 # ── load config ──
 with open(os.path.join(_SCRIPT_DIR, 'config.json')) as f:
     _cfg = json.load(f)
 
-_bp = _cfg['MAP']
-M_CHI = _bp['m_chi_GeV']          # GeV
-M_PHI = _bp['m_phi_MeV'] * 1e-3   # GeV (VPM needs GeV)
-RELIC_PRODUCT = _bp['relic_product']  # α_s × α_p
+_gc_map = GC.benchmark("MAP")
+M_CHI = _gc_map['m_chi_GeV']          # GeV
+M_PHI = _gc_map['m_phi_MeV'] * 1e-3   # GeV (VPM needs GeV)
+RELIC_PRODUCT = _cfg['MAP']['relic_product']  # α_s × α_p
 
 # SIDM viability window (same as condition2)
 SIGMA_30_MIN  = 0.1    # cm²/g
@@ -123,7 +125,7 @@ def main():
         print(f"  σ/m({v:>4d}):     {min(sigs):.4f} — {max(sigs):.4f} cm²/g")
 
     # Compare with MAP's own α_s (= α at CP-symmetric point)
-    map_alpha_s = _bp.get('alpha', 5.734e-3)
+    map_alpha_s = _gc_map['alpha']
     map_lam = map_alpha_s * M_CHI / M_PHI
     map_in_band = any(abs(r['alpha_s'] - map_alpha_s)/map_alpha_s < 0.05 for r in viable)
     print(f"\n  MAP benchmark (α_s = {map_alpha_s}): λ = {map_lam:.1f}")

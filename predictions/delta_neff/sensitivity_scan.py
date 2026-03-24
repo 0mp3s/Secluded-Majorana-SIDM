@@ -1,11 +1,23 @@
 #!/usr/bin/env python3
 """Delta-N_eff sensitivity scan with 2D contour plot."""
+import sys
 import math
 import os
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+
+_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+sys.path.insert(0, os.path.join(_ROOT, 'core'))
+from global_config import GC
+
+_bp1 = GC.benchmark("BP1")
+_map = GC.benchmark("MAP")
+BP1_MC = _bp1["m_chi_GeV"]
+BP1_MP = _bp1["m_phi_MeV"]   # MeV (delta_neff takes MeV)
+MAP_MC = _map["m_chi_GeV"]
+MAP_MP = _map["m_phi_MeV"]   # MeV
 
 def g_star_s(T_GeV):
     if T_GeV > 200:    return 106.75
@@ -41,10 +53,10 @@ for mc in [5, 10, 15, 20, 30, 50, 70, 94, 150, 200]:
     print(f"  {mc:10.1f}  {gd:7.2f}  {xi:7.4f}  {Tp:10.4f}  {x:7.1f}  {dn:12.2e}")
 
 # 2. m_chi fixed at BP1, vary m_phi
-print("\n--- m_chi=20.69 GeV (BP1), varying m_phi ---")
+print(f"\n--- m_chi={BP1_MC} GeV (BP1), varying m_phi ---")
 print(f"  {'m_phi[MeV]':>10s}  {'Tphi[MeV]':>10s}  {'m/Tphi':>7s}  {'Boltz':>10s}  {'dN_eff':>12s}")
 for mp in [0.01, 0.05, 0.1, 0.3, 0.5, 1.0, 2.0, 5.0, 9.0, 11.0, 14.0, 30.0, 50.0]:
-    dn, xi, Tp, x, gd = delta_neff(20.69, mp)
+    dn, xi, Tp, x, gd = delta_neff(BP1_MC, mp)
     if x < 0.1: bs = 1.0
     elif x > 500: bs = 0.0
     else: bs = math.exp(-x)*(1+15/(8*x))
@@ -55,13 +67,13 @@ print("\n--- Critical m_phi where dN_eff crosses experimental bounds ---")
 for threshold, name in [(0.06, "CMB-S4 2sig"), (0.03, "CMB-S4 1sig"), (0.34, "Planck 2sig")]:
     found = False
     for mp in np.linspace(5.0, 0.001, 50000):
-        dn, _, _, _, _ = delta_neff(20.69, mp)
+        dn, _, _, _, _ = delta_neff(BP1_MC, mp)
         if dn > threshold:
             print(f"  {name} (dN>{threshold}): crossed at m_phi = {mp:.4f} MeV")
             found = True
             break
     if not found:
-        dn0, _, _, _, _ = delta_neff(20.69, 0.001)
+        dn0, _, _, _, _ = delta_neff(BP1_MC, 0.001)
         status = "EXCEEDS" if dn0 > threshold else "BELOW even massless"
         print(f"  {name}: massless limit dN={dn0:.5f} -- {status}")
 
@@ -140,8 +152,8 @@ rect = Rectangle((9, 10), 5, 90, linewidth=2.5, edgecolor='lime',
 ax.add_patch(rect)
 
 # Benchmark points
-ax.plot(11.34, 20.69, 'w*', markersize=14, markeredgecolor='black', label='BP1')
-ax.plot(11.10, 94.07, 'ws', markersize=10, markeredgecolor='black', label='MAP')
+ax.plot(BP1_MP, BP1_MC, 'w*', markersize=14, markeredgecolor='black', label='BP1')
+ax.plot(MAP_MP, MAP_MC, 'ws', markersize=10, markeredgecolor='black', label='MAP')
 
 ax.set_xscale('log')
 ax.set_xlabel(r'$m_\phi$ [MeV]', fontsize=13)
@@ -164,8 +176,8 @@ print(f"  PNG size: {sz:,} bytes ({sz/1024:.1f} KB)")
 # --- Plot 2: 1D slice at BP1 m_chi ---
 fig2, ax2 = plt.subplots(figsize=(9, 5))
 m_phi_1d = np.logspace(-2, np.log10(50), 500)
-for mc, label, color in [(20.69, 'BP1 ($m_\\chi$=20.7 GeV)', 'steelblue'),
-                          (94.07, 'MAP ($m_\\chi$=94.1 GeV)', 'firebrick')]:
+for mc, label, color in [(BP1_MC, f'BP1 ($m_\\chi$={BP1_MC:.1f} GeV)', 'steelblue'),
+                          (MAP_MC, f'MAP ($m_\\chi$={MAP_MC:.1f} GeV)', 'firebrick')]:
     dn_arr = [max(delta_neff(mc, mp)[0], 1e-80) for mp in m_phi_1d]
     ax2.plot(m_phi_1d, dn_arr, lw=2, color=color, label=label)
 
@@ -173,8 +185,8 @@ ax2.axhline(0.06, color='magenta', ls='--', lw=2, label='CMB-S4 $2\\sigma$')
 ax2.axhline(0.03, color='purple', ls=':', lw=2, label='CMB-S4 $1\\sigma$')
 ax2.axhline(0.34, color='orange', ls='--', lw=2, label='Planck $2\\sigma$')
 ax2.axvspan(9, 14, alpha=0.15, color='lime', label='Viable $m_\\phi$')
-ax2.axvline(11.34, color='gray', ls=':', alpha=0.5)
-ax2.axvline(11.10, color='gray', ls=':', alpha=0.5)
+ax2.axvline(BP1_MP, color='gray', ls=':', alpha=0.5)
+ax2.axvline(MAP_MP, color='gray', ls=':', alpha=0.5)
 
 ax2.set_xscale('log')
 ax2.set_yscale('log')

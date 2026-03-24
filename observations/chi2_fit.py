@@ -29,6 +29,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from config_loader import load_config
+from global_config import GC
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -44,23 +45,7 @@ if _DIR not in sys.path:
 # ================================================================
 _CFG = load_config(__file__)
 
-_DEFAULT_OBS = [
-    ("Draco dSph",          12,   0.6,  0.1,  2.0,  "KTY16"),
-    ("Fornax dSph",         12,   0.8,  0.2,  3.0,  "KTY16"),
-    ("NGC 2976",            60,   2.0,  0.5,  5.0,  "KTY16"),
-    ("NGC 1560",            55,   3.0,  1.0,  8.0,  "KTY16"),
-    ("IC 2574",             50,   1.5,  0.3,  5.0,  "KTY16"),
-    ("NGC 720 (group)",    250,   0.5,  0.1,  1.5,  "KTY16"),
-    ("NGC 1332 (group)",   280,   0.3,  0.05, 1.0,  "KTY16"),
-    ("Abell 611",         1200,   0.1,  0.02, 0.3,  "KTY16"),
-    ("Abell 2537",        1100,   0.15, 0.03, 0.4,  "KTY16"),
-    ("Diverse RC band",     40,   3.0,  0.5,  10.0, "KKPY17"),
-    ("Bullet Cluster",    4700,   0.7,  0.0,  1.25, "Randall+08"),
-    ("72 cluster mergers", 1000,  0.2,  0.0,  0.47, "Harvey+15"),
-    ("TBTF dwarfs",         30,   1.0,  0.5,  5.0,  "Elbert+15"),
-]
-
-OBSERVATIONS = [tuple(o) for o in _CFG.get("observations", _DEFAULT_OBS)]
+OBSERVATIONS = GC.observations_as_tuples()
 
 OBS_VELOCITIES = sorted(set(v for _, v, *_ in OBSERVATIONS))
 
@@ -336,8 +321,10 @@ def run():
     # SUMMARY
     # ============================================================
     bp1_chi2 = None
+    _bp1 = GC.benchmark("BP1")
+    _bp1_mc = _bp1["m_chi_GeV"]
     for c2, mc, mp, al, om, sv in relic_results:
-        if abs(mc - 20.69) < 0.1:
+        if abs(mc - _bp1_mc) < 0.1:
             bp1_chi2 = c2
             break
 
@@ -361,7 +348,9 @@ def run():
 
     v_plot = np.logspace(np.log10(8), np.log10(6000), 200)
     curve_bf = np.array([sigma_T_vpm(mc_bf, mp_bf, al_bf, v) for v in v_plot])
-    curve_bp1 = np.array([sigma_T_vpm(20.69, 11.34e-3, 1.048e-3, v) for v in v_plot])
+    _bp1_mp = _bp1["m_phi_MeV"] * 1e-3
+    _bp1_al = _bp1["alpha"]
+    curve_bp1 = np.array([sigma_T_vpm(_bp1_mc, _bp1_mp, _bp1_al, v) for v in v_plot])
 
     fig, ax = plt.subplots(1, 1, figsize=(10, 7))
 

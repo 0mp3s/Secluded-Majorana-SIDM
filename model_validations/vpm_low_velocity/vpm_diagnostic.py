@@ -23,6 +23,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 from config_loader import load_config
+from global_config import GC
 from v22_raw_scan import sigma_T_vpm
 
 # Warm up JIT
@@ -36,9 +37,7 @@ def main():
     out_dir = os.path.join(_DIR, cfg.get('output_dir', 'output'))
     os.makedirs(out_dir, exist_ok=True)
 
-    bps = cfg.get('benchmark_points', [
-        {"label": "BP1", "m_chi_GeV": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3},
-    ])
+    bps = GC.benchmarks_from_labels(cfg.get('benchmark_labels', ['BP1']))
     velocities = cfg.get('velocities_km_s', [1, 3, 5, 8, 10, 12, 15, 20, 30, 50, 100, 300, 1000])
 
     print("=" * 90)

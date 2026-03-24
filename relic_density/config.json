@@ -1,5 +1,5 @@
 {
-    "_comment": "Relic density scan configuration",
+    "_comment": "Relic density scan configuration. SIDM cuts and output CSV paths are defined in data/global_config.json.",
 
     "benchmark_points": [
         {"label": "BP2_KT", "m_chi_GeV": 18.421, "m_phi_MeV": 8.20, "alpha_KT": 8.19e-4,
@@ -18,16 +18,5 @@
         "bisect_rtol": 1e-4,
         "bisect_max_iter": 50,
         "alpha_range": [1.0e-5, 5.0e-2]
-    },
-
-    "sidm_cuts": {
-        "sigma_m_30_lo": 0.5,
-        "sigma_m_30_hi": 10.0,
-        "sigma_m_1000_hi": 0.1
-    },
-
-    "output": {
-        "all_relic_csv": "../data/v31_all_relic_points.csv",
-        "viable_csv": "../data/v31_true_viable_points.csv"
     }
 }

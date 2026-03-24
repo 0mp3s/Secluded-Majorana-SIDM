@@ -90,12 +90,13 @@ sigma_T_dirac(20.0, 10e-3, 1e-3, 100.0)
 
 
 # ══════════════════════════════════════════════════════════════
-#  Benchmark points
-# ══════════════════════════════════════════════════════════════
-BPS = [
-    {"label": "BP1",  "m_chi": 20.69,  "m_phi_MeV": 11.34,  "alpha": 1.048e-3},
-    {"label": "MAP",  "m_chi": 94.07,  "m_phi_MeV": 11.10,  "alpha": 5.734e-3},
-]
+#  Benchmark points — loaded from global_config.json
+# ══════════════════════════════════════════════════════════
+from global_config import GC
+BPS = []
+for _lbl in ["BP1", "MAP"]:
+    _b = GC.benchmark(_lbl)
+    BPS.append({"label": _lbl, "m_chi": _b["m_chi_GeV"], "m_phi_MeV": _b["m_phi_MeV"], "alpha": _b["alpha"]})
 
 # Velocity grid: 5 → 2000 km/s  (dwarfs → clusters)
 V_GRID = np.logspace(np.log10(5.0), np.log10(2000.0), 120)
@@ -176,10 +177,13 @@ def main():
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 
     bp_colors = {'BP1': ('#2196F3', '#E91E63'), 'MAP': ('#4CAF50', '#FF9800')}
-    titles = {
-        'BP1': r'BP1: $m_\chi$=20.69 GeV, $m_\phi$=11.34 MeV, $\lambda$={lam:.2f}',
-        'MAP': r'MAP: $m_\chi$=94.07 GeV, $m_\phi$=11.10 MeV, $\lambda$={lam:.1f}',
-    }
+    titles = {}
+    for _lbl in ['BP1', 'MAP']:
+        _b = GC.benchmark(_lbl)
+        if _lbl == 'BP1':
+            titles[_lbl] = r'BP1: $m_\chi$={mc:.2f} GeV, $m_\phi$={mp:.2f} MeV, $\lambda$={{lam:.2f}}'.format(mc=_b['m_chi_GeV'], mp=_b['m_phi_MeV'])
+        else:
+            titles[_lbl] = r'MAP: $m_\chi$={mc:.2f} GeV, $m_\phi$={mp:.2f} MeV, $\lambda$={{lam:.1f}}'.format(mc=_b['m_chi_GeV'], mp=_b['m_phi_MeV'])
 
     for col, label in enumerate(['BP1', 'MAP']):
         r = results[label]

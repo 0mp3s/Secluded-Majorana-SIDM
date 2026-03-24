@@ -48,11 +48,12 @@ KPC_CM     = 3.086e21       # cm
 GYR_S      = 3.156e16       # s
 KM_S_CM_S  = 1e5            # cm/s
 
-# ── Benchmark points ──
-BPS = [
-    {"label": "BP1", "m_chi_GeV": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3},
-    {"label": "MAP", "m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 5.734e-3},
-]
+# ── Benchmark points — loaded from global_config.json ──
+from global_config import GC
+BPS = []
+for _lbl in ["BP1", "MAP"]:
+    _b = GC.benchmark(_lbl)
+    BPS.append({"label": _lbl, "m_chi_GeV": _b["m_chi_GeV"], "m_phi_MeV": _b["m_phi_MeV"], "alpha": _b["alpha"]})
 
 # ═══════════════════════════════════════════════════════════════════
 #  dSph data — kinematic profiles from Walker+2007/2009

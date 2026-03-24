@@ -35,17 +35,13 @@ from config_loader import load_config
 GEV2_TO_CM2 = 3.8938e-28
 GEV_IN_G    = 1.78266e-24
 
-# Load BP1 from config
+# Load BP1 from global config
 _CFG = load_config(__file__)
-def _get_bp(label):
-    for bp in _CFG.get("benchmark_points", []):
-        if bp["label"] == label:
-            return bp
-    return {}
-_BP1 = _get_bp("BP1")
-BP1_M_CHI = _BP1.get("m_chi_GeV", 20.69)
-BP1_M_PHI = _BP1.get("m_phi_MeV", 11.34) * 1e-3   # → GeV
-BP1_ALPHA = _BP1.get("alpha", 1.048e-3)
+from global_config import GC
+_BP1 = GC.benchmark("BP1")
+BP1_M_CHI = _BP1["m_chi_GeV"]
+BP1_M_PHI = _BP1["m_phi_MeV"] * 1e-3   # → GeV
+BP1_ALPHA = _BP1["alpha"]
 
 
 def sigma_T_born_majorana(m_chi_GeV, m_phi_GeV, alpha, v_km_s):

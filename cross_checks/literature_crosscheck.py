@@ -177,16 +177,12 @@ BORN_BENCHMARKS = [
 
 # Benchmark set 3: Our own BP1 as self-consistency
 _CFG = load_config(__file__)
-def _get_bp(label):
-    for bp in _CFG.get("benchmark_points", []):
-        if bp["label"] == label:
-            return bp
-    return {}
-_BP1_CFG = _get_bp("BP1")
+from global_config import GC
+_BP1_CFG = GC.benchmark("BP1")
 
-BP1_M_CHI = _BP1_CFG.get("m_chi_GeV", 20.69)
-BP1_M_PHI = _BP1_CFG.get("m_phi_MeV", 11.34) * 1e-3   # → GeV
-BP1_ALPHA = _BP1_CFG.get("alpha", 1.048e-3)
+BP1_M_CHI = _BP1_CFG["m_chi_GeV"]
+BP1_M_PHI = _BP1_CFG["m_phi_MeV"] * 1e-3   # → GeV
+BP1_ALPHA = _BP1_CFG["alpha"]
 
 
 def print_header():

@@ -24,6 +24,11 @@ if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
     sys.stderr = open(sys.stderr.fileno(), mode='w', encoding='utf-8', buffering=1)
 
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_ROOT = os.path.join(_SCRIPT_DIR, '..')
+sys.path.insert(0, os.path.join(_ROOT, 'core'))
+from global_config import GC
+
 # ==============================================================
 #  Constants
 # ==============================================================
@@ -32,19 +37,14 @@ GEV_IN_G    = 1.78266e-24
 C_KM_S      = 299792.458
 
 # ==============================================================
-#  Benchmarks — loaded from config.json + relic CSV
+#  Benchmarks — BP1 & MAP from global config, BP17 from relic CSV
 # ==============================================================
-_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-_CONFIG_PATH = os.path.join(_SCRIPT_DIR, "config.json")
-_CSV_PATH = os.path.join(_SCRIPT_DIR, "..", "data", "v31_true_viable_points.csv")
+_CSV_PATH = os.path.join(_ROOT, "data", "v31_true_viable_points.csv")
 
 def _load_benchmarks():
-    """Load BP1, MAP from config.json and BP17 (marginal) from relic CSV."""
-    with open(_CONFIG_PATH, "r") as f:
-        cfg = json.load(f)
-    bps = {}
-    for bp in cfg["benchmark_points"]:
-        bps[bp["label"]] = bp
+    """Load BP1, MAP from global_config.json and BP17 (marginal) from relic CSV."""
+    bp1 = GC.benchmark("BP1")
+    map_ = GC.benchmark("MAP")
 
     # BP17 = last row of the relic CSV (highest sigma_m_1000 among viable)
     import csv
@@ -55,13 +55,13 @@ def _load_benchmarks():
 
     return [
         {"name": "BP1 (relic, λ≈1.9)",
-         "m_chi": bps["BP1"]["m_chi_GeV"],
-         "m_phi": bps["BP1"]["m_phi_MeV"] * 1e-3,
-         "alpha": bps["BP1"]["alpha"]},
+         "m_chi": bp1["m_chi_GeV"],
+         "m_phi": bp1["m_phi_MeV"] * 1e-3,
+         "alpha": bp1["alpha"]},
         {"name": "MAP (MCMC best-fit, λ≈48.6)",
-         "m_chi": bps["MAP"]["m_chi_GeV"],
-         "m_phi": bps["MAP"]["m_phi_MeV"] * 1e-3,
-         "alpha": bps["MAP"]["alpha"]},
+         "m_chi": map_["m_chi_GeV"],
+         "m_phi": map_["m_phi_MeV"] * 1e-3,
+         "alpha": map_["alpha"]},
         {"name": "BP17 (marginal, σ/m(1000)≈0.099)",
          "m_chi": float(bp17["m_chi_GeV"]),
          "m_phi": float(bp17["m_phi_MeV"]) * 1e-3,

@@ -263,7 +263,9 @@ def test_4_entropy():
     print("=" * 75)
     print()
 
-    m_phi = 4.233e-3
+    from global_config import GC
+    _bp1 = GC.benchmark("BP1")
+    m_phi = _bp1["m_phi_MeV"] * 1e-3  # GeV
     g_s = 10.75
 
     print(f"  Benchmark: m_φ = {m_phi*1e3:.3f} MeV")

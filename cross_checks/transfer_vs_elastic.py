@@ -20,6 +20,7 @@ _sys.path.insert(0, _os.path.join(_ROOT, 'core'))
 import sys, os, math
 import numpy as np
 from config_loader import load_config
+from global_config import GC
 from v22_raw_scan import vpm_phase_shift, GEV2_TO_CM2, GEV_IN_G, C_KM_S
 from scipy.special import legendre
 
@@ -112,10 +113,7 @@ if __name__ == '__main__':
           f"{'sigma_el [cm2/g]':>17} | {'sigma_T [cm2/g]':>17} | {'T/el ratio':>12}")
     print("-" * 100)
 
-    _bp_list = _CFG.get("benchmark_points", [
-        {"label": "BP1", "m_chi_GeV": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3},
-        {"label": "MAP", "m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 5.734e-3},
-    ])
+    _bp_list = GC.benchmarks_from_labels(_CFG.get('benchmark_labels', ['BP1', 'MAP']))
     points = [(bp["label"], bp["m_chi_GeV"], bp["m_phi_MeV"] / 1e3, bp["alpha"])
               for bp in _bp_list]
     velocities = _CFG.get("transfer_elastic_velocities", [10, 30, 50, 100, 200, 500, 1000])

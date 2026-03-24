@@ -2,17 +2,14 @@
 """Quick MAP compatibility check against 13 observations."""
 import sys, os, json
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'core'))
-from config_loader import load_config
+from global_config import GC
 from v22_raw_scan import sigma_T_vpm
 
-_CFG = load_config(__file__)
-_benchmarks = {b[0]: b[1:] for b in _CFG.get("benchmarks", [])}
-_map = _benchmarks.get("MAP", [94.07, 11.10e-3, 5.734e-3])
-mc, mp, alpha = _map[0], _map[1], _map[2]
+_map_bp = GC.benchmark("MAP")
+mc, mp, alpha = _map_bp["m_chi_GeV"], _map_bp["m_phi_MeV"] * 1e-3, _map_bp["alpha"]
 
-# Read observations from config (same source as chi2_fit)
-_raw_obs = _CFG.get("observations", [])
-obs = [(o[0], o[1], o[2], o[3], o[4]) for o in _raw_obs]
+# Read observations from global config
+obs = [(o[0], o[1], o[2], o[3], o[4]) for o in GC.observations_as_tuples()]
 
 print(f"MAP compatibility ({mc}, {mp*1e3:.2f} MeV, {alpha}):")
 print("-" * 80)

@@ -110,15 +110,14 @@ sigma_T_dirac(20.0, 10e-3, 1e-3, 100.0)
 partial_wave_decomposition(20.0, 10e-3, 1e-3, 100.0)
 
 
-# ---- Benchmarks ----
-BENCHMARKS = [
-    {"label": "BP1",        "m_chi": 20.69,  "m_phi_MeV": 11.34,  "alpha": 1.048e-3,
-     "color": "#2196F3"},
-    {"label": "MAP",        "m_chi": 94.07,  "m_phi_MeV": 11.10,  "alpha": 5.734e-3,
-     "color": "#4CAF50"},
-    {"label": "old-MAP",    "m_chi": 90.64,  "m_phi_MeV": 13.85,  "alpha": 2.546e-2,
-     "color": "#E91E63"},
-]
+# ---- Benchmarks — loaded from global_config.json ----
+from global_config import GC
+BENCHMARKS = []
+for _lbl, _clr in [("BP1", "#2196F3"), ("MAP", "#4CAF50")]:
+    _b = GC.benchmark(_lbl)
+    BENCHMARKS.append({"label": _lbl, "m_chi": _b["m_chi_GeV"], "m_phi_MeV": _b["m_phi_MeV"], "alpha": _b["alpha"], "color": _clr})
+# old-MAP is a hypothetical comparison point, not a global benchmark
+BENCHMARKS.append({"label": "old-MAP", "m_chi": 90.64, "m_phi_MeV": 13.85, "alpha": 2.546e-2, "color": "#E91E63"})
 
 V_GRID = np.logspace(np.log10(2.0), np.log10(3000.0), 500)
 

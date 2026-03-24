@@ -67,9 +67,10 @@ C_KM_S      = 299792.458
 
 # ── Load config ──
 from config_loader import load_config
+from global_config import GC
 cfg = load_config(__file__)
 
-_bps = {bp['label']: bp for bp in cfg.get('benchmark_points', [])}
+_bps = {bp['label']: bp for bp in GC.benchmarks_from_labels(cfg.get('benchmark_labels', []))}
 BP1 = _bps['BP1']
 MAP = _bps['MAP']
 

@@ -23,9 +23,14 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from v22_raw_scan import sigma_T_vpm
 from analyze_ratio_function import sigma_T_dirac, partial_wave_decomposition
 
-# ---- Benchmarks ----
-BP1 = {"label": r"BP1 ($\lambda=1.9$)",  "m_chi": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3, "color": "#1565C0"}
-MAP = {"label": r"MAP ($\lambda=48.6$)", "m_chi": 94.07, "m_phi_MeV": 11.10, "alpha": 5.734e-3, "color": "#C62828"}
+# ---- Benchmarks — loaded from global_config.json ----
+from global_config import GC
+_bp1 = GC.benchmark("BP1")
+_map = GC.benchmark("MAP")
+BP1 = {"label": r"BP1 ($\lambda=%.1f$)" % (_bp1["alpha"] * _bp1["m_chi_GeV"] / (_bp1["m_phi_MeV"] * 1e-3)),
+       "m_chi": _bp1["m_chi_GeV"], "m_phi_MeV": _bp1["m_phi_MeV"], "alpha": _bp1["alpha"], "color": "#1565C0"}
+MAP = {"label": r"MAP ($\lambda=%.1f$)" % (_map["alpha"] * _map["m_chi_GeV"] / (_map["m_phi_MeV"] * 1e-3)),
+       "m_chi": _map["m_chi_GeV"], "m_phi_MeV": _map["m_phi_MeV"], "alpha": _map["alpha"], "color": "#C62828"}
 
 V_GRID = np.logspace(np.log10(2.0), np.log10(3000.0), 10000)
 V_SCALES = {'dSph\n30 km/s': 30.0, 'MW\n220 km/s': 220.0, 'Cluster\n1200 km/s': 1200.0}

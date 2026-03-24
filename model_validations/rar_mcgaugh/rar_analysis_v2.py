@@ -46,10 +46,13 @@ G_SI = 6.674e-11
 KPC_M = 3.086e19
 G_DAGGER = 1.2e-10     # m/s² — McGaugh+2016
 
-# Benchmarks
+# Benchmarks — loaded from global_config.json
+from global_config import GC
+_bp1 = GC.benchmark("BP1")
+_map = GC.benchmark("MAP")
 BENCHMARKS = {
-    'BP1': {'m_chi': 20.69, 'm_phi': 11.34e-3, 'alpha': 1.048e-3},
-    'MAP': {'m_chi': 94.07, 'm_phi': 11.10e-3, 'alpha': 5.734e-3},
+    'BP1': {'m_chi': _bp1['m_chi_GeV'], 'm_phi': _bp1['m_phi_MeV'] * 1e-3, 'alpha': _bp1['alpha']},
+    'MAP': {'m_chi': _map['m_chi_GeV'], 'm_phi': _map['m_phi_MeV'] * 1e-3, 'alpha': _map['alpha']},
 }
 HALO_AGE_GYR = 10.0
 

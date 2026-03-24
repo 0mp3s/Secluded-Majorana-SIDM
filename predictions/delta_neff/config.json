@@ -1,16 +1,4 @@
 {
-    "benchmark_points": [
-        {"label": "BP1",  "m_chi_GeV": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3},
-        {"label": "BP16", "m_chi_GeV": 20.7,  "m_phi_MeV": 9.91,  "alpha": 1.048e-3},
-        {"label": "MAP",  "m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 5.734e-3},
-        {"label": "MAP_relic",  "m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 4.523e-3}
-    ],
-    "planck2018_Neff":       2.99,
-    "planck2018_Neff_err":   0.17,
-    "cmbs4_sigma_Neff":      0.03,
-    "sm_Neff":               3.044,
-    "g_star_s_above_top":    106.75,
-    "g_star_s_20_90_GeV":    86.25,
-    "g_star_s_nu_decoupling": 10.75,
+    "benchmark_labels": ["BP1", "BP16", "MAP", "MAP_relic"],
     "output_dir": "output"
 }

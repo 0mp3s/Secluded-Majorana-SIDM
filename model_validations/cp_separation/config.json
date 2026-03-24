@@ -1,15 +1,12 @@
 {
+    "_comment": "CP-separation analysis. BP1/MAP sections retain relic_product (script-specific). Parameter values sourced from data/global_config.json.",
+    "benchmark_labels": ["BP1", "MAP"],
     "BP1": {
         "label": "BP1",
-        "m_chi_GeV": 20.69,
-        "m_phi_MeV": 11.34,
         "relic_product": 1.387474e-7
     },
     "MAP": {
         "label": "MAP",
-        "m_chi_GeV": 94.07,
-        "m_phi_MeV": 11.10,
-        "alpha": 5.734e-3,
         "relic_product": 1.387474e-7
     },
     "viable_alpha_s_BP1": [

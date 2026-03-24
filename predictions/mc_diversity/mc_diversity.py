@@ -45,6 +45,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 from config_loader import load_config
+from global_config import GC
 from v22_raw_scan import sigma_T_vpm
 
 # JIT warmup
@@ -223,7 +224,7 @@ def run():
     t0 = time.time()
     cfg = load_config(__file__)
 
-    bps          = cfg['benchmark_points']
+    bps          = GC.benchmarks_from_labels(cfg['benchmark_labels'])
     n_halos      = cfg.get('n_halos', 1000)
     vmax_lo, vmax_hi = cfg.get('V_max_range_km_s', [30, 250])
     sigma_logc   = cfg.get('sigma_log10_c', 0.16)

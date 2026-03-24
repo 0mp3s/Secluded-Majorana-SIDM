@@ -30,6 +30,7 @@ import sys, os, time, math
 import numpy as np
 from scipy.integrate import quad
 from config_loader import load_config
+from global_config import GC
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -108,23 +109,7 @@ def sigma_m_averaged(m_chi, m_phi_GeV, alpha, v_char_km_s, n_gauss=30):
 # ================================================================
 #  Observational data — loaded from config.json if available
 # ================================================================
-_DEFAULT_OBS = [
-    ("Draco dSph",          12,   0.6,  0.1,  2.0,  "KTY16"),
-    ("Fornax dSph",         12,   0.8,  0.2,  3.0,  "KTY16"),
-    ("NGC 2976",            60,   2.0,  0.5,  5.0,  "KTY16"),
-    ("NGC 1560",            55,   3.0,  1.0,  8.0,  "KTY16"),
-    ("IC 2574",             50,   1.5,  0.3,  5.0,  "KTY16"),
-    ("NGC 720 (group)",    250,   0.5,  0.1,  1.5,  "KTY16"),
-    ("NGC 1332 (group)",   280,   0.3,  0.05, 1.0,  "KTY16"),
-    ("Abell 611",         1200,   0.1,  0.02, 0.3,  "KTY16"),
-    ("Abell 2537",        1100,   0.15, 0.03, 0.4,  "KTY16"),
-    ("Diverse RC band",     40,   3.0,  0.5,  10.0, "KKPY17"),
-    ("Bullet Cluster",    4700,   0.7,  0.0,  1.25, "Randall+08"),
-    ("72 cluster mergers", 1000,  0.2,  0.0,  0.47, "Harvey+15"),
-    ("TBTF dwarfs",         30,   1.0,  0.5,  5.0,  "Elbert+15"),
-]
-
-OBSERVATIONS = [tuple(o) for o in _CFG.get("observations", _DEFAULT_OBS)]
+OBSERVATIONS = GC.observations_as_tuples()
 
 
 def compute_chi2(sigma_dict):

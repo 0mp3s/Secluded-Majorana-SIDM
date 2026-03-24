@@ -36,6 +36,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 from config_loader import load_config
+from global_config import GC
 from v22_raw_scan import sigma_T_vpm
 
 # Warm up JIT
@@ -118,7 +119,7 @@ def main():
     out_dir = os.path.join(_DIR, cfg.get('output_dir', 'output'))
     os.makedirs(out_dir, exist_ok=True)
 
-    bps = cfg['benchmark_points']
+    bps = GC.benchmarks_from_labels(cfg['benchmark_labels'])
     redshifts = cfg['redshifts']
     halo_masses_log = cfg['halo_masses_log10']
     h = cfg.get('h', 0.674)

@@ -48,17 +48,13 @@ MSUN_KG = 1.989e30
 KPC_M = 3.086e19
 G_DAGGER = 1.2e-10         # m/s² — McGaugh+2016 critical acceleration
 
-# BP1 parameters from config
+# BP1 parameters from global config
 _CFG = load_config(__file__)
-def _get_bp(label):
-    for bp in _CFG.get("benchmark_points", []):
-        if bp["label"] == label:
-            return bp
-    return {}
-_BP1 = _get_bp("BP1")
-M_CHI = _BP1.get("m_chi_GeV", 20.69)
-M_PHI = _BP1.get("m_phi_MeV", 11.34) * 1e-3   # → GeV
-ALPHA = _BP1.get("alpha", 1.048e-3)
+from global_config import GC
+_BP1 = GC.benchmark("BP1")
+M_CHI = _BP1["m_chi_GeV"]
+M_PHI = _BP1["m_phi_MeV"] * 1e-3   # → GeV
+ALPHA = _BP1["alpha"]
 HALO_AGE_GYR = _CFG.get("halo_age_Gyr", 10.0)
 
 # ── output directory ──

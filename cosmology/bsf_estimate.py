@@ -31,18 +31,20 @@ if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 
 # ==============================================================
-#  Configuration — loaded from config.json if available
+#  Configuration — loaded from global_config.json
 # ==============================================================
-_CFG = load_config(__file__)
-_BENCH = _CFG.get("benchmark", {})
+from global_config import GC
+
+_CFG_LABEL = load_config(__file__).get("benchmark_label", "MAP")
+_BENCH = GC.benchmark(_CFG_LABEL)
 
 # ==============================================================
 #  Constants
 # ==============================================================
-# Benchmark from scan (overridable via config.json)
-M_CHI_BENCH = _BENCH.get("m_chi_GeV", 42.919)
-M_PHI_BENCH = _BENCH.get("m_phi_GeV", 4.233e-3)
-ALPHA_BENCH = _BENCH.get("alpha", 6.172e-4)
+# Benchmark — loaded from global_config.json
+M_CHI_BENCH = _BENCH["m_chi_GeV"]
+M_PHI_BENCH = _BENCH["m_phi_MeV"] * 1e-3  # GeV
+ALPHA_BENCH = _BENCH["alpha"]
 LAMBDA_BENCH = ALPHA_BENCH * M_CHI_BENCH / M_PHI_BENCH
 
 

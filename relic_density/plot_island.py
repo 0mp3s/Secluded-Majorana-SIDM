@@ -112,10 +112,12 @@ print("Saved: v31_island_of_viability.png")
 # ==============================================================
 #  Figure 2: σ/m(v) velocity profile for BP1
 # ==============================================================
-# BP1 = best point: m_χ=20.691, m_φ=11.338 MeV, α=1.0484e-3
+# BP1 = best point: loaded from global_config.json
+from global_config import GC
 from v22_raw_scan import sigma_T_vpm
 
-BP1 = {'m_chi': 20.691, 'm_phi': 11.338e-3, 'alpha': 1.0484e-3}
+_bp1 = GC.benchmark("BP1")
+BP1 = {'m_chi': _bp1['m_chi_GeV'], 'm_phi': _bp1['m_phi_MeV'] * 1e-3, 'alpha': _bp1['alpha']}
 
 print("\nComputing σ/m(v) velocity profile for BP1...")
 _ = sigma_T_vpm(10.0, 5e-3, 5e-4, 30.0)  # JIT warmup

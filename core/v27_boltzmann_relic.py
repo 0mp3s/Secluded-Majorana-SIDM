@@ -23,6 +23,8 @@ import numpy as np
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 
+from global_config import GC
+
 # ==============================================================
 #  Constants
 # ==============================================================
@@ -31,11 +33,12 @@ OMEGA_CDM_H2 = 0.120   # Planck 2018
 RHO_CRIT_H2 = 1.0539e-5  # h² × ρ_crit [GeV/cm³]
 S_0 = 2891.2            # entropy density today [cm⁻³]
 
-# V10 benchmark (scalar mediator φ, Majorana χ)
-M_CHI_BENCH = 20.691    # GeV  (BP1)
-M_PHI_BENCH = 11.34e-3  # GeV  (BP1)
-ALPHA_BENCH = 1.048e-3
-LAMBDA_BENCH = 1.913
+# Benchmark (BP1) — loaded from global_config.json
+_BP1 = GC.benchmark("BP1")
+M_CHI_BENCH = _BP1["m_chi_GeV"]
+M_PHI_BENCH = _BP1["m_phi_MeV"] * 1e-3  # GeV
+ALPHA_BENCH = _BP1["alpha"]
+LAMBDA_BENCH = ALPHA_BENCH * M_CHI_BENCH / M_PHI_BENCH
 
 
 # ==============================================================

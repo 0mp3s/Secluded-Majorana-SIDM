@@ -33,10 +33,11 @@ sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
 with open(os.path.join(_SCRIPT_DIR, 'config.json')) as f:
     _cfg = json.load(f)
 
-_bp = _cfg['BP1']
-M_CHI = _bp['m_chi_GeV']          # GeV
-M_PHI = _bp['m_phi_MeV'] * 1e-3   # GeV (VPM needs GeV)
-RELIC_PRODUCT = _bp['relic_product']  # α_s × α_p
+from global_config import GC
+_gc_bp1 = GC.benchmark("BP1")
+M_CHI = _gc_bp1['m_chi_GeV']          # GeV
+M_PHI = _gc_bp1['m_phi_MeV'] * 1e-3   # GeV (VPM needs GeV)
+RELIC_PRODUCT = _cfg['BP1']['relic_product']  # α_s × α_p
 
 VIABLE_ALPHA_S = _cfg['viable_alpha_s_BP1']
 VELOCITIES = _cfg['velocities_km_s']

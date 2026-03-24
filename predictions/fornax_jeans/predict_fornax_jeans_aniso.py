@@ -56,6 +56,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 from config_loader import load_config
+from global_config import GC
 from v22_raw_scan import sigma_T_vpm
 
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)  # JIT warmup
@@ -265,9 +266,9 @@ def main():
     out_dir = os.path.join(_DIR, cfg.get('output_dir', 'output'))
     os.makedirs(out_dir, exist_ok=True)
 
-    bps  = cfg['benchmark_points']
-    fnx  = cfg['fornax']
-    obs  = cfg['walker2009_sigma_los']
+    bps  = GC.benchmarks_from_labels(cfg['benchmark_labels'])
+    fnx  = GC.fornax_halo()
+    obs  = GC.walker2009_fornax()
 
     M200   = fnx['M200_Msun']
     c200   = fnx['c200']

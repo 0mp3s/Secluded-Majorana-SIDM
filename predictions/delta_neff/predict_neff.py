@@ -43,6 +43,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from config_loader import load_config
+from global_config import GC
 
 _DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -83,7 +84,7 @@ def main():
     out_dir = os.path.join(_DIR, cfg.get('output_dir', 'output'))
     os.makedirs(out_dir, exist_ok=True)
 
-    bps = cfg['benchmark_points']
+    bps = GC.benchmarks_from_labels(cfg['benchmark_labels'])
     planck_neff     = cfg.get('planck2018_Neff', 2.99)
     planck_err      = cfg.get('planck2018_Neff_err', 0.17)
     cmbs4_sigma     = cfg.get('cmbs4_sigma_Neff', 0.03)

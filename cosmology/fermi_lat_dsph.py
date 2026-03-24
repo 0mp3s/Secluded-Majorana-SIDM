@@ -38,26 +38,20 @@ if sys.stdout.encoding != 'utf-8':
 #  Configuration
 # ==============================================================
 _CFG = load_config(__file__)
+from global_config import GC
 
-# Read benchmarks from config.json
-def _get_bp(label):
-    for bp in _CFG.get("benchmark_points", []):
-        if bp["label"] == label:
-            return bp
-    return {}
+_BP1 = GC.benchmark("BP1")
+_MAP = GC.benchmark("MAP")
 
-_BP1 = _get_bp("BP1")
-_MAP = _get_bp("MAP")
-
-M_CHI_BP1   = _BP1.get("m_chi_GeV", 20.69)
-M_PHI_BP1   = _BP1.get("m_phi_MeV", 11.34) * 1e-3   # → GeV
-ALPHA_BP1   = _BP1.get("alpha", 1.048e-3)
+M_CHI_BP1   = _BP1["m_chi_GeV"]
+M_PHI_BP1   = _BP1["m_phi_MeV"] * 1e-3   # → GeV
+ALPHA_BP1   = _BP1["alpha"]
 ALPHA_S_BP1 = ALPHA_BP1
 ALPHA_P_BP1 = ALPHA_BP1   # CP-symmetric point
 
-M_CHI_MAP   = _MAP.get("m_chi_GeV", 94.07)
-M_PHI_MAP   = _MAP.get("m_phi_MeV", 11.10) * 1e-3    # → GeV
-ALPHA_MAP   = _MAP.get("alpha", 5.734e-3)
+M_CHI_MAP   = _MAP["m_chi_GeV"]
+M_PHI_MAP   = _MAP["m_phi_MeV"] * 1e-3    # → GeV
+ALPHA_MAP   = _MAP["alpha"]
 
 # Heavy mediator mass for loop estimate (§5.2 of preprint)
 M_SIGMA = 5e3  # GeV (5 TeV, middle of 1–10 TeV range)
