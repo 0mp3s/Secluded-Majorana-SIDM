@@ -5,7 +5,7 @@ model_validations/cp_separation/cp_separation_MAP.py
 §7.1 (continued) — CP-separation table for MAP's mass point.
 
 Same logic as cp_separation_table.py (BP1 masses), but using MAP's
-(m_χ, m_φ) = (90.64 GeV, 13.85 MeV).  Same relic product α_s × α_p.
+(m_χ, m_φ) = (94.07 GeV, 11.10 MeV).  Same relic product α_s × α_p.
 
 The viable band is found by scanning α_s ∈ [5e-4, 0.04] and keeping
 points where σ/m(30 km/s) ∈ [0.1, 10] cm²/g AND σ/m(1000) < 1.
