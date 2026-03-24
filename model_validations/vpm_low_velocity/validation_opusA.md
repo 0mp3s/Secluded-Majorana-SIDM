@@ -27,11 +27,11 @@ Ran the script independently and performed manual spot-checks using `sigma_T_vpm
 ## λ values
 - BP1: λ = α·m_χ/m_φ = 1.048e-3 × 20.69 / 11.34e-3 = 1.912 ✅
 - BP9: λ = 1.840e-3 × 37.9 / 16.36e-3 = 4.263 ✅  
-- MAP: λ = 2.546e-2 × 90.64 / 13.85e-3 = 166.6 ✅
+- MAP: λ = 5.734e-3 × 94.07 / 11.10e-3 = 48.6 ✅
 
 ## Physical interpretation
 B's interpretation is correct:
 - λ = 1.91 (BP1) is in Born-transition regime → σ ∝ v² at low v → no plateau
-- λ = 166.6 (MAP) is deep in resonant regime (53π) → true s-wave plateau
+- λ = 48.6 (MAP) is in resonant regime (15.5π) → true s-wave plateau (12% variation)
 
 ## Verdict: ✅ PASSED — All values reproduced, physics interpretation sound.

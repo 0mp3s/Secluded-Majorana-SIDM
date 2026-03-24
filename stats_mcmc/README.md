@@ -19,24 +19,24 @@ MCMC configuration:
 **Output:** `output/v38_corner.png`, `output/v38_mcmc_chains.png`, 
 `output/v38_lambda_posterior.png`, `output/v38_mcmc_samples.csv`
 
-## Results (run: 23 March 2026)
+## Results (run: 24 March 2026, 5000 production steps)
 
 | Metric | Value |
 |--------|-------|
-| Total samples | 64,000 |
-| Acceptance fraction | 0.522 |
-| Max autocorrelation | 73.3 steps |
-| Effective samples | ~874 |
-| Runtime | 58.1 min |
+| Total samples | 160,000 |
+| Acceptance fraction | ~0.52 |
+| Max autocorrelation | ~75 steps |
+| N/τ | 66.6 (>50, converged) |
+| Effective samples | ~2,132 |
 
 ### Best-fit (MAP)
 
 | Parameter | Value |
 |-----------|-------|
-| m_χ | 90.64 GeV |
-| m_φ | 13.85 MeV |
-| α | 2.546×10⁻² |
-| λ = 2αm_χ/m_φ | 333.37 |
+| m_χ | 94.07 GeV |
+| m_φ | 11.10 MeV |
+| α | 5.734×10⁻³ |
+| λ = αm_χ/m_φ | 48.6 |
 | χ²/dof | **0.1575** (10 dof) |
 
 ### Parameter Constraints (median ± 68% CI)

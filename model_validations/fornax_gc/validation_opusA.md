@@ -14,7 +14,7 @@ Ran the full script independently and cross-checked internal parameters against 
 |---|---|---|---|---|---|
 | BP1 | 0.477 cm²/g | 0.477 cm²/g | 449 pc | 449 pc | ✅ |
 | BP9 | 0.316 cm²/g | 0.316 cm²/g | 332 pc | 332 pc | ✅ |
-| MAP | 1.354 cm²/g | 1.354 cm²/g | 885 pc | 885 pc | ✅ |
+| MAP | 1.213 cm²/g | 1.213 cm²/g | 829 pc | 829 pc | ✅ |
 
 Manual VPM spot-check: `sigma_T_vpm(20.69, 11.34e-3, 1.048e-3, 16.5)` = 0.47704 ✅
 
@@ -24,7 +24,7 @@ Manual VPM spot-check: `sigma_T_vpm(20.69, 11.34e-3, 1.048e-3, 16.5)` = 0.47704 
 |---|---|---|---|
 | BP1 | 3 / 9 / 3 (12/15) | 3 / 9 / 3 (12/15) | ✅ |
 | BP9 | 2 / 9 / 4 (11/15) | 2 / 9 / 4 (11/15) | ✅ |
-| MAP | 6 / 9 / 0 (15/15) | 6 / 9 / 0 (15/15) | ✅ |
+| MAP | 5 / 9 / 1 (14/15) | 5 / 9 / 1 (14/15) | ✅ |
 
 ## Parameter Cross-Checks
 
