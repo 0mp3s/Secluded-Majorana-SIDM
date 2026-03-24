@@ -120,7 +120,7 @@ _DEFAULT_OBS = [
     ("Abell 2537",        1100,   0.15, 0.03, 0.4,  "KTY16"),
     ("Diverse RC band",     40,   3.0,  0.5,  10.0, "KKPY17"),
     ("Bullet Cluster",    4700,   0.7,  0.0,  1.25, "Randall+08"),
-    ("72 cluster mergers", 1500,  0.2,  0.0,  0.47, "Harvey+15"),
+    ("72 cluster mergers", 1000,  0.2,  0.0,  0.47, "Harvey+15"),
     ("TBTF dwarfs",         30,   1.0,  0.5,  5.0,  "Elbert+15"),
 ]
 

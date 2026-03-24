@@ -2,9 +2,9 @@
     "_comment": "Cosmology scripts configuration",
 
     "benchmark": {
-        "m_chi_GeV": 42.919,
-        "m_phi_GeV": 4.233e-3,
-        "alpha": 6.172e-4
+        "m_chi_GeV": 94.07,
+        "m_phi_MeV": 11.10,
+        "alpha": 5.734e-3
     },
 
     "higgs_portal": {

@@ -10,7 +10,7 @@
     },
 
     "velocity_averaged": {
-        "velocities_km_s": [12, 30, 50, 200, 1000, 1500],
+        "velocities_km_s": [12, 30, 50, 200, 1000],
         "n_integration_points": 50
     }
 }

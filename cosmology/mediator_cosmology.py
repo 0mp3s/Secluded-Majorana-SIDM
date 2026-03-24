@@ -126,8 +126,8 @@ def test_1_lifetime():
     print("    any m_φ:     φ → γγ   (loop, suppressed)")
     print()
 
-    m_phi = _CFG.get("benchmark", {}).get("m_phi_GeV", 4.233e-3)  # benchmark [GeV]
-    print(f"  Benchmark: m_φ = {m_phi*1e3:.3f} MeV (> 2m_e = 1.022 MeV)")
+    m_phi = _CFG.get("benchmark", {}).get("m_phi_MeV", 11.10) * 1e-3  # → GeV
+    print(f"  Benchmark: m_φ = {m_phi*1e3:.2f} MeV (> 2m_e = 1.022 MeV)")
     print()
     print(f"  {'sin θ':>12}  {'λ_{Hφ}':>12}  {'Γ_ee [GeV]':>12}  {'Γ_γγ [GeV]':>12}  "
           f"{'τ [s]':>12}  {'BBN?':>6}")
