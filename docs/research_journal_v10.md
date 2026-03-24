@@ -1332,3 +1332,29 @@ MAP 10/14 cored, BP1 all cuspy, Crater II discussion, non-universality predictio
 | **§7.5 UFDs** | **Core/cusp classification** | **MAP 10/14 cored, BP1 all cuspy** |
 | **§7.6 Summary** | **Full table** | **All §7 numbers compiled** |
 | **VPM diagnostic** | **Low-v behavior** | **MAP plateau (7%), BP1 steep (92%)** |
+| **§7.7 Maj vs Dir** | **σ_T(v) ratio** | **Ratio 0.50–1.13, non-monotonic → smoking-gun** |
+
+---
+
+## §7.7 Majorana vs Dirac σ_T Fingerprint — 24 Mar 2026
+
+**Script:** `predictions/majorana_vs_dirac/predict_maj_vs_dir.py`
+
+Dirac σ_T uses 4π/k² (distinguishable particles), Majorana uses 2π/k² with weights (1,3).
+Initial version had bug: Dirac used 2π instead of 4π — caught and fixed same session.
+
+**Results (corrected):**
+
+| v [km/s] | BP1 Maj/Dir | MAP Maj/Dir |
+|-----------|-------------|-------------|
+| 30 (dSph) | 0.500 | 0.899 |
+| 220 (MW) | 0.606 | **1.132** |
+| 1200 (cluster) | 0.926 | 0.940 |
+
+**Physics:**
+- Born limit (λ≪1): only even-ℓ → ratio = ½ exactly
+- MAP resonant: odd-ℓ (weight 3) resonances push ratio above 1 near 200 km/s
+- Non-monotonic oscillation is a smoking-gun for identical Majorana statistics
+- Preprint §7.7 added with table + formulas, README updated
+
+**Output:** `predictions/majorana_vs_dirac/output/majorana_vs_dirac.png`, `maj_vs_dir_data.csv`

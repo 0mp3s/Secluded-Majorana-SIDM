@@ -14,7 +14,7 @@ We construct a minimal **secluded** dark matter model in which a Majorana fermio
 
 We compute the self-interaction transfer cross section using the **Variable Phase Method (VPM)** — a full partial-wave analysis that captures quasi-bound-state resonances of the Yukawa potential. A systematic scan over $(m_\chi, m_\phi, \alpha)$ — with $m_\chi \in [0.1, 100]$ GeV, $m_\phi \in [0.1, 200]$ MeV — identifies **80,142 parameter points** satisfying the SIDM sweet-spot criteria $\sigma/m(30\text{ km/s}) \in [1, 10]\text{ cm}^2/\text{g}$ and $\sigma/m(1000\text{ km/s}) < 0.1\text{ cm}^2/\text{g}$.
 
-The annihilation $\chi\chi \to \phi\phi$ is **s-wave**, yielding a thermal relic density $\Omega h^2 = 0.120$ for $\alpha \sim 5 \times 10^{-4}$–$5 \times 10^{-3}$ — squarely within the SIDM-viable region. A dedicated cosmological scan using an exact numerical Boltzmann solver identifies **17 benchmark points** forming an "island of viability" at $m_\chi \in [10, 100]$ GeV, $m_\phi \in [7.6, 14.8]$ MeV that simultaneously satisfy relic density, SIDM, and cluster constraints. The primary benchmark has $m_\chi = 20.69$ GeV, $m_\phi = 11.34$ MeV, $\alpha = 1.05 \times 10^{-3}$, $\Omega h^2 = 0.120$, $\sigma/m(30) = 0.52$ cm$^2$/g, and $\sigma/m(1000) = 0.072$ cm$^2$/g. A quantitative $\chi^2$ fit to 13 astrophysical systems spanning $v = 12$–$4700$ km/s yields $\chi^2/\nu = 0.54$ for the best relic-constrained point and $\chi^2/\nu = 0.26$ for the unconstrained best fit, with all pulls below $1.2\sigma$. A Bayesian MCMC posterior analysis confirms that all 17 relic benchmarks lie within the 95% credible region, with marginalized constraints $m_\chi = 73^{+43}_{-56}$ GeV, $m_\phi = 10.8^{+4.8}_{-4.3}$ MeV (68% CI). We show that a Higgs portal coupling to the SM is generically **excluded** for light mediators ($m_\phi \lesssim \mathcal{O}(\text{GeV})$) by the tension between direct detection ($\sigma_{\rm SI} \propto 1/m_\phi^4$) and BBN lifetime constraints; a secluded dark sector is the natural resolution. The scalar has only 1 degree of freedom and contributes $\Delta N_{\rm eff} \approx 0.027$ — well below the Planck limit.
+The annihilation $\chi\chi \to \phi\phi$ is **s-wave**, yielding a thermal relic density $\Omega h^2 = 0.120$ for $\alpha \sim 5 \times 10^{-4}$–$5 \times 10^{-3}$ — squarely within the SIDM-viable region. A dedicated cosmological scan using an exact numerical Boltzmann solver identifies **17 benchmark points** forming an "island of viability" at $m_\chi \in [10, 100]$ GeV, $m_\phi \in [7.6, 14.8]$ MeV that simultaneously satisfy relic density, SIDM, and cluster constraints. The primary benchmark has $m_\chi = 20.69$ GeV, $m_\phi = 11.34$ MeV, $\alpha = 1.05 \times 10^{-3}$, $\Omega h^2 = 0.120$, $\sigma/m(30) = 0.52$ cm$^2$/g, and $\sigma/m(1000) = 0.072$ cm$^2$/g. A quantitative $\chi^2$ fit to 13 astrophysical systems spanning $v = 12$–$4700$ km/s yields $\chi^2/\nu = 0.54$ for the best relic-constrained point and $\chi^2/\nu = 0.26$ for the unconstrained best fit, with all pulls below $1.2\sigma$. A Bayesian MCMC posterior analysis confirms that all 17 relic benchmarks lie within the 95% credible region, with marginalized constraints $m_\chi = 73^{+43}_{-56}$ GeV, $m_\phi = 10.8^{+4.8}_{-4.3}$ MeV (68% CI). We show that a Higgs portal coupling to the SM is generically **excluded** for light mediators ($m_\phi \lesssim \mathcal{O}(\text{GeV})$) by the tension between direct detection ($\sigma_{\rm SI} \propto 1/m_\phi^4$) and BBN lifetime constraints; a secluded dark sector is the natural resolution. The scalar has only 1 degree of freedom; since $m_\phi \gg T_\nu$ at BBN and CMB, $\phi$ is non-relativistic and Boltzmann-suppressed, contributing $\Delta N_{\rm eff} \approx 0$ — trivially consistent with all $N_{\rm eff}$ bounds.
 
 ---
 
@@ -366,11 +366,11 @@ We set $\lambda_{H\phi} = 0$ (equivalently, $\sin\theta = 0$), removing any tree
 
 ### 5.3 Cosmological Safety of Stable $\phi$
 
-A stable $\phi$ with $m_\phi \sim 8$–15 MeV contributes to the energy density as dark radiation at temperatures $T \ll m_\phi$. As a single real scalar degree of freedom:
+A stable $\phi$ with $m_\phi \sim 8$–15 MeV would contribute to the radiation energy density only if relativistic ($T_\phi \gg m_\phi$). In the hypothetical massless limit, a single real scalar degree of freedom gives:
 
-$$\Delta N_{\rm eff} = \frac{4}{7}\left(\frac{T_\phi}{T_\nu}\right)^4 \approx 0.027$$
+$$\Delta N_{\rm eff}^{\rm massless} = \frac{4}{7}\left(\frac{T_\phi}{T_\nu}\right)^4 \approx 0.027$$
 
-for $\xi = 1$ and $\phi$ decoupling before $e^+e^-$ annihilation. This is a factor of $\sim 11$ below the Planck 2018 limit ($\Delta N_{\rm eff} < 0.30$ at 95% CL) and well within the projected CMB-S4 sensitivity ($\sigma \sim 0.03$).
+for $\xi = 1$ and $\phi$ decoupling before $e^+e^-$ annihilation. However, for our massive $\phi$, the actual contribution is Boltzmann-suppressed: at BBN ($T_{\rm SM} \sim 1$ MeV), $m_\phi/T_\phi \sim 22$ gives a suppression factor $\sim e^{-22} \approx 3 \times 10^{-10}$; at CMB recombination ($T_{\rm SM} \sim 0.26$ eV), $m_\phi/T_\phi \sim 10^8$ and $\Delta N_{\rm eff}$ is effectively zero. The model is therefore trivially consistent with both Planck 2018 ($\Delta N_{\rm eff} < 0.30$ at 95% CL) and the projected CMB-S4 sensitivity ($\sigma \sim 0.03$).
 
 The energy density in stable $\phi$ particles at late times is:
 
@@ -382,7 +382,7 @@ $$\frac{\Omega_\phi}{\Omega_\chi} \sim \frac{m_\phi}{m_\chi} \sim 5 \times 10^{-
 
 Without a direct detection signal, the model is tested through:
 1. **Astrophysical observations** of dwarf galaxy cores, cluster mergers, and halo density profiles — the primary SIDM observable
-2. **CMB-S4** sensitivity to $\Delta N_{\rm eff} \sim 0.03$ could probe the stable $\phi$ contribution
+2. **CMB-S4** sensitivity to $\Delta N_{\rm eff} \sim 0.03$ cannot probe our massive $\phi$ (Boltzmann-suppressed, $\Delta N_{\rm eff} \approx 0$), but a null result would be consistent with the model
 3. **Tightening cluster bounds** on $\sigma/m(1000)$ below 0.01 cm$^2$/g would further constrain the island of viability
 4. **Relic density:** if $\alpha$ is measured independently from halo observations, the relic prediction is fixed — a non-trivial consistency test
 
@@ -461,7 +461,7 @@ Throughout this section we employ three benchmark points from the MCMC posterior
 - **BP9** ($m_\chi = 37.9$ GeV, $m_\phi = 16.36$ MeV, $\alpha = 1.840 \times 10^{-3}$, $\lambda = 4.26$) — classical regime.
 - **MAP** ($m_\chi = 90.64$ GeV, $m_\phi = 13.85$ MeV, $\alpha = 2.546 \times 10^{-2}$, $\lambda = 166.6$) — deep resonant regime, maximum a posteriori estimate.
 
-For the CP-separation analysis (§7.1), we generalize the Lagrangian to include both scalar and pseudoscalar couplings: $\mathcal{L} \supset \frac{1}{2}\bar{\chi}(y_s + iy_p\gamma_5)\chi\,\phi$, with $\alpha_{s,p} = y_{s,p}^2/(4\pi)$. The relic density fixes $\alpha_s \alpha_p$ while self-interactions depend only on $\alpha_s$; for all other sections, $\alpha \equiv \alpha_s$ at the CP-symmetric point $\alpha_s = \alpha_p$.
+For the CP-separation analysis (§7.1), we generalize the Lagrangian to include both scalar and pseudoscalar couplings: $\mathcal{L} \supset \frac{1}{2}\bar{\chi}(y_s + iy_p\gamma_5)\chi\,\phi$, with $\alpha_{s,p} = y_{s,p}^2/(4\pi)$. The relic density fixes $\alpha_s \alpha_p$ while self-interactions depend only on $\alpha_s$; for all other sections, $\alpha \equiv \alpha_s$ at the CP-symmetric point $\alpha_s = \alpha_p$. Unlike Dirac fermion models, where a single Yukawa coupling must simultaneously satisfy both relic density and self-interaction constraints — creating tension between the two — the Majorana structure naturally separates these requirements: $y_p$ controls $s$-wave annihilation while $y_s$ governs the Yukawa self-interaction potential, eliminating internal fine-tuning.
 
 ### 7.1 CP-Violating Structure of the Coupling Space
 
@@ -584,13 +584,31 @@ We present predictions for 15 galaxies: 8 classical dSphs (Fornax, Sculptor, Dra
 | — | $\sigma/m(1000$ km/s)$^\dagger$ | 0.072 | 0.040 | 0.126 | $< 1$ cm²/g (Bullet Cluster) |
 | — | VPM regime | Born ($\lambda = 1.9$) | Classical ($\lambda = 4.3$) | Deep resonant ($\lambda = 167$) | Determines $\sigma/m(v)$ shape |
 | — | Relic density $\Omega h^2$ | 0.120 | 0.120 | 0.120 | 0.120 ± 0.001 (Planck) |
-| — | $\Delta N_{\rm eff}$ | 0.027 | 0.027 | 0.027 | $< 0.3$ (Planck) |
+| — | $\Delta N_{\rm eff}$ | $\approx 0$ | $\approx 0$ | $\approx 0$ | $< 0.3$ (Planck) |
 
 $^\dagger$ Global maximum $\sigma/m(1000) = 0.19$ cm$^2$/g at $\lambda \approx 81$ (resonance peak); all viable points safely below the Bullet Cluster bound.
 
 The dual-benchmark strategy is strongly justified by the data. **MAP** ($\lambda = 167$, deep resonant regime) is the astrophysical champion: it produces observable cores in most dSphs (6/8 classical, 5/6 UFDs), achieves perfect Fornax GC survival (15/15), shows a true $\sigma/m$ plateau at low velocities (7% variation across $v = 1$–$12$ km/s), and spans 3.81 decades of CP violation. **BP1** ($\lambda = 1.9$, Born-to-classical transition) is the collider-accessible benchmark: lower $m_\chi = 20.7$ GeV is potentially accessible to future DM searches, and it provides the sweet spot for galactic-scale phenomenology (31–37% RAR scatter improvement). Both benchmarks satisfy relic density, cluster constraints, and $\Delta N_{\rm eff}$ by construction.
 
-**Structural predictions:** (1) SMBH seeds do NOT form via gravothermal collapse — a structural consequence of cluster-safe $\sigma/m(v)$; (2) $r_{\rm core}/r_{\rm half}$ is NOT universal in velocity-dependent SIDM — distinguishing from constant-$\sigma/m$ models; (3) Crater II requires tidal processing in addition to SIDM — not a pure SIDM test.
+**Structural predictions:** (1) SMBH seeds do NOT form via gravothermal collapse — a structural consequence of cluster-safe $\sigma/m(v)$; (2) $r_{\rm core}/r_{\rm half}$ is NOT universal in velocity-dependent SIDM — distinguishing from constant-$\sigma/m$ models; (3) Crater II requires tidal processing in addition to SIDM — not a pure SIDM test; (4) the partial-wave weights for identical Majorana scattering produce a $\sigma_T(v)$ profile quantitatively distinguishable from Dirac+scalar models (see §7.7).
+
+### 7.7 Majorana vs Dirac Fingerprint
+
+Identical Majorana fermions scatter in definite spin channels: even-$\ell$ partial waves (singlet, weight 1) and odd-$\ell$ (triplet, weight 3), with an overall factor $\frac{1}{2}$ from identical particles. The transfer cross section is:
+$$\sigma_T^{\rm Maj} = \frac{2\pi}{k^2} \sum_\ell \bigl(w_\ell^{\rm Maj}\bigr)(2\ell+1)\sin^2\delta_\ell, \qquad w_\ell^{\rm Maj} = \begin{cases} 1 & \ell\;\text{even},\\ 3 & \ell\;\text{odd}.\end{cases}$$
+For a distinguishable Dirac fermion with the same Yukawa potential, all weights are unity and there is no identical-particle factor:
+$$\sigma_T^{\rm Dir} = \frac{4\pi}{k^2} \sum_\ell (2\ell+1)\sin^2\delta_\ell.$$
+The ratio $R(v) \equiv \sigma_T^{\rm Maj}/\sigma_T^{\rm Dir}$ therefore depends on which partial waves are populated:
+
+| $v_{\rm rel}$ [km/s] | BP1 ($\lambda=1.9$) | MAP ($\lambda=167$) | Physics |
+|---|---|---|---|
+| 30 (dSph) | 0.50 | 0.90 | Born: only even-$\ell$ |
+| 220 (MW) | 0.61 | **1.13** | odd-$\ell$ resonance (MAP) |
+| 1200 (cluster) | 0.93 | 0.94 | many $\ell$ populated |
+
+In the Born limit ($\lambda \ll 1$), only the $\ell = 0$ (even) partial wave contributes, giving $R = 1/2$ exactly. At the MAP point ($\lambda = 167$), odd-$\ell$ resonances with weight 3 dominate near $v \sim 200$ km/s, pushing $R > 1$ — Majorana scattering *exceeds* Dirac at these velocities. The non-monotonic oscillation of $R(v)$ between $\sim 0.5$ and $> 1$ is a smoking-gun signature: no Dirac+scalar model can reproduce this pattern.
+
+Practical discriminant: measurements of $\sigma/m$ at $\geq 3$ velocity scales (dSph, MW, cluster) that exhibit a non-monotonic Maj/Dir ratio would confirm the identical-particle statistics of the dark matter.
 
 ---
 
@@ -608,7 +626,7 @@ Compared to an axial-vector mediator (as explored in earlier versions of this wo
 | SIDM–relic overlap | Narrow | **Broad** ✓ |
 | Gauge anomaly | Required UV completion | None needed ✓ |
 | $\sigma_{\rm SI}$ | Zero (Majorana) | = 0 (secluded) |
-| $\Delta N_{\rm eff}$ | Marginal | 0.027 (safe) ✓ |
+| $\Delta N_{\rm eff}$ | Marginal | $\approx 0$ (Boltzmann-suppressed, safe) ✓ |
 
 The scalar mediator resolves the primary limitations of the axial-vector approach while preserving all the successful SIDM phenomenology.
 
@@ -617,7 +635,7 @@ The scalar mediator resolves the primary limitations of the axial-vector approac
 1. A Majorana fermion with a light scalar mediator in a **secluded dark sector** produces velocity-dependent SIDM with a large viable parameter space (80,142 raw points).
 2. The s-wave annihilation yields the correct relic density for $\alpha \sim 5 \times 10^{-4}$–$5 \times 10^{-3}$, with **exact overlap** with the SIDM-viable region — 17 benchmark points verified with a numerical Boltzmann solver. Sommerfeld enhancement is negligible at freeze-out ($S_0 < 1.026$, \S6.5), validating the tree-level calculation.
 3. The Higgs portal coupling is **generically excluded** for light mediators ($m_\phi \lesssim$ GeV) due to the $1/m_\phi^4$ enhancement of $\sigma_{\rm SI}$ (§5.1). A secluded dark sector is the natural resolution.
-4. The model is minimal (3 parameters), anomaly-free, and cosmologically safe ($\Delta N_{\rm eff} \approx 0.027$).
+4. The model is minimal (3 parameters), anomaly-free, and cosmologically safe ($\Delta N_{\rm eff} \approx 0$, since $m_\phi \gg T$ at BBN and CMB).
 5. The predicted $\sigma/m(v)$ curves are **quantitatively consistent with all 13 astrophysical observations** spanning $v = 12$–$4700$ km/s (§4.5–4.6). A $\chi^2$ fit to data from five independent analyses [13, 19, 20, 21, 22] yields $\chi^2/\nu = 0.26$ (unconstrained) and $\chi^2/\nu = 0.54$ (relic-constrained BP1), with all pulls $< 1.2\sigma$. All 17 relic benchmarks achieve $\chi^2/\nu < 0.85$. Maxwell–Boltzmann velocity averaging shifts the $\chi^2$ by only $\sim$6% on average (Appendix D), well within observational uncertainties.
 6. A Bayesian MCMC posterior analysis (§4.7) with flat log-priors yields a broad 68% credible region: $m_\chi \in [17, 116]$ GeV, $m_\phi \in [6.5, 15.6]$ MeV, $\alpha \in [10^{-3}, 2.2 \times 10^{-2}]$. All 17 relic benchmark points lie within the 95% credible posterior, and the MAP estimate achieves $\chi^2/\nu = 0.16$.
 7. Unlike phenomenological $\sigma/m(v)$ fits [23, 24], our analysis derives the velocity-dependent cross section from first principles: the Lagrangian parameters $(m_\chi, m_\phi, \alpha)$ are fixed by the observed relic abundance, leaving **zero free parameters** in the SIDM prediction. This micro-physics-first approach — Lagrangian $\to$ relic density $\to$ $\sigma/m(v)$ $\to$ core sizes — contrasts with most existing SIDM–SPARC analyses, which treat $\sigma/m$ as a free function and fit it phenomenologically to rotation curves.
@@ -627,7 +645,7 @@ The scalar mediator resolves the primary limitations of the axial-vector approac
 The model can be tested or constrained by:
 1. **Astrophysical observations:** dwarf galaxy cores, cluster mergers, and halo density profiles provide the primary constraint on $\sigma/m(v)$. Improving measurements can narrow or exclude the viable island.
 2. **Cluster constraints** tightening to $\sigma/m < 0.01$ cm$^2$/g at 1000 km/s.
-3. **CMB-S4:** improved $\Delta N_{\rm eff}$ sensitivity ($\sigma \sim 0.03$) could probe the stable $\phi$ contribution of $\approx 0.027$.
+3. **CMB-S4:** improved $\Delta N_{\rm eff}$ sensitivity ($\sigma \sim 0.03$) will find $\Delta N_{\rm eff} \approx 0$ from our model, since $\phi$ is massive ($m_\phi \sim 11$–14 MeV $\gg T$ at recombination) and Boltzmann-suppressed. A detection of $\Delta N_{\rm eff} > 0.06$ at CMB-S4 would **disfavor** the model or require additional light species.
 4. **Relic density:** if $\alpha$ is measured independently (e.g., from halo observations), the relic prediction is fixed — a non-trivial consistency test.
 
 The absence of a direct detection signal is a **prediction**, not a deficit: we have shown (§5.1) that the Higgs portal is incompatible with light-mediator SIDM, making $\sigma_{\rm SI} = 0$ the expected outcome.

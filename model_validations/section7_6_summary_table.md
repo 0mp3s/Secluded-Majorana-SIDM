@@ -24,7 +24,7 @@
 | — | Low-$v$ plateau? | ✗ No (92% variation) | — | ✅ Yes (7% variation) | — |
 | — | Relic density $\Omega h^2$ | 0.120 | 0.120 | 0.120 | 0.120 ± 0.001 (Planck) |
 | — | VPM regime | Born ($\lambda = 1.9$) | Classical ($\lambda = 4.3$) | Deep resonant ($\lambda = 167$) | Determines $\sigma/m(v)$ shape |
-| — | $\Delta N_{\rm eff}$ | 0.027 | 0.027 | 0.027 | $< 0.3$ (Planck) |
+| — | $\Delta N_{\rm eff}$ | $\approx 0$ | $\approx 0$ | $\approx 0$ | $< 0.3$ (Planck) |
 
 ---
 
@@ -49,6 +49,7 @@ The dual-benchmark strategy is strongly justified by the data:
 1. SMBH seeds do NOT form via gravothermal collapse — structural consequence of cluster-safe $\sigma/m(v)$
 2. $r_{\rm core}/r_{\rm half}$ is NOT universal in velocity-dependent SIDM — distinguishes from constant-$\sigma/m$ models
 3. Crater II requires tidal processing in addition to SIDM — not a pure SIDM test
+4. The partial-wave weights for identical Majorana scattering (singlet: even-$\ell$, weight 1; triplet: odd-$\ell$, weight 3) produce a $\sigma_T(v)$ profile quantitatively distinguishable from Dirac+scalar models — measurements of $\sigma/m$ at three or more velocity scales could discriminate between the two
 
 ---
 

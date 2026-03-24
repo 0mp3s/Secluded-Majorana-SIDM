@@ -70,7 +70,8 @@ Secluded-Majorana-SIDM/
 │   ├── cluster_offsets/      # Cluster merger σ/m bounds
 │   ├── delta_neff/           # ΔN_eff from light mediator
 │   ├── fornax_jeans/         # Fornax Jeans analysis (SIDM + feedback + β)
-│   └── multi_dsph_jeans/     # Multi-dSph cross-validation (5 dSphs)
+│   ├── multi_dsph_jeans/     # Multi-dSph cross-validation (5 dSphs)
+│   └── majorana_vs_dirac/    # Majorana vs Dirac σ_T(v) fingerprint
 │
 ├── discussion/               # A–B discussion notes
 │   └── MixedMajorana.md
@@ -107,6 +108,9 @@ cd ../fornax_jeans && python predict_fornax_jeans_aniso.py
 
 # Multi-dSph cross-validation (Fornax, Sculptor, Draco, Carina, Sextans)
 cd ../multi_dsph_jeans && python predict_multi_dsph_jeans.py
+
+# Majorana vs Dirac σ_T(v) fingerprint
+cd ../majorana_vs_dirac && python predict_maj_vs_dir.py
 ```
 
 ## Configuration
@@ -152,6 +156,7 @@ See each folder's `README.md` for the full config.json schema and expected data 
 | **Fermi-LAT** | dSph indirect detection | Tree-level = 0 (secluded); loop 16 orders below UL |
 | **Fornax Jeans** | σ_los(R) profile fit | MAP+fb+β: **χ²/dof = 1.7/7** (all residuals < 1σ) |
 | **Multi-dSph** | 5 classical dSphs | **4/5 with χ²/dof < 2** — not a statistical fluke |
+| **Majorana vs Dirac** | σ_T(v) ratio comparison | Ratio oscillates 0.5–1.13: smoking-gun Majorana fingerprint |
 
 ### Peer Review Status
 
