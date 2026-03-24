@@ -28,9 +28,10 @@ os.environ['PYTHONIOENCODING'] = 'utf-8'
 from v22_raw_scan import sigma_T_vpm
 from predict_gravothermal import load_dsphs, compute_predictions, classify
 from predict_offsets import load_clusters
+from output_manager import get_latest
 
 # ── paths ──
-BP_CSV = os.path.join(_ROOT, 'data', 'v31_true_viable_points.csv')
+BP_CSV = str(get_latest("v31_true_viable_points"))
 DSPH_CSV = os.path.join(_ROOT, 'predictions', 'gravothermal', 'dsphs_data.csv')
 CLUSTER_CSV = os.path.join(_ROOT, 'predictions', 'cluster_offsets', 'clusters_data.csv')
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output')

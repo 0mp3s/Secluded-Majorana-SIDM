@@ -42,6 +42,7 @@ if _DIR not in sys.path:
     sys.path.insert(0, _DIR)
 
 from v22_raw_scan import sigma_T_vpm
+from output_manager import get_latest
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -136,7 +137,7 @@ def main():
     import csv as csv_mod
 
     # Load relic BPs (path overridable via config.json)
-    _bp_csv = _CFG.get("benchmark_csv", os.path.join(DATA_DIR, "v31_true_viable_points.csv"))
+    _bp_csv = _CFG.get("benchmark_csv") or str(get_latest("v31_true_viable_points"))
     if not os.path.isabs(_bp_csv):
         _bp_csv = os.path.normpath(os.path.join(_DIR, _bp_csv))
     csv_path = _bp_csv

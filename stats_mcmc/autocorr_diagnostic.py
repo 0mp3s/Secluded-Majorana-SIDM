@@ -20,6 +20,8 @@ import os, sys
 import numpy as np
 
 _DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.normpath(os.path.join(_DIR, '..', 'core')))
+from output_manager import get_latest, _MCMC_ARCHIVE
 OUT_DIR = os.path.join(_DIR, 'output')
 
 import matplotlib
@@ -36,10 +38,7 @@ N_WALKERS = 32   # must match the run
 
 
 def main():
-    npy_path = os.path.join(OUT_DIR, 'v38_mcmc_samples.npy')
-    if not os.path.exists(npy_path):
-        print(f"  ERROR: {npy_path} not found. Run opusB_run_mcmc.py first.")
-        sys.exit(1)
+    npy_path = str(get_latest("v38_mcmc_samples", ".npy", _MCMC_ARCHIVE))
 
     flat = np.load(npy_path)
     n_total, ndim = flat.shape

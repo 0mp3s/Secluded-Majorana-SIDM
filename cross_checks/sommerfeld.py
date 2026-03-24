@@ -43,6 +43,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from config_loader import load_config
+from output_manager import get_latest
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -201,7 +202,7 @@ def main():
     validate()
 
     # Load benchmark points
-    _bp_csv = _CFG.get("benchmark_csv", os.path.join(DATA_DIR, "v31_true_viable_points.csv"))
+    _bp_csv = _CFG.get("benchmark_csv") or str(get_latest("v31_true_viable_points"))
     if not os.path.isabs(_bp_csv):
         _bp_csv = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), _bp_csv))
     csv_path = _bp_csv

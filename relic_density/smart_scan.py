@@ -24,6 +24,7 @@ import sys, os, math, time, csv
 import numpy as np
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from config_loader import load_config
+from output_manager import timestamped_path
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -227,7 +228,7 @@ if __name__ == '__main__':
     # --- Save ALL results to CSV (including non-viable, for diagnostics) ---
     all_results.sort(key=lambda r: (r['m_chi_GeV'], r['m_phi_GeV']))
     _OUT = _CFG.get("output", {})
-    _csv_all_rel = _OUT.get("all_relic_csv", os.path.join(DATA_DIR, "v31_all_relic_points.csv"))
+    _csv_all_rel = _OUT.get("all_relic_csv") or str(timestamped_path("v31_all_relic_points"))
     csv_all = _csv_all_rel if os.path.isabs(_csv_all_rel) else os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), _csv_all_rel))
     with open(csv_all, 'w', newline='') as f:
         writer = csv.writer(f)
@@ -245,7 +246,7 @@ if __name__ == '__main__':
 
     # --- Save viable-only CSV ---
     if viable:
-        _csv_viable_rel = _OUT.get("viable_csv", os.path.join(DATA_DIR, "v31_true_viable_points.csv"))
+        _csv_viable_rel = _OUT.get("viable_csv") or str(timestamped_path("v31_true_viable_points"))
         csv_viable = _csv_viable_rel if os.path.isabs(_csv_viable_rel) else os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), _csv_viable_rel))
         with open(csv_viable, 'w', newline='') as f:
             writer = csv.writer(f)

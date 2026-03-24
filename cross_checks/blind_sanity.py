@@ -32,6 +32,7 @@ os.environ['PYTHONIOENCODING'] = 'utf-8'
 # Import the VPM solver from v22 (no new physics code)
 from v22_raw_scan import sigma_T_vpm, M_CHI_VALS, M_PHI_VALS, LAM_CRITS
 from config_loader import load_config
+from output_manager import get_latest
 
 _CFG = load_config(__file__)
 
@@ -57,7 +58,8 @@ def load_representatives():
     import csv
     reps = []
     _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-    csv_path = os.path.join(_SCRIPT_DIR, _CFG.get("representative_csv", "../data/all_viable_representative_v8.csv"))
+    _csv_override = _CFG.get("representative_csv")
+    csv_path = os.path.join(_SCRIPT_DIR, _csv_override) if _csv_override else str(get_latest("all_viable_representative_v8"))
     with open(csv_path, newline='') as f:
         reader = csv.DictReader(f)
         for row in reader:

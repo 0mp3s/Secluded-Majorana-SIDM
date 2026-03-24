@@ -11,6 +11,7 @@ import sys, os, math, csv
 from config_loader import load_config
 from global_config import GC
 from v22_raw_scan import sigma_T_vpm
+from output_manager import get_latest
 
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)  # JIT warmup
 
@@ -70,7 +71,7 @@ def pulls_detail(sigma_at_v):
 
 
 if __name__ == '__main__':
-    relic_csv = _CFG.get("benchmark_csv", os.path.join(DATA_DIR, 'v31_true_viable_points.csv'))
+    relic_csv = _CFG.get("benchmark_csv") or str(get_latest("v31_true_viable_points"))
     _DIR = os.path.dirname(os.path.abspath(__file__))
     if not os.path.isabs(relic_csv):
         relic_csv = os.path.normpath(os.path.join(_DIR, relic_csv))

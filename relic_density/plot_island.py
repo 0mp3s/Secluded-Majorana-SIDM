@@ -15,6 +15,7 @@ DATA_DIR = _os.path.join(_ROOT, 'data')
 # =================================================================
 
 import sys, csv
+from output_manager import get_latest
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -26,7 +27,7 @@ from matplotlib.patches import Patch
 #  Load data
 # ==============================================================
 all_data = []
-with open(os.path.join(DATA_DIR, 'v31_all_relic_points.csv')) as f:
+with open(str(get_latest("v31_all_relic_points"))) as f:
     reader = csv.DictReader(f)
     for r in reader:
         all_data.append({

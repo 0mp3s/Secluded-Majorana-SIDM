@@ -41,6 +41,7 @@ import matplotlib.pyplot as plt
 from config_loader import load_config
 from global_config import GC
 from v22_raw_scan import sigma_T_vpm
+from output_manager import get_latest, timestamped_path, _MCMC_ARCHIVE
 
 # Warm up JIT
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
@@ -236,8 +237,7 @@ def run_mcmc():
     seeds = []
 
     # Add relic BPs
-    csv_path = cfg.get("relic_bp_csv",
-                       os.path.join(DATA_DIR, "v31_true_viable_points.csv"))
+    csv_path = cfg.get("relic_bp_csv") or str(get_latest("v31_true_viable_points"))
     with open(csv_path) as f:
         for row in csv_mod.DictReader(f):
             mc = float(row['m_chi_GeV'])
@@ -437,12 +437,12 @@ def run_mcmc():
     # ================================================================
     #  Save chains for reproducibility
     # ================================================================
-    npy_path = os.path.join(OUT_DIR, 'v38_mcmc_samples.npy')
+    npy_path = str(timestamped_path("v38_mcmc_samples", ".npy", _MCMC_ARCHIVE))
     np.save(npy_path, flat_samples)
     print(f"\n  Samples saved: {npy_path} ({flat_samples.shape})")
 
     import csv as csv_mod
-    csv_out = os.path.join(OUT_DIR, 'v38_mcmc_samples.csv')
+    csv_out = str(timestamped_path("v38_mcmc_samples", ".csv", _MCMC_ARCHIVE))
     with open(csv_out, 'w', newline='') as f:
         w = csv_mod.writer(f)
         w.writerow(['log10_m_chi_GeV', 'log10_m_phi_MeV', 'log10_alpha',

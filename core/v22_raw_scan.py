@@ -23,6 +23,7 @@ from numba import jit, prange
 from scipy.special import spherical_jn, spherical_yn
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import multiprocessing
+from output_manager import timestamped_path
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -519,9 +520,7 @@ def section_2_analysis(raw_points, rep_points):
     print(f"    ratio={bp['sigma_30']/bp['sigma_1000']:.0f}x")
 
     # --- Save CSVs ---
-    base = os.path.dirname(os.path.abspath(__file__))
-
-    csv_raw = os.path.join(base, 'all_viable_raw_v8.csv')
+    csv_raw = timestamped_path("all_viable_raw_v8")
     with open(csv_raw, 'w') as f:
         f.write("m_chi_GeV,m_phi_MeV,alpha,sigma_m_30,sigma_m_1000,resonance_idx\n")
         for p in raw_points:
@@ -529,7 +528,7 @@ def section_2_analysis(raw_points, rep_points):
                     f"{p['sigma_30']:.6f},{p['sigma_1000']:.8f},{p['resonance']}\n")
     print(f"\n  Saved raw: {csv_raw}")
 
-    csv_rep = os.path.join(base, 'all_viable_representative_v8.csv')
+    csv_rep = timestamped_path("all_viable_representative_v8")
     with open(csv_rep, 'w') as f:
         f.write("m_chi_GeV,m_phi_MeV,alpha,sigma_m_30,sigma_m_1000\n")
         for p in rep_points:

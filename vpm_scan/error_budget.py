@@ -28,6 +28,7 @@ _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 _ROOT = os.path.join(_SCRIPT_DIR, '..')
 sys.path.insert(0, os.path.join(_ROOT, 'core'))
 from global_config import GC
+from output_manager import get_latest
 
 # ==============================================================
 #  Constants
@@ -39,8 +40,6 @@ C_KM_S      = 299792.458
 # ==============================================================
 #  Benchmarks — BP1 & MAP from global config, BP17 from relic CSV
 # ==============================================================
-_CSV_PATH = os.path.join(_ROOT, "data", "v31_true_viable_points.csv")
-
 def _load_benchmarks():
     """Load BP1, MAP from global_config.json and BP17 (marginal) from relic CSV."""
     bp1 = GC.benchmark("BP1")
@@ -48,7 +47,7 @@ def _load_benchmarks():
 
     # BP17 = last row of the relic CSV (highest sigma_m_1000 among viable)
     import csv
-    with open(_CSV_PATH, "r") as f:
+    with open(str(get_latest("v31_true_viable_points")), "r") as f:
         reader = csv.DictReader(f)
         rows = list(reader)
     bp17 = rows[-1]  # BP17 is the last row (sorted by sigma_m_1000)

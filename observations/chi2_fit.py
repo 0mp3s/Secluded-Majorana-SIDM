@@ -30,6 +30,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from config_loader import load_config
 from global_config import GC
+from output_manager import get_latest, timestamped_path
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -116,7 +117,7 @@ def run():
     # ============================================================
     # LOAD EXISTING DATA  (paths overridable via config.json)
     # ============================================================
-    raw_csv_path = _CFG.get("scan_data_csv", os.path.join(DATA_DIR, 'all_viable_raw_v8.csv'))
+    raw_csv_path = _CFG.get("scan_data_csv") or str(get_latest("all_viable_raw_v8"))
     if not os.path.isabs(raw_csv_path):
         raw_csv_path = os.path.normpath(os.path.join(_DIR, raw_csv_path))
     raw_points = []
@@ -133,7 +134,7 @@ def run():
             raw_points.append((mc, mp_gev, al))
     print(f"  Loaded {len(raw_points)} raw viable points from scan")
 
-    relic_csv_path = _CFG.get("relic_bp_csv", os.path.join(DATA_DIR, 'v31_true_viable_points.csv'))
+    relic_csv_path = _CFG.get("relic_bp_csv") or str(get_latest("v31_true_viable_points"))
     if not os.path.isabs(relic_csv_path):
         relic_csv_path = os.path.normpath(os.path.join(_DIR, relic_csv_path))
     relic_points = []
@@ -228,7 +229,7 @@ def run():
     # ============================================================
     # WRITE CSV — all results
     # ============================================================
-    csv_out = os.path.join(_DIR, 'v34_results.csv')
+    csv_out = str(timestamped_path("v34_results"))
     vel_cols = [f"sigma_m_{v}" for v in OBS_VELOCITIES]
     with open(csv_out, 'w', newline='') as f:
         w = csv.writer(f)

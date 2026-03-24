@@ -126,7 +126,9 @@ class _GlobalConfig:
             raise KeyError(
                 f"Unknown CSV key '{name}'. Available: {available}"
             )
-        return _REPO_ROOT / paths[name]
+        from output_manager import get_latest
+        stem = Path(paths[name]).stem
+        return get_latest(stem)
 
     # ------------------------------------------------------------------ #
     #  Physical & cosmological constants                                   #

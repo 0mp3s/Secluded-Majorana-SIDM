@@ -54,14 +54,15 @@ from v27_boltzmann_relic import (
 
 # VPM sigma_T solver (Numba JIT, releases GIL → thread-parallel)
 from v22_raw_scan import sigma_T_vpm
+from output_manager import get_latest, timestamped_path
 
 # ---------------------------------------------------------------------------
 #  Constants
 # ---------------------------------------------------------------------------
 OMEGA_LO = 0.115
 OMEGA_HI = 0.125
-CSV_IN   = os.path.join(DATA_DIR, "all_viable_raw_v8.csv")
-CSV_OUT  = os.path.join(DATA_DIR, "v30_perfect_benchmarks.csv")
+CSV_IN   = str(get_latest("all_viable_raw_v8"))
+CSV_OUT  = str(timestamped_path("v30_perfect_benchmarks"))
 
 # ---------------------------------------------------------------------------
 #  Helper: fast vectorised Ωh² via Kolb-Turner s-wave
