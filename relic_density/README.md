@@ -24,7 +24,7 @@ Edit `config.json` to change the scan grid, Boltzmann solver parameters, or SIDM
         "alpha_range": [1e-5, 0.05]         // coupling bracket [lo, hi]
     },
     "sidm_cuts": {
-        "sigma_m_30_lo": 1.0,               // σ/m(30 km/s) lower bound [cm²/g]
+        "sigma_m_30_lo": 0.5,               // σ/m(30 km/s) lower bound [cm²/g]
         "sigma_m_30_hi": 10.0,              // σ/m(30 km/s) upper bound [cm²/g]
         "sigma_m_1000_hi": 0.1              // σ/m(1000 km/s) upper bound [cm²/g]
     },
