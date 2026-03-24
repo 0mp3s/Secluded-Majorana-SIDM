@@ -122,8 +122,8 @@ def main():
         sigs = [r[f'sigma_{v}'] for r in viable]
         print(f"  σ/m({v:>4d}):     {min(sigs):.4f} — {max(sigs):.4f} cm²/g")
 
-    # Compare with MAP's own α_s
-    map_alpha_s = 5.734e-3
+    # Compare with MAP's own α_s (= α at CP-symmetric point)
+    map_alpha_s = _bp.get('alpha', 5.734e-3)
     map_lam = map_alpha_s * M_CHI / M_PHI
     map_in_band = any(abs(r['alpha_s'] - map_alpha_s)/map_alpha_s < 0.05 for r in viable)
     print(f"\n  MAP benchmark (α_s = {map_alpha_s}): λ = {map_lam:.1f}")

@@ -9,6 +9,7 @@
         "label": "MAP",
         "m_chi_GeV": 94.07,
         "m_phi_MeV": 11.10,
+        "alpha": 5.734e-3,
         "relic_product": 1.387474e-7
     },
     "viable_alpha_s_BP1": [

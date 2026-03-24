@@ -4,6 +4,11 @@
     "benchmark_csv": "../data/v31_true_viable_points.csv",
     "representative_csv": "../data/all_viable_representative_v8.csv",
 
+    "benchmark_points": [
+        {"label": "BP1",  "m_chi_GeV": 20.69,  "m_phi_MeV": 11.34,  "alpha": 1.048e-3},
+        {"label": "MAP",  "m_chi_GeV": 94.07,  "m_phi_MeV": 11.10,  "alpha": 5.734e-3}
+    ],
+
     "sommerfeld": {
         "velocities_km_s": [30, 200, 1000, 90000],
         "_comment": "90000 km/s ~ v_fo at freeze-out (T ~ m_chi/25)"

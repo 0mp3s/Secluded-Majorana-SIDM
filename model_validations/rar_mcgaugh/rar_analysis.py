@@ -37,6 +37,7 @@ from fit_sparc_baryons import (
     load_rotation_data, nfw_params_with_cM, fit_galaxy_ac_sidm,
     G_N, KPC_CM, MSUN_G, SEC_PER_GYR, KM_S_TO_CM_S
 )
+from config_loader import load_config
 
 # Warm up JIT
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
@@ -47,11 +48,18 @@ MSUN_KG = 1.989e30
 KPC_M = 3.086e19
 G_DAGGER = 1.2e-10         # m/s² — McGaugh+2016 critical acceleration
 
-# BP1 parameters
-M_CHI = 20.69       # GeV
-M_PHI = 11.34e-3    # GeV
-ALPHA = 1.048e-3
-HALO_AGE_GYR = 10.0
+# BP1 parameters from config
+_CFG = load_config(__file__)
+def _get_bp(label):
+    for bp in _CFG.get("benchmark_points", []):
+        if bp["label"] == label:
+            return bp
+    return {}
+_BP1 = _get_bp("BP1")
+M_CHI = _BP1.get("m_chi_GeV", 20.69)
+M_PHI = _BP1.get("m_phi_MeV", 11.34) * 1e-3   # → GeV
+ALPHA = _BP1.get("alpha", 1.048e-3)
+HALO_AGE_GYR = _CFG.get("halo_age_Gyr", 10.0)
 
 # ── output directory ──
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output')

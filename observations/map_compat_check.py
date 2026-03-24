@@ -1,28 +1,20 @@
 #!/usr/bin/env python3
 """Quick MAP compatibility check against 13 observations."""
-import sys, os
+import sys, os, json
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'core'))
+from config_loader import load_config
 from v22_raw_scan import sigma_T_vpm
 
-mc, mp, alpha = 94.07, 11.10e-3, 5.734e-3
+_CFG = load_config(__file__)
+_benchmarks = {b[0]: b[1:] for b in _CFG.get("benchmarks", [])}
+_map = _benchmarks.get("MAP", [94.07, 11.10e-3, 5.734e-3])
+mc, mp, alpha = _map[0], _map[1], _map[2]
 
-obs = [
-    ("Draco dSph",          12,   0.6,  0.1,  2.0),
-    ("Fornax dSph",         12,   0.8,  0.2,  3.0),
-    ("NGC 2976",            60,   2.0,  0.5,  5.0),
-    ("NGC 1560",            55,   3.0,  1.0,  8.0),
-    ("IC 2574",             50,   1.5,  0.3,  5.0),
-    ("NGC 720 (group)",    250,   0.5,  0.1,  1.5),
-    ("NGC 1332 (group)",   280,   0.3,  0.05, 1.0),
-    ("Abell 611",         1200,   0.1,  0.02, 0.3),
-    ("Abell 2537",        1100,   0.15, 0.03, 0.4),
-    ("Diverse RC band",     40,   3.0,  0.5,  10.0),
-    ("Bullet Cluster",    4700,   0.7,  0.0,  1.25),
-    ("72 cluster mergers", 1000,  0.2,  0.0,  0.47),
-    ("TBTF dwarfs",         30,   1.0,  0.5,  5.0),
-]
+# Read observations from config (same source as chi2_fit)
+_raw_obs = _CFG.get("observations", [])
+obs = [(o[0], o[1], o[2], o[3], o[4]) for o in _raw_obs]
 
-print("MAP compatibility (94.07, 11.10 MeV, 5.734e-3):")
+print(f"MAP compatibility ({mc}, {mp*1e3:.2f} MeV, {alpha}):")
 print("-" * 80)
 n = 0
 for name, v, sm, lo, hi in obs:

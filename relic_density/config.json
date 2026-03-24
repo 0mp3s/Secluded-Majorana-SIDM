@@ -1,6 +1,11 @@
 {
     "_comment": "Relic density scan configuration",
 
+    "benchmark_points": [
+        {"label": "BP2_KT", "m_chi_GeV": 18.421, "m_phi_MeV": 8.20, "alpha_KT": 8.19e-4,
+         "_comment": "BP2 from v30_benchmark_extractor, Kolb-Turner estimate"}
+    ],
+
     "grid": {
         "n_chi": 20,
         "n_phi": 30,

@@ -43,6 +43,7 @@ if _DIR not in sys.path:
     sys.path.insert(0, _DIR)
 
 from v22_raw_scan import sigma_T_vpm, vpm_phase_shift, C_KM_S, GEV2_TO_CM2, GEV_IN_G
+from config_loader import load_config
 
 # ==============================================================
 #  Born phase shifts (reference — same approach as v21)
@@ -175,12 +176,17 @@ BORN_BENCHMARKS = [
 # (but the key test is regime-crossing consistency).
 
 # Benchmark set 3: Our own BP1 as self-consistency
-# BP1: m_χ = 20.69 GeV, m_φ = 11.34 MeV, α = 1.048e-3
-# At v=30 km/s: σ/m = 0.52 cm²/g
+_CFG = load_config(__file__)
+def _get_bp(label):
+    for bp in _CFG.get("benchmark_points", []):
+        if bp["label"] == label:
+            return bp
+    return {}
+_BP1_CFG = _get_bp("BP1")
 
-BP1_M_CHI = 20.69    # GeV
-BP1_M_PHI = 11.34e-3 # GeV
-BP1_ALPHA = 1.048e-3
+BP1_M_CHI = _BP1_CFG.get("m_chi_GeV", 20.69)
+BP1_M_PHI = _BP1_CFG.get("m_phi_MeV", 11.34) * 1e-3   # → GeV
+BP1_ALPHA = _BP1_CFG.get("alpha", 1.048e-3)
 
 
 def print_header():

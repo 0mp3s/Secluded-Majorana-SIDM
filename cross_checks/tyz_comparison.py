@@ -30,9 +30,22 @@ from scipy.integrate import quad
 
 sys.path.insert(0, os.path.dirname(__file__))
 from v22_raw_scan import sigma_T_vpm, C_KM_S
+from config_loader import load_config
 
 GEV2_TO_CM2 = 3.8938e-28
 GEV_IN_G    = 1.78266e-24
+
+# Load BP1 from config
+_CFG = load_config(__file__)
+def _get_bp(label):
+    for bp in _CFG.get("benchmark_points", []):
+        if bp["label"] == label:
+            return bp
+    return {}
+_BP1 = _get_bp("BP1")
+BP1_M_CHI = _BP1.get("m_chi_GeV", 20.69)
+BP1_M_PHI = _BP1.get("m_phi_MeV", 11.34) * 1e-3   # → GeV
+BP1_ALPHA = _BP1.get("alpha", 1.048e-3)
 
 
 def sigma_T_born_majorana(m_chi_GeV, m_phi_GeV, alpha, v_km_s):
@@ -82,7 +95,7 @@ TEST_POINTS = [
     ("Trans-1",  20.0,  0.020,  5.0e-4,   50.0),
     ("Trans-2",  50.0,  0.050,  8.0e-4,  100.0),
     # Resonant regime: λ ~ 2-10
-    ("Res-1",    20.69, 0.00991,1.048e-3, 30.0),  # BP1 relic
+    ("Res-1",    BP1_M_CHI, BP1_M_PHI, BP1_ALPHA, 30.0),  # BP1 relic
     ("Res-2",    50.0,  0.015,  1.5e-3,   50.0),
     ("Res-3",    30.0,  0.012,  2.0e-3,  100.0),
     # Deep resonant / classical: λ > 10
@@ -145,14 +158,15 @@ def run():
     print()
 
     # ── Velocity scan at BP1 ──
-    print("  Velocity scan at BP1 (m_χ=20.69 GeV, m_φ=9.91 MeV, α=1.048e-3, λ=2.19):")
+    bp1_lam = BP1_ALPHA * BP1_M_CHI / BP1_M_PHI
+    print(f"  Velocity scan at BP1 (m_χ={BP1_M_CHI} GeV, m_φ={BP1_M_PHI*1e3:.2f} MeV, α={BP1_ALPHA:.4e}, λ={bp1_lam:.2f}):")
     print(f"  {'v [km/s]':>10s}  {'VPM':>12s}  {'Born':>12s}  {'VPM/Born':>9s}")
     print("  " + "-" * 50)
     v_scan = [10, 20, 30, 50, 100, 200, 500, 1000, 2000]
     bp1_vpm, bp1_born, bp1_v = [], [], []
     for v in v_scan:
-        sv = sigma_T_vpm(20.69, 0.00991, 1.048e-3, float(v))
-        sb = sigma_T_born_majorana(20.69, 0.00991, 1.048e-3, float(v))
+        sv = sigma_T_vpm(BP1_M_CHI, BP1_M_PHI, BP1_ALPHA, float(v))
+        sb = sigma_T_born_majorana(BP1_M_CHI, BP1_M_PHI, BP1_ALPHA, float(v))
         r = sv / sb if sb > 0 else float('inf')
         bp1_vpm.append(sv)
         bp1_born.append(sb)

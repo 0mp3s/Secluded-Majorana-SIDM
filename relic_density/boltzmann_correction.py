@@ -29,12 +29,21 @@ from v27_boltzmann_relic import solve_boltzmann, Y_to_omega_h2, kolb_turner_swav
 # --- import VPM cross-section from v22 ---
 from v22_raw_scan import sigma_T_vpm
 
+from config_loader import load_config
+
 # ==============================================================
-#  BP2 parameters (from v30_benchmark_extractor / KT)
+#  BP2 parameters (from config / v30_benchmark_extractor)
 # ==============================================================
-M_CHI  = 18.421     # GeV
-M_PHI  = 8.20e-3    # GeV  (8.20 MeV)
-ALPHA_KT = 8.19e-4  # α from Kolb-Turner
+_CFG = load_config(__file__)
+def _get_bp(label):
+    for bp in _CFG.get("benchmark_points", []):
+        if bp["label"] == label:
+            return bp
+    return {}
+_BP2 = _get_bp("BP2_KT")
+M_CHI    = _BP2.get("m_chi_GeV", 18.421)
+M_PHI    = _BP2.get("m_phi_MeV", 8.20) * 1e-3   # → GeV
+ALPHA_KT = _BP2.get("alpha_KT", 8.19e-4)
 
 TARGET_OMEGA = 0.120
 
