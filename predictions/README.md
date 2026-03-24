@@ -16,7 +16,7 @@ Each sub-folder contains:
 | 1 | [Gravothermal collapse timescales in dSphs](gravothermal/) | Read+2019, Walker+2009 (GAIA DR3) | λ~333 (MAP) predicts collapse; λ~4 (BP1) predicts stable cores |
 | 2 | [SPARC rotation curve diversity](rotation_curves/) | Lelli+2016 (SPARC), Oman+2015 | Core size predictions vs measured inner slopes |
 | 3 | [DM–galaxy offsets in cluster mergers](cluster_offsets/) | Harvey+2015 (72 clusters) | σ/m(v_cluster) → predicted offset vs upper bound |
-| 4 | [Extra radiation ΔN_eff](delta_neff/) | Planck 2018, CMB-S4 forecast | Stable φ → ΔN_eff ≈ 0.027 |
+| 4 | [Extra radiation ΔN_eff](delta_neff/) | Planck 2018, CMB-S4 forecast | ΔN_eff ≈ 0 (m_φ ≫ T at BBN/CMB → Boltzmann-suppressed) |
 | 5 | [Fornax stellar dispersion (Jeans)](fornax_jeans/) | Walker+2009 (2633 stars) | SIDM core flattens σ_los(R); NFW cusp ruled out |
 
 ## Usage

@@ -4,6 +4,11 @@ V9 — v25_mediator_cosmology.py
 ===============================
 Scalar Mediator φ Cosmological History, BBN Safety, and ΔN_eff
 
+NOTE: This script explores the **hypothetical** Higgs-portal scenario
+(λ_{Hφ}|H|²φ²) to *demonstrate* why a secluded dark sector (sinθ = 0)
+is the natural choice.  The main model adopted in the preprint is
+secluded — see §5 of preprint_draft_v10.md and fermi_lat_dsph.py.
+
 V9 switch: axial-vector Z' → real scalar φ with Higgs portal λ_{Hφ}|H|²φ².
 
 What this script computes:
@@ -11,7 +16,7 @@ What this script computes:
   2. BBN constraint: τ_φ < 1 s → minimum sin θ
   3. Was φ ever in thermal equilibrium? (via Higgs portal)
   4. ΔN_eff from φ (1 bosonic d.o.f.)
-  5. Summary decision tree
+  5. Summary decision tree — shows Higgs portal is EXCLUDED → secluded
 
 Key physics:
   φ couples to SM through Higgs mixing: sin θ ≈ λ_{Hφ} v_EW / m_h²
