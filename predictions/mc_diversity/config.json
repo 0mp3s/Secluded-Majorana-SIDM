@@ -1,0 +1,13 @@
+{
+    "benchmark_points": [
+        {"label": "BP1",       "m_chi_GeV": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3},
+        {"label": "MAP",       "m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 5.734e-3},
+        {"label": "MAP_relic", "m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 4.523e-3}
+    ],
+    "n_halos": 1000,
+    "V_max_range_km_s": [30, 250],
+    "sigma_log10_c": 0.16,
+    "halo_age_Gyr": 10.0,
+    "seed": 42,
+    "output_dir": "output"
+}
