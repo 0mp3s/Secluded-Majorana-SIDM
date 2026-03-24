@@ -590,7 +590,7 @@ $^\dagger$ Global maximum $\sigma/m(1000) = 0.19$ cm$^2$/g at $\lambda \approx 8
 
 The dual-benchmark strategy is strongly justified by the data. **MAP** ($\lambda = 48.6$, resonant regime) is the astrophysical champion: it produces observable cores in most classical dSphs (5/8, rising to 7/8 at $t_{\rm age} = 12$ Gyr), achieves perfect Fornax GC survival (15/15), shows a near-plateau at low velocities (13% variation across $v = 1$–12 km/s), and spans 3.81 decades of CP violation. **BP1** ($\lambda = 1.9$, Born-to-classical transition) is the collider-accessible benchmark: lower $m_\chi = 20.7$ GeV is potentially accessible to future DM searches, and it provides the sweet spot for galactic-scale phenomenology (31–37% RAR scatter improvement). Both benchmarks satisfy relic density, cluster constraints, and $\Delta N_{\rm eff}$ by construction.
 
-**Structural predictions:** (1) SMBH seeds do NOT form via gravothermal collapse — a structural consequence of cluster-safe $\sigma/m(v)$; (2) $r_{\rm core}/r_{\rm half}$ is NOT universal in velocity-dependent SIDM — distinguishing from constant-$\sigma/m$ models; (3) Crater II requires tidal processing in addition to SIDM — not a pure SIDM test; (4) the partial-wave weights for identical Majorana scattering produce a $\sigma_T(v)$ profile quantitatively distinguishable from Dirac+scalar models (see §7.7); (5) cosmological consistency requires an efficient cannibal process $3\phi \to 2\phi$, imposing a lower bound $\mu_3/m_\phi \gtrsim 1.7$ on the dark-sector cubic coupling (§5.3).
+**Structural predictions:** (1) SMBH seeds do NOT form via gravothermal collapse — a structural consequence of cluster-safe $\sigma/m(v)$; (2) $r_{\rm core}/r_{\rm half}$ is NOT universal in velocity-dependent SIDM — distinguishing from constant-$\sigma/m$ models; (3) Crater II requires tidal processing in addition to SIDM — not a pure SIDM test; (4) the partial-wave weights for identical Majorana scattering produce a non-monotonic $\sigma_T(v)$ ratio with sign flip relative to Dirac+scalar models (see §7.7); (5) cosmological consistency requires an efficient cannibal process $3\phi \to 2\phi$, imposing a lower bound $\mu_3/m_\phi \gtrsim 1.7$ on the dark-sector cubic coupling (§5.3).
 
 ### 7.7 Majorana vs Dirac Fingerprint
 
@@ -602,13 +602,15 @@ The ratio $R(v) \equiv \sigma_T^{\rm Maj}/\sigma_T^{\rm Dir}$ therefore depends 
 
 | $v_{\rm rel}$ [km/s] | BP1 ($\lambda=1.9$) | MAP ($\lambda=48.6$) | Physics |
 |---|---|---|---|
-| 30 (dSph) | 0.50 | 0.87 | Born: only even-$\ell$ |
+| 30 (dSph) | 0.50 | 0.87 | Born: even-$\ell$ only |
+| **57** (peak) | 0.50 | **1.11** | $\ell=1$ resonance: $f_{\rm odd}=0.61$ |
+| **138** (trough) | 0.51 | **0.92** | even-$\ell$ resurgence |
 | 220 (MW) | 0.61 | 0.96 | many $\ell$ populated |
-| 1200 (cluster) | 0.93 | 0.99 | semi-classical limit |
+| 1200 (cluster) | 0.93 | 1.00 | semi-classical, $f_{\rm odd} \to 1/2$ |
 
-In the Born limit ($\lambda \ll 1$), only the $\ell = 0$ (even) partial wave contributes, giving $R = 1/2$ exactly. At the MAP point ($\lambda = 48.6$), multiple partial waves contribute at all velocity scales: $R$ rises from 0.87 at dwarf velocities to 0.99 at cluster velocities, approaching but never exceeding unity. The systematic trend $R < 1$ across all velocities is a direct consequence of identical-particle statistics: the $1/2$ prefactor in the Majorana cross section suppresses even-$\ell$ contributions, while the weight-3 enhancement of odd-$\ell$ waves partially compensates but does not fully overcome the suppression at $\lambda = 48.6$. The monotonic increase of $R(v)$ from $\sim 0.5$ (Born) to $\sim 1$ (semi-classical) is a distinctive fingerprint: no Dirac+scalar model can reproduce this pattern, since Dirac scattering gives $R = 1$ at all velocities.
+In the Born limit ($\lambda \ll 1$), only the $\ell = 0$ (even) partial wave contributes, giving $R = 1/2$ exactly. For BP1 ($\lambda = 1.9$), $R(v)$ rises monotonically from 0.50 to 0.93, remaining below unity at all velocities — the even-$\ell$ channel always dominates. For MAP ($\lambda = 48.6$), $R(v)$ exhibits damped oscillatory structure: it rises to a peak $R = 1.11$ at $v \approx 57$ km/s — where the $\ell = 1$ triplet resonance pushes $f_{\rm odd} = 0.61 > 1/2$ — then drops to a local minimum $R = 0.92$ at $v \approx 138$ km/s, before executing damped oscillations converging to $R \to 1$ at high velocities. **The $R > 1$ regime** ($v \approx 40$–95 km/s, precisely the large-dSph/small-galaxy velocity scale) is a smoking-gun signature: at these velocities, identical Majorana fermions scatter *more efficiently* than distinguishable Dirac fermions, a direct consequence of the triplet weight-3 enhancement. No Dirac+scalar model can produce $R > 1$ at any velocity. The damped-oscillator envelope scales as $|R - 1| \sim 1/\sqrt{v}$, reflecting the central-limit convergence of partial-wave contributions — an analogue of Ramsauer–Townsend oscillations in atomic scattering.
 
-Practical discriminant: measurements of $\sigma/m$ at $\geq 3$ velocity scales (dSph, MW, cluster) that exhibit a systematic $R < 1$ with velocity-dependent suppression would confirm the identical-particle statistics of the dark matter.
+Practical discriminant: measurements of $\sigma/m$ at $\geq 3$ velocity scales exhibiting the non-monotonic pattern — $R < 1$ at $v \sim 30$ km/s, $R > 1$ at $v \sim 60$ km/s, $R < 1$ at $v \sim 150$ km/s — would unambiguously confirm identical-particle Majorana statistics.
 
 ---
 
@@ -814,7 +816,7 @@ The dimensionless coupling ratio was displayed as $\lambda = 2\alpha m_\chi / m_
 
 | Test | Result |
 |------|--------|
-| **Gravothermal** (8 dSphs, MAP) | 6/8 CORED, 0 FAIL, 2 ambiguous |
+| **Gravothermal** (8 dSphs, MAP) | 5/8 CORED, 1 FAIL, 2 ambiguous |
 | **Cluster offsets** (8 systems × 3 BPs) | ALL PASS — $\sigma/m \ll$ upper limits |
 | **$\Delta N_{\rm eff}$** | $\approx 0$ at BBN (Boltzmann-suppressed) |
 | **SPARC+baryons** (DDO_154, BP16) | $\Upsilon_* = 0.32$ (physical range ✓) |
