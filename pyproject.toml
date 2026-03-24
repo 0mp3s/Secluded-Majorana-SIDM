@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "secluded-majorana-sidm"
+version = "1.0.0"
+description = "Self-Interacting Dark Matter via a Secluded Scalar Mediator: Majorana Fermion with Velocity-Dependent Cross Sections"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Omer P."},
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "numba>=0.60",
+    "matplotlib",
+    "emcee>=3.1",
+    "corner>=2.2",
+    "pandas",
+]
+
+[project.urls]
+Repository = "https://github.com/0mp3s/Secluded-Majorana-SIDM"
+
+[tool.setuptools.packages.find]
+include = ["core*"]
