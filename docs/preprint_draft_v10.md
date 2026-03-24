@@ -593,12 +593,18 @@ We present predictions for 15 galaxies: 8 classical dSphs (Fornax, Sculptor, Dra
 | — | VPM regime | Born ($\lambda = 1.9$) | Classical ($\lambda = 4.3$) | Resonant ($\lambda = 48.6$) | Determines $\sigma/m(v)$ shape |
 | — | Relic density $\Omega h^2$ | 0.120 | 0.120 | 0.120 | 0.120 ± 0.001 (Planck) |
 | — | $\Delta N_{\rm eff}$ | $\approx 0$ | $\approx 0$ | $\approx 0$ | $< 0.3$ (Planck) |
+| §7.8 | MC diversity $\sigma(V_2^{\rm tot})$ at $V_{\rm max}<60$ | **5.0 km/s** | — | 2.1 km/s | Diversity at fixed $V_{\rm max}$ (Oman+2015) |
+| §7.8 | SPARC coverage (20 gal.) | **9/20** (45%) | — | **10/20** (50%) | Within 5–95th pctl of MC cloud |
+| §7.8 | $\rho_{\rm core}$ vs $V_{\rm max}$ | Anti-correlated | — | Anti-correlated | Opposite to NFW; testable |
+| §7.9 | Core-size diversity, ±20% $c$-scatter | **59.6%** | — | 34.0% | $\Delta r_1/r_1$ (NFW $\sigma_v$ mode) |
+| §7.9 | UFD core diversity | **73.4%** | — | 36.9% | BP1 resonance-amplified |
+| §7.9 | Velocity effect boost | **+39%** | — | +25% | NFW/fixed mode ratio − 1 |
 
 $^\dagger$ All viable points satisfy $\sigma/m(1000) < 1$ cm$^2$/g (Bullet Cluster bound); the MAP benchmark gives $\sigma/m(1000) = 0.203$ cm$^2$/g.
 
 The dual-benchmark strategy is strongly justified by the data. **MAP** ($\lambda = 48.6$, resonant regime) is the astrophysical champion: it produces observable cores in most classical dSphs (5/8, rising to 7/8 at $t_{\rm age} = 12$ Gyr), achieves excellent Fornax GC survival (14/15), shows a near-plateau at low velocities (13% variation across $v = 1$–12 km/s), and spans 3.81 decades of CP violation. **BP1** ($\lambda = 1.9$, Born-to-classical transition) is the collider-accessible benchmark: lower $m_\chi = 20.7$ GeV is potentially accessible to future DM searches, and it provides the sweet spot for galactic-scale phenomenology (31–37% RAR scatter improvement). Both benchmarks satisfy relic density, cluster constraints, and $\Delta N_{\rm eff}$ by construction.
 
-**Structural predictions:** (1) SMBH seeds do NOT form via gravothermal collapse — a structural consequence of cluster-safe $\sigma/m(v)$; (2) $r_{\rm core}/r_{\rm half}$ is NOT universal in velocity-dependent SIDM — distinguishing from constant-$\sigma/m$ models; (3) Crater II requires tidal processing in addition to SIDM — not a pure SIDM test; (4) the partial-wave weights for identical Majorana scattering produce a non-monotonic $\sigma_T(v)$ ratio with sign flip relative to Dirac+scalar models (see §7.7); (5) cosmological consistency requires an efficient cannibal process $3\phi \to 2\phi$, imposing a lower bound $\mu_3/m_\phi \gtrsim 1.7$ on the dark-sector cubic coupling (§5.3).
+**Structural predictions:** (1) SMBH seeds do NOT form via gravothermal collapse — a structural consequence of cluster-safe $\sigma/m(v)$; (2) $r_{\rm core}/r_{\rm half}$ is NOT universal in velocity-dependent SIDM — distinguishing from constant-$\sigma/m$ models; (3) Crater II requires tidal processing in addition to SIDM — not a pure SIDM test; (4) the partial-wave weights for identical Majorana scattering produce a non-monotonic $\sigma_T(v)$ ratio with sign flip relative to Dirac+scalar models (see §7.7); (5) cosmological consistency requires an efficient cannibal process $3\phi \to 2\phi$, imposing a lower bound $\mu_3/m_\phi \gtrsim 1.7$ on the dark-sector cubic coupling (§5.3); (6) dwarf galaxies ($V_{\rm max} < 60$ km/s) are clean DM laboratories where baryons are negligible — the diversity in $V(2\,{\rm kpc})$ directly constrains $\sigma/m$ (§7.8); (7) the central density $\rho_{\rm core}$ anticorrelates with $V_{\rm max}$ in SIDM but correlates in NFW — a qualitative discriminant testable with resolved dwarf surveys (§7.8); (8) BP1 predicts 50–73% scatter in $r_{\rm core}$ at fixed halo mass from concentration scatter alone, versus 32–37% for MAP — distinguishable with $\sim$20 resolved dSphs (§7.9).
 
 ### 7.7 Majorana vs Dirac Fingerprint
 
@@ -630,6 +636,58 @@ Practical discriminant: measurements of $\sigma/m$ at $\geq 3$ velocity scales e
 | 4700 | 2.93 | 3.02 | 14.3 | 66.4 |
 
 At $v = 4700$ km/s, BP1 reaches $f_{\rm odd}/f_{\rm even} = 2.93$ and MAP reaches 3.02 — confirming convergence to the exact 3:1 spin-statistics prediction. At low velocities, the ratio deviates sharply: BP1 at 30 km/s is pure s-wave (ratio = 0), while MAP at the same velocity already shows $f_{\rm odd}/f_{\rm even} = 1.70$ due to the large $\lambda$ activating $l=1$. This convergence pattern is a clean quantum-statistical fingerprint unique to identical Majorana fermions.
+
+### 7.8 Monte Carlo Halo Diversity: Rotation Curves with Baryons
+
+The Oman et al. (2015) "diversity problem" — the unexpected spread in $V(2\,{\rm kpc})$ at fixed $V_{\rm max}$ — is one of the strongest motivations for SIDM. We test our model against this observable via a Monte Carlo simulation of 1000 halos drawn from the full cosmological scatter in concentration, stellar mass, and disk size.
+
+**Setup.** We draw $V_{\rm max}$ uniformly in log-space from $[30, 250]$ km/s. For each halo: (i) compute the median concentration $c(M_{200})$ from the Dutton & Macciò (2014) relation, then scatter $\log_{10}c$ with $\sigma = 0.16$ dex; (ii) build the NFW profile from $(V_{\rm max}, c)$; (iii) assign stellar mass via the Moster et al. (2010) stellar-to-halo mass relation (SHMR), scattered with $\sigma(\log_{10}M_*) = 0.15$ dex; (iv) assign a disk scale length using the Kravtsov (2013) relation $R_d = 0.015\,R_{200}\,(\lambda_{\rm spin}/0.035)$ with spin-parameter scatter $\sigma(\log_{10}\lambda_{\rm spin}) = 0.20$ dex; (v) compute the baryonic contribution via an exponential disk $V_{\rm bar}^2(r) = (GM_d/R_d)\,y^2[I_0(y)K_0(y) - I_1(y)K_1(y)]$ with $y = r/(2R_d)$ and $\Upsilon_* = 0.5$. The inner $\sigma_v$ is derived self-consistently from the NFW circular velocity at $r = \min(1\,{\rm kpc}, r_s)$, making the effective $\sigma/m$ concentration-dependent. The total velocity at 2 kpc is $V_{\rm total} = \sqrt{V_{\rm SIDM}^2 + V_{\rm bar}^2}$.
+
+**Results.** The diversity $\sigma(V_{2\,{\rm kpc}}^{\rm total})$ in $V_{\rm max}$ bins:
+
+| $V_{\rm max}$ bin | BP1 $\sigma(V_2^{\rm tot})$ | MAP $\sigma(V_2^{\rm tot})$ | NFW $\sigma$ | BP1 DM-only |
+|:--:|:--:|:--:|:--:|:--:|
+| [30, 60) km/s | 5.0 | 2.1 | 6.5 | 5.0 |
+| [60, 100) km/s | 4.4 | 4.0 | 9.9 | 3.9 |
+| [100, 160) km/s | 12.3 | 15.1 | 11.9 | 2.7 |
+| [160, 250) km/s | 20.7 | 24.0 | 14.4 | 3.2 |
+
+Two regimes emerge. At $V_{\rm max} < 60$ km/s — the dwarf regime — baryons are negligible ($V_{\rm bar}^2 \ll V_{\rm SIDM}^2$) and the diversity is driven entirely by the interplay between concentration scatter and velocity-dependent $\sigma/m$. BP1 produces $\sigma(V_2) = 5.0$ km/s, a factor 2.4× larger than MAP (2.1 km/s). At $V_{\rm max} > 100$ km/s — the spiral regime — baryonic scatter dominates: stellar mass and disk size variations generate $\sigma(V_2) \approx 12$–$24$ km/s, exceeding even the NFW scatter. In this regime the SIDM contribution to $V(2\,{\rm kpc})$ is subdominant and the diversity is primarily baryonic.
+
+**SPARC coverage.** Comparing against 20 observed SPARC galaxies ($V_{\rm max} = 47$–$302$ km/s), the fraction lying within the MC cloud (5th–95th percentile at $\Delta V_{\rm max} < 15$ km/s):
+
+| BP | Coverage |
+|:--:|:--:|
+| BP1 | **9/20** (45%) |
+| MAP | **10/20** (50%) |
+| MAP$_{\rm relic}$ | **10/20** (50%) |
+
+**Central density–velocity anticorrelation.** The ρ_core vs $V_{\rm max}$ plane shows a decreasing trend for SIDM halos — larger halos have lower core densities because: (i) $\sigma/m$ decreases with velocity in the Born regime, and (ii) the relaxation criterion $\rho(r_1)\,\sigma/m\,v\,t = 1$ pins $\rho_{\rm core}$ lower for higher-$v$ systems. This anticorrelation (confirmed in the 16th–84th percentile bands) is opposite to the NFW trend (positive correlation) and constitutes a testable prediction for resolved dwarf kinematic surveys.
+
+**Key insight.** Dwarfs ($V_{\rm max} < 60$ km/s) are **clean dark-matter laboratories**: the baryonic contribution to $V(2\,{\rm kpc})$ is negligible, so any observed diversity directly constrains SIDM. Spirals ($V_{\rm max} > 100$ km/s) are **baryon-dominated** at $r = 2$ kpc, which dilutes the SIDM signal in $V(2\,{\rm kpc})$. The distinguishing observable for spirals is $\rho_{\rm core}$, which remains SIDM-dominated regardless of baryonic content. Future resolved rotation-curve surveys that simultaneously measure $V(2\,{\rm kpc})$ diversity in dwarfs and $\rho_{\rm core}$ profiles in spirals can test the BP1 vs MAP dichotomy independently of baryonic modeling.
+
+### 7.9 Resonance-Enhanced Concentration Sensitivity
+
+A distinctive feature of velocity-dependent SIDM is that the effective cross section $\sigma/m(v)$ varies not only between galaxies (different halo velocities) but also **within the same galaxy across the concentration scatter**. Near Yukawa resonances, where $|d\ln\sigma/d\ln v|$ is steep, a ±20% variation in $c$ — well within the observed scatter — produces large changes in $\sigma/m$ at the inner radius, amplifying the diversity of core sizes $r_1$ at fixed halo mass.
+
+**Method.** For 14 galaxies — 8 classical dSphs (Fornax, Sculptor, Draco, Carina, Sextans, Leo I, Leo II, UMi) and 6 ultra-faint dwarfs (Tucana II, Segue 1, Reticulum II, Carina II, Grus I, Crater II) — we compute the SIDM core radius $r_1$ at five concentration factors $c/c_{\rm fid} \in \{0.8, 0.9, 1.0, 1.1, 1.2\}$, using the full VPM cross section. The diversity metric is $\Delta r_1/r_1({\rm median})$ where $\Delta r_1 = r_1(c_{\rm max}) - r_1(c_{\rm min})$.
+
+We compute two modes: (A) **fixed $\sigma_v$** — only $\rho_s$ changes with $c$, isolating the density effect; (B) **NFW-derived $\sigma_v$** — both $\rho_s$ and $v_{\rm rel}$ change, capturing the full effect.
+
+**Results.** Mean diversity $\langle\Delta r_1/r_1\rangle$ for ±20% concentration scatter:
+
+| BP | Mode | Classical | UFDs | All |
+|:--:|:--:|:--:|:--:|:--:|
+| BP1 ($\lambda = 1.9$) | fixed $\sigma_v$ | 37.2% | 50.4% | 42.8% |
+| BP1 | NFW $\sigma_v$ | **49.1%** | **73.4%** | **59.6%** |
+| MAP ($\lambda = 48.6$) | fixed $\sigma_v$ | 25.4% | 29.5% | 27.1% |
+| MAP | NFW $\sigma_v$ | 31.7% | 36.9% | 34.0% |
+| MAP$_{\rm relic}$ ($\lambda = 38.3$) | fixed $\sigma_v$ | 26.5% | 30.7% | 28.3% |
+| MAP$_{\rm relic}$ | NFW $\sigma_v$ | 32.9% | 38.3% | 35.2% |
+
+**BP1 amplification.** The resonance-enhanced sensitivity of BP1 ($\lambda = 1.91$, near the first Ramsauer–Townsend minimum) is dramatic. In UFDs, a ±20% concentration variation produces a 73.4% spread in core sizes — nearly double the MAP value (36.9%). The velocity effect (comparing modes A and B) boosts BP1 diversity by +39.0% overall, compared to +25.2% for MAP. Physically, BP1 sits on the steep flank of the $\sigma/m(v)$ curve where $|d\ln\sigma/d\ln v| \gg 1$; small changes in the inner halo velocity (driven by concentration) strongly modulate $\sigma/m$, producing large core-size diversity.
+
+**Testable prediction.** If ±20% $c$-scatter is a realistic description of halo-to-halo variation (as supported by N-body simulations; Dutton & Macciò 2014), then BP1 predicts a **50–73% scatter in $r_{\rm core}$ at fixed halo mass** — observable as a diversity in the central surface brightness profiles of dSphs and UFDs. MAP predicts only 32–37% scatter. A statistical sample of ~20 dSphs with resolved $r_{\rm core}$ measurements (feasible with Rubin Observatory LSST and JWST near-IR kinematics of Local Group dwarfs) can distinguish the two regimes at $>3\sigma$.
 
 ---
 
@@ -664,6 +722,8 @@ The scalar mediator resolves the primary limitations of the axial-vector approac
 5. The predicted $\sigma/m(v)$ curves are **quantitatively consistent with all 13 astrophysical observations** spanning $v = 12$–$4700$ km/s (§4.5–4.6). A $\chi^2$ fit to data from five independent analyses [13, 19, 20, 21, 22] yields $\chi^2/\nu = 0.12$ (unconstrained) and $\chi^2/\nu = 0.38$ (relic-constrained BP1$_\chi$), with all pulls $< 1.2\sigma$. All 17 relic benchmarks achieve $\chi^2/\nu < 0.68$. Maxwell–Boltzmann velocity averaging shifts the $\chi^2$ by only $\sim$7% on average (Appendix D), well within observational uncertainties. Moreover, the posterior MAP benchmark ($m_\chi = 94.1$ GeV, $\lambda = 48.6$) is compatible with all 13/13 observational systems, including NGC 2976 and NGC 1560 where BP1 falls marginally below the lower bound — the elevated coupling raises $\sigma/m(50) \approx 1.8$ cm$^2$/g, naturally filling the dwarf-galaxy core deficits.
 6. A Bayesian MCMC posterior analysis (§4.7) with flat log-priors yields a broad 68% credible region: $m_\chi \in [10, 88]$ GeV, $m_\phi \in [5.0, 12.7]$ MeV, $\alpha \in [< 10^{-4}, 4 \times 10^{-3}]$, with $N_{\rm eff} \approx 2{,}132$ independent samples ($N/\tau > 50$). All 17 relic benchmark points lie within the 95% credible posterior, and the MAP estimate achieves $\chi^2/\nu = 0.20$.
 7. Unlike phenomenological $\sigma/m(v)$ fits [23, 24], our analysis derives the velocity-dependent cross section from first principles: the Lagrangian parameters $(m_\chi, m_\phi, \alpha)$ are fixed by the observed relic abundance, leaving **zero free parameters** in the SIDM prediction. This micro-physics-first approach — Lagrangian $\to$ relic density $\to$ $\sigma/m(v)$ $\to$ core sizes — contrasts with most existing SIDM–SPARC analyses, which treat $\sigma/m$ as a free function and fit it phenomenologically to rotation curves.
+8. A Monte Carlo simulation of 1000 halos (§7.8) — including baryonic contributions from an exponential disk (Moster+2010 SHMR, Kravtsov 2013 disk sizes) — produces diversity $\sigma(V_2^{\rm total}) = 5.0$ km/s (BP1) vs 2.1 km/s (MAP) at $V_{\rm max} < 60$ km/s, and covers 9/20 (BP1) to 10/20 (MAP) SPARC galaxies within the 5th–95th percentile MC cloud. A key structural result is the **baryonic dichotomy**: dwarf galaxies are clean DM tests, while spirals are baryon-dominated at $r = 2$ kpc.
+9. The resonance-enhanced concentration sensitivity (§7.9) demonstrates that BP1 produces 59.6% core-size diversity from ±20% $c$-scatter alone (73.4% in UFDs), amplified by a +39% velocity effect — nearly double the MAP values (34.0% and 36.9%). This large diversity is a direct consequence of BP1's position near the Ramsauer–Townsend minimum where $|d\ln\sigma/d\ln v| \gg 1$.
 
 ### 8.3 Falsifiability
 
@@ -674,6 +734,9 @@ The model can be tested or constrained by:
 4. **Relic density:** if $\alpha$ is measured independently (e.g., from halo observations), the relic prediction is fixed — a non-trivial consistency test.
 5. **Cannibal coupling:** the requirement $\mu_3/m_\phi \gtrsim 1.7$ for cosmological consistency (§5.3) is a structural prediction — any UV completion of the model must accommodate a sufficiently large cubic self-coupling.
 6. **SMBH seeding:** elastic SIDM cannot seed supermassive black holes via gravothermal collapse (§8.5). If DM-seeded SMBHs are required at $z > 6$, elastic SIDM models are disfavored.
+7. **$\rho_{\rm core}$–$V_{\rm max}$ anticorrelation (§7.8):** SIDM predicts that the central DM density decreases with $V_{\rm max}$ (larger halos $\to$ lower core densities), while NFW predicts the opposite trend. Resolved dwarf surveys measuring $\rho_{\rm core}$ across $V_{\rm max} = 30$–$150$ km/s can test this qualitative discriminant. A positive correlation would rule out SIDM.
+8. **Dwarf diversity as a clean SIDM test (§7.8):** At $V_{\rm max} < 60$ km/s, baryons contribute negligibly to $V(2\,{\rm kpc})$. If upcoming surveys (e.g., LSST, JWST dwarf kinematics) measure large $V(2\,{\rm kpc})$ diversity in this regime, it directly constrains $\sigma/m$ without baryonic degeneracies. The MC simulation predicts BP1 produces $\sigma(V_2) = 5.0$ km/s vs MAP 2.1 km/s — a factor 2.4× difference testable with $\sim$30 dwarfs.
+9. **Core-size scatter from concentration diversity (§7.9):** A statistical sample of $\sim$20 dSphs with resolved $r_{\rm core}$ can distinguish BP1 (73% scatter in UFDs) from MAP (37% scatter) at $>3\sigma$. This test is independent of baryonic modeling and probes the gradient $|d\ln\sigma/d\ln v|$ — a direct signature of the resonance structure.
 
 The absence of a direct detection signal is a **prediction**, not a deficit: we have shown (§5.1) that the Higgs portal is incompatible with light-mediator SIDM, making $\sigma_{\rm SI} = 0$ the expected outcome.
 
