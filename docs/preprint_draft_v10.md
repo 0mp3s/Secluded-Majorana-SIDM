@@ -224,7 +224,7 @@ To test whether our benchmark points are consistent with astrophysical observati
 | Abell 2537 | 1100 | 0.15 | [0.03, 0.4] | [13] |
 | Diverse rotation curves | 40 | 3.0 | [0.5, 10.0] | [19] |
 | Bullet Cluster | 4700 | 0.7 | [0.0, 1.25] | [20] |
-| 72 cluster mergers | 1500 | 0.2 | [0.0, 0.47] | [21] |
+| 72 cluster mergers | 1000 | 0.2 | [0.0, 0.47] | [21] |
 | TBTF dwarfs | 30 | 1.0 | [0.5, 5.0] | [22] |
 
 **Table 3: Observational constraints on $\sigma/m$ used for comparison.**
