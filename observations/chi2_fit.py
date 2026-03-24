@@ -69,6 +69,9 @@ def compute_chi2(sigma_at_v):
     chi2 = 0.0
     for name, v, central, lo, hi, ref in OBSERVATIONS:
         theory = sigma_at_v.get(v, 0.0)
+        # One-sided upper limits (lo == 0): no penalty when theory < hi
+        if lo == 0.0 and theory <= hi:
+            continue
         if theory >= central:
             sigma = hi - central if hi > central else 0.5 * central
         else:

@@ -144,8 +144,10 @@ def vpm_phase_shift(l, kappa, lam, x_max=50.0, N_steps=4000):
 
 @jit(nopython=True, cache=True)
 def sigma_T_vpm(m_chi, m_phi, alpha, v_km_s):
-    """Transfer cross section sigma_T/m [cm^2/g] for identical Majorana fermions.
+    """Cross section sigma_T/m [cm^2/g] for identical Majorana fermions.
 
+    For identical Majorana fermions sigma_elastic = sigma_transfer exactly
+    (each spin channel has definite parity so <cos theta> = 0).
     Sums partial waves with weights w=1 (even l) and w=3 (odd l).
     Args: m_chi [GeV], m_phi [GeV], alpha (coupling), v_km_s [km/s].
     """

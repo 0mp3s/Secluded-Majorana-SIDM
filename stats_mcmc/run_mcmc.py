@@ -154,6 +154,9 @@ def compute_chi2(m_chi, m_phi_GeV, alpha):
             return np.nan
         if np.isnan(theory) or np.isinf(theory) or theory < 0:
             return np.nan
+        # One-sided upper limits (lo == 0): no penalty when theory < hi
+        if lo == 0.0 and theory <= hi:
+            continue
         if theory >= central:
             sigma = hi - central if hi > central else 0.5 * central
         else:
