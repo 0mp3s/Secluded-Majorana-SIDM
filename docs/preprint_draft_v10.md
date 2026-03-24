@@ -586,7 +586,7 @@ We present predictions for 15 galaxies: 8 classical dSphs (Fornax, Sculptor, Dra
 | — | Relic density $\Omega h^2$ | 0.120 | 0.120 | 0.120 | 0.120 ± 0.001 (Planck) |
 | — | $\Delta N_{\rm eff}$ | $\approx 0$ | $\approx 0$ | $\approx 0$ | $< 0.3$ (Planck) |
 
-$^\dagger$ Global maximum $\sigma/m(1000) = 0.19$ cm$^2$/g at $\lambda \approx 81$ (resonance peak); all viable points safely below the Bullet Cluster bound.
+$^\dagger$ All viable points satisfy $\sigma/m(1000) < 1$ cm$^2$/g (Bullet Cluster bound); the MAP benchmark gives $\sigma/m(1000) = 0.203$ cm$^2$/g.
 
 The dual-benchmark strategy is strongly justified by the data. **MAP** ($\lambda = 48.6$, resonant regime) is the astrophysical champion: it produces observable cores in most classical dSphs (5/8, rising to 7/8 at $t_{\rm age} = 12$ Gyr), achieves excellent Fornax GC survival (14/15), shows a near-plateau at low velocities (13% variation across $v = 1$–12 km/s), and spans 3.81 decades of CP violation. **BP1** ($\lambda = 1.9$, Born-to-classical transition) is the collider-accessible benchmark: lower $m_\chi = 20.7$ GeV is potentially accessible to future DM searches, and it provides the sweet spot for galactic-scale phenomenology (31–37% RAR scatter improvement). Both benchmarks satisfy relic density, cluster constraints, and $\Delta N_{\rm eff}$ by construction.
 
