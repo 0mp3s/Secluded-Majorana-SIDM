@@ -144,7 +144,7 @@ See each folder's `README.md` for the full config.json schema and expected data 
 |-----------|--------|------------|
 | Cross section | VPM partial-wave solver | 80,142 SIDM-viable points |
 | Relic density | Numerical Boltzmann (RK4) | 17 benchmark points with Omega h^2 = 0.120 |
-| Chi-squared fit | 13 astrophysical systems | chi^2/dof = 0.54 (BP1) |
+| Chi-squared fit | 13 astrophysical systems (standard weighted χ²; see e.g. Kaplinghat+ 2016, Kamada+ 2017) | chi^2/dof = 0.54 (BP1) |
 | Sommerfeld | RK4 Schrodinger solver | S(freeze-out) = 1.003-1.025 (tree-level OK) |
 | Velocity averaging | MB integration | Delta(chi^2) < 9% vs fixed-v |
 | Literature | vs TYZ (2013) | 6/6 tests PASSED |
