@@ -94,7 +94,7 @@ sigma_T_dirac(20.0, 10e-3, 1e-3, 100.0)
 # ══════════════════════════════════════════════════════════════
 BPS = [
     {"label": "BP1",  "m_chi": 20.69,  "m_phi_MeV": 11.34,  "alpha": 1.048e-3},
-    {"label": "MAP",  "m_chi": 90.64,  "m_phi_MeV": 13.85,  "alpha": 2.546e-2},
+    {"label": "MAP",  "m_chi": 94.07,  "m_phi_MeV": 11.10,  "alpha": 5.734e-3},
 ]
 
 # Velocity grid: 5 → 2000 km/s  (dwarfs → clusters)
@@ -178,7 +178,7 @@ def main():
     bp_colors = {'BP1': ('#2196F3', '#E91E63'), 'MAP': ('#4CAF50', '#FF9800')}
     titles = {
         'BP1': r'BP1: $m_\chi$=20.69 GeV, $m_\phi$=11.34 MeV, $\lambda$={lam:.2f}',
-        'MAP': r'MAP: $m_\chi$=90.64 GeV, $m_\phi$=13.85 MeV, $\lambda$={lam:.1f}',
+        'MAP': r'MAP: $m_\chi$=94.07 GeV, $m_\phi$=11.10 MeV, $\lambda$={lam:.1f}',
     }
 
     for col, label in enumerate(['BP1', 'MAP']):

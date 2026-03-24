@@ -49,7 +49,7 @@ G_DAGGER = 1.2e-10     # m/s² — McGaugh+2016
 # Benchmarks
 BENCHMARKS = {
     'BP1': {'m_chi': 20.69, 'm_phi': 11.34e-3, 'alpha': 1.048e-3},
-    'MAP': {'m_chi': 90.64, 'm_phi': 13.85e-3, 'alpha': 2.546e-2},
+    'MAP': {'m_chi': 94.07, 'm_phi': 11.10e-3, 'alpha': 5.734e-3},
 }
 HALO_AGE_GYR = 10.0
 

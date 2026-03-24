@@ -22,8 +22,8 @@ from v22_raw_scan import sigma_T_vpm
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)  # JIT warmup
 
 # ── MAP mass point ──
-M_CHI = 90.64       # GeV
-M_PHI = 13.85e-3    # GeV
+M_CHI = 94.07       # GeV
+M_PHI = 11.10e-3    # GeV
 RELIC_PRODUCT = 1.387474e-7
 
 # SIDM viability window (same as condition2)
@@ -118,7 +118,7 @@ def main():
         print(f"  σ/m({v:>4d}):     {min(sigs):.4f} — {max(sigs):.4f} cm²/g")
 
     # Compare with MAP's own α_s
-    map_alpha_s = 2.546e-2
+    map_alpha_s = 5.734e-3
     map_lam = map_alpha_s * M_CHI / M_PHI
     map_in_band = any(abs(r['alpha_s'] - map_alpha_s)/map_alpha_s < 0.05 for r in viable)
     print(f"\n  MAP benchmark (α_s = {map_alpha_s}): λ = {map_lam:.1f}")

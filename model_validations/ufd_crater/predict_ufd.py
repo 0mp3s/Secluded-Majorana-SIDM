@@ -84,7 +84,7 @@ GALAXIES = [
 BPS = [
     {"label": "BP1", "m_chi": 20.69, "m_phi": 11.34e-3, "alpha": 1.048e-3},
     {"label": "BP9", "m_chi": 37.9,  "m_phi": 16.36e-3, "alpha": 1.840e-3},
-    {"label": "MAP", "m_chi": 90.64, "m_phi": 13.85e-3, "alpha": 2.546e-2},
+    {"label": "MAP", "m_chi": 94.07, "m_phi": 11.10e-3, "alpha": 5.734e-3},
 ]
 
 

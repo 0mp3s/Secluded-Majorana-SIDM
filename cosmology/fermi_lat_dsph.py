@@ -47,9 +47,9 @@ ALPHA_BP1   = 1.048e-3
 ALPHA_S_BP1 = ALPHA_BP1
 ALPHA_P_BP1 = ALPHA_BP1   # CP-symmetric point
 
-M_CHI_MAP   = 90.64    # GeV — MAP estimate
-M_PHI_MAP   = 13.85e-3 # GeV
-ALPHA_MAP   = 2.546e-2
+M_CHI_MAP   = 94.07    # GeV — MAP estimate
+M_PHI_MAP   = 11.10e-3 # GeV
+ALPHA_MAP   = 5.734e-3
 
 # Heavy mediator mass for loop estimate (§5.2 of preprint)
 M_SIGMA = 5e3  # GeV (5 TeV, middle of 1–10 TeV range)

@@ -143,7 +143,7 @@ def main():
     bps = cfg.get('benchmark_points', [
         {"label": "BP1",  "m_chi_GeV": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3},
         {"label": "BP16", "m_chi_GeV": 20.7,  "m_phi_MeV": 9.91,  "alpha": 1.048e-3},
-        {"label": "MAP",  "m_chi_GeV": 90.64, "m_phi_MeV": 13.85, "alpha": 2.546e-2},
+        {"label": "MAP",  "m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 5.734e-3},
     ])
     threshold_core = cfg.get('core_formation_threshold', 1.0)
     threshold_collapse = cfg.get('collapse_threshold', 100.0)

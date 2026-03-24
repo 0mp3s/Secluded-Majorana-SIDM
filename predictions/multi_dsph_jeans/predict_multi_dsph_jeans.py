@@ -51,7 +51,7 @@ KM_S_CM_S  = 1e5            # cm/s
 # ── Benchmark points ──
 BPS = [
     {"label": "BP1", "m_chi_GeV": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3},
-    {"label": "MAP", "m_chi_GeV": 90.64, "m_phi_MeV": 13.85, "alpha": 2.546e-2},
+    {"label": "MAP", "m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 5.734e-3},
 ]
 
 # ═══════════════════════════════════════════════════════════════════
