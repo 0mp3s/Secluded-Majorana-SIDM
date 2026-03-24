@@ -125,7 +125,7 @@ A systematic error analysis identifies three components:
 | **Prescription** ($x_{\rm min}$) | 2–7% | 25–38% | Vary $x_{\rm min}$ factor by ±20% |
 | **Total** (quadrature) | **2–7%** | **27–40%** |  |
 
-At the primary SIDM velocity (30 km/s, dwarf galaxies), the total systematic is 2–7% — well within the viability window $\sigma/m \geq 0.5$ cm$^2$/g. At cluster velocities (1000 km/s), the systematic is larger (27–40%); points with $\sigma/m(1000) \ll 0.1$ remain safely below the cut.
+At the primary SIDM velocity (30 km/s, dwarf galaxies), the total systematic is 2–7%. At cluster scales ($v \sim 1000$ km/s), the 27–40% systematic is dominated by the $x_{\rm min}$ prescription, an inherent sensitivity of the VPM phase-shift integration boundary. We note that three of our 17 relic benchmarks have $\sigma/m(1000) \in [0.072, 0.080]$ cm$^2$/g; a conservative +40% shift would place them at $\sim$0.10–0.11 cm$^2$/g, marginally above our selection cut of 0.1 cm$^2$/g. However, the observational cluster constraints are substantially weaker: Harvey et al. [21] quote $\sigma/m < 0.47$ cm$^2$/g at 68% CL at 1000 km/s, and the selection cut of 0.1 is our conservative choice, not a hard observational bound. All 17 benchmarks remain safely below the observational limits even with the full systematic applied — well within the viability window $\sigma/m \geq 0.5$ cm$^2$/g. At cluster velocities (1000 km/s), the systematic is larger (27–40%); points with $\sigma/m(1000) \ll 0.1$ remain safely below the cut.
 
 ---
 
@@ -268,7 +268,7 @@ The low $\chi^2/\nu \ll 1$ reflects the generous observational uncertainties cha
 
 $$\chi^2_{\rm relic}/\nu = 5.40/10 = 0.54$$
 
-at the $(m_\chi, m_\phi)$ grid cell containing BP1: $m_\chi = 20.69$ GeV, $m_\phi = 9.91$ MeV, $\alpha = 1.048 \times 10^{-3}$, $\lambda = 2.19$. (Note: this grid cell differs slightly in $m_\phi$ from the BP1 defined in Table 1, which has $m_\phi = 11.34$ MeV; the original BP1 appears as rank 17 with $\chi^2/\nu = 0.84$, still an excellent fit.) The worst pull is NGC 1560 at $-1.12\sigma$, well within acceptable limits.
+at the $(m_\chi, m_\phi)$ grid cell nearest to BP1: $m_\chi = 20.69$ GeV, $m_\phi = 9.91$ MeV, $\alpha = 1.048 \times 10^{-3}$, $\lambda = 2.19$ — hereafter **BP1$_\chi$** to distinguish it from the relic-selected BP1 of Table 1 ($m_\phi = 11.34$ MeV). The two points share the same $m_\chi$ but differ by one grid step in $m_\phi$; BP1 (Table 1) appears as rank 17 in Table 4 with $\chi^2/\nu = 0.84$, still an excellent fit. Throughout this paper, "BP1" without subscript always refers to the Table 1 definition ($m_\phi = 11.34$ MeV). The worst pull is NGC 1560 at $-1.12\sigma$, well within acceptable limits.
 
 **Table 4: All 17 relic-constrained benchmark points ranked by $\chi^2$**
 
@@ -384,7 +384,7 @@ The energy density in stable $\phi$ particles at late times is:
 
 $$\frac{\Omega_\phi}{\Omega_\chi} \sim \frac{m_\phi}{m_\chi} \sim 5 \times 10^{-4}$$
 
-— a negligible correction to the total DM energy budget. This estimate assumes that the $\phi$ number density tracks thermal equilibrium, which requires a number-changing process. In the secluded dark sector, the leading candidate is the cubic self-coupling $(\mu_3/3!)\,\phi^3$ enabling $3\phi \leftrightarrow 2\phi$ ("cannibal") annihilation. A coupled Boltzmann analysis [Farina et al. 2016] shows that for $\mu_3/m_\phi \gtrsim 1.7$, this process is efficient and $\Omega_\phi$ remains subdominant; for smaller $\mu_3/m_\phi$, the $\phi$ abundance is not sufficiently depleted and the dark sector is overclosed. We restrict to the former regime, where the cubic coupling does not introduce additional free parameters into the SIDM or relic density phenomenology.
+— a negligible correction to the total DM energy budget. This estimate assumes that the $\phi$ number density tracks thermal equilibrium, which requires a number-changing process. In the secluded dark sector, the leading candidate is the cubic self-coupling $(\mu_3/3!)\,\phi^3$ enabling $3\phi \leftrightarrow 2\phi$ ("cannibal") annihilation. A coupled Boltzmann analysis [Farina et al. 2016] shows that for $\mu_3/m_\phi \gtrsim 1.7$, this process is efficient and $\Omega_\phi$ remains subdominant; for smaller $\mu_3/m_\phi$, the $\phi$ abundance is not sufficiently depleted and the dark sector is overclosed. We restrict to the former regime. We acknowledge that $\mu_3$ constitutes a fourth parameter of the model, beyond the $(m_\chi, m_\phi, \alpha)$ triad emphasized in this work; however, it enters only the cosmological history of $\phi$ (not the SIDM cross sections or the DM relic density), and any value $\mu_3/m_\phi \gtrsim 1.7$ yields identical phenomenology. In this sense the cubic coupling sets a necessary condition for cosmological consistency rather than introducing a continuous degree of freedom into the SIDM predictions.
 
 ### 5.4 Falsifiability
 
@@ -422,7 +422,7 @@ with $\langle\sigma v\rangle_0 = \pi\alpha^2/(4 m_\chi^2)$ (constant, s-wave). T
 | 42.8 | $2.09 \times 10^{-3}$ | 0.120 | Yes ($\sigma/m_{30}=0.64$) |
 | 100 | $4.81 \times 10^{-3}$ | 0.120 | Yes ($\sigma/m_{30}=0.59$) |
 
-**Key result:** For each mass in the viable island ($m_\chi \in [10, 100]$ GeV, $m_\phi \in [7.6, 14.8]$ MeV), there exists a unique $\alpha$ that yields $\Omega h^2 = 0.120$ and simultaneously satisfies the SIDM sweet-spot criteria. The relic-density coupling $\alpha \sim 5 \times 10^{-4}$–$5 \times 10^{-3}$ lies **squarely within** the SIDM-viable parameter space. This is a **major improvement** over the axial-vector mediator approach, where the p-wave annihilation required $\alpha \sim 10^{-3}$–$10^{-2}$ — largely outside the SIDM range.
+**Key result:** For each mass in the viable island ($m_\chi \in [10, 100]$ GeV, $m_\phi \in [7.6, 14.8]$ MeV), there exists a unique $\alpha$ that yields $\Omega h^2 = 0.120$ and simultaneously satisfies the SIDM sweet-spot criteria. The relic-density coupling $\alpha \sim 5 \times 10^{-4}$–$5 \times 10^{-3}$ lies **squarely within** the SIDM-viable parameter space. This represents a significant advantage over the axial-vector mediator approach, where the p-wave annihilation required $\alpha \sim 10^{-3}$–$10^{-2}$ — largely outside the SIDM range.
 
 ### 6.3 CMB and Indirect Detection Constraints
 
@@ -467,7 +467,7 @@ Throughout this section we employ three benchmark points from the MCMC posterior
 
 - **BP1** ($m_\chi = 20.69$ GeV, $m_\phi = 11.34$ MeV, $\alpha = 1.048 \times 10^{-3}$, $\lambda = 1.91$) — Born-to-classical transition, collider-accessible mass range.
 - **BP9** ($m_\chi = 37.9$ GeV, $m_\phi = 16.36$ MeV, $\alpha = 1.840 \times 10^{-3}$, $\lambda = 4.26$) — classical regime.
-- **MAP** ($m_\chi = 94.07$ GeV, $m_\phi = 11.10$ MeV, $\alpha = 5.734 \times 10^{-3}$, $\lambda = 48.6$) — resonant regime, maximum a posteriori estimate.
+- **MAP** ($m_\chi = 94.07$ GeV, $m_\phi = 11.10$ MeV, $\alpha = 5.734 \times 10^{-3}$, $\lambda = 48.6$) — resonant regime, maximum a posteriori estimate from the astrophysical $\chi^2$ posterior (§4.7). *Note:* unlike BP1 and BP9, the MAP emerges from the full three-dimensional posterior with $(m_\chi, m_\phi, \alpha)$ as free parameters; its relic density has not been independently verified via the Boltzmann solver, and it should be interpreted as the astrophysical best-fit illustrating the deep-resonant regime rather than a relic-constrained benchmark.
 
 For the CP-separation analysis (§7.1), we generalize the Lagrangian to include both scalar and pseudoscalar couplings: $\mathcal{L} \supset \frac{1}{2}\bar{\chi}(y_s + iy_p\gamma_5)\chi\,\phi$, with $\alpha_{s,p} = y_{s,p}^2/(4\pi)$. The s-wave annihilation cross section becomes $\langle\sigma v\rangle_0 = 2\pi\alpha_s\alpha_p/m_\chi^2$, which fixes the product $\alpha_s \alpha_p$ while self-interactions depend only on $\alpha_s$ through the non-relativistic Yukawa potential. Equating this to the pure-scalar result $\pi\alpha^2/(4m_\chi^2)$ used in §6 gives $\alpha_s \alpha_p = \alpha^2/8$; thus the single coupling $\alpha$ of §2–§6 maps onto the SIDM-relevant coupling $\alpha_s = \alpha$ while $\alpha_p = \alpha/8$ at the CP-symmetric point ($\alpha_s = \alpha_p = \alpha/\sqrt{8}$ gives an equivalent parametrisation). This matching ensures identical $\langle\sigma v\rangle_0$ — and therefore identical relic densities — between the two descriptions. Unlike Dirac fermion models, where a single Yukawa coupling must simultaneously satisfy both relic density and self-interaction constraints — creating tension between the two — the Majorana structure naturally separates these requirements: $y_p$ controls $s$-wave annihilation while $y_s$ governs the Yukawa self-interaction potential, eliminating internal fine-tuning.
 
@@ -825,7 +825,7 @@ The following errors were identified during peer review and corrected on 2026-03
 
 The NFW scale density was previously computed as $\rho_s = \rho_{\rm crit}\,\delta_c/3$ in the prediction scripts (`predict_core_sizes.py`, `fit_sparc_baryons.py`, `sensitivity_analysis.py`). Since the characteristic overdensity is already defined as $\delta_c = (200/3)\,c^3/f(c)$ — which incorporates the factor of $1/3$ — the correct expression is:
 $$\rho_s = \rho_{\rm crit}\,\delta_c$$
-The spurious division by 3 reduced $\rho_s$ by a factor of 3, weakening the DM contribution to rotation curves. After correction, the best-fit mass-to-light ratios for DM-dominated dwarfs improve: DDO_154 drops from $\Upsilon_* \approx 0.44$ to $\Upsilon_* \approx 0.32$ (BP16), well within the physical range $0.2$–$0.8$. The $\sigma/m(v)$ cross-section computation and all other results are unaffected.
+The spurious division by 3 reduced $\rho_s$ by a factor of 3, weakening the DM contribution to rotation curves. After correction, the best-fit mass-to-light ratios for DM-dominated dwarfs improve: DDO_154 drops from $\Upsilon_* \approx 0.44$ to $\Upsilon_* \approx 0.32$ (BP16, i.e., the 16th of the 17 relic-constrained benchmarks: $m_\chi = 29.76$ GeV, $m_\phi = 12.98$ MeV; see Table 4, rank 16), well within the physical range $0.2$–$0.8$. The $\sigma/m(v)$ cross-section computation and all other results are unaffected.
 
 ### E.2 Dead Code in Gravothermal Script
 
