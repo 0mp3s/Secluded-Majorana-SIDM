@@ -650,6 +650,7 @@ The model can be tested or constrained by:
 3. **CMB-S4:** improved $\Delta N_{\rm eff}$ sensitivity ($\sigma \sim 0.03$) will find $\Delta N_{\rm eff} \approx 0$ from our model, since $\phi$ is massive ($m_\phi \sim 11$–14 MeV $\gg T$ at recombination) and Boltzmann-suppressed. A detection of $\Delta N_{\rm eff} > 0.06$ at CMB-S4 would **disfavor** the model or require additional light species.
 4. **Relic density:** if $\alpha$ is measured independently (e.g., from halo observations), the relic prediction is fixed — a non-trivial consistency test.
 5. **Cannibal coupling:** the requirement $\mu_3/m_\phi \gtrsim 1.7$ for cosmological consistency (§5.3) is a structural prediction — any UV completion of the model must accommodate a sufficiently large cubic self-coupling.
+6. **SMBH seeding:** elastic SIDM cannot seed supermassive black holes via gravothermal collapse (§8.5). If DM-seeded SMBHs are required at $z > 6$, elastic SIDM models are disfavored.
 
 The absence of a direct detection signal is a **prediction**, not a deficit: we have shown (§5.1) that the Higgs portal is incompatible with light-mediator SIDM, making $\sigma_{\rm SI} = 0$ the expected outcome.
 
@@ -662,6 +663,18 @@ We argue it does not, for three reasons. First, the most general renormalizable 
 Second, in UV completions where CP is an approximate symmetry of the dark sector — broken either explicitly by a small parameter or spontaneously by a scalar vacuum expectation value — the pseudoscalar coupling $y_p$ is naturally suppressed. For instance, if $\phi$ is the radial mode of a complex scalar $\Phi = (v_\phi + \phi + i\,a)/\sqrt{2}$ and CP violation arises radiatively, then $y_p \sim (\alpha_{\rm dark}/4\pi)\,y_s$, yielding $\alpha_s/\alpha_p \sim (4\pi/\alpha_{\rm dark})^2 \sim 10^2$–$10^4$ — comfortably encompassing the MAP value of 237.
 
 Third, the relic constraint $\alpha_s \alpha_p = \text{const}$ means that increasing $\alpha_s$ (which strengthens self-interactions) automatically suppresses $\alpha_p$. The hierarchy is therefore not imposed but *selected* by the joint relic-SIDM constraints: points with larger $\alpha_s$ have stronger SIDM cross sections at dwarf scales while remaining safe at cluster scales, and the relic density is maintained by the compensating decrease in $\alpha_p$. The CP band thus represents a natural feature of the parameter space rather than a tuning.
+
+### 8.5 Early-Universe Prediction: No DM-Seeded SMBH Formation
+
+A question of current interest is whether SIDM can seed supermassive black holes (SMBHs) in the early universe via gravothermal collapse of dense dark-matter cores. Our model makes a definitive negative prediction.
+
+At the characteristic velocities of high-redshift mini-halos, the MAP benchmark yields $\sigma/m \approx 1.2$–$1.9$ cm$^2$/g across $v = 1$–50 km/s (see §7.2), implying efficient self-scattering from the earliest epochs of structure formation. However, this scattering is *elastic*: particles exchange kinetic energy but do not radiate or cool. The result is core formation — a flat central density profile — rather than a cusp or a collapsing overdensity. Core formation *reduces* the central gravitational potential, weakening the baryon infall that would otherwise seed a compact object.
+
+The only mechanism that could reverse this trend is gravothermal catastrophe, in which heat flows outward from a contracting core. However, as shown in §7.4, the gravothermal timescale satisfies $t_{\rm gc}/t_{\rm age} > 10^4$ for all present-day systems. While the higher densities at $z \sim 20$–30 reduce the relaxation time by a factor $\sim (1+z)^{3/2}$, and the Hubble time is shorter by $(1+z)^{3/2}$, the ratio $t_{\rm gc}/t_H$ remains $\gg 1$. Additionally, the light mediator $\phi$ ($m_\phi = 11.1$ MeV) could in principle enable dark bremsstrahlung ($\chi\chi \to \chi\chi\phi$), but this process is suppressed by an additional factor of $\alpha \sim 6 \times 10^{-3}$, rendering it negligible compared to the elastic rate.
+
+This constitutes a falsifiable prediction: if JWST or future high-redshift surveys require DM-seeded SMBH formation at $z > 6$ — i.e., if purely baryonic channels (Population III remnants, direct collapse) prove insufficient to explain observed SMBHs — this would be in direct tension with elastic SIDM models, including ours. Conversely, the model predicts that dark-matter cores form very early ($z \gtrsim 20$), which may observationally manifest as suppressed star formation in the lowest-mass halos — a prediction testable with 21 cm cosmology and JWST deep surveys.
+
+We note that this prediction is generic to all elastic SIDM models and is not unique to the Majorana nature of the dark matter. Dissipative dark matter models (e.g., with dark photon cooling) could in principle form the required overdensities, but lie outside the scope of our minimal framework.
 
 ---
 
