@@ -118,7 +118,7 @@ if __name__ == '__main__':
     ])
     points = [(bp["label"], bp["m_chi_GeV"], bp["m_phi_MeV"] / 1e3, bp["alpha"])
               for bp in _bp_list]
-    velocities = [10, 30, 50, 100, 200, 500, 1000]
+    velocities = _CFG.get("transfer_elastic_velocities", [10, 30, 50, 100, 200, 500, 1000])
 
     for name, m_chi, m_phi, alpha in points:
         for v in velocities:

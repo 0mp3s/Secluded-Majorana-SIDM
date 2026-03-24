@@ -34,9 +34,12 @@ if sys.stdout.encoding != 'utf-8':
 os.environ['PYTHONIOENCODING'] = 'utf-8'
 
 from v22_raw_scan import sigma_T_vpm
+from config_loader import load_config
+
+_CFG = load_config(__file__)
 
 # ── velocities for full curve ──
-VELOCITIES = [5.0, 10.0, 30.0, 100.0, 300.0, 500.0, 1000.0]
+VELOCITIES = _CFG.get("blind_velocities", [5.0, 10.0, 30.0, 100.0, 300.0, 500.0, 1000.0])
 
 def eval_full_curve(m_chi, m_phi, alpha):
     """Return dict with σ/m at all velocities + viability."""
@@ -60,7 +63,9 @@ def check_monotonicity(curve, tol=0.05):
 def load_representatives():
     import csv
     reps = []
-    with open(os.path.join(DATA_DIR, "all_viable_representative_v8.csv"), newline='') as f:
+    _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(_SCRIPT_DIR, _CFG.get("representative_csv", "../data/all_viable_representative_v8.csv"))
+    with open(csv_path, newline='') as f:
         reader = csv.DictReader(f)
         for row in reader:
             # Support both m_phi_MeV and legacy m_phi_GeV headers
@@ -87,7 +92,7 @@ def block_a_random_viable_region():
     print("="*70)
     
     rng = np.random.default_rng(seed=2026)
-    LAM_CRITS = np.array([1.68, 6.45, 14.7, 26.0])
+    LAM_CRITS = np.array(_CFG.get("lam_crits", [1.68, 6.45, 14.7, 26.0]))
     
     n_total = 100
     n_physical = 0

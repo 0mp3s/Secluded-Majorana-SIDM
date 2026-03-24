@@ -31,10 +31,13 @@ os.environ['PYTHONIOENCODING'] = 'utf-8'
 
 # Import the VPM solver from v22 (no new physics code)
 from v22_raw_scan import sigma_T_vpm, M_CHI_VALS, M_PHI_VALS, LAM_CRITS
+from config_loader import load_config
+
+_CFG = load_config(__file__)
 
 # ── constants ──
-V_DWARF   = 30.0    # km/s
-V_CLUSTER = 1000.0  # km/s
+V_DWARF   = _CFG.get("v_dwarf", 30.0)     # km/s
+V_CLUSTER = _CFG.get("v_cluster", 1000.0)  # km/s
 
 # ── helpers ──
 def geometric_mean(a, b):
@@ -53,7 +56,9 @@ def evaluate_point(m_chi, m_phi, alpha, label=""):
 def load_representatives():
     import csv
     reps = []
-    with open(os.path.join(DATA_DIR, "all_viable_representative_v8.csv"), newline='') as f:
+    _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(_SCRIPT_DIR, _CFG.get("representative_csv", "../data/all_viable_representative_v8.csv"))
+    with open(csv_path, newline='') as f:
         reader = csv.DictReader(f)
         for row in reader:
             # Support both m_phi_MeV and legacy m_phi_GeV headers
@@ -181,7 +186,7 @@ def test3_monotonicity():
     rng = np.random.default_rng(seed=123)
     indices = rng.choice(len(reps), size=5, replace=False)
     
-    velocities = [10.0, 30.0, 100.0, 300.0, 1000.0]  # km/s
+    velocities = _CFG.get("monotonicity_velocities", [10.0, 30.0, 100.0, 300.0, 1000.0])  # km/s
     
     n_monotone, n_total = 0, 5
     
