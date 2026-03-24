@@ -51,7 +51,7 @@ In the non-relativistic limit, this scalar exchange generates a universally attr
 
 $$V(r)=-\frac{\alpha}{r}e^{-m_\phi r}$$
 
-where $\alpha=y^2/(4\pi)$. A natural connection between $\phi$ and the Standard Model would be the Higgs portal coupling $\lambda_{H\phi}|H|^2\phi^2$, which induces a mixing angle $\sin\theta$ and enables both $\phi$ decay and DM–nucleon scattering. We investigated this possibility and show in \S5.1 that it is **generically excluded** for light mediators ($m_\phi \lesssim \mathcal{O}(\text{GeV})$): the $1/m_\phi^4$ enhancement of $\sigma_{\rm SI}$ closes the window between direct detection and BBN bounds by a factor of $\sim 3 \times 10^4$. The dark sector is therefore **secluded** — $\phi$ has no tree-level coupling to the SM.
+where $\alpha=y^2/(4\pi)$. Because $\chi$ is a Majorana fermion — identical to its own antiparticle — the DM–DM scattering amplitude must be antisymmetrized, leading to non-trivial spin-weighted partial-wave sums (even-$\ell$ singlet weight 1, odd-$\ell$ triplet weight 3) and an overall identical-particle factor of $1/2$; the full derivation is given in §3.2. A natural connection between $\phi$ and the Standard Model would be the Higgs portal coupling $\lambda_{H\phi}|H|^2\phi^2$, which induces a mixing angle $\sin\theta$ and enables both $\phi$ decay and DM–nucleon scattering. We investigated this possibility and show in \S5.1 that it is **generically excluded** for light mediators ($m_\phi \lesssim \mathcal{O}(\text{GeV})$): the $1/m_\phi^4$ enhancement of $\sigma_{\rm SI}$ closes the window between direct detection and BBN bounds by a factor of $\sim 3 \times 10^4$. The dark sector is therefore **secluded** — $\phi$ has no tree-level coupling to the SM.
 
 ### 2.1 Parameters
 
