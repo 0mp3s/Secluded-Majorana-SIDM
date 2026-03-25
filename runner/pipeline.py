@@ -13,8 +13,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-CSV_PATH  = REPO_ROOT / "docs" / "execution_pipeline.csv"
+REPO_ROOT    = Path(__file__).resolve().parent.parent
+CSV_PATH     = REPO_ROOT / "docs" / "execution_pipeline.csv"
+_ARCHIVE_DIR = REPO_ROOT / "data" / "archive"
 
 
 @dataclass
@@ -61,7 +62,20 @@ class PipelineStep:
         }
 
 
-def _check_inputs(reads_raw: str) -> List[str]:
+def _resolve_archive(token: str) -> List[Path]:
+    """
+    Resolve data/X.csv → data/archive/X_*.csv (timestamped files).
+    Returns matching paths sorted by name (newest last).
+    """
+    if not token.startswith("data/"):
+        return []
+    p = Path(token)
+    stem = p.stem
+    ext  = p.suffix or ".csv"
+    return sorted(_ARCHIVE_DIR.glob(f"{stem}_*{ext}"))
+
+
+def _check_inputs(reads_raw: str, script: str = "") -> List[str]:
     """
     Returns list of paths that are declared in Reads but do not exist.
     Skips entries that are clearly code references (contain no '/' or '.')
@@ -72,6 +86,8 @@ def _check_inputs(reads_raw: str) -> List[str]:
                                               "config params", "embedded data",
                                               "none (imports from #42)"):
         return []
+
+    script_dir = REPO_ROOT / Path(script).parent if script else REPO_ROOT
 
     missing = []
     # split on comma, strip parens/notes after the actual path
@@ -87,8 +103,21 @@ def _check_inputs(reads_raw: str) -> List[str]:
         if token.endswith(".py") and "/" not in token:
             continue
         full = REPO_ROOT / token
-        if not full.exists():
-            missing.append(token)
+        if full.exists():
+            continue
+        # check archive for timestamped version (data/X.csv → data/archive/X_*.csv)
+        if _resolve_archive(token):
+            continue
+        # check relative to script directory (e.g. gravothermal/dsphs_data.csv)
+        if (script_dir / token).exists():
+            continue
+        # check basename in script directory (CSV may redundantly include subdir)
+        if (script_dir / Path(token).name).exists():
+            continue
+        # check data/ prefix for bare config references (global_config.json)
+        if "/" not in token and (REPO_ROOT / "data" / token).exists():
+            continue
+        missing.append(token)
     return missing
 
 
@@ -139,6 +168,10 @@ def _get_output_mtime(step: "PipelineStep") -> Optional[float]:
             for p in _resolve_glob(token, REPO_ROOT / "data"):
                 if p.exists():
                     mtimes.append(p.stat().st_mtime)
+        # 4. archive: data/X.csv → data/archive/X_*.csv (timestamped outputs)
+        for p in _resolve_archive(token):
+            if p.exists():
+                mtimes.append(p.stat().st_mtime)
     return max(mtimes) if mtimes else None
 
 
@@ -150,6 +183,11 @@ def _get_input_mtime(step: "PipelineStep") -> Optional[float]:
         full = REPO_ROOT / token
         if full.exists():
             mtimes.append(full.stat().st_mtime)
+        else:
+            # archive: data/X.csv → data/archive/X_*.csv
+            archive_hits = _resolve_archive(token)
+            if archive_hits:
+                mtimes.append(archive_hits[-1].stat().st_mtime)
     return max(mtimes) if mtimes else None
 
 
@@ -182,7 +220,7 @@ def load_pipeline() -> List[PipelineStep]:
                 writes=row.get("Writes", ""),
                 paper_section=row.get("Paper Section", ""),
             )
-            step.missing_inputs = _check_inputs(step.reads)
+            step.missing_inputs = _check_inputs(step.reads, step.script)
             step.is_long = step.stage_number == "0"
             step.last_run_at, step.input_stale = _staleness(step)
             steps.append(step)
@@ -211,7 +249,7 @@ def get_output_images(step: PipelineStep) -> List[str]:
 def get_output_csvs(step: PipelineStep) -> List[str]:
     """Same but for CSV files produced."""
     script_dir = REPO_ROOT / Path(step.script).parent
-    out_dirs = [script_dir / "output", REPO_ROOT / "data"]
+    out_dirs = [script_dir / "output", REPO_ROOT / "data", _ARCHIVE_DIR]
     csvs = []
     for d in out_dirs:
         if d.is_dir():
