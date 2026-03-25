@@ -1,5 +1,5 @@
 Order,Stage,Dependencies,Script,Reads,Writes,Paper Section
-1,0 - VPM Scan,none,core/v22_raw_scan.py,nothing (grid scan from scratch),"data/all_viable_raw_v8.csv, data/all_viable_representative_v8.csv",§3
+1,0 - VPM Scan,none,core/v22_raw_scan_fast.py,nothing (grid scan from scratch),"data/all_viable_raw_v8.csv, data/all_viable_representative_v8.csv",§3
 2,1 - Relic Density,v22_raw_scan (code) + v27_boltzmann_relic (code),relic_density/smart_scan.py,nothing (own grid scan + Boltzmann bisection),"data/v31_all_relic_points.csv, data/v31_true_viable_points.csv (17 BPs)","§4.4, §6.2"
 3,1 - Relic Density,v22_raw_scan (data + code) + v27_boltzmann_relic (code),relic_density/benchmark_extractor.py,data/all_viable_raw_v8.csv,data/v30_perfect_benchmarks.csv,§4.3
 4,1 - Relic Density,v22_raw_scan (code) + v27_boltzmann_relic (code),relic_density/boltzmann_correction.py,config params,console only,§4.4 verify
