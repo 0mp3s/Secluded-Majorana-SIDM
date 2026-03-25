@@ -5,7 +5,10 @@ type: software
 authors:
   - family-names: P.
     given-names: Omer
-license: MIT
+license:
+  - MIT
+  - CC-BY-4.0
+license-url: "https://github.com/0mp3s/Secluded-Majorana-SIDM/blob/main/LICENSE"
 version: 0.1.0
 doi: "10.5281/zenodo.19225823"
 date-released: "2026-03-25"
