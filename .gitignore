@@ -3,6 +3,9 @@ __pycache__/
 *.npy
 .venv/
 
+# Telegram credentials (never commit)
+core/tg_config.json
+
 # Internal work files — not for publication
 discussion/
 mixed_coupling/
@@ -11,3 +14,12 @@ docs/research_journal_v10.md
 OMER.MD
 TODO.md
 gemini_talk_with_omer.md
+_patch_tg_notify.py
+_eta.py
+
+# Legacy/contaminated data (pre-cleanup snapshots)
+data/archive_pre_cleanup/
+data/old/
+
+# Log files
+*.log
