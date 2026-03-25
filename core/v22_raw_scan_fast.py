@@ -21,6 +21,7 @@ Extra flags (for cloud/sensitivity runs):
 Physics / numerics are byte-for-byte identical to v22_raw_scan.py.
 """
 import sys, os, math, time, argparse, csv
+from collections import deque
 from datetime import datetime, timezone
 import numpy as np
 from numba import jit
@@ -404,6 +405,7 @@ def section_1_scan(cuts, n_workers):
     all_rep = []
     t0 = time.time()
     done = 0
+    recent_stamps = deque(maxlen=100)  # rolling window for ETA
 
     # Per-m_chi completion tracking for clean progress lines
     chi_done = [0] * N_CHI   # how many m_phi grains finished for each ic
@@ -441,7 +443,14 @@ def section_1_scan(cuts, n_workers):
             chi_rep[ic]  += len(rep_list)
 
             elapsed = time.time() - t0
-            eta     = elapsed / done * (n_tasks - done) if done > 0 else 0
+            recent_stamps.append(time.time())
+            # Rolling-window ETA: use last ~100 completions for rate
+            if len(recent_stamps) >= 2:
+                win_dt = recent_stamps[-1] - recent_stamps[0]
+                win_rate = (len(recent_stamps) - 1) / win_dt if win_dt > 0 else 0
+                eta = (n_tasks - done) / win_rate if win_rate > 0 else 0
+            else:
+                eta = elapsed / done * (n_tasks - done) if done > 0 else 0
             gps     = done / elapsed if elapsed > 0 else 0
 
             # --- progress CSV row (per grain) ---
