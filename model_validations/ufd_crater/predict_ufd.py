@@ -97,9 +97,8 @@ def nfw_rho(r, rho_s, r_s):
 def nfw_params(M200, c200):
     """Compute NFW rho_s, r_s from M200 and c200."""
     # R200 from M200: M200 = (4/3)π R200^3 × 200 × ρ_crit
-    rho_crit = 277.5  # h^2 M_sun/kpc^3, with h=0.674
-    h = 0.674
-    rho_200 = 200 * rho_crit * h**2  # M_sun/kpc^3
+    rho_crit = GC.cosmological_constants()["rho_crit_Msun_kpc3"]  # M_sun/kpc³ (h=0.674)
+    rho_200 = 200 * rho_crit  # M_sun/kpc³
     R200 = (3 * M200 / (4 * math.pi * rho_200))**(1.0/3)
     r_s = R200 / c200
     g_c = math.log(1 + c200) - c200 / (1 + c200)

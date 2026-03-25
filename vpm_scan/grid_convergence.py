@@ -28,14 +28,15 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-# ── Constants ──
-GEV2_TO_CM2 = 3.8938e-28
-GEV_IN_G    = 1.78266e-24
-C_KM_S      = 299792.458
-
 # ── Load config ──
 from config_loader import load_config
 from global_config import GC
+
+# ── Constants (sourced from global_config.json) ──
+_PC = GC.physical_constants()
+GEV2_TO_CM2 = _PC["GEV2_to_cm2"]
+GEV_IN_G    = _PC["GeV_in_g"]
+C_KM_S      = _PC["c_km_s"]
 cfg = load_config(__file__)
 
 # ── Benchmark points from global config ──

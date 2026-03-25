@@ -8,7 +8,7 @@ Strategy:
   For each (m_χ, m_φ) grid cell:
     1. Bisect α to find EXACT Ωh² = 0.120 (numerical Boltzmann)
     2. Compute σ/m(30) and σ/m(1000) with that α (VPM)
-    3. Keep only SIDM-viable points: 1 ≤ σ/m(30) ≤ 10, σ/m(1000) < 0.1
+    3. Keep only SIDM-viable points per global_config.json (Elbert+15, KTY16, Harvey+15)
 
 Every surviving point is a true "golden egg" — cosmologically correct AND
 astrophysically viable, with zero KT approximation error.
@@ -24,6 +24,7 @@ import sys, os, math, time, csv
 import numpy as np
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from config_loader import load_config
+from global_config import GC
 from output_manager import timestamped_path
 from run_logger import RunLogger
 
@@ -36,7 +37,6 @@ if sys.stdout.encoding != 'utf-8':
 _CFG = load_config(__file__)
 _GRID = _CFG.get("grid", {})
 _BOLTZ = _CFG.get("boltzmann", {})
-_SIDM = _CFG.get("sidm_cuts", {})
 
 N_CHI = _GRID.get("n_chi", 20)
 N_PHI = _GRID.get("n_phi", 30)
@@ -53,10 +53,11 @@ BISECT_MAX   = _BOLTZ.get("bisect_max_iter", 50)
 ALPHA_LO     = _BOLTZ.get("alpha_range", [1.0e-5, 5.0e-2])[0]
 ALPHA_HI     = _BOLTZ.get("alpha_range", [1.0e-5, 5.0e-2])[1]
 
-# SIDM cuts
-SIGMA_M_30_LO   = _SIDM.get("sigma_m_30_lo", 1.0)
-SIGMA_M_30_HI   = _SIDM.get("sigma_m_30_hi", 10.0)
-SIGMA_M_1000_HI = _SIDM.get("sigma_m_1000_hi", 0.1)
+# SIDM cuts — single source of truth: data/global_config.json (no fallback)
+_cuts = GC.sidm_cuts()
+SIGMA_M_30_LO   = _cuts["sigma_m_30_lo"]
+SIGMA_M_30_HI   = _cuts["sigma_m_30_hi"]
+SIGMA_M_1000_HI = _cuts["sigma_m_1000_hi"]
 
 # ==============================================================
 #  Worker function (runs in child process)

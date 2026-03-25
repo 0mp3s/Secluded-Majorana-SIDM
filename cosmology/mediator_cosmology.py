@@ -31,6 +31,7 @@ _ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 sys.path.insert(0, os.path.join(_ROOT, 'core'))
 from config_loader import load_config
 from run_logger import RunLogger
+from global_config import GC
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -38,16 +39,17 @@ if sys.stdout.encoding != 'utf-8':
 _CFG = load_config(__file__)
 
 # ==============================================================
-#  Constants [natural units, GeV]
+#  Constants (sourced from global_config.json)
 # ==============================================================
-ALPHA_EM   = 1.0 / 137.036
-M_E        = 0.511e-3          # electron mass [GeV]
-M_MU       = 0.1057            # muon mass [GeV]
-M_H        = 125.25            # Higgs mass [GeV]
-V_EW       = 246.22            # Higgs VEV [GeV]
-M_PL       = 1.2209e19         # Planck mass [GeV]
-HBAR_S     = 6.582e-25         # ħ [GeV·s]
-T_BBN      = 1.0e-3            # BBN onset ~ 1 MeV
+_PC = GC.physical_constants()
+ALPHA_EM   = _PC["alpha_em"]
+M_E        = _PC["m_e_GeV"]
+M_MU       = _PC["m_mu_GeV"]
+M_H        = _PC["m_H_GeV"]
+V_EW       = _PC["v_ew_GeV"]
+M_PL       = 1.2209e19             # TODO: add to global_config after M_PL unification
+HBAR_S     = _PC["hbar_GeV_s"]
+T_BBN      = GC.cosmological_constants()["T_BBN_GeV"]
 
 
 # ==============================================================
@@ -264,7 +266,6 @@ def test_4_entropy():
     print("=" * 75)
     print()
 
-    from global_config import GC
     _bp1 = GC.benchmark("BP1")
     m_phi = _bp1["m_phi_MeV"] * 1e-3  # GeV
     g_s = 10.75

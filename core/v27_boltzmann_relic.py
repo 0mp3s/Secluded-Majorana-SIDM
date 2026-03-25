@@ -27,12 +27,15 @@ from global_config import GC
 from run_logger import RunLogger
 
 # ==============================================================
-#  Constants
+#  Constants (sourced from global_config.json)
 # ==============================================================
-M_PL = 1.2209e19       # Planck mass [GeV]
-OMEGA_CDM_H2 = 0.120   # Planck 2018
-RHO_CRIT_H2 = 1.0539e-5  # h² × ρ_crit [GeV/cm³]
-S_0 = 2891.2            # entropy density today [cm⁻³]
+_PC = GC.physical_constants()
+_CC = GC.cosmological_constants()
+
+M_PL         = 1.2209e19           # TODO: add to global_config after M_PL unification
+OMEGA_CDM_H2 = _CC["omega_h2_target"]
+RHO_CRIT_H2  = _PC["rho_crit_h2_GeV_cm3"]
+S_0          = _PC["S0_cm3"]
 
 # Benchmark (BP1) — loaded from global_config.json
 _BP1 = GC.benchmark("BP1")

@@ -41,6 +41,7 @@ from v22_raw_scan import sigma_T_vpm
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
 
 # ---- constants ----
+_RHO_CRIT = GC.cosmological_constants()["rho_crit_Msun_kpc3"]  # M_sun/kpc³ (h=0.674)
 G_N = 4.302e-6          # kpc (km/s)^2 / M_sun
 KPC_CM = 3.086e21        # cm
 MSUN_G = 1.989e33        # g
@@ -77,7 +78,7 @@ def nfw_params_from_vmax(V_max, c=12.0):
     Return (rho_s [M_sun/kpc^3], r_s [kpc]) for an NFW halo with the
     given V_max and concentration c.
     """
-    rho_crit = 126.0  # h=0.674 → M_sun/kpc^3
+    rho_crit = _RHO_CRIT  # M_sun/kpc^3 (h=0.674)
     f_c = math.log(1.0 + c) - c / (1.0 + c)
     delta_c = (200.0 / 3.0) * c ** 3 / f_c
     rho_s = rho_crit * delta_c

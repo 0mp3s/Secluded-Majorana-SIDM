@@ -32,12 +32,14 @@ sys.path.insert(0, os.path.dirname(__file__))
 from v22_raw_scan import sigma_T_vpm, C_KM_S
 from config_loader import load_config
 
-GEV2_TO_CM2 = 3.8938e-28
-GEV_IN_G    = 1.78266e-24
-
 # Load BP1 from global config
 _CFG = load_config(__file__)
 from global_config import GC
+
+# ── Constants (sourced from global_config.json) ──
+_PC = GC.physical_constants()
+GEV2_TO_CM2 = _PC["GEV2_to_cm2"]
+GEV_IN_G    = _PC["GeV_in_g"]
 _BP1 = GC.benchmark("BP1")
 BP1_M_CHI = _BP1["m_chi_GeV"]
 BP1_M_PHI = _BP1["m_phi_MeV"] * 1e-3   # → GeV

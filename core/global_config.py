@@ -18,7 +18,8 @@ Usage (from any script that already has core/ on sys.path):
 
     cuts = GC.sidm_cuts()                # {"sigma_m_30_lo":0.5, ...}
     path = GC.csv_path("relic_viable")   # pathlib.Path (absolute)
-    c    = GC.constants()                # cosmological constants dict
+    c    = GC.cosmological_constants()   # cosmological constants dict
+    pc   = GC.physical_constants()       # universal physical constants dict
     fh   = GC.fornax_halo()             # Fornax halo parameters
     w09  = GC.walker2009_fornax()       # Walker+2009 binned σ_los data
 
@@ -134,9 +135,17 @@ class _GlobalConfig:
     #  Physical & cosmological constants                                   #
     # ------------------------------------------------------------------ #
 
-    def constants(self) -> dict:
-        """Return cosmological and physical constants dict."""
+    def physical_constants(self) -> dict:
+        """Return universal physical constants dict (GEV2_to_cm2, GeV_in_g, etc.)."""
+        return dict(self._get("physical_constants"))
+
+    def cosmological_constants(self) -> dict:
+        """Return cosmological constants dict (Planck 2018 + SM values)."""
         return dict(self._get("cosmological_constants"))
+
+    def constants(self) -> dict:
+        """Return cosmological constants dict. Alias for cosmological_constants()."""
+        return self.cosmological_constants()
 
     # ------------------------------------------------------------------ #
     #  Astrophysical datasets                                              #

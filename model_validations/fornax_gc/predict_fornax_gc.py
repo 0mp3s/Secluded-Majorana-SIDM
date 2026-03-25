@@ -68,9 +68,8 @@ def nfw_mass(r_kpc, rho_s, r_s):
 def nfw_params_from_M200_c200(M200, c200):
     """Compute rho_s [M_sun/kpc³] and r_s [kpc] from M200 [M_sun] and c200."""
     # R200 from M200: M200 = (4/3)π R200³ × 200 × ρ_crit
-    # ρ_crit = 277.5 h² M_sun/kpc³ (h=0.674)
-    h = 0.674
-    rho_crit = 277.5 * h**2  # M_sun/kpc³
+    # ρ_crit = 277.5 h² M_sun/kpc³ (h=0.674) = 126.07 M_sun/kpc³
+    rho_crit = GC.cosmological_constants()["rho_crit_Msun_kpc3"]  # M_sun/kpc³
     R200 = (3 * M200 / (4 * math.pi * 200 * rho_crit))**(1.0/3.0)
     r_s = R200 / c200
     gc_factor = math.log(1 + c200) - c200 / (1 + c200)

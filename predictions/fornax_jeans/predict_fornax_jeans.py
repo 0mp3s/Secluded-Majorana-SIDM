@@ -63,8 +63,8 @@ KM_S_CM_S  = 1e5               # cm/s
 
 def nfw_params(M200, c200):
     """Return (rho_s [M_sun/kpc³], r_s [kpc], R200 [kpc]) from M200, c200."""
-    h = 0.674
-    rho_crit = 277.5 * h**2                             # M_sun / kpc³
+    h = GC.cosmological_constants()["h_hubble"]
+    rho_crit = GC.cosmological_constants()["rho_crit_Msun_kpc3"]  # M_sun / kpc³
     R200 = (3 * M200 / (4 * math.pi * 200 * rho_crit))**(1.0/3.0)
     r_s = R200 / c200
     gc = math.log(1 + c200) - c200 / (1 + c200)

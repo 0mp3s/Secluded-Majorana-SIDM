@@ -25,6 +25,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 import multiprocessing
 from output_manager import timestamped_path
 from run_logger import RunLogger
+from global_config import GC
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -32,18 +33,21 @@ if sys.stdout.encoding != 'utf-8':
 os.environ['PYTHONIOENCODING'] = 'utf-8'
 
 # ==============================================================
-#  Constants
+#  Constants (sourced from global_config.json)
 # ==============================================================
-GEV2_TO_CM2 = 3.8938e-28
-GEV_IN_G    = 1.78266e-24
-C_KM_S      = 299792.458
-C_CM_S      = 2.9979e10
-M_PL        = 1.22e19
-M_E         = 0.511e-3
-GEV_TO_SEC  = 6.582e-25
-HBAR        = 6.582e-25
-ALPHA_EM    = 1.0 / 137.036
-G_STAR      = 86.25
+_PC = GC.physical_constants()
+_CC = GC.cosmological_constants()
+
+GEV2_TO_CM2 = _PC["GEV2_to_cm2"]
+GEV_IN_G    = _PC["GeV_in_g"]
+C_KM_S      = _PC["c_km_s"]
+C_CM_S      = _PC["c_cm_s"]
+M_PL        = 1.22e19           # TODO: unify with v27 (1.2209e19) — deferred
+M_E         = _PC["m_e_GeV"]
+GEV_TO_SEC  = _PC["hbar_GeV_s"]
+HBAR        = _PC["hbar_GeV_s"]
+ALPHA_EM    = _PC["alpha_em"]
+G_STAR      = _CC["g_star_s_20_90_GeV"]
 
 
 # ==============================================================
@@ -189,7 +193,6 @@ def sigma_T_vpm(m_chi, m_phi, alpha, v_km_s):
 #  Scan grid  — configurable via --config or vpm_scan/config.json
 # ==============================================================
 from config_loader import load_config as _load_config
-from global_config import GC
 _SCAN_CFG = _load_config(__file__).get("grid", {})
 
 N_CHI   = _SCAN_CFG.get("n_chi", 50)

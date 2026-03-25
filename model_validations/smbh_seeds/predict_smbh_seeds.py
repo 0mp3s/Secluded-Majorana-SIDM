@@ -42,6 +42,8 @@ from v22_raw_scan import sigma_T_vpm
 # Warm up JIT
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
 
+_H_HUBBLE = GC.cosmological_constants()["h_hubble"]  # Planck 2018 h
+
 _DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Constants
@@ -52,7 +54,7 @@ KM_S_CM_S = 1e5
 G_NEWTON = 6.674e-8  # cm³ g⁻¹ s⁻²
 
 
-def correa_concentration(M200_Msun, z, h=0.674):
+def correa_concentration(M200_Msun, z, h=_H_HUBBLE):
     """
     Correa+2015 (MNRAS 452, 1217) concentration-mass-redshift relation.
     Valid for 10^8 < M200/M_sun < 10^15, 0 < z < 20.
@@ -68,9 +70,9 @@ def correa_concentration(M200_Msun, z, h=0.674):
     return max(c, 1.5)  # floor at 1.5
 
 
-def nfw_params(M200_Msun, c200, h=0.674):
+def nfw_params(M200_Msun, c200, h=_H_HUBBLE):
     """Compute NFW rho_s [M_sun/kpc³], r_s [kpc], R200 [kpc] from M200 and c200."""
-    rho_crit = 277.5 * h**2  # M_sun/kpc³
+    rho_crit = GC.cosmological_constants()["rho_crit_Msun_kpc3"]  # M_sun/kpc³ (h=h_hubble)
     R200 = (3 * M200_Msun / (4 * math.pi * 200 * rho_crit))**(1.0/3.0)
     r_s = R200 / c200
     gc = math.log(1 + c200) - c200 / (1 + c200)

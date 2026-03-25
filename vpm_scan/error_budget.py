@@ -31,11 +31,12 @@ from global_config import GC
 from output_manager import get_latest
 
 # ==============================================================
-#  Constants
+#  Constants (sourced from global_config.json)
 # ==============================================================
-GEV2_TO_CM2 = 3.8938e-28
-GEV_IN_G    = 1.78266e-24
-C_KM_S      = 299792.458
+_PC = GC.physical_constants()
+GEV2_TO_CM2 = _PC["GEV2_to_cm2"]
+GEV_IN_G    = _PC["GeV_in_g"]
+C_KM_S      = _PC["c_km_s"]
 
 # ==============================================================
 #  Benchmarks — BP1 & MAP from global config, BP17 from relic CSV

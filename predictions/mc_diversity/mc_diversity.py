@@ -48,6 +48,9 @@ from config_loader import load_config
 from global_config import GC
 from v22_raw_scan import sigma_T_vpm
 
+# ---- constants (sourced from global_config.json) ----
+_RHO_CRIT = GC.cosmological_constants()["rho_crit_Msun_kpc3"]  # M_sun/kpc³ (h=0.674)
+
 # JIT warmup
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
 
@@ -79,7 +82,7 @@ def nfw_v_circ(r_kpc, rho_s, r_s):
 
 
 def nfw_params_from_vmax(V_max, c=12.0):
-    rho_crit = 126.0
+    rho_crit = _RHO_CRIT
     f_c = math.log(1.0 + c) - c / (1.0 + c)
     delta_c = (200.0 / 3.0) * c**3 / f_c
     rho_s = rho_crit * delta_c
@@ -101,7 +104,7 @@ def nfw_params_self_consistent(V_max):
     """NFW params with iterated c(M) relation.
     Returns (rho_s, r_s, c, M_200).
     """
-    rho_crit = 126.0
+    rho_crit = _RHO_CRIT
     c = 12.0
     for _ in range(30):
         rho_s, r_s = nfw_params_from_vmax(V_max, c=c)
@@ -253,7 +256,7 @@ def run():
     c_scattered = 10**log_c_scattered
 
     # --- Baryon parameters: SHMR + scatter, disk size + scatter ---
-    rho_crit_val = 126.0
+    rho_crit_val = _RHO_CRIT
     R_200_arr = np.empty(n_halos)
     M_star_arr = np.empty(n_halos)
     R_d_arr = np.empty(n_halos)

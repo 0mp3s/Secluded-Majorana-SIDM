@@ -54,6 +54,7 @@ from v22_raw_scan import sigma_T_vpm
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
 
 # ---- constants ----
+_RHO_CRIT    = GC.cosmological_constants()["rho_crit_Msun_kpc3"]  # M_sun/kpc³ (h=0.674)
 G_N          = 4.302e-6       # kpc (km/s)² / M_sun
 KPC_CM       = 3.086e21       # cm
 MSUN_G       = 1.989e33       # g
@@ -99,7 +100,7 @@ def nfw_mass(r_kpc, rho_s, r_s):
 
 def nfw_params_from_M200_c(M_200, c):
     """Return (ρ_s [M_sun/kpc³], r_s [kpc]) from M_200 and c."""
-    rho_crit = 126.0  # M_sun/kpc³ (h=0.674)
+    rho_crit = _RHO_CRIT
     R_200 = (3.0 * M_200 / (4.0 * math.pi * 200.0 * rho_crit))**(1.0/3.0)
     r_s = R_200 / c
     f_c = math.log(1 + c) - c / (1 + c)

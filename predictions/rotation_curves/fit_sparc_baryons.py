@@ -44,6 +44,7 @@ from v22_raw_scan import sigma_T_vpm
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
 
 # ---- constants ----
+_RHO_CRIT = GC.cosmological_constants()["rho_crit_Msun_kpc3"]  # M_sun/kpc³ (h=0.674)
 G_N = 4.302e-6           # kpc (km/s)^2 / M_sun
 KPC_CM = 3.086e21
 MSUN_G = 1.989e33
@@ -70,7 +71,7 @@ def nfw_v_circ(r_kpc, rho_s, r_s):
     return math.sqrt(G_N * nfw_mass(r_kpc, rho_s, r_s) / r_kpc)
 
 def nfw_params_from_vmax(V_max, c=12.0):
-    rho_crit = 126.0  # M_sun/kpc^3 (h=0.674)
+    rho_crit = _RHO_CRIT
     f_c = math.log(1 + c) - c / (1 + c)
     delta_c = (200.0 / 3.0) * c**3 / f_c
     rho_s = rho_crit * delta_c
@@ -124,7 +125,7 @@ def concentration_mass(M_200_Msun, h=0.674):
 
 def nfw_params_with_cM(V_max, h=0.674):
     """NFW params with self-consistent c(M_200). Returns (rho_s, r_s, c, M_200)."""
-    rho_crit = 126.0  # M_sun/kpc^3
+    rho_crit = _RHO_CRIT
     c = 12.0
     for _ in range(30):
         rho_s, r_s = nfw_params_from_vmax(V_max, c=c)

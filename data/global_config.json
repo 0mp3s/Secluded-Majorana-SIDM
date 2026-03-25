@@ -48,10 +48,30 @@
         "benchmarks_v30":  "data/v30_perfect_benchmarks.csv"
     },
 
+    "physical_constants": {
+        "_comment": "Universal physical constants — never change. All in natural units (GeV-based) unless noted.",
+        "GEV2_to_cm2":             3.8938e-28,
+        "GeV_in_g":                1.78266e-24,
+        "c_km_s":                  299792.458,
+        "c_cm_s":                  2.9979e10,
+        "hbar_GeV_s":              6.582e-25,
+        "alpha_em":                7.29735e-3,
+        "m_e_GeV":                 5.11e-4,
+        "m_mu_GeV":                0.1057,
+        "m_H_GeV":                 125.25,
+        "v_ew_GeV":                246.22,
+        "S0_cm3":                  2891.2,
+        "rho_crit_h2_GeV_cm3":     1.0539e-5,
+        "rho_crit_base_Msun_kpc3": 277.5
+    },
+
     "cosmological_constants": {
         "_comment": "Planck 2018 + SM values used throughout",
         "h_hubble":                    0.674,
         "omega_h2_target":             0.1200,
+        "rho_crit_Msun_kpc3":          126.07,
+        "T_BBN_GeV":                   1.0e-3,
+        "g_chi_Majorana":              2,
         "planck2018_Neff":             2.99,
         "planck2018_Neff_err":         0.17,
         "cmbs4_sigma_Neff":            0.03,

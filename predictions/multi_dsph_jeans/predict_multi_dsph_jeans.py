@@ -112,7 +112,7 @@ DSPHS = {
 # ═══════════════════════════════════════════════════════════════════
 def nfw_params(M200, c200):
     """Compute NFW scale density rho_s [M_sun/kpc^3], scale radius r_s [kpc], and R200 [kpc]."""
-    rho_crit = 277.5 * 0.674**2
+    rho_crit = GC.cosmological_constants()["rho_crit_Msun_kpc3"]
     R200 = (3*M200 / (4*math.pi*200*rho_crit))**(1/3)
     r_s = R200 / c200
     gc = math.log(1+c200) - c200/(1+c200)

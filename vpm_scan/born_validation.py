@@ -39,12 +39,18 @@ from scipy.integrate import quad
 from scipy.special import spherical_jn
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'core'))
 from run_logger import RunLogger
+from global_config import GC
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
     sys.stderr = open(sys.stderr.fileno(), mode='w', encoding='utf-8', buffering=1)
 os.environ['PYTHONIOENCODING'] = 'utf-8'
 
+# ── Constants (sourced from global_config.json) ──
+_PC = GC.physical_constants()
+GEV2_TO_CM2 = _PC["GEV2_to_cm2"]
+GEV_IN_G    = _PC["GeV_in_g"]
+C_KM_S      = _PC["c_km_s"]
 
 # ==============================================================
 #  VPM solver (identical to v18_vpm_scan.py)
@@ -353,10 +359,6 @@ def test_D():
 
 def test_E():
     """Production solver at V7 benchmark => sigma/m(30) ~ 4.894."""
-    GEV2_TO_CM2 = 3.8938e-28
-    GEV_IN_G    = 1.78266e-24
-    C_KM_S      = 299792.458
-
     m_chi = 100.0
     m_phi = 2.439998e-3
     alpha = 1.869451e-4
