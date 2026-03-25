@@ -118,7 +118,7 @@ def _next_run_id() -> int:
     if not _LOG_PATH.exists():
         return 1
     max_id = 0
-    with open(_LOG_PATH, newline="", encoding="utf-8") as fh:
+    with open(_LOG_PATH, newline="", encoding="utf-8-sig") as fh:
         reader = csv.DictReader(fh)
         for row in reader:
             try:

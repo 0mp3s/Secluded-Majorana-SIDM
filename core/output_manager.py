@@ -89,7 +89,7 @@ def timestamped_path(
 
     rl = get_active_logger()
     if rl is not None and rl.run_id is not None:
-        name = f"{stem}_{_today()}_r{rl.run_id}{ext}"
+        name = f"{stem}_{_today()}_r{rl.run_id:03d}{ext}"
     else:
         name = f"{stem}_{_today()}{ext}"
     return d / name
