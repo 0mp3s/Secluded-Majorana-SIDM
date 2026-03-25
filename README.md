@@ -1,5 +1,7 @@
 # Secluded Majorana SIDM
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19225823.svg)](https://doi.org/10.5281/zenodo.19225823)
+
 **Self-Interacting Dark Matter via a Secluded Scalar Mediator:
 Majorana Fermion with Velocity-Dependent Cross Sections**
 
