@@ -539,3 +539,13 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+if __name__ == '__main__':
+    try:
+        import sys as _sys, os as _os
+        _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', '..', 'core'))
+        from tg_notify import notify
+        notify("\u2705 predict_multi_dsph_jeans done!")
+    except Exception:
+        pass

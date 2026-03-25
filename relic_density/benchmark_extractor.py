@@ -217,5 +217,14 @@ for rank, row in enumerate(df_final.itertuples(index=False), start=1):
 print()
 print(f"  (Units: σ/m in cm²/g, velocities in km/s)")
 print()
-print(f"  Total runtime: {time.time()-t0:.1f}s")
+elapsed_total = time.time() - t0
+print(f"  Total runtime: {elapsed_total:.1f}s")
 print("=" * 70)
+
+try:
+    import sys as _sys, os as _os
+    _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'core'))
+    from tg_notify import notify
+    notify(f"✅ benchmark_extractor done!\n{len(df_final):,} benchmarks saved\nelapsed={elapsed_total:.0f}s")
+except Exception:
+    pass

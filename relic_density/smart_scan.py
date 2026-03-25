@@ -277,3 +277,10 @@ if __name__ == '__main__':
     t_total = time.time() - t_start
     print(f"\n  Total time: {t_total:.1f}s ({t_total/60:.1f} min)")
     print("=" * 70)
+
+    try:
+        import sys as _sys; _sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'core'))
+        from tg_notify import notify
+        notify(f"✅ smart_scan done!\nviable={len(viable)} / {len(all_results)}\nelapsed={t_total:.0f}s ({t_total/60:.1f} min)")
+    except Exception:
+        pass

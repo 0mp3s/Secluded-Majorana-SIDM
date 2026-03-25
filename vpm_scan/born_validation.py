@@ -502,3 +502,13 @@ if __name__ == "__main__":
     _rl.set_notes("ALL PASS" if all_ok else "SOME TESTS FAILED")
     _rl.set_status("OK" if all_ok else "PARTIAL")
     _rl.__exit__(None, None, None)
+
+
+if __name__ == '__main__':
+    try:
+        import sys as _sys, os as _os
+        _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'core'))
+        from tg_notify import notify
+        notify("\u2705 born_validation done!")
+    except Exception:
+        pass

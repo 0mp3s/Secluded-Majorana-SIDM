@@ -149,3 +149,13 @@ if __name__ == '__main__':
     print("The ~20% 'difference' noted previously in Appendix C was between the VPM solver")
     print("and the Born approximation -- two different computational methods -- NOT between")
     print("elastic and transfer cross section definitions.")
+
+
+if __name__ == '__main__':
+    try:
+        import sys as _sys, os as _os
+        _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'core'))
+        from tg_notify import notify
+        notify("\u2705 transfer_vs_elastic done!")
+    except Exception:
+        pass

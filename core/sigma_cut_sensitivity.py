@@ -238,3 +238,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+if __name__ == '__main__':
+    try:
+        from tg_notify import notify
+        notify("\u2705 sigma_cut_sensitivity done!")
+    except Exception:
+        pass

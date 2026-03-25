@@ -17,7 +17,8 @@ VPM ODE (attractive Yukawa V = -alpha e^{-m_phi r}/r):
   d(delta_l)/dx = +(lam e^{-x} / (kappa*x)) [j_hat_l(kappa*x) cos(delta) - n_hat_l(kappa*x) sin(delta)]^2
   lam = alpha * m_chi / m_phi > 0
 """
-import sys, os, math, time
+import sys, os, math, time, csv
+from datetime import datetime, timezone
 import numpy as np
 from numba import jit, prange
 from scipy.special import spherical_jn, spherical_yn
@@ -397,12 +398,22 @@ def section_1_scan():
     _cuts = GC.sidm_cuts()
     print(f"  Grid: {N_CHI} x {N_PHI} x {N_RES} x {N_ALPHA} = {total:,}")
     print(f"  SIDM (raw scan): sigma/m(30) in [{_cuts['sigma_m_30_lo']},{_cuts['sigma_m_30_hi']}], sigma/m(1000) < {_cuts['sigma_m_1000_hi']}  [from global_config.json]")
-    print(f"  Parallel workers: {n_workers}\n")
+    print(f"  Parallel workers: {n_workers}")
 
     all_raw = []
     all_rep = []
     t0 = time.time()
     done = 0
+
+    # Open progress CSV (one row per m_chi slice, flushed in real time)
+    progress_path = timestamped_path("scan_progress_raw")
+    _pf = open(progress_path, 'w', newline='', encoding='utf-8')
+    _pw = csv.writer(_pf)
+    _pw.writerow(['timestamp_utc', 'ic', 'm_chi_GeV', 'slices_done', 'slices_total',
+                  'elapsed_s', 'eta_s', 'raw_this_slice', 'rep_this_slice',
+                  'raw_total', 'rep_total', 'slices_per_sec', 'hit_rate_pct'])
+    _pf.flush()
+    print(f"  Progress CSV: {progress_path}\n")
 
     with ProcessPoolExecutor(max_workers=n_workers) as pool:
         futures = {}
@@ -417,12 +428,29 @@ def section_1_scan():
             all_raw.extend(raw_list)
             all_rep.extend(rep_list)
             done += 1
-            elapsed = time.time() - t0
-            eta = elapsed / done * (N_CHI - done) if done > 0 else 0
-            hs = f"  +{len(raw_list)} raw, +{len(rep_list)} rep" if raw_list else ""
+            elapsed  = time.time() - t0
+            eta      = elapsed / done * (N_CHI - done) if done > 0 else 0
+            sps      = done / elapsed if elapsed > 0 else 0
+            hit_rate = len(raw_list) / (N_PHI * N_RES * N_ALPHA) * 100
+            pct_done = done / N_CHI * 100
+
+            # --- progress CSV row (per m_chi slice) ---
+            _pw.writerow([
+                datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+                ic, f"{mc:.6f}", done, N_CHI,
+                f"{elapsed:.1f}", f"{eta:.0f}",
+                len(raw_list), len(rep_list), len(all_raw), len(all_rep),
+                f"{sps:.4f}", f"{hit_rate:.4f}"
+            ])
+            _pf.flush()
+
+            hs = (f"  +{len(raw_list)} raw (hit {hit_rate:.2f}%), +{len(rep_list)} rep"
+                  if raw_list else "  (no hits)")
             print(f"  [{done:2d}/{N_CHI}] m_chi={mc:8.3f} GeV  "
-                  f"({elapsed:6.1f}s, ETA {eta:5.0f}s)  "
+                  f"({elapsed:6.1f}s, ETA {eta:5.0f}s | {sps:.2f} slices/s, {pct_done:.1f}%)  "
                   f"raw: {len(all_raw)}, rep: {len(all_rep)}{hs}", flush=True)
+
+    _pf.close()
 
     # Sort by m_chi for consistent output
     all_raw.sort(key=lambda p: (p['m_chi'], p['m_phi']))
@@ -431,6 +459,7 @@ def section_1_scan():
     print(f"\n  Done: {time.time()-t0:.1f}s")
     print(f"  Raw viable samples: {len(all_raw)}")
     print(f"  Representative cells: {len(all_rep)}")
+    print(f"  Progress CSV: {progress_path}")
     return all_raw, all_rep
 
 
@@ -610,6 +639,12 @@ def main():
 
     elapsed = time.time() - t_start
     print(f"\n  Total runtime: {elapsed:.1f}s ({elapsed/60:.1f} min)")
+
+    try:
+        from tg_notify import notify
+        notify(f"✅ v22_raw_scan done!\nraw={len(raw):,} rep={len(rep)}\nelapsed={elapsed:.0f}s ({elapsed/60:.1f} min)")
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":

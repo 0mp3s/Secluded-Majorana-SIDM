@@ -269,3 +269,13 @@ if __name__ == "__main__":
         reload=False,
         app_dir=str(RUNNER_DIR),
     )
+
+
+if __name__ == '__main__':
+    try:
+        import sys as _sys, os as _os
+        _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'core'))
+        from tg_notify import notify
+        notify("\u2705 app done!")
+    except Exception:
+        pass

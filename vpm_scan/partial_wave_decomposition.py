@@ -346,3 +346,13 @@ if __name__ == '__main__':
     t0 = time.time()
     main()
     print(f"\n  Total runtime: {time.time()-t0:.1f}s")
+
+
+if __name__ == '__main__':
+    try:
+        import sys as _sys, os as _os
+        _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'core'))
+        from tg_notify import notify
+        notify("\u2705 partial_wave_decomposition done!")
+    except Exception:
+        pass

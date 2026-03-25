@@ -602,3 +602,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+if __name__ == '__main__':
+    try:
+        from tg_notify import notify
+        notify("\u2705 v27_boltzmann_relic done!")
+    except Exception:
+        pass

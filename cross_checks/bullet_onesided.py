@@ -135,3 +135,13 @@ if __name__ == '__main__':
     print(f"  {'-'*65}")
     for name, v, theory, central, pull in pulls_detail(all_sigma[best_idx]):
         print(f"  {name:<25} {v:>6} {theory:>10.4f} {central:>10.2f} {pull:>+8.2f}")
+
+
+if __name__ == '__main__':
+    try:
+        import sys as _sys, os as _os
+        _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'core'))
+        from tg_notify import notify
+        notify("\u2705 bullet_onesided done!")
+    except Exception:
+        pass
