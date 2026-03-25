@@ -1,0 +1,21 @@
+========================================================================
+  Secluded-Majorana-SIDM — MCMC Posterior Sampling
+  3D parameter space, 13 observational constraints
+========================================================================
+
+  Walkers: 32
+  Burn-in: 300
+  Production: 5000
+  Workers: 12 (of 14 cores)
+  Total likelihood evals: 169,600
+
+  Seed points: 132
+
+  Verifying initial walker positions...
+  32/32 walkers have finite log-prob
+
+  Running burn-in (300 steps)...
+  Burn-in done in 392s (24.5 evals/s)
+  Mean acceptance fraction (burn-in): 0.528
+
+  Running production (5000 steps)...
