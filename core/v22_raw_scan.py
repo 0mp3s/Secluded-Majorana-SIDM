@@ -172,17 +172,30 @@ def sigma_T_vpm(m_chi, m_phi, alpha, v_km_s):
     else:
         x_max, N_steps = 100.0, 12000
 
-    l_max = min(max(3, int(kappa) + 3), 80)
+    # Adaptive l_max: take the minimum of:
+    #   (a) physical limit: l > kappa*x_max means x_barrier > x_max → backward integration
+    #   (b) lambda limit: kappa+lam+20 covers strong-coupling partial waves
+    # Always at least 3, at most 500.
+    l_max_hard = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
 
     sigma_sum = 0.0
-    for l in range(l_max + 1):
+    peak_contrib = 0.0
+    n_small = 0
+    for l in range(l_max_hard + 1):
         delta = vpm_phase_shift(l, kappa, lam, x_max, N_steps)
         weight = 1.0 if l % 2 == 0 else 3.0
         contrib = weight * (2*l + 1) * math.sin(delta)**2
         sigma_sum += contrib
-        if l > int(kappa) + 1 and sigma_sum > 0:
-            if contrib / sigma_sum < 1e-3:
+        if contrib > peak_contrib:
+            peak_contrib = contrib
+        # Ramsauer-Townsend guard: require 5 consecutive small contributions
+        # before stopping — avoids false convergence at an oscillation trough.
+        if peak_contrib > 0.0 and contrib / peak_contrib < 1e-4:
+            n_small += 1
+            if n_small >= 5:
                 break
+        else:
+            n_small = 0
 
     sigma_GeV2 = 2.0 * math.pi * sigma_sum / (k * k)
     sigma_cm2 = sigma_GeV2 * GEV2_TO_CM2

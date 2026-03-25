@@ -173,7 +173,8 @@ def sigma_T_flex(m_chi, m_phi, alpha, v_km_s,
 
     if N_steps_override > 0:
         N_steps = N_steps_override
-    l_max = min(max(3, int(kappa) + 3), 80)
+    # Adaptive l_max: min of physical limit (l/kappa < x_max) and lambda limit
+    l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
     if l_max_override > 0:
         l_max = l_max_override
 
@@ -225,7 +226,8 @@ def scipy_sigma_T(m_chi, m_phi, alpha, v_km_s):
     kappa = k / m_phi
     lam = alpha * m_chi / m_phi
     if kappa < 1e-15: return 0.0
-    l_max = min(max(3, int(kappa) + 3), 80)
+    x_max_ref = 50.0 if kappa < 5 else (80.0 if kappa < 50 else 100.0)
+    l_max = min(max(3, min(int(kappa * x_max_ref), int(kappa) + int(lam) + 20)), 500)
     sigma_sum = 0.0
     for l in range(l_max + 1):
         delta = scipy_phase_shift(l, kappa, lam)
@@ -245,7 +247,8 @@ def get_params(bm, v_km_s):
     k = mu * v
     kappa = k / bm["m_phi"]
     lam = bm["alpha"] * bm["m_chi"] / bm["m_phi"]
-    l_max = min(max(3, int(kappa) + 3), 80)
+    x_max_ref = 50.0 if kappa < 5 else (80.0 if kappa < 50 else 100.0)
+    l_max = min(max(3, min(int(kappa * x_max_ref), int(kappa) + int(lam) + 20)), 500)
     return kappa, lam, l_max
 
 # ==============================================================
