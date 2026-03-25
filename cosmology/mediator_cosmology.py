@@ -47,7 +47,7 @@ M_E        = _PC["m_e_GeV"]
 M_MU       = _PC["m_mu_GeV"]
 M_H        = _PC["m_H_GeV"]
 V_EW       = _PC["v_ew_GeV"]
-M_PL       = 1.2209e19             # TODO: add to global_config after M_PL unification
+M_PL       = _PC["m_pl_GeV"]
 HBAR_S     = _PC["hbar_GeV_s"]
 T_BBN      = GC.cosmological_constants()["T_BBN_GeV"]
 

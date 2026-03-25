@@ -62,7 +62,8 @@
         "v_ew_GeV":                246.22,
         "S0_cm3":                  2891.2,
         "rho_crit_h2_GeV_cm3":     1.0539e-5,
-        "rho_crit_base_Msun_kpc3": 277.5
+        "rho_crit_base_Msun_kpc3": 277.5,
+        "m_pl_GeV":                1.220890e19
     },
 
     "cosmological_constants": {

@@ -32,7 +32,7 @@ from run_logger import RunLogger
 _PC = GC.physical_constants()
 _CC = GC.cosmological_constants()
 
-M_PL         = 1.2209e19           # TODO: add to global_config after M_PL unification
+M_PL         = _PC["m_pl_GeV"]
 OMEGA_CDM_H2 = _CC["omega_h2_target"]
 RHO_CRIT_H2  = _PC["rho_crit_h2_GeV_cm3"]
 S_0          = _PC["S0_cm3"]
