@@ -64,9 +64,19 @@ import csv
 import json
 import pathlib
 import subprocess
+import threading
 import time
 from datetime import datetime
 from typing import Any, Dict, List, Optional
+
+# ── thread-local active RunLogger instance ────────────────────────────────────
+_active_lock = threading.Lock()
+_active_logger: Optional["RunLogger"] = None
+
+
+def get_active_logger() -> Optional["RunLogger"]:
+    """Return the currently active RunLogger (inside a `with` block), or None."""
+    return _active_logger
 
 # ── paths ────────────────────────────────────────────────────────────────────
 _REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -162,18 +172,31 @@ class RunLogger:
         self.data_source = data_source
 
         self._outputs: List[str] = []
+        self._data_sources: List[str] = []
         self._n_viable: Optional[int] = None
         self._notes: str = ""
         self._status: str = "OK"
 
         self._start_ts: Optional[str] = None
         self._start_t:  Optional[float] = None
+        self._run_id: Optional[int] = None
 
     # ── mutators called inside `with` block ──────────────────────────────────
+
+    @property
+    def run_id(self) -> Optional[int]:
+        """Return the run_id assigned at __enter__, or None if not yet entered."""
+        return self._run_id
 
     def add_output(self, path: str):
         """Register an output file (call once per file written)."""
         self._outputs.append(str(path))
+
+    def add_data_source(self, path: str):
+        """Register an input file (auto-called by get_latest)."""
+        s = str(path)
+        if s not in self._data_sources:
+            self._data_sources.append(s)
 
     def set_n_viable(self, n: int):
         """Record the number of viable benchmark points found."""
@@ -190,11 +213,19 @@ class RunLogger:
     # ── context protocol ─────────────────────────────────────────────────────
 
     def __enter__(self) -> "RunLogger":
+        global _active_logger
         self._start_ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self._start_t  = time.monotonic()
+        self._run_id   = _next_run_id()
+        with _active_lock:
+            _active_logger = self
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> bool:
+        global _active_logger
+        with _active_lock:
+            _active_logger = None
+
         duration = round(time.monotonic() - self._start_t, 2)
 
         if exc_type is not None:
@@ -202,13 +233,19 @@ class RunLogger:
             if not self._notes:
                 self._notes = f"{exc_type.__name__}: {exc_val}"
 
+        # Merge auto-collected data sources with manually provided one
+        all_sources = []
+        if self.data_source:
+            all_sources.append(self.data_source)
+        all_sources.extend(self._data_sources)
+
         row = {
-            "run_id":          _next_run_id(),
+            "run_id":          self._run_id,
             "timestamp_start": self._start_ts,
             "script":          self.script,
             "stage":           self.stage,
             "params_json":     json.dumps(self.params, separators=(",", ":")),
-            "data_source":     self.data_source,
+            "data_source":     " | ".join(all_sources),
             "output_files":    " | ".join(self._outputs),
             "n_viable":        "" if self._n_viable is None else self._n_viable,
             "status":          self._status,
