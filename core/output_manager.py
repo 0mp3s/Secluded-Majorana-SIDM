@@ -79,7 +79,10 @@ def timestamped_path(
     ext     : file extension including dot, default ".csv"
     archive : archive directory (default: data/archive/)
     """
-    from core.run_logger import get_active_logger  # local import to avoid circular
+    try:
+        from core.run_logger import get_active_logger
+    except ImportError:
+        from run_logger import get_active_logger
 
     d = archive if archive is not None else _ARCHIVE
     d.mkdir(parents=True, exist_ok=True)
@@ -112,7 +115,10 @@ def get_latest(
       that *produced* the file, a warning is emitted.  (Requires the
       run log; silently skipped if lookup fails.)
     """
-    from core.run_logger import get_active_logger  # local import
+    try:
+        from core.run_logger import get_active_logger
+    except ImportError:
+        from run_logger import get_active_logger
 
     d = archive if archive is not None else _ARCHIVE
     pattern = str(d / f"{stem}_*{ext}")
@@ -139,7 +145,10 @@ def get_latest(
 def _warn_if_hash_mismatch(path: pathlib.Path) -> None:
     """Emit a warning if *path* was produced by a different git commit."""
     try:
-        from core.run_logger import _LOG_PATH
+        try:
+            from core.run_logger import _LOG_PATH
+        except ImportError:
+            from run_logger import _LOG_PATH
         import csv
 
         if not _LOG_PATH.exists():
