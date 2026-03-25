@@ -27,10 +27,15 @@
     ],
 
     "sidm_cuts": {
-        "_comment": "Viability window for SIDM self-interaction cross section",
-        "sigma_m_30_lo":   0.5,
-        "sigma_m_30_hi":  10.0,
-        "sigma_m_1000_hi": 0.1
+        "_comment": "Viability window for SIDM self-interaction cross section. All values taken directly from observational bounds in the SIDM literature — NOT tuned to our results.",
+        "_refs": [
+            "Elbert et al. (2015), MNRAS 453, 29 [arXiv:1412.1477] — sigma/m >= 0.5 cm2/g sufficient for cusp-core conversion (lower bound)",
+            "Kaplinghat, Tulin & Yu (2016), PRL 116, 041302 [arXiv:1508.03339] — sigma/m > 10 cm2/g destroys halo ellipticity (upper bound at dwarfs)",
+            "Harvey et al. (2015), Science 347, 1462 [arXiv:1503.07675] — hard observational bound: sigma/m < 0.47 cm2/g at 95% CL from 72 cluster mergers"
+        ],
+        "sigma_m_30_lo":    0.5,
+        "sigma_m_30_hi":   10.0,
+        "sigma_m_1000_hi":  0.47
     },
 
     "_comment_csv": "Paths are relative to the repository root.",

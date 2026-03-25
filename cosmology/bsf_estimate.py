@@ -34,6 +34,7 @@ if sys.stdout.encoding != 'utf-8':
 #  Configuration — loaded from global_config.json
 # ==============================================================
 from global_config import GC
+from run_logger import RunLogger
 
 _CFG_LABEL = load_config(__file__).get("benchmark_label", "MAP")
 _BENCH = GC.benchmark(_CFG_LABEL)
@@ -577,6 +578,12 @@ def test_6_summary():
 #  Main
 # ==============================================================
 def main():
+    _rl = RunLogger(
+        script="cosmology/bsf_estimate.py",
+        stage="Cosmology Validation",
+        params={"tests": 6},
+    )
+    _rl.__enter__()
     print("=" * 75)
     print("V8 — v26_bsf_estimate.py")
     print("Bound-State Formation Relevance Assessment")
@@ -605,6 +612,9 @@ def main():
         print(f"    [{tag}] {name}")
     print()
     print(f"  OVERALL: {'ALL 6 TESTS PASSED' if all_pass else 'SOME TESTS FAILED'}")
+    _rl.set_notes("ALL PASS" if all_pass else "SOME TESTS FAILED")
+    _rl.set_status("OK" if all_pass else "PARTIAL")
+    _rl.__exit__(None, None, None)
     print()
 
 

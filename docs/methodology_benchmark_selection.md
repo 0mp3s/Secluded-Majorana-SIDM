@@ -44,7 +44,7 @@ Only **after** the 17 points are fixed do we compute $\chi^2$ against 13 astroph
 | Concern | Answer |
 |---------|--------|
 | "You picked the best-fitting points" | No. The 17 points are **all** points that satisfy relic + SIDM. We report all of them, not a subset. |
-| "The cuts were tuned to get good fits" | No. The SIDM cuts (0.5–10 at dwarfs, <0.1 at clusters) are taken from Kaplinghat, Tulin & Yu (2016) and are standard in the field. |
+| "The cuts were tuned to get good fits" | No. The SIDM cuts (0.5–10 at dwarfs, <0.1 at clusters) are taken from Kaplinghat, Tulin & Yu (2016) and Elbert et al. (2015). The broad parameter scan uses a stricter 1–10 window; the relic-constrained scan uses 0.5–10, consistent with the relic constraint naturally placing BPs at σ/m(30)~0.5–0.8. |
 | "$\chi^2/\nu = 0.38$ looks suspiciously good" | This is the **best** of 17 points (trial factor). The median $\chi^2/\nu$ across all 17 BPs should also be reported. Two of 13 systems are one-sided upper limits contributing $\chi^2 = 0$, and several systems have error bars spanning 0.5 dex. |
 | "You have hidden free parameters" | At the prediction stage, $(m_\chi, m_\phi, \alpha)$ are fully determined by relic density + SIDM. The velocity-dependent $\sigma/m(v)$ curve is a **zero-parameter prediction**. |
 

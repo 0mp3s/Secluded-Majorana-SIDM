@@ -30,6 +30,7 @@ import numpy as np
 _ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 sys.path.insert(0, os.path.join(_ROOT, 'core'))
 from config_loader import load_config
+from run_logger import RunLogger
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -335,6 +336,12 @@ def test_5_summary():
 #  Main
 # ==============================================================
 def main():
+    _rl = RunLogger(
+        script="cosmology/mediator_cosmology.py",
+        stage="Cosmology Validation",
+        params={"tests": 5},
+    )
+    _rl.__enter__()
     print("=" * 75)
     print("V9 — v25_mediator_cosmology.py")
     print("Scalar Mediator φ Cosmological History (Higgs Portal)")
@@ -361,6 +368,9 @@ def main():
         print(f"    [{tag}] {name}")
     print()
     print(f"  OVERALL: {'ALL 5 TESTS PASSED' if all_pass else 'SOME TESTS FAILED'}")
+    _rl.set_notes("ALL PASS" if all_pass else "SOME TESTS FAILED")
+    _rl.set_status("OK" if all_pass else "PARTIAL")
+    _rl.__exit__(None, None, None)
     print()
 
 

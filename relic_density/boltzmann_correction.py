@@ -30,6 +30,7 @@ from v27_boltzmann_relic import solve_boltzmann, Y_to_omega_h2, kolb_turner_swav
 from v22_raw_scan import sigma_T_vpm
 
 from config_loader import load_config
+from run_logger import log_run as _log_run
 
 # ==============================================================
 #  BP2 parameters (from config / v30_benchmark_extractor)
@@ -149,3 +150,11 @@ print("  Ωh² = {:.4f} (target {:.3f}) → {:.2f}% off".format(
 elapsed = time.time() - t0
 print("\n  Total time: {:.1f}s".format(elapsed))
 print("=" * 70)
+_log_run(
+    script="relic_density/boltzmann_correction.py",
+    stage="1 - Relic Density verify",
+    params={"m_chi_GeV": M_CHI, "m_phi_MeV": round(M_PHI * 1e3, 2), "alpha_KT": ALPHA_KT},
+    status="OK" if viable else "PARTIAL",
+    duration_sec=round(elapsed, 2),
+    notes=f"KT\u2192Boltzmann delta_alpha={delta_alpha:.2f}%",
+)

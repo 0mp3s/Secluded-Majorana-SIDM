@@ -35,6 +35,7 @@ from config_loader import load_config
 from global_config import GC
 from v22_raw_scan import sigma_T_vpm
 from output_manager import get_latest, timestamped_path, _MCMC_ARCHIVE
+from run_logger import RunLogger
 
 # Warm up JIT
 sigma_T_vpm(20.0, 10e-3, 1e-3, 100.0)
@@ -200,7 +201,12 @@ def run_mcmc():
     N_STEPS = _mcmc.get("n_production", 2000)
     ncpu = os.cpu_count() or 4
     nworkers = _mcmc.get("n_workers", max(1, ncpu - 2))
-
+    _rl = RunLogger(
+        script="stats_mcmc/run_mcmc.py",
+        stage="4 - MCMC",
+        params={"n_walkers": N_WALKERS, "n_burn": N_BURN, "n_steps": N_STEPS, "ndim": NDIM},
+    )
+    _rl.__enter__()
     print(f"\n  Walkers: {N_WALKERS}")
     print(f"  Burn-in: {N_BURN}")
     print(f"  Production: {N_STEPS}")
@@ -465,6 +471,13 @@ def run_mcmc():
     print(f"  Best chi2/dof: {best_chi2/(N_DATA-NDIM):.4f}")
     print(f"  Files: v38_corner.png, v38_mcmc_chains.png, v38_lambda_posterior.png")
     print(f"{'='*72}")
+    _rl.add_output(fig_path)
+    _rl.add_output(fig2_path)
+    _rl.add_output(fig3_path)
+    _rl.add_output(npy_path)
+    _rl.add_output(csv_out)
+    _rl.set_notes(f"accept={accept:.3f}, chi2/dof={best_chi2/(N_DATA-NDIM):.4f}")
+    _rl.__exit__(None, None, None)
 
 
 if __name__ == "__main__":

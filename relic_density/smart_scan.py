@@ -25,6 +25,7 @@ import numpy as np
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from config_loader import load_config
 from output_manager import timestamped_path
+from run_logger import RunLogger
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -129,6 +130,14 @@ def process_cell(args):
 #  Main
 # ==============================================================
 if __name__ == '__main__':
+    _rl = RunLogger(
+        script="relic_density/smart_scan.py",
+        stage="1 - Relic Density",
+        params={"n_chi": N_CHI, "n_phi": N_PHI, "target_omega": TARGET_OMEGA,
+                "sigma_m_30_lo": SIGMA_M_30_LO, "sigma_m_30_hi": SIGMA_M_30_HI,
+                "sigma_m_1000_hi": SIGMA_M_1000_HI},
+    )
+    _rl.__enter__()
     t_start = time.time()
     total_cells = N_CHI * N_PHI
 
@@ -259,7 +268,11 @@ if __name__ == '__main__':
                     f"{r['lambda']:.4f}", f"{r['sigma_m_30']:.6f}",
                     f"{r['sigma_m_1000']:.6f}"])
         print(f"  Saved {len(viable)} viable → {csv_viable}")
+        _rl.add_output(csv_viable)
 
+    _rl.set_n_viable(len(viable))
+    _rl.add_output(csv_all)
+    _rl.__exit__(None, None, None)
     t_total = time.time() - t_start
     print(f"\n  Total time: {t_total:.1f}s ({t_total/60:.1f} min)")
     print("=" * 70)

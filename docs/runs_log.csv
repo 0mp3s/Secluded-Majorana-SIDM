@@ -1,0 +1,4 @@
+run_id,timestamp_start,script,stage,params_json,data_source,output_files,n_viable,status,duration_sec,git_hash,notes
+1,2026-03-25 02:36:59,vpm_scan/sidm_cuts_sensitivity.py,Sensitivity Analysis,"{""sd_lo"":0.5,""sd_hi"":10.0,""sc_hi"":0.47,""sd_lo_fine_step"":0.01,""sd_lo_fine_max"":1.01}",,,,FAILED,0.0,c53265b,"FileNotFoundError: No v31_all_relic_points*.csv found in data/ or data/archive/.
+Run relic_density/smart_scan.py first to generate fresh data.
+data/old/ is intentionally excluded — never use archived data."

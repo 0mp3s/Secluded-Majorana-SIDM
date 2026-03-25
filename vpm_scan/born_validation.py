@@ -37,6 +37,8 @@ import numpy as np
 from numba import jit
 from scipy.integrate import quad
 from scipy.special import spherical_jn
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'core'))
+from run_logger import RunLogger
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -453,6 +455,12 @@ def test_F():
 # ==============================================================
 
 if __name__ == "__main__":
+    _rl = RunLogger(
+        script="vpm_scan/born_validation.py",
+        stage="0 - VPM Validation",
+        params={"tests": "A,B,C,D,E,F"},
+    )
+    _rl.__enter__()
     print("V7 Born-limit validation of VPM solver")
     print("=" * 90)
     t0 = time.time()
@@ -489,3 +497,6 @@ if __name__ == "__main__":
     all_ok = all(results.values())
     print(f"\n  Overall: {'ALL TESTS PASSED' if all_ok else 'SOME TESTS FAILED'}")
     print(f"  Runtime: {elapsed:.1f} s")
+    _rl.set_notes("ALL PASS" if all_ok else "SOME TESTS FAILED")
+    _rl.set_status("OK" if all_ok else "PARTIAL")
+    _rl.__exit__(None, None, None)

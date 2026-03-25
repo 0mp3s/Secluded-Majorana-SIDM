@@ -31,6 +31,7 @@ import matplotlib.pyplot as plt
 from config_loader import load_config
 from global_config import GC
 from output_manager import get_latest, timestamped_path
+from run_logger import RunLogger
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -107,7 +108,12 @@ def run():
     hdr = "=" * 72
     ncpu = os.cpu_count() or 4
     nworkers = _CFG.get("n_workers", max(1, ncpu - 2))
-
+    _rl = RunLogger(
+        script="observations/chi2_fit.py",
+        stage="3 - Chi2 Fit",
+        params={"n_obs": len(OBSERVATIONS), "n_workers": nworkers},
+    )
+    _rl.__enter__()
     print(hdr)
     print("  V10 — v34 chi2 Fit to Observational Data")
     print(f"  {len(OBSERVATIONS)} systems x scan points + relic BPs")
@@ -403,6 +409,9 @@ def run():
     print(f"  Saved figure -> {outpng}")
     print(f"\n  Total time: {time.time()-t0:.1f}s")
     print(hdr)
+    _rl.add_output(csv_out)
+    _rl.add_output(outpng)
+    _rl.__exit__(None, None, None)
 
 
 if __name__ == '__main__':

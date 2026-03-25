@@ -24,6 +24,7 @@ if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 
 from global_config import GC
+from run_logger import RunLogger
 
 # ==============================================================
 #  Constants
@@ -547,6 +548,12 @@ def test_7_summary():
 #  Main
 # ==============================================================
 def main():
+    _rl = RunLogger(
+        script="core/v27_boltzmann_relic.py",
+        stage="1 - Relic Density",
+        params={"m_chi_bench": M_CHI_BENCH, "alpha_bench": ALPHA_BENCH},
+    )
+    _rl.__enter__()
     print("=" * 75)
     print("V9 — v27_boltzmann_relic.py")
     print("Numerical Boltzmann Solver (s-wave, scalar mediator)")
@@ -584,6 +591,9 @@ def main():
         print(f"    [{tag}] {name}")
     print()
     print(f"  OVERALL: {'ALL 7 TESTS PASSED' if all_pass else 'SOME TESTS FAILED'}")
+    _rl.set_notes("ALL PASS" if all_pass else "SOME TESTS FAILED")
+    _rl.set_status("OK" if all_pass else "PARTIAL")
+    _rl.__exit__(None, None, None)
     print()
 
 

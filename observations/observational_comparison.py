@@ -33,6 +33,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from config_loader import load_config
 from global_config import GC
+from run_logger import RunLogger
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -79,7 +80,12 @@ def compute_curve(m_chi, m_phi, alpha, velocities):
 
 def main():
     t0 = time.time()
-
+    _rl = RunLogger(
+        script="observations/observational_comparison.py",
+        stage="3 - Observational Comparison",
+        params={"n_benchmarks": len(BENCHMARKS), "n_obs": len(OBSERVATIONS)},
+    )
+    _rl.__enter__()
     print("=" * 80)
     print("  V10 — v33 Observational Comparison")
     print("  Theoretical σ/m(v) vs Real Astrophysical Data")
@@ -206,6 +212,8 @@ def main():
     elapsed = time.time() - t0
     print(f"\n  Total time: {elapsed:.1f}s")
     print("=" * 80)
+    _rl.add_output(outpath)
+    _rl.__exit__(None, None, None)
 
 
 if __name__ == "__main__":

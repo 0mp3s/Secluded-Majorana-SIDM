@@ -24,6 +24,7 @@ from scipy.special import spherical_jn, spherical_yn
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import multiprocessing
 from output_manager import timestamped_path
+from run_logger import RunLogger
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
@@ -188,6 +189,7 @@ def sigma_T_vpm(m_chi, m_phi, alpha, v_km_s):
 #  Scan grid  — configurable via --config or vpm_scan/config.json
 # ==============================================================
 from config_loader import load_config as _load_config
+from global_config import GC
 _SCAN_CFG = _load_config(__file__).get("grid", {})
 
 N_CHI   = _SCAN_CFG.get("n_chi", 50)
@@ -208,10 +210,16 @@ LAM_CRITS  = np.array(_SCAN_CFG.get("lambda_crits", [1.68, 6.45, 14.7, 26.0]))
 # ==============================================================
 
 @jit(nopython=True, cache=True)
-def scan_one_mchi_raw(mc, m_phi_arr, lam_crits, n_phi, n_res, n_alpha):
+def scan_one_mchi_raw(mc, m_phi_arr, lam_crits, n_phi, n_res, n_alpha,
+                      sd_lo, sd_hi, sc_hi):
     """Scan all (m_phi, resonance, alpha) for one m_chi.
     Returns arrays of ALL viable samples (not compressed).
-    
+
+    SIDM viability cuts (from global_config.json, sourced from literature):
+        sd_lo  — sigma/m(30 km/s) lower bound  [KTY16]
+        sd_hi  — sigma/m(30 km/s) upper bound  [KTY16]
+        sc_hi  — sigma/m(1000 km/s) upper bound [Harvey+2015, conservative]
+
     Uses a pre-allocated buffer. Returns count of valid entries.
     Max possible hits per m_chi = n_phi * n_res * n_alpha.
     """
@@ -248,10 +256,10 @@ def scan_one_mchi_raw(mc, m_phi_arr, lam_crits, n_phi, n_res, n_alpha):
                 alpha = a_lo * (a_hi / a_lo) ** frac
 
                 sd = sigma_T_vpm(mc, mp, alpha, 30.0)
-                if sd < 1.0 or sd > 10.0:
+                if sd < sd_lo or sd > sd_hi:
                     continue
                 sc = sigma_T_vpm(mc, mp, alpha, 1000.0)
-                if sc >= 0.1:
+                if sc >= sc_hi:
                     continue
 
                 # Store raw hit
@@ -370,8 +378,9 @@ def section_1_scan():
     print("=" * 75)
     total = N_CHI * N_PHI * N_RES * N_ALPHA
     n_workers = min(14, multiprocessing.cpu_count())
-    print(f"\n  Grid: {N_CHI} x {N_PHI} x {N_RES} x {N_ALPHA} = {total:,}")
-    print(f"  SIDM: sigma/m(30) in [1,10], sigma/m(1000) < 0.1")
+    _cuts = GC.sidm_cuts()
+    print(f"  Grid: {N_CHI} x {N_PHI} x {N_RES} x {N_ALPHA} = {total:,}")
+    print(f"  SIDM (raw scan): sigma/m(30) in [{_cuts['sigma_m_30_lo']},{_cuts['sigma_m_30_hi']}], sigma/m(1000) < {_cuts['sigma_m_1000_hi']}  [from global_config.json]")
     print(f"  Parallel workers: {n_workers}\n")
 
     all_raw = []
@@ -413,10 +422,14 @@ def _scan_worker(ic, mc):
     """Worker function for parallel scan. Called per m_chi value."""
     # Numba cache=True means JIT is only compiled once on disk,
     # each subprocess loads the cached version automatically.
+    _cuts = GC.sidm_cuts()
     (raw_mphi, raw_alpha, raw_sd, raw_sc, raw_ires, raw_count,
      rep_mphi, rep_alpha, rep_sd, rep_sc, rep_valid) = \
         scan_one_mchi_raw(mc, M_PHI_VALS, LAM_CRITS,
-                          N_PHI, N_RES, N_ALPHA)
+                          N_PHI, N_RES, N_ALPHA,
+                          _cuts["sigma_m_30_lo"],
+                          _cuts["sigma_m_30_hi"],
+                          _cuts["sigma_m_1000_hi"])
 
     raw_list = []
     for j in range(raw_count):
@@ -536,7 +549,7 @@ def section_2_analysis(raw_points, rep_points):
                     f"{p['sigma_30']:.6f},{p['sigma_1000']:.8f}\n")
     print(f"  Saved representative: {csv_rep}")
 
-    return bp
+    return bp, csv_raw, csv_rep
 
 
 # ==============================================================
@@ -551,14 +564,33 @@ def main():
     print("=" * 75)
     t_start = time.time()
 
-    # JIT warmup — compiles Numba cache before spawning workers
-    print("\n  Warming up Numba JIT...", flush=True)
-    _ = sigma_T_vpm(10.0, 1e-3, 1e-4, 30.0)
-    print("  JIT ready.\n")
+    _cuts = GC.sidm_cuts()
+    _rl_params = {
+        "n_chi": N_CHI, "n_phi": N_PHI, "n_res": N_RES, "n_alpha": N_ALPHA,
+        "sigma_m_30_lo": _cuts["sigma_m_30_lo"],
+        "sigma_m_30_hi": _cuts["sigma_m_30_hi"],
+        "sigma_m_1000_hi": _cuts["sigma_m_1000_hi"],
+    }
 
-    section_0_validation()
-    raw, rep = section_1_scan()
-    section_2_analysis(raw, rep)
+    with RunLogger(
+        script="core/v22_raw_scan.py",
+        stage="0 - VPM Scan",
+        params=_rl_params,
+        data_source="grid scan from scratch",
+    ) as rl:
+        # JIT warmup — compiles Numba cache before spawning workers
+        print("\n  Warming up Numba JIT...", flush=True)
+        _ = sigma_T_vpm(10.0, 1e-3, 1e-4, 30.0)
+        print("  JIT ready.\n")
+
+        section_0_validation()
+        raw, rep = section_1_scan()
+        bp, csv_raw, csv_rep = section_2_analysis(raw, rep)
+
+        rl.set_n_viable(len(raw))
+        rl.add_output(str(csv_raw))
+        rl.add_output(str(csv_rep))
+        rl.set_notes(f"raw={len(raw)}, rep={len(rep)}, BBN-safe={sum(1 for p in rep if p['m_phi']*1e3 > 1.022)}")
 
     elapsed = time.time() - t_start
     print(f"\n  Total runtime: {elapsed:.1f}s ({elapsed/60:.1f} min)")
