@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "Secluded Majorana SIDM"
+message: "If you use this software, please cite it using the metadata from this file."
+type: software
+authors:
+  - family-names: P.
+    given-names: Omer
+license: MIT
+version: 0.1.0
+date-released: "2026-03-25"
+repository-code: "https://github.com/0mp3s/Secluded-Majorana-SIDM"
+abstract: >-
+  Self-Interacting Dark Matter via a Secluded Scalar Mediator:
+  Majorana Fermion with Velocity-Dependent Cross Sections.
+  A complete numerical pipeline for computing velocity-dependent
+  transfer cross sections using the Variable Phase Method (VPM),
+  solving the Boltzmann equation for relic density, and fitting
+  the model to astrophysical observations.
+keywords:
+  - dark matter
+  - self-interacting dark matter
+  - SIDM
+  - Majorana fermion
+  - variable phase method
+  - velocity-dependent cross section
+  - Yukawa potential
+  - relic density

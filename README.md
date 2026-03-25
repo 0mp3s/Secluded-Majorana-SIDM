@@ -16,20 +16,30 @@ relic density, and fits the model to astrophysical observations.
 Secluded-Majorana-SIDM/
 ├── README.md                 # This file
 ├── LICENSE                   # MIT License
+├── CITATION.cff              # Citation metadata (Zenodo / GitHub)
+├── pyproject.toml            # Package metadata & dependencies
 ├── requirements.txt          # Python dependencies
 │
-├── core/                     # Shared numerical solvers
-│   ├── v22_raw_scan.py       # VPM phase-shift solver (sigma_T_vpm)
+├── core/                     # Shared numerical solvers & infrastructure
+│   ├── v22_raw_scan.py       # VPM phase-shift solver (sigma_T_vpm) — library
+│   ├── v22_raw_scan_fast.py  # Grain-chunked fast scan (primary Stage 0)
 │   ├── v27_boltzmann_relic.py # Boltzmann relic density solver
+│   ├── output_manager.py     # Timestamped file I/O (data/archive/)
+│   ├── run_logger.py         # Append-only runs log (docs/runs_log.csv)
+│   ├── global_config.py      # Central physics & SIDM-cut constants
+│   ├── config_loader.py      # Per-folder config.json loader
 │   └── __init__.py
 │
 ├── data/                     # Shared input/output data
-│   ├── all_viable_raw_v8.csv           # 80k SIDM-viable parameter points
-│   ├── all_viable_representative_v8.csv # Representative subset
-│   ├── v31_true_viable_points.csv      # 17 relic+SIDM viable benchmarks
-│   ├── v31_all_relic_points.csv        # All relic-correct points
-│   ├── v30_perfect_benchmarks.csv      # Top-5 KT benchmarks
-│   └── v34_results.csv                 # chi-squared fit results
+│   ├── global_config.json    # Master configuration (constants, cuts)
+│   └── archive/              # Timestamped pipeline outputs
+│       ├── all_viable_raw_v8_YYYY_MM_DD_rNNN.csv
+│       └── all_viable_representative_v8_YYYY_MM_DD_rNNN.csv
+│
+├── runner/                   # Pipeline execution UI
+│   ├── app.py                # FastAPI server + WebSocket streaming
+│   ├── pipeline.py           # Pipeline graph from execution_pipeline.csv
+│   └── index.html            # Browser dashboard
 │
 ├── vpm_scan/                 # VPM solver validation
 │   ├── born_validation.py    # Born-limit accuracy test
@@ -73,12 +83,19 @@ Secluded-Majorana-SIDM/
 │   ├── multi_dsph_jeans/     # Multi-dSph cross-validation (5 dSphs)
 │   └── majorana_vs_dirac/    # Majorana vs Dirac σ_T(v) fingerprint
 │
-├── discussion/               # A–B discussion notes
-│   └── MixedMajorana.md
+├── model_validations/        # Extended model validation (§7)
+│   ├── cp_separation/        # CP-even/odd coupling separation
+│   ├── fornax_gc/            # Fornax globular cluster timing
+│   ├── rar_mcgaugh/          # RAR / McGaugh relation
+│   ├── smbh_seeds/           # SMBH seed formation
+│   ├── ufd_crater/           # Ultra-faint dwarf (Crater II)
+│   └── vpm_low_velocity/     # VPM low-velocity regime
 │
-└── docs/                     # Preprint & peer reviews
+└── docs/                     # Preprint, journal & pipeline definition
     ├── preprint_draft_v10.md
     ├── research_journal_v10.md
+    ├── execution_pipeline.csv # 54-step pipeline definition (9 stages)
+    ├── runs_log.csv           # Append-only execution log
     └── peer_reviews/
 ```
 
@@ -88,28 +105,27 @@ Secluded-Majorana-SIDM/
 # Install dependencies
 pip install -r requirements.txt
 
-# Run VPM validation
-cd vpm_scan && python born_validation.py
+# Run the full pipeline via the web UI
+cd runner && python app.py          # opens http://localhost:8000
 
-# Run chi-squared fit (uses 12 CPU cores)
+# Or run individual stages manually:
+
+# Stage 0: VPM parameter scan (~35 min, 14 workers)
+cd core && python v22_raw_scan_fast.py --sigma-cluster 1.0
+
+# Stage 1: Relic density
+cd relic_density && python smart_scan.py
+
+# Stage 4: Chi-squared fit (uses 12 CPU cores)
 cd observations && python chi2_fit.py
 
-# Run MCMC posterior sampling
+# Stage 5: MCMC posterior sampling
 cd stats_mcmc && python run_mcmc.py
 
-# Run testable predictions
+# Stage 6: Testable predictions
 cd predictions/gravothermal && python predict_gravothermal.py
-cd ../rotation_curves && python predict_core_sizes.py
-cd ../cluster_offsets && python predict_offsets.py
-cd ../delta_neff && python predict_neff.py
-
-# Fornax Jeans analysis (SIDM + feedback + Osipkov-Merritt anisotropy)
 cd ../fornax_jeans && python predict_fornax_jeans_aniso.py
-
-# Multi-dSph cross-validation (Fornax, Sculptor, Draco, Carina, Sextans)
 cd ../multi_dsph_jeans && python predict_multi_dsph_jeans.py
-
-# Majorana vs Dirac σ_T(v) fingerprint
 cd ../majorana_vs_dirac && python predict_maj_vs_dir.py
 ```
 
@@ -185,4 +201,5 @@ Secluded Majorana fermion dark matter (chi) with a light scalar mediator (phi):
 
 ## License
 
-MIT
+Code: [MIT](LICENSE)  
+Data files under `data/`: [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)

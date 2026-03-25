@@ -4,7 +4,7 @@ build-backend = "setuptools.backends._legacy:_Backend"
 
 [project]
 name = "secluded-majorana-sidm"
-version = "1.0.0"
+version = "0.1.0"
 description = "Self-Interacting Dark Matter via a Secluded Scalar Mediator: Majorana Fermion with Velocity-Dependent Cross Sections"
 readme = "README.md"
 license = {text = "MIT"}
