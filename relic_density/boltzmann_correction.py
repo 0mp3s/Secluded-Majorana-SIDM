@@ -17,11 +17,27 @@ _sys.path.insert(0, _os.path.join(_ROOT, 'core'))
 DATA_DIR = _os.path.join(_ROOT, 'data')
 # =================================================================
 
-import sys, math, time
+import sys, math, time, io
 import numpy as np
+from output_manager import timestamped_path
 
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
+
+# Tee: write to both console and timestamped file
+_OUT_PATH = str(timestamped_path("v30_boltzmann_correction", ext=".txt"))
+_out_file = open(_OUT_PATH, 'w', encoding='utf-8')
+
+class _Tee:
+    def __init__(self, *streams): self._s = streams
+    def write(self, msg):
+        for s in self._s: s.write(msg)
+    def flush(self):
+        for s in self._s: s.flush()
+    @property
+    def encoding(self): return self._s[0].encoding
+
+sys.stdout = _Tee(sys.stdout, _out_file)
 
 # --- import numerical Boltzmann solver from v27 ---
 from v27_boltzmann_relic import solve_boltzmann, Y_to_omega_h2, kolb_turner_swave
@@ -150,6 +166,9 @@ print("  Ωh² = {:.4f} (target {:.3f}) → {:.2f}% off".format(
 elapsed = time.time() - t0
 print("\n  Total time: {:.1f}s".format(elapsed))
 print("=" * 70)
+sys.stdout = sys.__stdout__  # restore before close to avoid flush error
+_out_file.flush(); _out_file.close()
+print(f"  Saved \u2192 {_OUT_PATH}")
 _log_run(
     script="relic_density/boltzmann_correction.py",
     stage="1 - Relic Density verify",
