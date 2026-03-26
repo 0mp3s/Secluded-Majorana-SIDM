@@ -53,3 +53,7 @@ Order,Stage,Dependencies,Script,Reads,Writes,Paper Section
 52,8 - Model Validations,fit_sparc_baryons (data) + v22_raw_scan (code),model_validations/rar_mcgaugh/rar_analysis_v2.py,SPARC data + gas fractions,"output/*.png, CSV",§7.3 (gas fix)
 53,8 - Model Validations,global_config + v22_raw_scan (code),model_validations/vpm_low_velocity/vpm_diagnostic.py,none,"output/*.png, CSV",§7.2/7.5 diagnostic
 54,8 - Model Validations,global_config + v22_raw_scan (code),model_validations/smbh_seeds/predict_smbh_seeds.py,none,output/*.png,§7.4 (SMBH seeds)
+55,9 - Mixed Coupling,v22_raw_scan (code),mixed_coupling/opusA/condition1_amplitude.py,none,console,§2 (analytic a0 verification)
+56,9 - Mixed Coupling,v22_raw_scan (code) + global_config,mixed_coupling/opusA/condition2_coupling_scan.py,global_config.json,output/*.png,§5.6 (CP-separation band)
+57,9 - Mixed Coupling,global_config,mixed_coupling/opusA/condition3_cannibal_sensitivity.py,global_config.json,output/*.png,§4.3 (cannibal threshold)
+58,9 - Mixed Coupling,v22_raw_scan (code),mixed_coupling/opusA/condition4_nr_potential.py,none,console,§2 (VPM unchanged by yp)
