@@ -28,8 +28,26 @@
 | ΔN_eff ≈ 0 | ✅ | predictions/delta_neff/ |
 | Adiabatic contraction (Blumenthal+86) | ✅ | predictions/rotation_curves/fit_sparc_baryons.py |
 | c(M) relation (Dutton & Macciò 2014) | ✅ | predictions/rotation_curves/fit_sparc_baryons.py |
+| Perturbativity (122 BPs) | ✅ | _tmp_checks/check1_perturbativity.py |
+| Unitarity (1098 checks, 0 fail) | ✅ | _tmp_checks/check2_unitarity.py |
+| KTY16 cross-check (χ²/N < 2) | ✅ | _tmp_checks/check3_kaplinghat.py |
+| Fornax GC (named BPs pass) | ✅ | _tmp_checks/check4_fornax_gc.py |
+| Oman+15 diversity (scatter 75%) | ✅ | _tmp_checks/check5_oman_diversity.py |
+| A₄ degeneracy (all 122 compat.) | ✅ | _tmp_checks/check_a4_compat.py |
 
 ### A2. 📋 לעשות
+
+- [ ] **Fornax GC 52% exclusion → preprint**
+  - רקע: 64/122 relic-viable points נכשלים על-ידי Read+2019. MAP margin +0.18 cm²/g בלבד.
+  - מטרה: פסקה במאמר (תוצאה + דיון) + פלוט island-of-viability עם Fornax GC overlay
+  - effort: ~1 שעה | impact: **קריטי** — falsifiability ו-parameter space narrowing
+  - **priority: CRITICAL**
+
+- [ ] **Vacuum stability → explicit assumption**
+  - רקע: $\mu_3/m_\phi \gtrsim 1.7$ (cannibal) + bounded from below ⇒ $\lambda_\phi \gtrsim 0.54$
+  - מטרה: פסקה במאמר שמציינת את התנאי. אנליטי — לא צריך קוד
+  - effort: ~15 דקות | impact: גבוה — reviewer יתפוס
+  - **priority: HIGH**
 
 - [ ] **Gnedin+04 adiabatic contraction** (upgrade מ-Blumenthal)
   - רקע: Blumenthal+86 הוא instantaneous — מניח שהבריונים "נופלים" לפני שה-DM מגיב.
@@ -46,7 +64,7 @@
   - effort: ~1 יום | impact: בינוני-גבוה
   - **priority: MEDIUM** — nice to have, לא critical
 
-- [ ] **Diversity problem test מפורש**
+- [x] **Diversity problem test מפורש** — ✅ בוצע (check5, scatter ratio 0.75)
   - רקע: Oman+15 הראו שב-ΛCDM rotation curves הם "too similar". SIDM אמור לתת diversity.
   - מטרה: scatter plot of V(2 kpc) vs V_max עבור BPs — האם ה-diversity תואם נתונים?
   - מה: כבר יש predict_core_sizes.py — צריך פלוט נוסף + השוואה ל-Oman+15 Figure 4
@@ -178,17 +196,18 @@
 | # | פריט | סוג | סעיף |
 |---|------|-----|------|
 | 1 | Limitations section במאמר | טקסט | C2 |
-| 2 | Human physicist review | חיצוני | C2 |
-| 3 | arXiv endorsement | חיצוני | C2 |
+| 2 | Fornax GC 52% exclusion → preprint | קוד + טקסט | A2 |
+| 3 | Human physicist review | חיצוני | C2 |
+| 4 | arXiv endorsement | חיצוני | C2 |
 
 ### 🟠 HIGH — מעלים את העבודה מעל הסטנדרט
 
 | # | פריט | סוג | סעיף |
 |---|------|-----|------|
-| 4 | Gnedin+04 AC upgrade | קוד | A2 |
-| 5 | Diversity problem plot (Oman+15) | קוד + plot | A2 |
-| 6 | N-body calibration paragraph | טקסט | B2 |
-| 7 | Comparison table vs other SIDM models | טקסט/ספרות | C2 |
+| 5 | Vacuum stability → explicit assumption | טקסט | A2 |
+| 6 | Gnedin+04 AC upgrade | קוד | A2 |
+| 7 | N-body calibration paragraph | טקסט | B2 |
+| 8 | Comparison table vs other SIDM models | טקסט/ספרות | C2 |
 
 ### 🟡 MEDIUM — מחזק, לא חובה
 
