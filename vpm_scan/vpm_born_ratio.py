@@ -201,6 +201,13 @@ def sigma_T_born(m_chi, m_phi, alpha, v_km_s):
     if kappa < 1e-15:
         return 0.0
 
+    if kappa < 5:
+        x_max = 50.0
+    elif kappa < 50:
+        x_max = 80.0
+    else:
+        x_max = 100.0
+
     l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
 
     sigma_sum = 0.0
@@ -333,12 +340,7 @@ if __name__ == '__main__':
     t0 = time.time()
     main()
     print(f"\n  Total runtime: {time.time()-t0:.1f}s")
-
-
-if __name__ == '__main__':
     try:
-        import sys as _sys, os as _os
-        _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'core'))
         from tg_notify import notify
         notify("\u2705 vpm_born_ratio done!")
     except Exception:

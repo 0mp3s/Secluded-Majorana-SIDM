@@ -255,13 +255,13 @@ def main():
     k = mu * v
     kappa = k / bm['m_phi']
     lam = bm['alpha'] * bm['m_chi'] / bm['m_phi']
-    l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
     if kappa < 5:
         x_max, N_steps = 50.0, 4000
     elif kappa < 50:
         x_max, N_steps = 80.0, 8000
     else:
         x_max, N_steps = 100.0, 12000
+    l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
 
     ells = list(range(l_max + 1))
     d_att = [vpm_phase_shift_signed(l, kappa, +lam, x_max, N_steps) for l in ells]
@@ -305,12 +305,7 @@ if __name__ == '__main__':
     t0 = time.time()
     main()
     print(f"\n  Total runtime: {time.time()-t0:.1f}s")
-
-
-if __name__ == '__main__':
     try:
-        import sys as _sys, os as _os
-        _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'core'))
         from tg_notify import notify
         notify("\u2705 attractive_repulsive_ratio done!")
     except Exception:
