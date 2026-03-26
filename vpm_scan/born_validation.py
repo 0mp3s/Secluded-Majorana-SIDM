@@ -376,9 +376,9 @@ def test_E():
     print(f"  lam={lam:.2f}, kappa={kappa:.4f}")
     print("=" * 90)
 
-    l_max = min(max(3, int(kappa) + 3), 80)
     N = 4000 if kappa < 5 else (8000 if kappa < 50 else 12000)
     x_max = 50.0 if kappa < 5 else (80.0 if kappa < 50 else 100.0)
+    l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
 
     sigma_sum = 0.0
     for l in range(l_max + 1):
@@ -425,9 +425,9 @@ def test_F():
 
     all_pass = True
     for kappa in kappas:
-        l_max = min(max(3, int(kappa) + 3), 40)
         N = 4000 if kappa < 5 else (8000 if kappa < 50 else 12000)
         x_max = 50.0 if kappa < 5 else (80.0 if kappa < 50 else 100.0)
+        l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
 
         deltas_vpm = [vpm_phase_shift(l, kappa, lam, x_max, N) for l in range(l_max + 1)]
         deltas_born = [born_phase_shift_quad(l, kappa, lam) for l in range(l_max + 1)]

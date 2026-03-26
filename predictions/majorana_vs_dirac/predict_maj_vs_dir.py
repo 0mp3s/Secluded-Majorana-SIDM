@@ -67,7 +67,7 @@ def sigma_T_dirac(m_chi, m_phi, alpha, v_km_s):
     else:
         x_max, N_steps = 100.0, 12000
 
-    l_max = min(max(3, int(kappa) + 3), 80)
+    l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
 
     sigma_sum = 0.0
     for l in range(l_max + 1):

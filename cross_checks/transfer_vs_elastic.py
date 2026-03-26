@@ -41,7 +41,7 @@ def get_phase_shifts(m_chi, m_phi, alpha, v_km_s):
         x_max, N_steps = 80.0, 8000
     else:
         x_max, N_steps = 100.0, 12000
-    l_max = min(max(3, int(kappa) + 3), 80)
+    l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
     deltas = []
     for l in range(l_max + 1):
         delta = vpm_phase_shift(l, kappa, lam, x_max, N_steps)

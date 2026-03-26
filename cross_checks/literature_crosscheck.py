@@ -73,7 +73,8 @@ def born_sigma_dimensionless(kappa, lam):
     Same partial-wave formula as VPM, but using Born phase shifts.
     Apples-to-apples comparison.
     """
-    l_max = min(max(3, int(kappa) + 3), 80)
+    x_max = 50.0 if kappa < 5 else (80.0 if kappa < 50 else 100.0)
+    l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
     sigma_sum = 0.0
     for l in range(l_max + 1):
         delta = born_phase_shift(l, kappa, lam)
@@ -129,7 +130,7 @@ def sigma_T_dimensionless(kappa, lam):
     else:
         x_max, N_steps = 100.0, 12000
     
-    l_max = min(max(3, int(kappa) + 3), 80)
+    l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
     
     sigma_sum = 0.0
     for l in range(l_max + 1):
@@ -364,7 +365,8 @@ def test_4_unitarity_bound():
     for kappa, lam in test_points:
         sigma_vpm = sigma_T_dimensionless(kappa, lam)
         
-        l_max = min(max(3, int(kappa) + 3), 80)
+        x_max_est = 50.0 if kappa < 5 else (80.0 if kappa < 50 else 100.0)
+        l_max = min(max(3, min(int(kappa * x_max_est), int(kappa) + int(lam) + 20)), 500)
         sigma_max = (l_max + 1)**2 / kappa**2
         
         ratio = sigma_vpm / sigma_max if sigma_max > 0 else 0
@@ -418,7 +420,7 @@ def test_5_dirac_vs_majorana():
         else:
             x_max, N_steps = 100.0, 12000
         
-        l_max = min(max(3, int(kappa) + 3), 80)
+        l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
         sigma_sum_maj = 0.0
         for l in range(l_max + 1):
             delta = vpm_phase_shift(l, kappa, lam, x_max, N_steps)
