@@ -667,6 +667,43 @@ from $-0.70$ to $-0.81$.  This confirms that the sub-$1\sigma$
 tension at rotation-curve velocities is physical, not an artifact
 of the point-estimate approximation.
 
+\subsection{External data validation}\label{sec:external_validation}
+
+We cross-check our benchmark predictions against three independent
+observational data sets not used in the fitting procedure.
+
+\paragraph{Kaplinghat, Tulin \& Yu (2016) compilation.}
+We compare predicted $\sigmam(v)$ to the allowed bands for nine systems
+spanning $v=12$--$1200\kms$~\cite{Kaplinghat:2015aga}.
+MAP and MAP$_{\rm relic}$ fall within the observed $1\sigma$ windows
+for all nine systems (9/9).  BP1 passes seven of nine, failing at
+NGC~2976 ($v=60\kms$) and NGC~1560 ($v=55\kms$), where its cross
+section ($\sigmam\simeq 0.50\cmg$) undershoots the lower bound
+($0.5$ and $1.0\cmg$, respectively).
+
+\paragraph{Fornax globular-cluster timing (Read et al.\ 2019).}
+The survival of Fornax's globular clusters requires
+$0.3 \leq \sigmam(12\kms) \leq 1.5\cmg$~\cite{Read:2018fxs}.
+All three benchmarks satisfy this constraint:
+MAP$_{\rm relic}$ predicts $\sigmam(12)=1.10\cmg$ (27\% headroom
+below the upper bound), MAP gives $1.22\cmg$ (19\% headroom),
+and BP1 gives $0.43\cmg$.
+
+\paragraph{Oman et al.\ (2015) diversity.}
+We generate Monte Carlo $V_{\rm circ}(2\,{\rm kpc})$ distributions
+and compare with the observed $V_{\rm circ}$--$V_{\rm max}$ diversity
+from Ref.~\cite{Oman:2015xda} via Kolmogorov--Smirnov tests.
+MAP and MAP$_{\rm relic}$ yield $p_{\rm KS}\approx 0.19$--$0.20$,
+consistent with the observed scatter.  BP1 produces $p_{\rm KS}=0.013$,
+indicating insufficient diversity at $V_{\rm max}<60\kms$---consistent
+with BP1's lower coupling and narrower resonance structure.
+
+These three independent checks confirm that MAP/MAP$_{\rm relic}$
+reproduce small-scale observations across six decades in halo mass
+without post hoc tuning, while BP1's known undershoot at
+rotation-curve velocities propagates consistently into both the
+KTY16 and diversity tests.
+
 \subsection{Monte Carlo halo diversity}\label{sec:mc_diversity}
 
 BP1 produces diversity $\sigma(V_{2\,\rm kpc}^{\rm total})
@@ -687,6 +724,15 @@ The results point to a broader lesson: the small-scale structure
 problems of $\Lambda$CDM may not require exotic new physics, but
 rather the recognition that dark matter can have a rich scattering
 phenomenology governed by elementary quantum mechanics.
+
+An important consistency check is that the MAP/MAP$_{\rm relic}$
+benchmarks pass all three independent external tests
+(Sec.~\ref{sec:external_validation})---the KTY16 nine-system
+compilation, the Fornax globular-cluster timing bound, and the
+Oman et al.\ halo diversity distribution---none of which were
+used in the original fit.  This post-diction success across six
+decades in halo mass strengthens the case that the Yukawa
+parameter space identified here is physically viable.
 
 A key finding is the CP-channel structure at rotation-curve
 velocities.  The triplet (CP-odd) partial waves carry $>80\%$ of
@@ -719,7 +765,12 @@ NGC~1560 and similar intermediate-velocity systems can directly
 test whether the cross section at $v\sim 50$--$60\kms$ is
 consistent with the Majorana triplet enhancement or the lower
 Dirac prediction ($\sigmam \approx 1.46\cmg$ vs.\ $1.59\cmg$
-for MAP$_{\rm relic}$).
+for MAP$_{\rm relic}$);
+(9)~\textbf{Fornax GC survival:} MAP$_{\rm relic}$ predicts
+$\sigmam(12\kms)=1.10\cmg$, only 27\% below the Read et al.\
+upper bound of $1.5\cmg$.  Tighter dynamical modelling of Fornax's
+globular-cluster orbits could push the upper limit below this value
+and exclude the benchmark.
 
 The absence of a direct detection signal is a \textbf{prediction},
 not a deficit.
