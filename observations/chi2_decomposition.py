@@ -75,7 +75,7 @@ def decompose_chi2(bp):
     """
     mc  = bp['m_chi_GeV']
     mp  = bp['m_phi_MeV'] * 1e-3       # → GeV for solver
-    al  = bp['alpha_chi']
+    al  = bp['alpha']
 
     rows = []
     for name, v, central, lo, hi, ref in OBSERVATIONS:
@@ -128,7 +128,7 @@ def main():
     for label, bp in _bps.items():
         mc  = bp['m_chi_GeV']
         mp  = bp['m_phi_MeV']
-        al  = bp['alpha_chi']
+        al  = bp['alpha']
         lam = al * mc / (mp * 1e-3)
 
         print(f"\n  {label}:  m_χ={mc:.2f} GeV, m_φ={mp:.2f} MeV, "
