@@ -7,7 +7,7 @@ V10 — v34_chi2_fit.py
 Full VPM solver on all 13 observational velocities.
 Parallel: multiprocessing across all CPU cores.
 
-Uses existing scan results (80,142 viable points from v22 + 17 relic
+Uses existing scan results (~194k viable points from v22 + 122 relic
 BPs from v31) and evaluates χ² against 13 observational systems.
 
 Data: Kaplinghat+16, Kamada+17, Randall+08, Harvey+15, Elbert+15.
@@ -168,6 +168,9 @@ def run():
     # PARALLEL EVALUATION (pool of workers)
     # ============================================================
     all_tasks = list(sample) + [(mc, mp, al) for mc, mp, al, _ in relic_points]
+    import random
+    random.seed(42)
+    random.shuffle(all_tasks)
 
     results = []
     relic_results = []
@@ -230,7 +233,8 @@ def run():
         free_results.sort(key=lambda x: x[0])
         print(f"  Fine-scan done: {len(fine_tasks)} extra points evaluated")
 
-    ndof = len(OBSERVATIONS) - 3
+    ndof_free  = len(OBSERVATIONS) - 3   # free fit: 3 params (m_chi, m_phi, alpha)
+    ndof_relic = len(OBSERVATIONS) - 2   # relic-constrained: 2 params (m_chi, m_phi); alpha fixed by Omega h^2
 
     # ============================================================
     # WRITE CSV — all results
@@ -242,13 +246,13 @@ def run():
         w.writerow(['chi2', 'chi2_dof', 'm_chi_GeV', 'm_phi_MeV', 'alpha', 'lambda', 'is_relic', 'omega_h2'] + vel_cols)
         for c2, mc, mp, al, sv in free_results:
             lam = al * mc / mp if mp > 0 else 0
-            row = [f"{c2:.4f}", f"{c2/ndof:.4f}", f"{mc:.6f}", f"{mp*1e3:.6f}",
+            row = [f"{c2:.4f}", f"{c2/ndof_free:.4f}", f"{mc:.6f}", f"{mp*1e3:.6f}",
                    f"{al:.6e}", f"{lam:.4f}", "0", ""]
             row += [f"{sv.get(v, 0):.6e}" for v in OBS_VELOCITIES]
             w.writerow(row)
         for c2, mc, mp, al, om, sv in relic_results:
             lam = al * mc / mp if mp > 0 else 0
-            row = [f"{c2:.4f}", f"{c2/ndof:.4f}", f"{mc:.6f}", f"{mp*1e3:.6f}",
+            row = [f"{c2:.4f}", f"{c2/ndof_relic:.4f}", f"{mc:.6f}", f"{mp*1e3:.6f}",
                    f"{al:.6e}", f"{lam:.4f}", "1", f"{om:.6f}"]
             row += [f"{sv.get(v, 0):.6e}" for v in OBS_VELOCITIES]
             w.writerow(row)
@@ -261,7 +265,7 @@ def run():
     lam_bf = al_bf * mc_bf / mp_bf
 
     print(f"\n  {'='*60}")
-    print(f"  FREE BEST FIT (chi2/dof = {c2_bf:.2f}/{ndof} = {c2_bf/ndof:.2f})")
+    print(f"  FREE BEST FIT (chi2/dof = {c2_bf:.2f}/{ndof_free} = {c2_bf/ndof_free:.2f})")
     print(f"  {'='*60}")
     print(f"    m_chi = {mc_bf:.4f} GeV")
     print(f"    m_phi = {mp_bf*1e3:.4f} MeV")
@@ -281,7 +285,7 @@ def run():
         pull = (theory - central) / sig
         print(f"  {name:<25s} {v:>6.0f} {theory:>8.4f} {central:>8.2f} {pull:>+7.2f}")
 
-    print(f"\n  TOP 10 FREE-FIT:")
+    print(f"\n  TOP 10 FREE-FIT (dof={ndof_free}):")
     print(f"  {'#':>3s} {'chi2':>8s} {'m_chi':>8s} {'m_phi':>8s} {'alpha':>12s} {'lam':>6s} {'s/m(30)':>8s} {'s/m(1k)':>8s}")
     print(f"  {'-'*70}")
     for i, (c2, mc, mp, al, sv) in enumerate(free_results[:10]):
@@ -298,7 +302,7 @@ def run():
 
         print(f"\n  {'='*60}")
         print(f"  RELIC-CONSTRAINED BEST FIT (Omega_h2 = {om_r:.4f})")
-        print(f"  (chi2/dof = {c2_r:.2f}/{ndof} = {c2_r/ndof:.2f})")
+        print(f"  (chi2/dof = {c2_r:.2f}/{ndof_relic} = {c2_r/ndof_relic:.2f})")
         print(f"  {'='*60}")
         print(f"    m_chi = {mc_r:.4f} GeV")
         print(f"    m_phi = {mp_r*1e3:.4f} MeV")
@@ -318,11 +322,11 @@ def run():
             pull = (theory - central) / sig
             print(f"  {name:<25s} {v:>6.0f} {theory:>8.4f} {central:>8.2f} {pull:>+7.2f}")
 
-        print(f"\n  ALL 17 RELIC BPs (ranked by chi2):")
+        print(f"\n  ALL {len(relic_results)} RELIC BPs (ranked by chi2, dof={ndof_relic}):")
         print(f"  {'#':>3s} {'chi2':>8s} {'c2/dof':>8s} {'m_chi':>8s} {'m_phi':>8s} {'alpha':>12s} {'Omh2':>8s} {'s/m(30)':>8s}")
         print(f"  {'-'*75}")
         for i, (c2, mc, mp, al, om, sv) in enumerate(relic_results):
-            print(f"  {i+1:>3d} {c2:>8.2f} {c2/ndof:>8.2f} {mc:>8.2f} {mp*1e3:>8.2f} {al:>12.4e} {om:>8.4f} {sv.get(30,0):>8.4f}")
+            print(f"  {i+1:>3d} {c2:>8.2f} {c2/ndof_relic:>8.2f} {mc:>8.2f} {mp*1e3:>8.2f} {al:>12.4e} {om:>8.4f} {sv.get(30,0):>8.4f}")
 
     # ============================================================
     # SUMMARY
@@ -338,11 +342,11 @@ def run():
     print(f"\n  {'='*60}")
     print(f"  SUMMARY")
     print(f"  {'='*60}")
-    print(f"    Free best-fit:    chi2/dof = {c2_bf/ndof:.2f}")
+    print(f"    Free best-fit:    chi2/dof = {c2_bf/ndof_free:.2f}  (dof={ndof_free})")
     if relic_results:
-        print(f"    Relic best-fit:   chi2/dof = {c2_r/ndof:.2f}")
+        print(f"    Relic best-fit:   chi2/dof = {c2_r/ndof_relic:.2f}  (dof={ndof_relic})")
     if bp1_chi2 is not None:
-        print(f"    BP1:              chi2/dof = {bp1_chi2/ndof:.2f}")
+        print(f"    BP1:              chi2/dof = {bp1_chi2/ndof_relic:.2f}  (dof={ndof_relic})")
     print(f"    Perfect fit:      chi2/dof = 1.00")
     print(f"    Total time:       {time.time()-t0:.1f}s")
 
@@ -363,17 +367,17 @@ def run():
 
     ax.plot(v_plot, curve_bf, 'b-', lw=2.5,
             label=f'Best fit (free): $m_\\chi$={mc_bf:.1f}, $m_\\phi$={mp_bf*1e3:.1f} MeV, '
-                  f'$\\alpha$={al_bf:.2e}\n    $\\chi^2$/dof={c2_bf/ndof:.2f}')
+                  f'$\\alpha$={al_bf:.2e}\n    $\\chi^2$/dof={c2_bf/ndof_free:.2f}')
 
     if relic_results:
         curve_r = np.array([sigma_T_vpm(mc_r, mp_r, al_r, v) for v in v_plot])
         ax.plot(v_plot, curve_r, 'g-.', lw=2.0,
                 label=f'Best fit (relic): $m_\\chi$={mc_r:.1f}, $m_\\phi$={mp_r*1e3:.1f} MeV\n'
-                      f'    $\\Omega h^2$={om_r:.3f}, $\\chi^2$/dof={c2_r/ndof:.2f}')
+                      f'    $\\Omega h^2$={om_r:.3f}, $\\chi^2$/dof={c2_r/ndof_relic:.2f}')
 
     bp1_label = f'BP1: $m_\\chi$=20.7, $m_\\phi$=11.3'
     if bp1_chi2 is not None:
-        bp1_label += f'\n    $\\chi^2$/dof={bp1_chi2/ndof:.2f}'
+        bp1_label += f'\n    $\\chi^2$/dof={bp1_chi2/ndof_relic:.2f}'
     ax.plot(v_plot, curve_bp1, 'r--', lw=1.8, alpha=0.7, label=bp1_label)
 
     colors = {'KTY16': 'darkgreen', 'KKPY17': 'purple',
@@ -392,7 +396,7 @@ def run():
     ax.set_yscale('log')
     ax.set_xlabel('$v$ [km/s]', fontsize=14)
     ax.set_ylabel('$\\sigma/m$ [cm$^2$/g]', fontsize=14)
-    ax.set_title('$\\chi^2$ Fit to Astrophysical Data (80k scan points)', fontsize=15)
+    ax.set_title('$\\chi^2$ Fit to Astrophysical Data (194k scan points)', fontsize=15)
     ax.set_xlim(8, 6000)
     ax.set_ylim(1e-3, 20)
     ax.legend(fontsize=9, loc='upper right')

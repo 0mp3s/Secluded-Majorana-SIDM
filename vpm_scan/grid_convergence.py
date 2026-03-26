@@ -146,7 +146,7 @@ def sigma_T_custom(m_chi, m_phi, alpha, v_km_s, N_steps_mult=1, x_max_mult=1.0):
 
     x_max = x_max_base * x_max_mult
     N_steps = N_base * N_steps_mult
-    l_max = min(max(3, int(kappa) + 3), 80)
+    l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
 
     sigma_sum = 0.0
     for l in range(l_max + 1):
