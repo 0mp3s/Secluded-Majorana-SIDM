@@ -107,7 +107,8 @@ def sigma_channels(m_chi, m_phi, alpha, v_km_s):
             if contrib / total < 1e-3:
                 break
 
-    prefactor = 4.0 * math.pi / (k * k) * GEV2_TO_CM2 / (m_chi * GEV_IN_G)
+    # Majorana prefactor: 2π/k² (includes identical-particle 1/2 factor)
+    prefactor = 2.0 * math.pi / (k * k) * GEV2_TO_CM2 / (m_chi * GEV_IN_G)
     return sum_even * prefactor, sum_odd * prefactor
 
 

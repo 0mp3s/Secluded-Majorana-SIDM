@@ -77,7 +77,7 @@ $$V(r) = -\alpha \frac{e^{-m_\phi r}}{r}$$
 
 In dimensionless variables $x = m_\phi r$:
 
-$$V(x) = -\frac{\lambda}{x} e^{-x}, \quad \lambda = \frac{2\alpha m_\chi}{m_\phi}, \quad \kappa = \frac{m_\chi v}{2 m_\phi c}$$
+$$V(x) = -\frac{\lambda}{x} e^{-x}, \quad \lambda = \frac{\alpha m_\chi}{m_\phi}, \quad \kappa = \frac{m_\chi v}{2 m_\phi c}$$
 
 The transfer cross section for identical Majorana fermions:
 
@@ -569,6 +569,6 @@ python stats_mcmc/autocorr_diagnostic.py
 | TBTF | Too-Big-To-Fail problem |
 | KTY16 | Kaplinghat, Tulin & Yu (2016) PRL 116, 041302 |
 | Harvey+15 | Harvey et al. (2015) Science 347, 1462 |
-| $\lambda$ | Dimensionless coupling: $2\alpha m_\chi / m_\phi$ |
+| $\lambda$ | Dimensionless coupling: $\alpha m_\chi / m_\phi$ |
 | $\kappa$ | Dimensionless momentum: $m_\chi v / (2 m_\phi c)$ |
 | MAP | Maximum A Posteriori — best-fit point from MCMC |

@@ -219,6 +219,8 @@ _m_phi_range = _SCAN_CFG.get("m_phi_range_GeV", [0.1e-3, 200e-3])
 
 M_CHI_VALS = np.logspace(np.log10(_m_chi_range[0]), np.log10(_m_chi_range[1]), N_CHI)
 M_PHI_VALS = np.logspace(np.log10(_m_phi_range[0]), np.log10(_m_phi_range[1]), N_PHI)
+# First 4 Yukawa resonance positions (λ_c where σ/m peaks at low v).
+# Values from Tulin, Yu & Zurek (2013), Phys. Rev. D 87, 115007, Table I.
 LAM_CRITS  = np.array(_SCAN_CFG.get("lambda_crits", [1.68, 6.45, 14.7, 26.0]))
 
 

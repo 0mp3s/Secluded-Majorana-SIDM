@@ -95,9 +95,10 @@ def _log_prob_worker(theta):
     m_phi_MeV = 10.0 ** log_m_phi_MeV
     m_phi_GeV = m_phi_MeV / 1000.0
     alpha = 10.0 ** log_alpha
-    # Reject large lambda: VPM solver hangs at resonances for lambda >> 1
+    # Reject large lambda: VPM solver is slow at strong resonances.
+    # Cut at 80 (MAP point has lambda=48.6, so 50 was clipping the posterior).
     lam = alpha * m_chi / m_phi_GeV
-    if lam > 50.0:
+    if lam > 80.0:
         return -np.inf
     chi2 = 0.0
     for name, v, central, lo, hi, ref in OBSERVATIONS:
@@ -107,6 +108,9 @@ def _log_prob_worker(theta):
             return -np.inf
         if np.isnan(theory) or np.isinf(theory) or theory < 0:
             return -np.inf
+        # One-sided upper limits (lo == 0): no penalty when theory is below the limit
+        if lo == 0.0 and theory <= hi:
+            continue
         if theory >= central:
             sigma = hi - central if hi > central else 0.5 * central
         else:

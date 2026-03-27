@@ -70,14 +70,22 @@ def sigma_T_dirac(m_chi, m_phi, alpha, v_km_s):
     l_max = min(max(3, min(int(kappa * x_max), int(kappa) + int(lam) + 20)), 500)
 
     sigma_sum = 0.0
+    peak_contrib = 0.0
+    n_small = 0
     for l in range(l_max + 1):
         delta = vpm_phase_shift(l, kappa, lam, x_max, N_steps)
         weight = 1.0                          # <-- Dirac: all ℓ equal
         contrib = weight * (2*l + 1) * math.sin(delta)**2
         sigma_sum += contrib
-        if l > int(kappa) + 1 and sigma_sum > 0:
-            if contrib / sigma_sum < 1e-3:
+        if contrib > peak_contrib:
+            peak_contrib = contrib
+        # Peak-tracking early exit (same logic as Majorana sigma_T_vpm)
+        if peak_contrib > 0.0 and contrib / peak_contrib < 1e-4:
+            n_small += 1
+            if n_small >= 5:
                 break
+        else:
+            n_small = 0
 
     # Dirac: 4π/k² (distinguishable particles — no identical-particle 1/2)
     sigma_GeV2 = 4.0 * math.pi * sigma_sum / (k * k)

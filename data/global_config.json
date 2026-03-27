@@ -2,11 +2,11 @@
     "_comment": "Single source of truth for the Secluded Majorana SIDM project. All benchmark-point values, observational data, SIDM cuts, shared CSV paths, and physical constants live here. Local config.json files may reference benchmark labels via 'benchmark_labels' but must not redefine parameter values.",
 
     "benchmark_points": {
-        "BP1":       {"m_chi_GeV": 20.69, "m_phi_MeV": 11.34, "alpha": 1.048e-3},
-        "BP9":       {"m_chi_GeV": 37.93, "m_phi_MeV": 12.98, "alpha": 1.858e-3},
-        "BP16":      {"m_chi_GeV": 20.7,  "m_phi_MeV": 9.91,  "alpha": 1.048e-3},
-        "MAP":       {"m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 5.734e-3},
-        "MAP_relic": {"m_chi_GeV": 94.07, "m_phi_MeV": 11.10, "alpha": 4.523e-3}
+        "BP1":       {"m_chi_GeV": 54.556, "m_phi_MeV": 12.975, "alpha": 2.645e-3},
+        "BP9":       {"m_chi_GeV": 48.329, "m_phi_MeV":  8.657, "alpha": 2.350e-3},
+        "BP16":      {"m_chi_GeV": 14.384, "m_phi_MeV":  5.047, "alpha": 7.555e-4},
+        "MAP":       {"m_chi_GeV": 98.19,  "m_phi_MeV":  9.66,  "alpha": 3.274e-3},
+        "MAP_relic": {"m_chi_GeV": 98.19,  "m_phi_MeV":  9.66,  "alpha": 3.274e-3}
     },
 
     "_comment_obs": "Observational dataset: 13 systems spanning dwarf galaxies to galaxy clusters. One-sided upper limits have lo=0.0 (no penalty when theory < hi). Values are sigma/m in cm^2/g at indicated v_km_s.",

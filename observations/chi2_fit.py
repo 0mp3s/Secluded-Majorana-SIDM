@@ -155,8 +155,11 @@ def run():
     print(f"  Loaded {len(relic_points)} relic-viable BPs from v31")
 
     # ============================================================
-    # SAMPLE (every N-th for ~5000 points)
+    # SAMPLE (every N-th for ~5000 points, deterministic)
     # ============================================================
+    import random as _random
+    _random.seed(42)
+    _random.shuffle(raw_points)  # reproducible shuffle before sampling
     step = max(1, len(raw_points) // 5000)
     sample = raw_points[::step]
     total_pts = len(sample) + len(relic_points)
