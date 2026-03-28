@@ -63,6 +63,22 @@ V9 of this project used a tunable Higgs portal ($\sin\theta > 0$). LZ direct-det
 
 Peer review raised a FATAL issue: $\chi\chi \to \phi\phi$ is *p-wave suppressed* for a pure-scalar Yukawa coupling to Majorana fermions, giving insufficient annihilation at freeze-out. The resolution (documented in `mixed_coupling/MixedMajorana.md`): a **mixed scalar + pseudoscalar** coupling restores s-wave annihilation while preserving the Majorana nature. This is the physical model throughout V10.
 
+#### 2.4 Physical Approximations & GR Connections
+
+The analysis operates in the **non-relativistic, Newtonian limit** throughout. The three places where General Relativity enters — implicitly — are documented here for completeness:
+
+| Location | GR component | Justification for Newtonian limit |
+|----------|-------------|-----------------------------------|
+| Relic density (`v27_boltzmann_relic.py`) | Hubble parameter $H(T)$ from FRW metric; $g_*(T)$ from SM thermodynamics | Standard freeze-out formalism; flat $\Lambda$CDM background is exact at $T \sim m_\chi/20$ |
+| Structure formation — Jeans / NFW (`predictions/fornax_jeans.py`) | Poisson equation from weak-field GR limit | $v/c \sim 10^{-4}$ and $\Phi/c^2 \sim 10^{-6}$ in dwarf galaxies; post-Newtonian corrections $\lesssim 10^{-8}$ |
+| Bullet Cluster constraint (Harvey+15) | DM offset measured via **gravitational lensing** (full GR) | The constraint is taken as a literature datum; lensing calculation is not reproduced here |
+
+**Cosmological sector:** The Boltzmann equation is
+$$\frac{dY}{dx} = -\frac{s\langle\sigma v\rangle}{H\, x}(Y^2 - Y_{\rm eq}^2)$$
+where $H = H(T)$ is the Friedmann-equation Hubble rate. This is the only equation in the pipeline that requires GR input. All other computations — VPM scattering, $\chi^2$ fitting, MCMC — are purely non-relativistic quantum mechanics and statistics.
+
+**Validity:** For $m_\chi \sim 10$–$100$ GeV DM in dwarf-to-cluster environments, the Newtonian limit is accurate to better than $10^{-4}$. No GR corrections are needed or relevant at the current level of observational precision ($\sim$10–30%).
+
 ---
 
 ### §3 Variable Phase Method (VPM) Solver

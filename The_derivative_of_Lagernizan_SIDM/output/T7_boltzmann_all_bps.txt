@@ -1,0 +1,75 @@
+
+╔═══════════════════════════════════════════════════════════════════╗
+║  T7: BOLTZMANN ALL BPs — Relic density + p-wave for all BPs    ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+  Target: Ωh² = 0.12
+  Benchmarks: ['BP1', 'BP9', 'BP16', 'MAP', 'MAP_relic']
+  Convention: α = y²/(4π) — verified by T6
+
+  ── BP1 (m_χ=54.556 GeV, m_φ=12.975 MeV, α=2.6450e-03) ──
+    ⟨σv⟩_s = 1.8461e-09 GeV⁻²
+    x_fo = 23.9 (T_fo = 2284.9 MeV)
+    Ωh²_swave = 0.1241 (Δ = +3.4%)
+    Ωh²_pwave = 0.0890 (Δ = -25.8%)
+    Ωh²_KT    = 0.1067 (Δ = -11.1%)
+    p-wave correction: -28.27%
+    ✓ matches target
+
+  ── BP9 (m_χ=48.329 GeV, m_φ=8.657 MeV, α=2.3500e-03) ──
+    ⟨σv⟩_s = 1.8570e-09 GeV⁻²
+    x_fo = 23.8 (T_fo = 2032.6 MeV)
+    Ωh²_swave = 0.1242 (Δ = +3.5%)
+    Ωh²_pwave = 0.0888 (Δ = -26.0%)
+    Ωh²_KT    = 0.1059 (Δ = -11.8%)
+    p-wave correction: -28.47%
+    ✓ matches target
+
+  ── BP16 (m_χ=14.384 GeV, m_φ=5.047 MeV, α=7.5550e-04) ──
+    ⟨σv⟩_s = 2.1667e-09 GeV⁻²
+    x_fo = 22.9 (T_fo = 628.7 MeV)
+    Ωh²_swave = 0.1252 (Δ = +4.3%)
+    Ωh²_pwave = 0.0866 (Δ = -27.8%)
+    Ωh²_KT    = 0.0909 (Δ = -24.2%)
+    p-wave correction: -30.81%
+    ✓ matches target
+
+  ── MAP (m_χ=98.190 GeV, m_φ=9.660 MeV, α=3.2740e-03) ──
+    ⟨σv⟩_s = 8.7320e-10 GeV⁻²
+    x_fo = 23.8 (T_fo = 4129.6 MeV)
+    Ωh²_swave = 0.2487 (Δ = +107.3%)
+    Ωh²_pwave = 0.1792 (Δ = +49.3%)
+    Ωh²_KT    = 0.2200 (Δ = +83.3%)
+    p-wave correction: -27.96%
+    ✗ does NOT match target
+
+  ── MAP_relic (m_χ=98.190 GeV, m_φ=9.660 MeV, α=3.2740e-03) ──
+    ⟨σv⟩_s = 8.7320e-10 GeV⁻²
+    x_fo = 23.8 (T_fo = 4129.6 MeV)
+    Ωh²_swave = 0.2487 (Δ = +107.3%)
+    Ωh²_pwave = 0.1792 (Δ = +49.3%)
+    Ωh²_KT    = 0.2200 (Δ = +83.3%)
+    p-wave correction: -27.96%
+    ✗ does NOT match target
+
+======================================================================
+  T7 SUMMARY: BOLTZMANN + p-WAVE FOR ALL BPs
+======================================================================
+
+            BP      Ωh²_s     Ωh²_pw     Ωh²_KT     Δ_s%  pw_corr%   x_fo
+  ────────────────────────────────────────────────────────────────────
+           BP1     0.1241     0.0890     0.1067     +3.4    -28.27   23.9 ✓
+           BP9     0.1242     0.0888     0.1059     +3.5    -28.47   23.8 ✓
+          BP16     0.1252     0.0866     0.0909     +4.3    -30.81   22.9 ✓
+           MAP     0.2487     0.1792     0.2200   +107.3    -27.96   23.8  
+     MAP_relic     0.2487     0.1792     0.2200   +107.3    -27.96   23.8  
+
+  BPs matching Ωh²_target (±20%): 3/5
+
+  p-wave correction: |max| = 30.81%, mean = 28.69%
+  ► p-wave correction is SIGNIFICANT — must include for precision.
+
+  KT analytic vs numerical: max deviation = 27.4%, mean = 15.8%
+======================================================================
+
+Output: C:\Users\omerp\source\omer_mind\Secluded-Majorana-SIDM\The_derivative_of_Lagernizan_SIDM\data\archive\T7_boltzmann_all_bps_2026_03_28_r037.csv

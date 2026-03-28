@@ -1,0 +1,159 @@
+
+╔══════════════════════════════════════════════════════════════════╗
+║  T9: MAJORANA vs DIRAC — R(v) = σ_T^Maj / σ_T^Dir            ║
+╚══════════════════════════════════════════════════════════════════╝
+
+  Born limit analysis:
+    R = [Σ w_ℓ(2ℓ+1)sin²δ_ℓ] / [Σ (2ℓ+1)sin²δ_ℓ]
+    If only ℓ=0 contributes: R = 1
+    If all ℓ contribute equally: R → Σw_ℓ(2ℓ+1)/Σ(2ℓ+1) → 2
+    Intermediate: 1 < R < 2+ε (resonances can push higher)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  BP1: m_χ=54.556 GeV, m_φ=12.975 MeV, α=2.6450e-03, λ=11.1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    v [km/s]    σ/m Maj    σ/m Dir     R(v)       regime
+  ───────────────────────────────────────────────────────
+          10     0.7491     0.7491   1.0000       s-wave
+          30     0.6720     0.6681   1.0058       s-wave
+          50     0.6532     0.5789   1.1283       s-wave
+         100     0.7719     0.4507   1.7126        few-ℓ
+         200     0.6328     0.3063   2.0658        few-ℓ
+         300     0.4714     0.2270   2.0767        few-ℓ
+         500     0.2889     0.1414   2.0430        few-ℓ
+        1000     0.1201     0.0598   2.0090   semi-class
+
+  R(v) statistics:
+    min  = 1.0000
+    max  = 2.0811
+    mean = 1.7590
+    std  = 0.4146
+    monotonic? NON-MONOTONIC ← interesting!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  BP9: m_χ=48.329 GeV, m_φ=8.657 MeV, α=2.3500e-03, λ=13.1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    v [km/s]    σ/m Maj    σ/m Dir     R(v)       regime
+  ───────────────────────────────────────────────────────
+          10     2.0942     2.0942   1.0000       s-wave
+          30     1.8311     1.7426   1.0508       s-wave
+          50     2.0650     1.4974   1.3791       s-wave
+         100     2.2281     1.1233   1.9836        few-ℓ
+         200     1.5394     0.7338   2.0977        few-ℓ
+         300     1.0952     0.5312   2.0617        few-ℓ
+         500     0.6496     0.3200   2.0297        few-ℓ
+        1000     0.2572     0.1282   2.0062   semi-class
+
+  R(v) statistics:
+    min  = 1.0000
+    max  = 2.1044
+    mean = 1.8268
+    std  = 0.3872
+    monotonic? NON-MONOTONIC ← interesting!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  BP16: m_χ=14.384 GeV, m_φ=5.047 MeV, α=7.5550e-04, λ=2.2
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    v [km/s]    σ/m Maj    σ/m Dir     R(v)       regime
+  ───────────────────────────────────────────────────────
+          10     3.9782     3.9782   1.0000       s-wave
+          30     4.2665     4.2664   1.0000       s-wave
+          50     3.9578     3.9480   1.0025       s-wave
+         100     3.2650     2.9944   1.0904       s-wave
+         200     2.4965     1.7642   1.4151        few-ℓ
+         300     1.8099     1.1237   1.6108        few-ℓ
+         500     0.9694     0.5445   1.7803        few-ℓ
+        1000     0.3114     0.1633   1.9069        few-ℓ
+
+  R(v) statistics:
+    min  = 1.0000
+    max  = 1.9128
+    mean = 1.4265
+    std  = 0.3479
+    monotonic? increasing
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  MAP: m_χ=98.19 GeV, m_φ=9.66 MeV, α=3.2740e-03, λ=33.3
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    v [km/s]    σ/m Maj    σ/m Dir     R(v)       regime
+  ───────────────────────────────────────────────────────
+          10     1.2961     1.2915   1.0035       s-wave
+          30     1.7970     0.9925   1.8106        few-ℓ
+          50     1.8076     0.8287   2.1811        few-ℓ
+         100     1.2179     0.6055   2.0114        few-ℓ
+         200     0.7865     0.4006   1.9632        few-ℓ
+         300     0.5895     0.2974   1.9826   semi-class
+         500     0.3764     0.1890   1.9913   semi-class
+        1000     0.1689     0.0844   2.0004   semi-class
+
+  R(v) statistics:
+    min  = 1.0000
+    max  = 2.1811
+    mean = 1.9183
+    std  = 0.2625
+    monotonic? NON-MONOTONIC ← interesting!
+
+======================================================================
+GLOBAL ANALYSIS: R(v) = σ_T^Maj / σ_T^Dir
+======================================================================
+
+  Average R(v) across all BPs:
+    v [km/s]      ⟨R⟩      min      max   spread
+  ──────────────────────────────────────────────────
+          10   1.0009   1.0000   1.0035   0.0035
+          30   1.2168   1.0000   1.8106   0.8106
+          50   1.4227   1.0025   2.1811   1.1786
+         100   1.6995   1.0904   2.0114   0.9210
+         200   1.8855   1.4151   2.0977   0.6826
+         300   1.9330   1.6108   2.0767   0.4659
+         500   1.9611   1.7803   2.0430   0.2627
+        1000   1.9806   1.9069   2.0090   0.1021
+
+  OBSERVATIONAL WINDOWS:
+
+  BP1:
+    Dwarf (30 km/s):    R = 1.0058
+    Group (300 km/s):   R = 2.0767
+    Cluster (1000 km/s): R = 2.0090
+    Max spread: 1.0709
+    → VELOCITY-DEPENDENT Majorana imprint detected!
+
+  BP9:
+    Dwarf (30 km/s):    R = 1.0508
+    Group (300 km/s):   R = 2.0617
+    Cluster (1000 km/s): R = 2.0062
+    Max spread: 1.0109
+    → VELOCITY-DEPENDENT Majorana imprint detected!
+
+  BP16:
+    Dwarf (30 km/s):    R = 1.0000
+    Group (300 km/s):   R = 1.6108
+    Cluster (1000 km/s): R = 1.9069
+    Max spread: 0.9069
+    → VELOCITY-DEPENDENT Majorana imprint detected!
+
+  MAP:
+    Dwarf (30 km/s):    R = 1.8106
+    Group (300 km/s):   R = 1.9826
+    Cluster (1000 km/s): R = 2.0004
+    Max spread: 0.1898
+    → VELOCITY-DEPENDENT Majorana imprint detected!
+
+CONCLUSION:
+
+  Overall R(v) range: [1.0000, 2.1811]
+  Overall mean: 1.7326
+
+  ✓ R(v) is STRONGLY velocity-dependent.
+    The Majorana nature of DM changes σ_T(v) shape significantly.
+    Multi-velocity observations CAN distinguish Majorana from Dirac.
+
+  R ≈ 2: consistent with average weight ⟨w⟩ = (1+3)/2 = 2.
+  The identical-particle exchange effectively doubles σ_T.
+======================================================================
+
+Output: C:\Users\omerp\source\omer_mind\Secluded-Majorana-SIDM\The_derivative_of_Lagernizan_SIDM\data\archive\T9_majorana_vs_dirac_2026_03_27_r030.csv

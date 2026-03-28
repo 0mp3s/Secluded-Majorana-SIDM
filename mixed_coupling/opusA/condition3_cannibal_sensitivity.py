@@ -103,7 +103,7 @@ def Y_eq_chi(x):
     if x > 500: return 0.0
     T = M_CHI / x
     gs = g_S(T)
-    return 45.0 / (4 * math.pi**4) * G_CHI / gs * x**1.5 * math.exp(-x)
+    return 45.0 / (4 * math.pi**4) * G_CHI / gs * math.sqrt(math.pi / 2) * x**1.5 * math.exp(-x)
 
 
 def n_eq_phi(T_d):

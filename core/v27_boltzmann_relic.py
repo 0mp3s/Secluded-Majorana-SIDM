@@ -86,27 +86,44 @@ def g_star_S(T):
 #  Equilibrium yield
 # ==============================================================
 def Y_eq_full(x, m_chi, g_chi=2):
-    """Y_eq = 45/(4π⁴) × g/g_*S × x^{3/2} × exp(-x)  (non-relativistic)."""
+    """Y_eq = 45/(4π⁴) × g/g_*S × √(π/2) × x^{3/2} × exp(-x)  (non-relativistic, K₂ NR limit)."""
     T = m_chi / x
     g_s = g_star_S(T)
     if x > 300:
         return 0.0
-    return 45.0 / (4 * math.pi**4) * g_chi / g_s * x**1.5 * math.exp(-x)
+    return 45.0 / (4 * math.pi**4) * g_chi / g_s * math.sqrt(math.pi / 2) * x**1.5 * math.exp(-x)
 
 
 # ==============================================================
 #  s-wave annihilation cross section
 # ==============================================================
-def sigma_v_swave(alpha_d, m_chi):
-    """s-wave ⟨σv⟩ for Majorana χχ → φφ (scalar mediator, t/u-channel).
-    
-    ⟨σv⟩ = y⁴/(64π m_χ²)  with y² = 4πα → y⁴ = 16π²α²
-    = 16π²α² / (64π m_χ²) = πα²/(4 m_χ²)
-    
-    This is the leading (velocity-independent) term. Velocity corrections 
-    are O(v²) and negligible at freeze-out.
+def sigma_v_swave(alpha_d, m_chi, x_fo=20.0):
+    """s-wave ⟨σv⟩ for Majorana χχ → φφ (scalar mediator, t/u-channel),
+    including Sommerfeld enhancement evaluated at freeze-out velocity.
+
+    UPDATED 2026-03-28 03:37 — Sommerfeld correction:
+        ⟨σv⟩ = ⟨σv⟩₀ × S(β_fo)
+        S(β)  = (2πα/β) / (1 − e^{−2πα/β})   [Coulomb limit: m_φ ≪ m_χ·α/v]
+        β_fo  = √(3/x_fo),  x_fo ≈ 20 at freeze-out
+        → S ≈ 1.026 for benchmark (m_χ=98 GeV, α=3.27×10⁻³): ~2.6% correction.
+        Effect on Ω h² is ~2.6% — negligible within current uncertainties,
+        but physically correct and included for completeness.
+
+    OLD formula (pre 2026-03-28, preserved):
+        ⟨σv⟩₀ = πα²/(4 m_χ²)   [bare tree-level, from y⁴/(64π m_χ²), y²=4πα]
+        docstring note was: "velocity corrections are O(v²) and negligible at
+        freeze-out" — that referred to p-wave mixing; Sommerfeld is an
+        all-orders non-perturbative resummation and contributes independently.
+
+    Args:
+        x_fo: freeze-out parameter m_χ/T_fo (default 20, valid for SWIMP-scale DM).
     """
-    return math.pi * alpha_d**2 / (4.0 * m_chi**2)
+    sv0 = math.pi * alpha_d**2 / (4.0 * m_chi**2)
+    # Sommerfeld factor at freeze-out velocity β_fo = v_fo/c = √(3/x_fo)
+    beta_fo = math.sqrt(3.0 / x_fo)
+    xi = 2.0 * math.pi * alpha_d / beta_fo
+    S_fo = xi / (1.0 - math.exp(-xi)) if xi > 1e-10 else 1.0
+    return sv0 * S_fo
 
 
 # ==============================================================

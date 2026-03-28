@@ -531,6 +531,21 @@ Consequences: $\siSI=\sigma_{\rm SD}=0$ exactly; $\phi$ is stable; CMB
 energy injection constraints do not apply; self-interactions are
 governed by $(\mchi,\mphi,\alpha_s)$ alone.
 
+\textbf{Dark-sector thermalization.}
+Because $\phi$ has no tree-level SM coupling, the dark sector must be
+populated by a UV-complete mechanism such as inflaton decay to $\chi$
+or $\phi$, or gravitational particle
+production during reheating.  We remain agnostic about the specific
+production channel and assume only that $\chi$ and $\phi$ reach
+\emph{internal} thermal equilibrium at some dark-sector temperature
+$T_d\leq T$ before freeze-out.
+The Yukawa coupling $\alpha_s\sim 10^{-2}$ guarantees
+$\chi\phi\to\chi\phi$ thermalization within a Hubble time for
+$T_d\gtrsim\mchi/25$, so internal equilibrium is robust.
+This ``secluded thermal initial condition'' is standard in the
+SIDM literature~\cite{Feng:2009mn,Tulin:2017ara} and does not
+affect the low-energy observables studied here.
+
 \subsection{Cosmological safety of stable $\phi$}\label{sec:neff}
 
 A stable $\phi$ with $\mphi\sim 8\text{--}15\MeV$ is
@@ -856,7 +871,7 @@ not a deficit.
 The numerical computations were performed using
 \texttt{NumPy}~/ \texttt{SciPy}~/ \texttt{Numba}.
 The code and data supporting this analysis are publicly available at
-\url{https://github.com/0mp3s/Secluded-Majorana-SIDM}
+\url{https://github.com/0mp3s/Secluded-Majorana-SIDM}~\cite{SIDM_code:2026}
 (DOI: \href{https://doi.org/10.5281/zenodo.19225823}{10.5281/zenodo.19225823}).
 \end{acknowledgments}
 

@@ -1,0 +1,47 @@
+
+╔═══════════════════════════════════════════════════════════════════╗
+║  T12: RESONANCE MAP — Where do resonances amplify R(v)?        ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+  Velocities: 40 points from 15 to 2500 km/s
+  Benchmarks: ['BP1', 'BP9', 'BP16', 'MAP']
+
+  ── BP1 (λ=11.12) ──
+    R(v) range: [1.000, 2.081], mean=1.689
+    Max R=2.081 at v=269 km/s
+    Resonances: 8 total (even ℓ: 8, odd ℓ: 0)
+
+  ── BP9 (λ=13.12) ──
+    R(v) range: [1.000, 2.104], mean=1.761
+    Max R=2.104 at v=159 km/s
+    Resonances: 18 total (even ℓ: 8, odd ℓ: 10)
+
+  ── BP16 (λ=2.15) ──
+    R(v) range: [1.000, 1.976], mean=1.434
+    Max R=1.976 at v=2500 km/s
+    Resonances: 0 total (even ℓ: 0, odd ℓ: 0)
+
+  ── MAP (λ=33.28) ──
+    R(v) range: [1.090, 2.187], mean=1.923
+    Max R=2.187 at v=56 km/s
+    Resonances: 36 total (even ℓ: 21, odd ℓ: 15)
+
+======================================================================
+  T12 SUMMARY: RESONANCE MAP
+======================================================================
+
+            BP        λ    R_min    R_max   R_mean   best_v  n_res  even   odd
+  ───────────────────────────────────────────────────────────────────────────
+           BP1    11.12    1.000    2.081    1.689      269      8     8     0
+           BP9    13.12    1.000    2.104    1.761      159     18     8    10
+          BP16     2.15    1.000    1.976    1.434     2500      0     0     0
+           MAP    33.28    1.090    2.187    1.923       56     36    21    15
+
+  Total resonances across all BPs: even=37, odd=25
+  Global R range: [1.000, 2.187]
+
+  ► EVEN-ℓ resonances dominate — weight w=1, less Majorana enhancement.
+  ► R_max = 2.187: moderate enhancement over Born limit R=2.
+======================================================================
+
+Output: C:\Users\omerp\source\omer_mind\Secluded-Majorana-SIDM\The_derivative_of_Lagernizan_SIDM\data\archive\T12_resonance_map_2026_03_27_r035.csv

@@ -51,19 +51,19 @@ RHO_CRIT_H2 = _PC["rho_crit_h2_GeV_cm3"]
 S_0         = _PC["S0_cm3"]
 
 # ═══════════════════════════════════════════════════════════════
-#  Benchmark (BP1) — fixed masses
+#  Benchmark (BP1) — fixed masses  [UPDATED 28-Mar-2026: new BP1]
 # ═══════════════════════════════════════════════════════════════
-M_CHI  = 20.69               # GeV
-M_PHI  = 11.34e-3            # GeV (11.34 MeV)
+M_CHI  = 54.556              # GeV
+M_PHI  = 12.975e-3           # GeV (12.975 MeV)
 G_CHI  = _CC["g_chi_Majorana"]              # Majorana DOF
 
 # SIDM velocity targets (km/s)
 V_SIDM = [30.0, 100.0, 1000.0]
 SIDM_LABELS = ['dwarf (30 km/s)', 'LSB (100 km/s)', 'cluster (1000 km/s)']
 
-# SIDM cuts:  σ/m in cm²/g
-SIDM_LO = [0.1, 0.1, 0.1]
-SIDM_HI = [10.0, 10.0, 1.0]
+# SIDM cuts:  σ/m in cm²/g  [FIXED 28-Mar-2026: match global_config — no cluster lower bound]
+SIDM_LO = [0.5, 0.0, 0.0]
+SIDM_HI = [10.0, 10.0, 0.47]
 
 # ═══════════════════════════════════════════════════════════════
 #  g_*(T) table (Drees+ 2015)
@@ -92,7 +92,7 @@ def Y_eq(x, m_chi=M_CHI, g_chi=G_CHI):
     if x > 500: return 0.0
     T = m_chi / x
     gs = g_S(T)
-    return 45.0 / (4 * math.pi**4) * g_chi / gs * x**1.5 * math.exp(-x)
+    return 45.0 / (4 * math.pi**4) * g_chi / gs * math.sqrt(math.pi / 2) * x**1.5 * math.exp(-x)
 
 
 def solve_boltzmann(alpha_s, alpha_p, x_end=500.0, n_steps=15000):

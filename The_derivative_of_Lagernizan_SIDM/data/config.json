@@ -1,0 +1,11 @@
+{
+    "_comment": "Local config for derivative investigation tests. Benchmark values come from GC (global_config.json) — NOT duplicated here.",
+    "test_benchmarks": ["BP1", "BP9", "BP16", "MAP"],
+    "alpha_conventions": {
+        "_comment": "Three conventions to test. For each, alpha_derived = y^2 / (factor * pi).",
+        "standard":       {"label": "y²/(4π)",  "factor": 4},
+        "vertex_half":    {"label": "y²/(16π)", "factor": 16},
+        "majorana_t_u":   {"label": "y²/(8π)",  "factor": 8}
+    },
+    "tolerance": 1e-12
+}

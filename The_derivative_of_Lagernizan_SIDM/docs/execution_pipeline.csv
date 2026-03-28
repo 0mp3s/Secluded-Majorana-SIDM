@@ -1,0 +1,11 @@
+order,stage,dependencies,script,reads,writes,description
+1,Stage 1 - Alpha Convention,,test_T1_alpha_convention.py,data/config.json,data/T1_alpha_convention.csv,T1: Symbolic derivation of alpha conventions from Lagrangian vertex
+2,Stage 2 - EL Pipeline,1,lagrangian_euler_lagrange.py,data/config.json,data/EL_pipeline_vs_v22.csv,T2+T3+T5: Full Euler-Lagrange chain L→V(r)→VPM→σ_T vs v22
+3,Stage 3 - Annihilation Relic,1,test_T6_annihilation_relic.py,data/config.json,data/T6_annihilation_relic.csv,T6: Relic density discriminator — which alpha gives Ωh²≈0.12
+4,Stage 4 - Majorana Weights,2,test_T4_majorana_weights.py,data/config.json,data/T4_majorana_weights.csv,T4: Derive w_ℓ=(1,3) from Majorana symmetry with SymPy
+5,Stage 5 - Transfer vs Elastic,2;4,test_T8_transfer_vs_elastic.py,data/config.json,data/T8_transfer_vs_elastic.csv,T8: Prove σ_T^tr = σ_T^el is unique to Majorana (not Dirac)
+6,Stage 6 - Majorana vs Dirac,2;4;5,test_T9_majorana_vs_dirac.py,data/config.json,data/T9_majorana_vs_dirac.csv,T9: R(v) = σ_T^Maj/σ_T^Dirac as observational discriminator
+7,Stage 7 - Boltzmann All BPs,3,test_T7_boltzmann_all_bps.py,data/config.json,data/T7_boltzmann_all_bps.csv,T7: Relic density + p-wave for all BPs — freeze-out x_fo and Ωh²
+8,Stage 8 - Dirac Mimicry,6,test_T10_dirac_mimicry.py,data/config.json,data/T10_dirac_mimicry.csv,T10: Can Dirac with free params mimic Majorana σ_T(v)?
+9,Stage 9 - Thermal Averaging,6,test_T11_thermal_averaging.py,data/config.json,data/T11_thermal_averaging.csv,T11: Does Majorana signal survive Maxwell-Boltzmann ⟨σ/m⟩ averaging?
+10,Stage 10 - Resonance Map,6,test_T12_resonance_map.py,data/config.json,data/T12_resonance_map.csv,T12: Map resonances in (λ κ) space — where does R(v) peak?

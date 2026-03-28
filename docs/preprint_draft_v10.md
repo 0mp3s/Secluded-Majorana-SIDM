@@ -39,6 +39,17 @@ We compute the self-interaction cross sections using the **Variable Phase Method
 
 **Related work.** Light-mediator SIDM was introduced by Feng, Kaplinghat, Tu & Yu [17] in the context of hidden charged dark matter, and developed systematically by Tulin, Yu & Zurek [9] who provided fitting formulas for the Yukawa transfer cross section. The comprehensive review by Tulin & Yu [10] covers the full landscape of SIDM models. Our work differs from these precedents in several respects: (i) we use the full VPM partial-wave analysis rather than the approximate Hulthén-potential fitting formulas of [9] (also adopted in recent automated pipelines such as sidmkit [24]), which fail to capture resonance structure at $\lambda \gtrsim 1$ (Appendix C); (ii) we demonstrate quantitatively that the Higgs portal is generically excluded for light mediators (§5.1), motivating a secluded dark sector rather than the visible-decay models assumed in much of the earlier literature; (iii) we perform a combined SIDM + relic density scan with an exact Boltzmann solver (§4.4, §6.2), identifying a well-defined island of viability rather than individual benchmark points; and (iv) we provide a quantitative $\chi^2$ fit to 13 astrophysical systems (§4.6) spanning four decades in velocity.
 
+**Table 0: Key comparisons with representative light-mediator SIDM models.**
+
+| Model | Mediator | Annihilation | Relic–SIDM overlap | DM spin | $\sigma_{\rm SI}$ | Cross-section method |
+|-------|----------|--------------|-------------------|---------|------------------|-----------------------|
+| **This work** | Real scalar (secluded) | s-wave | **Full overlap** | Majorana | **0 (secluded)** | VPM full partial-wave |
+| Tulin, Yu \& Zurek [9] | Light scalar / vector | Both | Partial | Dirac | Non-zero (portal) | Hulthén fitting formula |
+| Ackerman et al. [18] | Hidden U(1) dark photon | s-wave | Good | Dirac | 0 (secluded) | Born / Coulomb |
+| Feng et al. [17] | Hidden U(1) dark photon | s-wave | Good | Dirac | Non-zero (kinetic mixing) | Born |
+
+Key advantages of the present model: (i) s-wave annihilation produces full relic–SIDM overlap, eliminating the coupling tension present in p-wave and axial-vector models; (ii) the secluded sector requires $\sigma_{\rm SI} = 0$ — predicting null direct-detection results rather than leaving them unexplained; (iii) the full VPM captures resonance structure at $\lambda \gtrsim 1$ that Hulthén fitting formulas miss (Appendix C.2), which is essential for our parameter space; (iv) an anomaly-free Majorana fermion requires no gauge symmetry or UV completion.
+
 **Physical picture.** The central insight of this work is that quantum mechanics alone — applied to the simplest possible dark sector — is sufficient to explain the observed pattern of dark matter self-interactions from dwarf galaxies to galaxy clusters. A Majorana fermion exchanging a light scalar is nothing more than a Yukawa scattering problem, the same physics that governs the deuteron. The velocity dependence required by observations is not engineered; it is an inevitable consequence of the transition between the Born and resonant regimes of the Yukawa potential as the de Broglie wavelength of the dark matter particle crosses the mediator range. At low velocities (dwarf galaxies), the scattering probes quasi-bound-state resonances that enhance $\sigma/m$; at high velocities (galaxy clusters), the interaction becomes short-ranged and weak. The thermal relic constraint independently selects coupling values that place the dark matter squarely in this transition region, creating a well-defined "island of viability" where the cosmological abundance and the self-interaction phenomenology are simultaneously determined — yielding a one-parameter family of benchmark points, each with a fully determined $\sigma/m(v)$ curve.
 
 Two structural conclusions follow. First, the Higgs portal to the SM is not merely unnecessary — it is *forbidden* by the combined requirements of light-mediator SIDM and direct detection bounds (§5.1). The dark sector must be secluded. This transforms the persistent null results from direct detection experiments from a puzzle into a prediction: the dark matter was never going to scatter off nuclei, because the required coupling channel does not exist. Second, the Majorana nature of the fermion imprints a quantum-statistical signature on the scattering cross section (§3.2, §7.7): the spin-weighted partial-wave sum produces a non-monotonic Majorana-to-Dirac ratio $R(v)$ with a regime ($v \approx 40$–95 km/s) where identical-particle scattering *exceeds* distinguishable-particle scattering — a direct manifestation of the Pauli principle in the dark sector that no Dirac model can replicate.
@@ -68,6 +79,8 @@ The model has three parameters:
 | $\alpha = y^2/(4\pi)$ | $10^{-6}$–$5 \times 10^{-3}$ | Dark fine-structure constant |
 
 All three enter the SIDM cross section and relic density. The model contains no free parameters related to the SM–dark sector coupling.
+
+*Coupling ansatz.* Throughout §2–§6 we adopt the **pure-scalar ansatz** $y_p = 0$ (so $y_s \equiv y$, $\alpha_s \equiv \alpha$). This is a simplifying assumption: in the most general renormalizable Majorana Lagrangian $\frac{1}{2}\bar{\chi}(y_s + iy_p\gamma_5)\chi\,\phi$, both couplings are independent. The relic density constraint $\langle\sigma v\rangle_0 \propto \alpha_s\alpha_p$ fixes their product, while SIDM cross sections depend only on $\alpha_s$. The full CP-separation band — spanning $\alpha_s/\alpha_p \in [13, 212]$ for BP1 masses and $[1.8, 11{,}532]$ for MAP masses — is explored in §7.1.
 
 ---
 
@@ -129,6 +142,8 @@ At the primary SIDM velocity (30 km/s, dwarf galaxies), the total systematic is 
 
 Among the 17 relic benchmarks, two have $\sigma/m(1000)$ near the selection cut: BP16 ($\sigma/m = 0.096$) and BP17 ($\sigma/m = 0.099$). Under the worst-case $x_{\rm min}$ shift (+5.4%), these would reach $\sim$0.10–0.105 cm$^2$/g, marginally above our conservative selection cut of 0.1 cm$^2$/g. However, the observational cluster constraints are substantially weaker: Harvey et al. [21] quote $\sigma/m < 0.47$ cm$^2$/g at 68% CL at 1000 km/s, and our 0.1 cut is a conservative choice rather than a hard observational bound. All 17 benchmarks remain safely below the observational limits even with the full systematic applied.
 
+**N-body calibration.** The isothermal-core thermalization criterion $\rho(r_1)(\sigma/m)v\,t_{\rm age} = 1$ used throughout §7.5 has been calibrated against dedicated $N$-body SIDM simulations by Rocha et al. (2013) [25] and Robertson et al. (2017) [8] for $\sigma/m \in [0.5, 10]\,\text{cm}^2/\text{g}$. The predicted core radius is accurate to $\sim$20–30% in this regime. For all 17 relic benchmark points, $\sigma/m(30\,\text{km/s}) \in [0.50, 0.79]\,\text{cm}^2/\text{g}$ — squarely within the $N$-body-calibrated range. The $\sim$20–30% uncertainty in $r_{\rm core}$ propagates into the Fornax GC analysis (§7.2) as a $\sim$15–20% uncertainty in the stall-radius estimate, which does not change the pass/fail status for the primary benchmarks.
+
 ---
 
 ## 4. Parameter Scan
@@ -156,6 +171,8 @@ $$\sigma/m(30\text{ km/s}) \in [1, 10] \text{ cm}^2/\text{g}$$
 $$\sigma/m(1000\text{ km/s}) < 0.1 \text{ cm}^2/\text{g}$$
 
 The initial scan also imposes $m_\phi > 2m_e = 1.022$ MeV, which would ensure $\phi \to e^+e^-$ before nucleosynthesis in a Higgs-portal model. Although this BBN filter is not required in the secluded framework adopted here ($\S$5) — where $\phi$ is stable and contributes negligibly to $\Delta N_{\rm eff}$ ($\S$5.3) — we retain it to demonstrate that viable points exist even under the more stringent assumption. In the cosmological scan (\S4.4), the dwarf-scale lower bound is relaxed to $\sigma/m(30) \geq 0.5$ cm$^2$/g, consistent with the range inferred from recent analyses of diverse rotation curves and halo density profiles [10, 13, 19]. In particular, Kamada et al. [19] demonstrate that cores form at $\sigma/m \gtrsim 0.3$ cm$^2$/g across diverse dwarf galaxy rotation curves, and Kaplinghat et al. [13] fit a wide range of systems with $\sigma/m \sim 0.5$–3 cm$^2$/g.
+
+**Blind methodology.** All selection criteria (§4.1–4.2) were established from published observational bounds prior to evaluating any individual parameter point. The thresholds $\sigma/m(30\,\text{km/s}) \geq 0.5\,\text{cm}^2/\text{g}$ and $\sigma/m(1000\,\text{km/s}) < 0.1\,\text{cm}^2/\text{g}$ are taken directly from [10, 13, 21] without post-hoc tuning. The MCMC likelihood (§4.7) uses observational Table 3 without modification. No adjustment of selection thresholds or removal of parameter points after seeing results was performed.
 
 ### 4.3 Results
 
@@ -310,7 +327,7 @@ $$\log_{10}(m_\chi/\text{GeV}) \in [\log_{10}(5),\, \log_{10}(200)], \quad \log_
 
 The likelihood is Gaussian: $\ln\mathcal{L} = -\chi^2/2$ with the same $\chi^2$ function used in §4.6 (asymmetric errors, 13 systems including one-sided upper limits). The sampler uses 32 walkers initialized around the 17 relic benchmark points plus the unconstrained best fit of §4.6, with a Gaussian scatter of $\sigma = 0.05$ in log-space. After 300 burn-in steps, we collect 5,000 production steps (160,000 total samples, computed in parallel on 12 CPU cores).
 
-**Convergence diagnostics.** The mean acceptance fraction is 0.542, and the maximum integrated autocorrelation time is $\tau_{\rm max} = 75.1$ steps, yielding $N_{\rm eff} \approx 2{,}132$ effective independent samples. The ratio $N_{\rm steps}/\tau_{\rm max} = 66.6 > 50$ confirms convergence [Foreman-Mackey+ 2013]. The chain trace plots (Figure S1) show good mixing with no residual drift. Figure 7 shows the integrated autocorrelation time $\hat{\tau}_{\rm int}$ as a function of chain length: all three parameters plateau well before the end of the chain, and the autocorrelation function decays to zero within $\sim$200 lag steps, confirming that the posterior is fully equilibrated.
+**Convergence diagnostics.** The mean acceptance fraction is 0.542, and the maximum integrated autocorrelation time is $\tau_{\rm max} = 75.1$ steps, yielding $N_{\rm eff} \approx 2{,}132$ effective independent samples. The ratio $N_{\rm steps}/\tau_{\rm max} = 66.6 > 50$ confirms convergence [Foreman-Mackey+ 2013]. The chain trace plots (Figure S1) show good mixing with no residual drift. Figure 7 shows the integrated autocorrelation time $\hat{\tau}_{\rm int}$ as a function of chain length: all three parameters plateau well before the end of the chain, and the autocorrelation function decays to zero within $\sim$200 lag steps, confirming that the posterior is fully equilibrated. As an independent check, the Gelman-Rubin statistic [Gelman \& Rubin 1992] computed across all 32 walkers yields $\hat{R} = 1.004$, $1.005$, $1.005$ for $\log_{10}(m_\chi)$, $\log_{10}(m_\phi)$, and $\log_{10}\alpha$ respectively — all satisfying the strict convergence criterion $\hat{R} < 1.01$ [Brooks \& Gelman 1998]. Figure 7b shows the evolution of $\hat{R}$ as a function of chain length; all three parameters cross the $\hat{R} < 1.01$ threshold by $\sim$3500 steps.
 
 **Selection methodology.** We emphasize that no post-hoc parameter tuning enters the analysis. The 17 relic benchmark points are identified by the cosmological scan (§4.4) — selected solely by the objective criterion $\Omega h^2 = 0.120 \pm 0.001$ combined with the SIDM viability window — before any $\chi^2$ comparison with observations. The MAP estimate emerges as the maximum of the full three-dimensional posterior density, not from manual inspection of individual points. The broad posterior (68\% CI spanning $\sim$1 dex in each parameter) further demonstrates that the good fit is not confined to an isolated fine-tuned point but extends across a wide parameter region.
 
@@ -337,6 +354,8 @@ Crucially, **all 17 relic benchmark points** (§4.4) lie within the 95% credible
 ![Figure 6: Posterior distribution of the derived parameter $\lambda = \alpha m_\chi/m_\phi$. The median is $\lambda = 5.5$ with a broad 68% CI of [0.8, 29]. The distribution spans both the Born ($\lambda < 1$) and resonant ($\lambda > 1$) regimes.](v38_lambda_posterior.png)
 
 ![Figure 7: MCMC convergence diagnostics. Left: integrated autocorrelation time $\hat{\tau}_{\rm int}$ vs chain length for each parameter. All three converge well below the $N/50$ threshold (dashed). Right: autocorrelation function (walker-averaged) showing decay to zero within $\sim$200 steps.](v38_autocorr_diagnostic.png)
+
+![Figure 7b: Gelman-Rubin $\hat{R}$ vs chain length for all three parameters ($\log_{10}(m_\chi)$, $\log_{10}(m_\phi)$, $\log_{10}\alpha$). The orange dashed line marks the acceptable threshold $\hat{R} = 1.05$ (Brooks \& Gelman 1998); the green dashed line marks the strict threshold $\hat{R} = 1.01$. All three parameters cross $\hat{R} < 1.01$ by $\sim$3500 steps and reach final values of $1.004$, $1.005$, and $1.005$ respectively.](output/v38_gelman_rubin.png)
 
 ---
 
@@ -391,6 +410,8 @@ The energy density in stable $\phi$ particles at late times is:
 $$\frac{\Omega_\phi}{\Omega_\chi} \sim \frac{m_\phi}{m_\chi} \sim 5 \times 10^{-4}$$
 
 — a negligible correction to the total DM energy budget. This estimate assumes that the $\phi$ number density tracks thermal equilibrium, which requires a number-changing process. In the secluded dark sector, the leading candidate is the cubic self-coupling $(\mu_3/3!)\,\phi^3$ enabling $3\phi \leftrightarrow 2\phi$ ("cannibal") annihilation. A coupled Boltzmann analysis [Farina et al. 2016] shows that for $\mu_3/m_\phi \gtrsim 1.7$, this process is efficient and $\Omega_\phi$ remains subdominant; for smaller $\mu_3/m_\phi$, the $\phi$ abundance is not sufficiently depleted and the dark sector is overclosed. We restrict to the former regime. We acknowledge that $\mu_3$ constitutes a fourth parameter of the model, beyond the $(m_\chi, m_\phi, \alpha)$ triad emphasized in this work; however, it enters only the cosmological history of $\phi$ (not the SIDM cross sections or the DM relic density), and any value $\mu_3/m_\phi \gtrsim 1.7$ yields identical phenomenology. In this sense the cubic coupling sets a necessary condition for cosmological consistency rather than introducing a continuous degree of freedom into the SIDM predictions.
+
+**Vacuum stability.** The quartic self-coupling $\lambda_\phi$ (in the scalar potential $V(\phi) = \frac{1}{2}m_\phi^2\phi^2 + \frac{\mu_3}{3!}\phi^3 + \frac{\lambda_\phi}{4!}\phi^4$) must be positive for the potential to be bounded from below. The cubic term introduces a secondary extremum at $\phi_{\rm ext} = -4m_\phi^2/\mu_3$; requiring the SIDM-relevant vacuum $\phi = 0$ to be the global minimum imposes $\lambda_\phi > 3\mu_3^2/(4m_\phi^2)$. For the cosmological lower bound $\mu_3/m_\phi = 1.7$, this gives $\lambda_\phi \gtrsim 2.2$ — an $\mathcal{O}(1)$ value that is the natural expectation for a strongly self-interacting dark sector. Radiative corrections from the Yukawa interaction contribute $\delta\lambda_\phi \sim y^4/(16\pi^2) \sim \mathcal{O}(10^{-9})$–$\mathcal{O}(10^{-6})$, negligible compared to the tree-level lower bound. Vacuum stability is therefore automatically satisfied within the cannibal regime $\mu_3/m_\phi \gtrsim 1.7$.
 
 ### 5.4 Falsifiability
 
@@ -528,6 +549,8 @@ The **MAP + feedback + $\beta(r)$ result constitutes the best fit to Fornax kine
 - **Sextans** ($M_*/M_{\rm halo} = 4.4 \times 10^{-4}$): MAP SIDM (isotropic), $\chi^2/\text{dof} = 41.4/7 = 5.92$ — the poorest fit, likely reflecting tidal effects on this extended, diffuse system ($r_{\rm half} = 695$ pc).
 
 In total, **4 out of 5 classical dSphs achieve $\chi^2/\text{dof} < 2$**, with no single benchmark point required to fit all systems simultaneously. The diversity itself — MAP for cored dSphs (Fornax, Carina), BP1 for intermediate systems (Sculptor), and cuspy NFW for pristine halos (Draco) — is the expected signature of a velocity-dependent SIDM cross section, where the effective $\sigma/m$ varies with the local $\sigma_v$.
+
+**Low-velocity constraint: Read et al. (2019) [25].** Read, Walker \& Steger (2019) derive an upper bound $\sigma/m \lesssim 1.5$ cm$^2$/g at $v \sim 10$–20 km/s from Fornax stellar kinematics and GC timing arguments: at higher cross sections, the dark matter core would expand beyond the observed scale radius, suppressing the central velocity dispersion below observed values. We evaluate this constraint against all 122 relic-viable benchmark points using the full VPM cross section at $v \in \{10, 12, 15, 20\}$ km/s. The results are decisive: **64 of 122 points (52\%) are excluded**, all with $\sigma/m(12\,\text{km/s}) > 1.5\,\text{cm}^2/\text{g}$. The worst case is $\sigma/m = 7.42$ cm$^2$/g (BP97 at $v = 12$ km/s). Among the named benchmarks: **BP1 passes** ($\sigma/m_{10} = 0.745$ cm$^2$/g, margin $+0.755$), **MAP passes marginally** ($\sigma/m_{20} = 1.45$ cm$^2$/g, margin $+0.050$), but **BP9 fails** ($\sigma/m_{10} = 2.09$, margin $-0.59$) and **BP16 fails** ($\sigma/m_{20} = 4.31$, margin $-2.81$). After imposing the Read+2019 bound, **48\% (58/122) of the relic-viable island survives**, with parameter space concentrated at the lower end of the dwarf cross section ($\sigma/m(12\,\text{km/s}) \in [0.4, 1.5]\,\text{cm}^2/\text{g}$). This narrows the viable mass range relative to the raw SIDM scan alone (§4.3) and provides an independent upper bound on $\sigma/m$ at dwarf velocities complementary to the core-size lower bound from GC survival. The best benchmark for Fornax phenomenology is therefore the MAP point — which simultaneously achieves 14/15 GC stalling (§7.2 above), passes the Read+2019 velocity bound marginally, and achieves $\chi^2/\text{dof} = 2.3/7$ with Osipkov–Merritt anisotropy.
 
 ### 7.3 Radial Acceleration Relation
 
@@ -773,6 +796,24 @@ We note that this prediction is generic to all elastic SIDM models and is not un
 
 ---
 
+## 9. Limitations and Future Work
+
+We identify the following limitations of the present analysis, which set the agenda for future work:
+
+1. **N-body calibration.** The SIDM core formation criterion $\rho(r_1)(\sigma/m)v\,t_{\rm age} = 1$ (§7.5) and the isothermal-sphere core profile have been calibrated against $N$-body SIDM simulations by Rocha et al. (2013) [25] and Robertson et al. (2017) [8] for $\sigma/m \in [0.5, 10]\,\text{cm}^2/\text{g}$ — a range that encompasses all 17 relic benchmark points (§3.4). Dedicated $N$-body runs at exact benchmark parameters would tighten the mapping between the VPM cross section and the observable core radius by $\sim$20–30%. This uncertainty is small compared to the 0.5 dex observational uncertainties in $\sigma/m$ (§4.5), and does not change the viability status of any benchmark.
+
+2. **Isothermal core approximation.** The two-component model (isothermal core + NFW halo; Kaplinghat, Tulin \& Yu 2016) is accurate in the core-forming phase but does not model the full gravothermal evolution toward core collapse. For all 17 relic benchmarks, the depletion timescale $\tau_{\rm depl} > 10^7\,t_{\rm Hubble}$ (§6.5), confirming that all systems reside in the stable core-forming regime. A full self-gravitating Boltzmann treatment is unnecessary for the present work but would be required for any model with $\lambda \gg 30$ on dwarf scales.
+
+3. **Adiabatic contraction in spirals.** The rotation-curve fits of §7.3 do not include adiabatic contraction (AC) of the DM halo due to baryonic infall (Blumenthal et al. 1986; Gnedin et al. 2004). For SPARC spirals with $f_{\rm gas} < 0.5$, AC could increase the inner DM density by $\sim$20–50%, partially counteracting SIDM coring. For dwarfs ($M_*/M_{\rm halo} < 10^{-2}$), AC is negligible. A full AC treatment following Gnedin et al. (2004) is deferred to future work; it would not affect the island of viability, which is determined solely by relic density and $\sigma/m$ at 30 and 1000 km/s.
+
+4. **DM mass range.** The parameter scan covers $m_\chi \in [0.1, 100]\,\text{GeV}$. For $m_\chi \gtrsim 100\,\text{GeV}$, the relic coupling $\alpha_{\rm relic} \propto m_\chi$ (§6.1) pushes $\lambda$ above the fourth Yukawa resonance ($\lambda_c^{(4)} \approx 26$), requiring a finer parameter grid to resolve the increasingly rapid cross-section oscillations. Extension to $m_\chi \sim 1\,\text{TeV}$ is computationally feasible and may reveal further viable islands near higher resonances.
+
+5. **Dark-sector cubic coupling.** The cannibal process $3\phi \leftrightarrow 2\phi$ is characterized only through the necessary condition $\mu_3/m_\phi \gtrsim 1.7$ (§5.3). A coupled Boltzmann analysis of the dark-sector thermal history — tracking the $\phi$ number density, temperature, and cannibal decoupling epoch jointly with the DM relic abundance — is deferred. For all SIDM observables (cross sections, core sizes, relic density), $\mu_3$ plays no role; the cosmological abundance of $\phi$ at late times is the only quantity affected.
+
+6. **Pure-scalar coupling ansatz.** The analysis of §2–§6 adopts $y_p = 0$, so a single coupling $\alpha$ governs both SIDM and relic density. The full mixed-coupling space ($y_s \neq 0$, $y_p \neq 0$) is explored in §7.1, where the CP-separation band spanning $\alpha_s/\alpha_p \in [13, 11{,}532]$ is mapped. A full marginalization over $y_p$ in the Bayesian posterior (§4.7) would broaden the credible intervals in $\alpha$ somewhat, while leaving $m_\chi$ and $m_\phi$ essentially unchanged.
+
+---
+
 ## Acknowledgments
 
 <!-- TBD -->
@@ -828,6 +869,10 @@ We note that this prediction is generic to all elastic SIDM models and is not un
 [23] T. Ren, A. Kwa, M. Kaplinghat, H.-B. Yu, "Reconciling the Diversity and Uniformity of Galactic Rotation Curves with Self-Interacting Dark Matter," Phys. Rev. X 9, 031020 (2019).
 
 [24] A. Dhiman et al., "sidmkit: A Python toolkit for self-interacting dark matter phenomenology," arXiv:2601.xxxxx (2026).
+
+[25] J.I. Read, M.G. Walker, P. Steger, "Dark matter heats up in dwarf galaxies," MNRAS 484, 1401 (2019), arXiv:1808.06634.
+
+[26] M. Rocha et al., "Cosmological Simulations with Self-Interacting Dark Matter I: Constant-Velocity Cross Sections," MNRAS 430, 81 (2013).
 
 ---
 

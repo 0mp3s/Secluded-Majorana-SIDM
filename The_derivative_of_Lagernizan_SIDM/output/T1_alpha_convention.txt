@@ -1,0 +1,51 @@
+======================================================================
+T1: SYMBOLIC DERIVATION — Lagrangian → V(r)
+======================================================================
+
+Lagrangian interaction:  L_int = -(y/2) χ̄χ φ
+
+Step 1: Vertex factor
+  vertex = y/2 = y/2
+
+Step 2: Born amplitude (t-channel, NR)
+  |M_t|² numerator = (y/2)² = y**2/4 = y²/4
+
+Step 3: Fourier transform → coordinate space
+  V_t(r) = -(y²/4)/(4π) · e^{-m_φ r}/r
+         = -y**2/(16*pi) · e^{-m_φ r}/r
+  → α_t = y²/(16π)  [t-channel only]
+
+Step 4: Majorana identical-particle exchange (t + u)
+  V_{t+u}(r) = 2·V_t(r)    [direct + exchange in NR limit]
+  → α_{t+u} = y²/(8π) = y**2/(8*pi)
+
+Step 5: Comparison table
+  Standard (Dirac-like): α = y²/(4π)
+  Vertex ½ (t only):     α = y²/(16π)
+  Majorana (t+u):        α = y²/(8π)
+======================================================================
+
+BP           Convention       α_config          y     α_feyn_t    α_feyn_tu   ratio_t  ratio_tu    t?   tu?
+-----------------------------------------------------------------------------------------------------------
+BP1          y²/(4π)      2.645000e-03   0.182313 6.612500e-04 1.322500e-03    0.2500    0.5000  FAIL  FAIL
+BP1          y²/(16π)     2.645000e-03   0.364626 2.645000e-03 5.290000e-03    1.0000    2.0000  PASS  FAIL
+BP1          y²/(8π)      2.645000e-03   0.257830 1.322500e-03 2.645000e-03    0.5000    1.0000  FAIL  PASS
+BP9          y²/(4π)      2.350000e-03   0.171846 5.875000e-04 1.175000e-03    0.2500    0.5000  FAIL  FAIL
+BP9          y²/(16π)     2.350000e-03   0.343692 2.350000e-03 4.700000e-03    1.0000    2.0000  PASS  FAIL
+BP9          y²/(8π)      2.350000e-03   0.243027 1.175000e-03 2.350000e-03    0.5000    1.0000  FAIL  PASS
+BP16         y²/(4π)      7.555000e-04   0.097437 1.888750e-04 3.777500e-04    0.2500    0.5000  FAIL  FAIL
+BP16         y²/(16π)     7.555000e-04   0.194873 7.555000e-04 1.511000e-03    1.0000    2.0000  PASS  FAIL
+BP16         y²/(8π)      7.555000e-04   0.137796 3.777500e-04 7.555000e-04    0.5000    1.0000  FAIL  PASS
+MAP          y²/(4π)      3.274000e-03   0.202836 8.185000e-04 1.637000e-03    0.2500    0.5000  FAIL  FAIL
+MAP          y²/(16π)     3.274000e-03   0.405671 3.274000e-03 6.548000e-03    1.0000    2.0000  PASS  FAIL
+MAP          y²/(8π)      3.274000e-03   0.286853 1.637000e-03 3.274000e-03    0.5000    1.0000  FAIL  PASS
+
+======================================================================
+CONCLUSION
+======================================================================
+  ✗ Convention 'y²/(4π)' (factor=4): does NOT match α_config.
+  ✓ Convention 'y²/(16π)' (factor=16): α_config = α_feynman (t-only). Vertex ½ absorbed, NO t+u doubling.
+  ✓ Convention 'y²/(8π)' (factor=8): α_config = α_feynman (t+u). Vertex ½ absorbed + Majorana doubling.
+
+Output: C:\Users\omerp\source\omer_mind\Secluded-Majorana-SIDM\The_derivative_of_Lagernizan_SIDM\data\archive\T1_alpha_convention_2026_03_27_r022.csv
+Run logged to: docs/runs_log.csv

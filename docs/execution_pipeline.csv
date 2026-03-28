@@ -57,3 +57,4 @@ Order,Stage,Dependencies,Script,Reads,Writes,Paper Section
 56,9 - Mixed Coupling,v22_raw_scan (code) + global_config,mixed_coupling/opusA/condition2_coupling_scan.py,global_config.json,output/*.png,§5.6 (CP-separation band)
 57,9 - Mixed Coupling,global_config,mixed_coupling/opusA/condition3_cannibal_sensitivity.py,global_config.json,output/*.png,§4.3 (cannibal threshold)
 58,9 - Mixed Coupling,v22_raw_scan (code),mixed_coupling/opusA/condition4_nr_potential.py,none,console,§2 (VPM unchanged by yp)
+59,10 - Figures,all figure-producing steps,arxiv/copy_figures.py,module output PNGs,arxiv/figures/*.png,All figures

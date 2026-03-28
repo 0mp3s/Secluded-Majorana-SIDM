@@ -282,28 +282,87 @@ def run_mcmc():
                 if np.isfinite(log_prob(p0[i])):
                     break
 
+    # ================================================================
+    #  Checkpoint support — resume from partial production if available
+    # ================================================================
+    CHECKPOINT_FILE = os.path.join(OUT_DIR, 'v38_mcmc_checkpoint.npy')
+    CHECKPOINT_EVERY = _mcmc.get('checkpoint_every', 50)  # ~6 min per update at 7s/step
+
+    ckpt_resume_step   = 0
+    ckpt_flat_samples  = None
+    ckpt_flat_log_probs = None
+    ckpt_state         = None
+
+    if os.path.exists(CHECKPOINT_FILE):
+        try:
+            ckpt = np.load(CHECKPOINT_FILE, allow_pickle=True).item()
+            if (ckpt.get('n_walkers') == N_WALKERS
+                    and ckpt.get('ndim') == NDIM
+                    and int(ckpt.get('steps_done', 0)) < N_STEPS):
+                ckpt_resume_step    = int(ckpt['steps_done'])
+                ckpt_flat_samples   = ckpt['flat_samples']
+                ckpt_flat_log_probs = ckpt['flat_log_probs']
+                ckpt_state          = ckpt['last_state']
+                print(f"\n  Checkpoint found: resuming from step {ckpt_resume_step}/{N_STEPS}")
+            else:
+                print(f"\n  Checkpoint mismatch or already complete — starting fresh")
+        except Exception as e:
+            print(f"\n  Checkpoint read failed ({e}) — starting fresh")
+
     # -- Run sampler with multiprocessing --
     pool = mp_lib.Pool(nworkers, initializer=_init_worker)
     sampler = emcee.EnsembleSampler(N_WALKERS, NDIM, _log_prob_worker, pool=pool)
 
-    # Burn-in
-    print(f"\n  Running burn-in ({N_BURN} steps)...")
+    # Burn-in (skip if resuming from checkpoint)
+    if ckpt_state is None:
+        print(f"\n  Running burn-in ({N_BURN} steps)...")
+        t0 = time.time()
+        state = sampler.run_mcmc(p0, N_BURN, progress=True)
+        dt_burn = time.time() - t0
+        print(f"  Burn-in done in {dt_burn:.0f}s ({N_BURN * N_WALKERS / dt_burn:.1f} evals/s)")
+        accept_burn = np.mean(sampler.acceptance_fraction)
+        print(f"  Mean acceptance fraction (burn-in): {accept_burn:.3f}")
+        sampler.reset()
+    else:
+        print(f"\n  Skipping burn-in (resuming from checkpoint)")
+        state = ckpt_state
+
+    # Production in chunks with periodic checkpointing
+    steps_remaining = N_STEPS - ckpt_resume_step
+    resume_suffix = f", {ckpt_resume_step} already done" if ckpt_resume_step else ""
+    print(f"\n  Running production ({N_STEPS} steps{resume_suffix})...")
     t0 = time.time()
-    state = sampler.run_mcmc(p0, N_BURN, progress=True)
-    dt_burn = time.time() - t0
-    print(f"  Burn-in done in {dt_burn:.0f}s ({N_BURN * N_WALKERS / dt_burn:.1f} evals/s)")
+    from tqdm.auto import tqdm as _tqdm
+    with _tqdm(total=N_STEPS, initial=ckpt_resume_step) as pbar:
+        steps_done = ckpt_resume_step
+        while steps_done < N_STEPS:
+            chunk = min(CHECKPOINT_EVERY, N_STEPS - steps_done)
+            state = sampler.run_mcmc(state, chunk, progress=False)
+            steps_done += chunk
+            pbar.update(chunk)
+            # Save checkpoint atomically (temp file + rename avoids Windows file lock)
+            try:
+                cur_flat = sampler.get_chain(flat=True)
+                cur_log  = sampler.get_log_prob(flat=True)
+                if ckpt_flat_samples is not None:
+                    save_flat = np.concatenate([ckpt_flat_samples, cur_flat], axis=0)
+                    save_log  = np.concatenate([ckpt_flat_log_probs, cur_log], axis=0)
+                else:
+                    save_flat, save_log = cur_flat, cur_log
+                tmp_file = CHECKPOINT_FILE + '.tmp.npy'
+                np.save(tmp_file, {
+                    'steps_done': steps_done, 'n_walkers': N_WALKERS, 'ndim': NDIM,
+                    'flat_samples': save_flat, 'flat_log_probs': save_log,
+                    'last_state': state,
+                })
+                if os.path.exists(CHECKPOINT_FILE):
+                    os.remove(CHECKPOINT_FILE)
+                os.rename(tmp_file, CHECKPOINT_FILE)
+            except Exception as _ckpt_err:
+                print(f'\n  [checkpoint warn] {_ckpt_err}')
 
-    accept_burn = np.mean(sampler.acceptance_fraction)
-    print(f"  Mean acceptance fraction (burn-in): {accept_burn:.3f}")
-
-    sampler.reset()
-
-    # Production
-    print(f"\n  Running production ({N_STEPS} steps)...")
-    t0 = time.time()
-    sampler.run_mcmc(state, N_STEPS, progress=True)
     dt_prod = time.time() - t0
-    print(f"  Production done in {dt_prod:.0f}s ({N_STEPS * N_WALKERS / dt_prod:.1f} evals/s)")
+    print(f"  Production done in {dt_prod:.0f}s ({steps_remaining * N_WALKERS / dt_prod:.1f} evals/s)")
 
     pool.close()
     pool.join()
@@ -321,12 +380,18 @@ def run_mcmc():
         print(f"  Autocorrelation: could not estimate ({e})")
         tau = None
 
-    # -- Extract samples --
-    flat_samples = sampler.get_chain(flat=True)
+    # -- Extract samples (combine pre-checkpoint + new) --
+    new_flat = sampler.get_chain(flat=True)
+    new_log  = sampler.get_log_prob(flat=True)
+    if ckpt_flat_samples is not None:
+        flat_samples = np.concatenate([ckpt_flat_samples, new_flat], axis=0)
+        log_probs    = np.concatenate([ckpt_flat_log_probs, new_log], axis=0)
+    else:
+        flat_samples = new_flat
+        log_probs    = new_log
     print(f"\n  Total samples: {flat_samples.shape[0]}")
 
     # Compute physical parameters + chi2 for summary
-    log_probs = sampler.get_log_prob(flat=True)
     best_idx = np.argmax(log_probs)
     best_theta = flat_samples[best_idx]
     best_chi2 = -2.0 * log_probs[best_idx]
@@ -498,6 +563,10 @@ def run_mcmc():
     print(f"  Best chi2/dof: {best_chi2/(N_DATA-NDIM):.4f}")
     print(f"  Files: v38_corner.png, v38_mcmc_chains.png, v38_lambda_posterior.png")
     print(f"{'='*72}")
+
+    # Clean up checkpoint on successful completion
+    if os.path.exists(CHECKPOINT_FILE):
+        os.remove(CHECKPOINT_FILE)
 
 
 if __name__ == "__main__":

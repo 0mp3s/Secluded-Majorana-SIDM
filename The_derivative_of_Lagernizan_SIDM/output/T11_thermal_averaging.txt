@@ -1,0 +1,59 @@
+
+╔═══════════════════════════════════════════════════════════════════╗
+║  T11: THERMAL AVERAGING — Does Majorana signal survive ⟨·⟩_MB? ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+  Halo types: ['dwarf', 'LSB', 'MW-size', 'group', 'cluster']
+  v₀ values:  [30.0, 70.0, 200.0, 500.0, 1200.0] km/s
+  Benchmarks: ['BP1', 'BP9', 'BP16', 'MAP']
+
+  ── BP1 (m_χ=54.556 GeV, m_φ=12.975 MeV, α=2.6450e-03) ──
+       dwarf (v₀=    30 km/s): R_single=1.006, ⟨R⟩_MB=1.045, wash=+3.9%  ~
+         LSB (v₀=    70 km/s): R_single=1.379, ⟨R⟩_MB=1.408, wash=+2.1%  ✓
+     MW-size (v₀=   200 km/s): R_single=2.066, ⟨R⟩_MB=1.936, wash=-6.3%  ✓
+       group (v₀=   500 km/s): R_single=2.043, ⟨R⟩_MB=2.029, wash=-0.7%  ✓
+     cluster (v₀=  1200 km/s): R_single=2.003, ⟨R⟩_MB=2.016, wash=+0.6%  ✓
+
+  ── BP9 (m_χ=48.329 GeV, m_φ=8.657 MeV, α=2.3500e-03) ──
+       dwarf (v₀=    30 km/s): R_single=1.051, ⟨R⟩_MB=1.137, wash=+8.2%  ✓
+         LSB (v₀=    70 km/s): R_single=1.712, ⟨R⟩_MB=1.639, wash=-4.2%  ✓
+     MW-size (v₀=   200 km/s): R_single=2.098, ⟨R⟩_MB=2.020, wash=-3.7%  ✓
+       group (v₀=   500 km/s): R_single=2.030, ⟨R⟩_MB=2.036, wash=+0.3%  ✓
+     cluster (v₀=  1200 km/s): R_single=2.002, ⟨R⟩_MB=2.015, wash=+0.7%  ✓
+
+  ── BP16 (m_χ=14.384 GeV, m_φ=5.047 MeV, α=7.5550e-04) ──
+       dwarf (v₀=    30 km/s): R_single=1.000, ⟨R⟩_MB=1.001, wash=+0.1%  ~
+         LSB (v₀=    70 km/s): R_single=1.020, ⟨R⟩_MB=1.049, wash=+2.9%  ~
+     MW-size (v₀=   200 km/s): R_single=1.415, ⟨R⟩_MB=1.341, wash=-5.2%  ✓
+       group (v₀=   500 km/s): R_single=1.780, ⟨R⟩_MB=1.633, wash=-8.3%  ✓
+     cluster (v₀=  1200 km/s): R_single=1.927, ⟨R⟩_MB=1.808, wash=-6.2%  ✓
+
+  ── MAP (m_χ=98.190 GeV, m_φ=9.660 MeV, α=3.2740e-03) ──
+       dwarf (v₀=    30 km/s): R_single=1.811, ⟨R⟩_MB=1.736, wash=-4.1%  ✓
+         LSB (v₀=    70 km/s): R_single=2.138, ⟨R⟩_MB=2.028, wash=-5.1%  ✓
+     MW-size (v₀=   200 km/s): R_single=1.963, ⟨R⟩_MB=1.984, wash=+1.1%  ✓
+       group (v₀=   500 km/s): R_single=1.991, ⟨R⟩_MB=1.988, wash=-0.2%  ✓
+     cluster (v₀=  1200 km/s): R_single=2.001, ⟨R⟩_MB=1.997, wash=-0.2%  ✓
+
+======================================================================
+  T11 SUMMARY: THERMAL AVERAGING
+======================================================================
+
+  ⟨R⟩_MB range: [1.001, 2.036]
+  ⟨R⟩_MB mean:  1.692
+  ⟨R⟩_MB > 1.05 (5% effect): 17/20 measurements
+  ⟨R⟩_MB > 1.10 (10% effect): 17/20 measurements
+  ⟨R⟩_MB > 1.50 (50% effect): 14/20 measurements
+
+  ► CONCLUSION: Majorana signal PARTIALLY survives.
+    Mean ⟨R⟩_MB > 1.10 but washed out at some velocities.
+
+  Breakdown by halo type:
+       dwarf: ⟨R⟩_MB=1.230, mean washout=+2.0%
+         LSB: ⟨R⟩_MB=1.531, mean washout=-1.1%
+     MW-size: ⟨R⟩_MB=1.820, mean washout=-3.5%
+       group: ⟨R⟩_MB=1.922, mean washout=-2.2%
+     cluster: ⟨R⟩_MB=1.959, mean washout=-1.3%
+======================================================================
+
+Output: C:\Users\omerp\source\omer_mind\Secluded-Majorana-SIDM\The_derivative_of_Lagernizan_SIDM\data\archive\T11_thermal_averaging_2026_03_27_r034.csv

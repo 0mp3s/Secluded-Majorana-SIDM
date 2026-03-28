@@ -1,0 +1,7 @@
+order,stage,script,depends_on,reads,writes,description_he
+1,Config + Constants,lagrangian_path_integral.py,—,data/config.json + global_config.json,—,טעינת פרמטרים מ-GC ומ-config מקומי — אין ערכים מקודדים קשיח
+2,Propagators (Layer 1),lagrangian_path_integral.py,1,GC.physical_constants(),console,אינטגרציה גאוסית: חילוץ מפיצים חופשיים Δ_F ו-S_F מתוך Z₀
+3,Born + VPM (Layers 2-3),lagrangian_path_integral.py,2,GC.benchmark() + GC.sidm_cuts(),console + figure panels 1-3,עץ (Born) ונון-פרטורבטיבי (VPM) — דטרמיננט הפלוקטואציות
+4,CW + Thermal (Layers 4-5),lagrangian_path_integral.py,3,config.renormalization + config.grids,console + figure panels 4-5,פוטנציאל אפקטיבי: קולמן-ויינברג (T=0) + מטסובארה (T>0)
+5,Instanton + Relic (Layers 6-7),lagrangian_path_integral.py,4,config.dark_sector + v27_boltzmann,console + figure panel 6,מנהור אוקלידי S_E + צפיפות שריד Ωh² מבולצמן
+6,Output + Log,lagrangian_path_integral.py,5,RunLogger + timestamped_path,data/archive/PI_summary_*.csv + output/*.png + docs/runs_log.csv,כתיבת CSV סיכום + 6-panel figure + רישום ריצה ב-RunLogger
