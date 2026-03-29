@@ -1,0 +1,86 @@
+﻿==============================================================================================================
+  17 BPs ΓÇö FULL BOLTZMANN (RK4) vs KOLB-TURNER ANALYTIC
+  ╬╕-decomposition: ╬▒_s = (8/9)╬▒,   Γƒ¿╧âvΓƒ⌐ = ╧Ç╬▒_s┬▓/(4m┬▓)
+==============================================================================================================
+
+  BP     m_╧ç(GeV)  m_╧å(MeV)           ╬▒         ╬▒_s  ╬⌐h┬▓_orig    ╬⌐h┬▓_KT  ╬⌐h┬▓_Boltz  KT/Boltz   x_fo  pass?
+  ------------------------------------------------------------------------------------------------------------
+  BP1     20.6914   11.3379  1.0484e-03  9.3192e-04  0.120001    0.1206     0.1498    0.8053   20.6      Γ¥î
+  BP2     29.7635   12.9753  1.4732e-03  1.3095e-03  0.120011    0.1269     0.1499    0.8467   20.9      Γ¥î
+  BP3     16.2378    9.9071  8.4140e-04  7.4791e-04  0.120008    0.1161     0.1497    0.7759   20.4      Γ¥î
+  BP4     23.3572   11.3379  1.1728e-03  1.0425e-03  0.120009    0.1230     0.1498    0.8208   20.7      Γ¥î
+  BP5     33.5982   12.9753  1.6538e-03  1.4700e-03  0.120002    0.1286     0.1500    0.8575   21.0      Γ¥î
+  BP6     12.7427    8.6569  6.7963e-04  6.0411e-04  0.119997    0.1108     0.1496    0.7409   20.3      Γ¥î
+  BP7     18.3298    9.9071  9.3858e-04  8.3429e-04  0.120005    0.1184     0.1497    0.7904   20.5      Γ¥î
+  BP8     26.3665   11.3379  1.3138e-03  1.1678e-03  0.120001    0.1251     0.1499    0.8345   20.8      Γ¥î
+  BP9     37.9269   12.9753  1.8579e-03  1.6514e-03  0.120003    0.1301     0.1500    0.8671   21.1      Γ¥î
+  BP10    88.5867   14.8492  4.2621e-03  3.7885e-03  0.119994    0.1367     0.1501    0.9103   21.9      Γ¥î
+  BP11   100.0000   14.8492  4.8059e-03  4.2719e-03  0.119996    0.1373     0.1501    0.9141   22.0      Γ¥î
+  BP12    10.0000    7.5645  5.5383e-04  4.9229e-04  0.120011    0.1041     0.1494    0.6964   20.1      Γ¥î
+  BP13    78.4760   14.8492  3.7808e-03  3.3607e-03  0.119995    0.1360     0.1501    0.9061   21.8      Γ¥î
+  BP14    14.3845    8.6569  7.5551e-04  6.7157e-04  0.119998    0.1136     0.1496    0.7594   20.4      Γ¥î
+  BP15    42.8133   12.9753  2.0887e-03  1.8566e-03  0.120005    0.1314     0.1500    0.8757   21.2      Γ¥î
+  BP16    20.6914    9.9071  1.0484e-03  9.3192e-04  0.120001    0.1206     0.1498    0.8053   20.6      Γ¥î
+  BP17    29.7635   11.3379  1.4732e-03  1.3095e-03  0.120011    0.1269     0.1499    0.8467   20.9      Γ¥î
+
+==============================================================================================================
+  SUMMARY
+==============================================================================================================
+
+  KT / Boltzmann ratio (systematic bias):
+    Mean:   0.8267
+    Median: 0.8345
+    Std:    0.0597
+    Min:    0.6964
+    Max:    0.9141
+
+  ΓåÆ KT UNDERESTIMATES ╬⌐h┬▓ by ~17.3% on average
+
+  BPs passing ╬⌐h┬▓ = 0.120 ┬▒ 20%:
+    KT analytic:       17/17
+    Full Boltzmann:    0/17
+
+  BPs that CHANGED status (KT ΓåÆ Boltzmann):
+    BP1: pass ΓåÆ fail  (KT=0.1206, Boltz=0.1498)
+    BP2: pass ΓåÆ fail  (KT=0.1269, Boltz=0.1499)
+    BP3: pass ΓåÆ fail  (KT=0.1161, Boltz=0.1497)
+    BP4: pass ΓåÆ fail  (KT=0.1230, Boltz=0.1498)
+    BP5: pass ΓåÆ fail  (KT=0.1286, Boltz=0.1500)
+    BP6: pass ΓåÆ fail  (KT=0.1108, Boltz=0.1496)
+    BP7: pass ΓåÆ fail  (KT=0.1184, Boltz=0.1497)
+    BP8: pass ΓåÆ fail  (KT=0.1251, Boltz=0.1499)
+    BP9: pass ΓåÆ fail  (KT=0.1301, Boltz=0.1500)
+    BP10: pass ΓåÆ fail  (KT=0.1367, Boltz=0.1501)
+    BP11: pass ΓåÆ fail  (KT=0.1373, Boltz=0.1501)
+    BP12: pass ΓåÆ fail  (KT=0.1041, Boltz=0.1494)
+    BP13: pass ΓåÆ fail  (KT=0.1360, Boltz=0.1501)
+    BP14: pass ΓåÆ fail  (KT=0.1136, Boltz=0.1496)
+    BP15: pass ΓåÆ fail  (KT=0.1314, Boltz=0.1500)
+    BP16: pass ΓåÆ fail  (KT=0.1206, Boltz=0.1498)
+    BP17: pass ΓåÆ fail  (KT=0.1269, Boltz=0.1499)
+
+  Expected ╬⌐h┬▓ increase from ╬╕-decomposition:
+    Γƒ¿╧âvΓƒ⌐_s = (8/9)┬▓ ├ù Γƒ¿╧âvΓƒ⌐_orig = (64/81) Γƒ¿╧âvΓƒ⌐_orig
+    ╬⌐h┬▓_new / ╬⌐h┬▓_orig Γëê 81/64 = 1.2656
+
+  Actual ╬⌐h┬▓ increase (Boltzmann):
+    Mean factor: 1.2488  (expected: 1.2656)
+    Range: [1.2450, 1.2513]
+
+  INTERPRETATION:
+  The ╬╕-decomposition increases ╬⌐h┬▓ by ~25%.
+  From ╬⌐h┬▓ Γëê 0.120, this gives ╬⌐h┬▓ Γëê 0.150.
+  This means the ORIGINAL ╬▒ was tuned to give ╬⌐h┬▓=0.120,
+  but after ╬╕-decomposition the relic is OVERPRODUCED.
+
+  To restore ╬⌐h┬▓=0.120 with ╬╕-decomposition:
+  Need to re-tune ╬▒ (or equivalently, find new BPs where
+  the ORIGINAL scan used ╬▒_s = (8/9)╬▒ in the Boltzmann equation).
+
+  The key question: do any of these 17 BPs STILL pass both
+  SIDM (with ╬▒_s) AND relic (with the FULL ╬▒ in annihilation)?
+
+  ALTERNATIVE: If ╧ç╧çΓåÆ╧å╧å uses FULL ╬▒ (not decomposed):
+    Relic: Γƒ¿╧âvΓƒ⌐ = ╧Ç╬▒┬▓/(4m┬▓) ΓåÆ ╬⌐h┬▓ = 0.120 (unchanged)
+    SIDM:  ╬▒_s = (8/9)╬▒       ΓåÆ ╧â/m drops (from consistency_17bp.py)
+    This scenario: relic OK, SIDM reduced but 10/17 still pass

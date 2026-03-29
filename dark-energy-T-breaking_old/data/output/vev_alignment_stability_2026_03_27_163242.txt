@@ -1,0 +1,14 @@
+=== Test 17 — VEV Alignment Stability ===
+Script : vev_alignment_stability.py
+Started: 2026-03-27 16:32:43
+Elapsed: 0.06s
+Exit   : 1
+============================================================
+
+
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "C:\Users\omerp\source\omer_mind\dark-energy-T-breaking\vev_alignment_stability.py", line 41, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'

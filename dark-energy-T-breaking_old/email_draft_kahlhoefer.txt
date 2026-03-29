@@ -1,0 +1,28 @@
+Subject: Independent work building on your spin-0 mediator SIDM framework (1704.02149)
+
+Dear Professor Kahlhoefer,
+
+I hope this email finds you well. My name is Omer Pesach, and I am writing to bring to your attention independent work that builds directly on the framework established in your paper "Dark matter self-interactions from a general spin-0 mediator" (Kahlhoefer, Schmidt-Hoberg & Wild, JCAP08(2017)003, arXiv:1704.02149).
+
+Your paper identified the key features of the secluded Majorana SIDM model with mixed scalar–pseudoscalar couplings (y_s + i y_p γ₅), including the importance of CP violation for s-wave annihilation and the severe constraints from direct detection that force the model into the secluded regime. I have taken this framework significantly further in two directions:
+
+**Paper 1 — Full numerical SIDM scan:**
+I implemented the full Variable Phase Method (VPM) for identical Majorana fermions with the proper spin-statistical weights (w_even=1, w_odd=3) and performed a 2.8-million-point scan over (m_χ, m_φ, α_s). The result: 80,142 viable points satisfying all 13 astrophysical SIDM constraints simultaneously, narrowed to 17 relic-constrained benchmarks with Ω_χh² = 0.120. A distinctive Majorana fingerprint emerges: σ_T^Maj/σ_T^Dir = 2.2 at v ≈ 60 km/s, with triplet-channel dominance at 82%. Code and data are published on Zenodo (DOI: 10.5281/zenodo.19225823).
+
+**Paper 2 — Dark energy from the same Lagrangian (attached summary):**
+I promote the CP phase to a dynamical dark axion σ, where σ is identified as a dark pion from SU(2)_d confinement with potential V(σ) = Λ_d⁴(1 − cos(σ/f)). The dark QCD confinement scale Λ_d ≈ 2 meV emerges naturally from dimensional transmutation with α_d ≈ 0.03 at μ = m_χ — producing the dark energy scale without fine-tuning the 10¹²² hierarchy.
+
+The key result: solving a coupled σ–Friedmann ODE from reheating to today, H₀ emerges as output (not input) of the Lagrangian. Including the leading multi-instanton correction V(θ) = Λ_d⁴[(1-cosθ) + ε(1-cos2θ)] with ε ≈ -0.10 (natural for SU(2)_d), the model matches DESI DR2 (arXiv:2503.14738) at the 1.1–1.4σ level across all seven BAO redshift bins. The CPL parameters are w₀ ≈ -0.73 and w_a ≈ -0.49. Dark energy in this model is transient — it dies when σ oscillates to V = 0.
+
+I attach a 4-page PDF summarizing the dark-energy extension. I would greatly appreciate any comments, criticism, or suggestions you might have, particularly regarding:
+1. The connection between the SIDM Yukawa coupling α_D and the dark gauge coupling α_d
+2. Whether the SU(2)_d dark QCD structure is consistent with your constraints on the mediator sector
+3. Any experimental signatures I may have overlooked
+
+I am also happy to share the full code repository if that would be useful.
+
+Thank you very much for your time and for the foundational work that made this possible.
+
+Best regards,
+Omer Pesach
+ORCID: 0009-0004-8178-8131

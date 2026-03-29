@@ -1,0 +1,9 @@
+system,v_infall_km_s,v_infall_err,sigma_m_upper_cm2_g,method,z,ref
+Bullet_Cluster,4700,500,0.7,DM-galaxy_offset,0.296,Markevitch+2004
+Abell_520,2300,500,1.0,DM-galaxy_offset,0.199,Clowe+2012
+MACS_J0025,3000,600,4.0,DM-galaxy_offset,0.586,Bradac+2008
+Abell_2744,3500,400,1.5,DM-galaxy_offset,0.308,Merten+2011
+Abell_3827,1500,300,1.5,DM-galaxy_offset,0.099,Massey+2015
+DLSCL_J0916,3000,600,2.0,DM-galaxy_offset,0.535,Dawson+2012
+Musket_Ball,1050,150,7.0,DM-galaxy_offset,0.530,Dawson+2012
+Harvey15_combined,1000,500,0.47,stacked_72_clusters,0.1-0.6,Harvey+2015

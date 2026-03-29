@@ -1,0 +1,19 @@
+﻿=================================================================
+python : Traceback (most recent call last):
+At line:1 char:1
++ python dark_force_accumulation.py 2>&1 | Out-File -FilePath "archived ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last) 
+   ::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\Users\omerp\source\omer_mind\dark-energy-T-breaking\dark_force_accum
+ulation.py", line 28, in <module>
+    print("  DARK FORCE ACCUMULATION: \u03c6 and \u03c3 vs \u03c1_\u039b")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\omerp\AppData\Local\Python\pythoncore-3.14-64\Lib\encodings\cp
+1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u03c6' in 
+position 27: character maps to <undefined>

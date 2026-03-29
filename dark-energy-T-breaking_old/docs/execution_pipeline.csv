@@ -1,0 +1,23 @@
+Order,Test,Description,Script,Reads,Writes,Theory Section
+1,Test 1,Radiative Stability of σ,sigma_radiative_stability.py,none,console,§2.1 Coupling structure
+2,Test 2,Full V_eff(σ) — EM duality,dark_axion_full.py,none,console,§2.2 Potential + §3.1 Duality
+3,Test 3,Fifth Force Constraints,fifth_force_constraints.py,none,console,§2.3 Screening
+4,Test 4,Freeze-out Trapping ODE,freeze_out_analysis_corrected.py,none,console,§2.4 Dynamics
+5,Test 5,θ as Topological Parameter,theta_topological.py,none,console,§3.2 A4 geometry
+6,Test 6,SIDM Consistency (5 BPs),consistency_check_sidm.py,Secluded-Majorana-SIDM/data/sweep_17bp_results.csv,console,§4.1 SIDM window
+7,Test 8,Free θ Scan (17 BPs),free_theta_scan.py,Secluded-Majorana-SIDM/data/sweep_17bp_results.csv,console,§4.2 θ freedom
+8,Test 9b,A4 Dark Sector Model,a4_dark_sector_model.py,none,console,§3.3 A4 model
+9,Verify 1,A4 CG Verification,verify_a4_cg.py,none,console,§3.3 verify
+10,Verify 2,Boltzmann 17 BPs,boltzmann_17bp.py,Secluded-Majorana-SIDM/data/sweep_17bp_results.csv,console,§4.1 verify
+11,Verify 3,σ Trapping ODE,sigma_trapping_ode.py,none,console,§2.4 verify
+12,Test 11,Fornax GC Constraint,fornax_gc_check.py,Secluded-Majorana-SIDM/data/sweep_17bp_results.csv,console,§4.3 Fornax
+13,Test 12,α Convention Correction,test_alpha_convention.py,Secluded-Majorana-SIDM/data/sweep_17bp_results.csv,console,§4.1 convention
+14,Test 13A,Dark Force Accumulation,dark_force_accumulation.py,none,console,§5.1 DE mechanism
+15,Test 13D,σ Mass Protection,sigma_mass_protection.py,none,console,§5.2 Dark QCD
+16,Test 14,Dark QCD Consistency,dark_qcd_consistency.py,none,console,§5.3 Dark QCD checks
+17,Test 15,Born Full Amplitude,born_full_amplitude.py,none,console,§4.2 Born vs VPM
+18,Test 16,Neutrino Dark Resonance,neutrino_dark_resonance.py,none,console,§3.4 Neutrino link
+19,Test 17,VEV Alignment Stability,vev_alignment_stability.py,none,console,§3.3 VEV stability
+20,Test 18,SIDM Velocity Cross Section,sidm_velocity_cross_section.py,none,console,§4.1 σ(v)
+21,Test 19,QCD Scale Coincidence,qcd_scale_coincidence.py,none,console,§5.4 QCD coincidence
+22,Test 20,Portal Coupling for T_D,test20_portal_coupling.py,none,console,�6.1 Portal coupling

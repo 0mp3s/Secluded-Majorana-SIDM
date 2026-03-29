@@ -1,0 +1,876 @@
+% ============================================================
+%  Secluded Majorana SIDM — Comprehensive Theory Document
+%  Auto-generated from codebase + arxiv/main.tex
+%  Omer Pesach — March 2026
+% ============================================================
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{siunitx}
+\geometry{margin=2.5cm}
+
+% Convenience macros (from arxiv/main.tex)
+\newcommand{\sigmam}{\sigma/m}
+\newcommand{\GeV}{\,\text{GeV}}
+\newcommand{\MeV}{\,\text{MeV}}
+\newcommand{\kms}{\,\text{km/s}}
+\newcommand{\cmg}{\,\text{cm}^2/\text{g}}
+\newcommand{\mchi}{m_\chi}
+\newcommand{\mphi}{m_\phi}
+\newcommand{\vrel}{v_{\rm rel}}
+\newcommand{\OmH}{\Omega h^2}
+\newcommand{\lam}{\lambda}
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  breaklines=true,
+  frame=single,
+  columns=fullflexible
+}
+
+\title{\textbf{Secluded Majorana SIDM} \\[6pt]
+  \Large Comprehensive Theory \& Code Reference}
+\author{Omer Pesach}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{The Full Lagrangian}
+\label{sec:lagrangian}
+% Source: The_derivative_of_Lagernizan_SIDM/lagrangian_derivation.md
+% Source: arxiv/main.tex Eq.(1)
+% ============================================================
+
+\subsection{Field Content}
+
+\begin{center}
+\begin{tabular}{llccl}
+\toprule
+Field & Symbol & Type & Spin & Role \\
+\midrule
+Dark matter & $\chi$ & Majorana fermion & $\tfrac{1}{2}$ & DM candidate ($\chi = \chi^c$) \\
+Mediator & $\phi$ & Real scalar & $0$ & Self-interaction mediator ($\phi = \phi^\dagger$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The dark sector is \textbf{secluded}: no tree-level coupling to the Standard Model.
+
+\subsection{Full Lagrangian}
+
+\begin{equation}\label{eq:full_lagrangian}
+\boxed{
+  \mathcal{L}
+  = \underbrace{\tfrac{1}{2}\bar\chi(i\!\not\!\partial - \mchi)\chi}_{\mathcal{L}_\chi}
+  + \underbrace{\tfrac{1}{2}(\partial\phi)^2
+    - \tfrac{1}{2}\mphi^2\phi^2
+    - \tfrac{\mu_3}{3!}\phi^3
+    - \tfrac{\lambda_\phi}{4!}\phi^4}_{\mathcal{L}_\phi}
+  - \underbrace{\tfrac{1}{2}\bar\chi\bigl(y_s + i\,y_p\,\gamma_5\bigr)\chi\,\phi}_{\mathcal{L}_{\rm int}}
+}
+\end{equation}
+
+\subsubsection{Fermion sector $\mathcal{L}_\chi$}
+
+\begin{equation}
+  \mathcal{L}_\chi = \frac{1}{2}\bar\chi(i\gamma^\mu\partial_\mu - \mchi)\chi
+\end{equation}
+
+The factor $\tfrac{1}{2}$ is the Majorana normalization (prevents double-counting of degrees of freedom).  Majorana condition: $\chi = \chi^c$ (identical to its own antiparticle), yielding $g_\chi = 2$ internal degrees of freedom.
+
+\subsubsection{Scalar sector $\mathcal{L}_\phi$}
+
+\begin{equation}
+  \mathcal{L}_\phi
+  = \frac{1}{2}\partial_\mu\phi\,\partial^\mu\phi
+  - \frac{1}{2}\mphi^2\phi^2
+  - \frac{\mu_3}{3!}\phi^3
+  - \frac{\lambda_\phi}{4!}\phi^4
+\end{equation}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Term & Physical meaning \\
+\midrule
+$\tfrac{1}{2}(\partial\phi)^2$ & Kinetic energy \\
+$-\tfrac{1}{2}\mphi^2\phi^2$ & Mediator mass \\
+$-\tfrac{\mu_3}{3!}\phi^3$ & Cubic coupling $\to$ cannibal $3\phi\to 2\phi$ \\
+$-\tfrac{\lambda_\phi}{4!}\phi^4$ & Quartic self-coupling \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Yukawa interaction $\mathcal{L}_{\rm int}$}
+% Paper Eq.~(1)
+
+\begin{equation}\label{eq:lagrangian_int}
+  \mathcal{L}_{\rm int}
+  = -\frac{1}{2}\bar\chi\bigl(y_s + i\,y_p\,\gamma_5\bigr)\chi\,\phi
+  \tag{Paper Eq.~1}
+\end{equation}
+
+\begin{itemize}
+  \item $y_s$: scalar Yukawa coupling $\;\to\; \alpha_s = y_s^2/(4\pi)$
+  \item $y_p$: pseudoscalar Yukawa coupling $\;\to\; \alpha_p = y_p^2/(4\pi)$
+  \item Both are required: pure scalar ($y_p=0$) gives $p$-wave--suppressed annihilation.
+    Simultaneous $y_s\neq 0$ and $y_p\neq 0$ breaks CP in the dark sector and restores $s$-wave.
+  \item The factor $\tfrac{1}{2}$ is again the Majorana normalization.
+\end{itemize}
+
+\subsubsection{Pure-scalar limit (used in most code)}
+
+For self-interaction calculations, $y_p$ contributes only a $(\mphi/\mchi)^2 \sim 10^{-7}$ correction to the potential and is neglected.  The effective Lagrangian used by the VPM solver is:
+\begin{equation}
+  \mathcal{L}_{\rm int}^{\rm eff} = -\frac{y}{2}\bar\chi\chi\,\phi
+  \qquad\text{with}\quad \alpha \equiv \frac{y^2}{4\pi} = \alpha_s
+\end{equation}
+
+
+% ============================================================
+\section{Key Formulas from the Paper}
+\label{sec:formulas}
+% ============================================================
+
+\subsection{Yukawa Potential}
+% Paper Eq.~(2)
+
+In the non-relativistic limit, $t$-channel $\phi$ exchange generates:
+\begin{equation}\label{eq:yukawa}
+  \boxed{V(r) = -\frac{\alpha_s}{r}\,e^{-\mphi r}}
+  \tag{Paper Eq.~2}
+\end{equation}
+
+Derivation: Fourier transform of the Born amplitude $\mathcal{M}\sim y^2/(|\mathbf{q}|^2 + \mphi^2)$:
+\begin{equation}
+  V(r) = -\int\frac{d^3\mathbf{q}}{(2\pi)^3}\,\frac{y^2}{|\mathbf{q}|^2+\mphi^2}\,e^{i\mathbf{q}\cdot\mathbf{r}}
+       = -\frac{y^2}{4\pi}\frac{e^{-\mphi r}}{r}
+       = -\frac{\alpha_s\,e^{-\mphi r}}{r}
+\end{equation}
+
+Note: The pseudoscalar contribution to the potential is velocity-suppressed by $(\mphi/\mchi)^2 \sim 10^{-7}$ and is negligible.
+
+\subsection{Variable Phase Method (VPM) ODE}
+% Paper Eq.~(3)
+
+\begin{equation}\label{eq:vpm_ode}
+  \boxed{
+  \frac{d\delta_\ell}{dx}
+  = +\frac{\lam\,e^{-x}}{\kappa\,x}
+    \bigl[\hat\jmath_\ell(\kappa x)\cos\delta_\ell
+          -\hat n_\ell(\kappa x)\sin\delta_\ell\bigr]^{2}
+  }
+  \tag{Paper Eq.~3}
+\end{equation}
+
+Positive sign = attractive potential.  Dimensionless variables:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Symbol & Definition & Description \\
+\midrule
+$x$ & $\mphi\,r$ & Dimensionless radial coordinate \\
+$\kappa$ & $k/\mphi = \mu\vrel/\mphi$ & Dimensionless momentum ($\mu = \mchi/2$) \\
+$\lam$ & $\alpha_s\,\mchi/\mphi$ & Dimensionless coupling strength \\
+$\hat\jmath_\ell(z)$ & $z\,j_\ell(z)$ & Riccati--Bessel function (1st kind) \\
+$\hat n_\ell(z)$ & $-z\,y_\ell(z)$ & Riccati--Bessel function (2nd kind) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Boundary condition: $\delta_\ell(x_{\rm min}) = 0$.\\
+Integration: RK4, $x_{\rm min}$ to $x_{\rm max} = 50$--$100$, step count $4000$--$12000$ (adaptive).
+
+\subsection{Transfer Cross Section for Identical Majorana Fermions}
+% Paper Eq.~(4)
+
+\begin{equation}\label{eq:sigma_T}
+  \boxed{
+  \sigma_T = \frac{2\pi}{k^{2}}\biggl[
+    \sum_{\ell\;\text{even}}(2\ell+1)\sin^{2}\delta_\ell
+    + 3\sum_{\ell\;\text{odd}}(2\ell+1)\sin^{2}\delta_\ell
+  \biggr]
+  }
+  \tag{Paper Eq.~4}
+\end{equation}
+
+\textbf{Spin-statistics derivation:}
+\begin{enumerate}
+  \item $\chi$ is Majorana $\to$ identical fermions $\to$ total wave function antisymmetric.
+  \item Spin-$\tfrac{1}{2}\otimes\tfrac{1}{2}$: singlet (symmetric, weight 1) $+$ triplet (antisymmetric, weight 3).
+  \item Singlet $\times$ spatial antisymmetric $\to$ even $\ell$, weight $w_\ell = 1$.
+  \item Triplet $\times$ spatial symmetric $\to$ odd $\ell$, weight $w_\ell = 3$.
+  \item Factor $2\pi/k^2$ (not $4\pi/k^2$) includes the $\tfrac{1}{2}$ for identical-particle scattering.
+\end{enumerate}
+
+\textbf{Key identity:} $\sigma_T^{\rm tr} \equiv \sigma_{\rm el}$ exactly for identical Majorana fermions (verified to $10^{-12}$).
+
+\subsection{Observable: $\sigma/m$}
+% From core/README.md
+
+\begin{equation}\label{eq:sigma_over_m}
+  \frac{\sigma_T}{\mchi}\;\bigg[\frac{\text{cm}^2}{\text{g}}\bigg]
+  = \frac{\sigma_T\;[\text{GeV}^{-2}] \times 3.894\times 10^{-28}\;\text{cm}^2/\text{GeV}^{-2}}
+         {\mchi\;[\text{GeV}] \times 1.783\times 10^{-24}\;\text{g}/\text{GeV}}
+\end{equation}
+
+\subsection{Born Approximation}
+% From lagrangian_derivation.md §4
+
+In the weak-coupling limit $\lam = \alpha_s\mchi/\mphi \ll 1$:
+\begin{equation}
+  \sigma_T^{\rm Born} \approx \frac{2\pi}{k^2}\sin^2\delta_0^{\rm Born}
+\end{equation}
+VPM agrees with the Born formula to $<0.1\%$ in this regime.
+
+Three scattering regimes:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Regime & Condition & Behavior \\
+\midrule
+Born & $\lam\ll 1$ & Only $\ell=0$; $\sigma_T \approx \sigma_{\rm Born}$ \\
+Resonant & $\lam\sim 1$--$30$ & Quasi-bound states enhance $\sigma_T$ \\
+Classical & $\lam\gg 1$ & $\sigma_T \propto (\ln\lam)^2/v^2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Majorana vs.\ Dirac Spin Weights}
+% Paper §5.6, Eq.~(9)
+
+For \textbf{Majorana} (identical particles): $w_\ell^{\rm even} = 1$, $w_\ell^{\rm odd} = 3$, prefactor $2\pi/k^2$.
+
+For \textbf{Dirac} (distinguishable particles): $w_\ell = 1$ for all $\ell$, prefactor $4\pi/k^2$.
+
+\textbf{Triplet fraction} (Paper Eq.~9):
+\begin{equation}\label{eq:Rtriplet}
+  R_{\rm triplet}(v) \equiv
+  \frac{3\sum_{\ell\;\text{odd}}(2\ell+1)\sin^2\delta_\ell}
+       {\sigma_T^{\rm Maj}\,k^2/(2\pi)}
+  \tag{Paper Eq.~9}
+\end{equation}
+
+Peaks at 82\% near $v\approx 60\kms$; produces $\sigma_T^{\rm Maj}/\sigma_T^{\rm Dir} = 2.2$ at rotation-curve scales.
+
+\subsection{Sommerfeld Enhancement}
+% Paper §6.5
+
+Coulomb Sommerfeld factor ($\ell=0$):
+\begin{equation}
+  S_0 = \frac{2\pi\eta}{1 - e^{-2\pi\eta}}
+  \qquad\text{with}\quad \eta = \frac{\alpha_s}{2v}
+\end{equation}
+
+Hulth\'en approximation for Yukawa:
+\begin{equation}
+  S = \frac{\pi/\epsilon_v \cdot \sinh(2\pi\epsilon_v/\epsilon_\phi)}
+           {\cosh(2\pi\epsilon_v/\epsilon_\phi) - \cos(2\pi\sqrt{1/\epsilon_\phi - \epsilon_v^2/\epsilon_\phi^2})}
+\end{equation}
+where $\epsilon_v = v/(2\alpha_s)$, $\epsilon_\phi = \mphi/(\alpha_s\mchi)$.
+
+At freeze-out ($x_{\rm fo}\approx 20$): $S_0 < 1.026$ for all benchmarks $\to$ \textbf{negligible correction}.
+
+\subsection{Annihilation Cross Section ($s$-wave)}
+% Paper Eq.~(7)
+
+\begin{equation}\label{eq:sigma_v_ann}
+  \boxed{
+  \langle\sigma v\rangle_0
+  = \frac{y_s^2\,y_p^2}{8\pi\,\mchi^2}
+  = \frac{2\pi\,\alpha_s\,\alpha_p}{\mchi^2}
+  }
+  \tag{Paper Eq.~7}
+\end{equation}
+
+For the \textbf{pure-scalar limit} ($\alpha_s = \alpha_p \equiv \alpha$, i.e.\ $y_s = y_p$):
+\begin{equation}
+  \langle\sigma v\rangle_0 = \frac{\pi\alpha^2}{4\,\mchi^2}
+\end{equation}
+
+\subsection{Boltzmann Equation (Relic Density)}
+% Paper Eq.~(8)
+
+\begin{equation}\label{eq:boltzmann}
+  \boxed{
+  \frac{dY}{dx} = -\sqrt{\frac{\pi}{45}}\,
+  \frac{g_{*S}}{\sqrt{g_*}}\,M_{\rm Pl}\,\mchi\,
+  \frac{\langle\sigma v\rangle_0}{x^{2}}
+  \bigl(Y^{2}-Y_{\rm eq}^{2}\bigr)
+  }
+  \tag{Paper Eq.~8}
+\end{equation}
+
+where $x = \mchi/T$, $Y = n_\chi/s$.
+
+\textbf{Equilibrium yield} (non-relativistic):
+\begin{equation}
+  Y_{\rm eq} = \frac{45}{4\pi^4}\,\frac{g_\chi}{g_{*S}}\,
+  \sqrt{\frac{\pi}{2}}\,x^{3/2}\,e^{-x}
+  \qquad (g_\chi = 2 \text{ for Majorana})
+\end{equation}
+
+\textbf{Relic density}:
+\begin{equation}
+  \OmH = \frac{\mchi\,s_0\,Y_\infty}{\rho_{\rm crit}/h^2}
+\end{equation}
+with $s_0 = 2891.2\;\text{cm}^{-3}$, $\rho_{\rm crit}/h^2 = 1.054\times 10^{-5}\;\text{GeV/cm}^3$.
+
+\subsection{Direct Detection (Higgs Portal)}
+% Paper Eq.~(6)
+
+\begin{equation}\label{eq:sigma_si}
+  \sigma_{\rm SI} = \frac{y^2\sin^2\theta\,f_N^2\,\mu_N^2\,m_N^2}
+                         {\pi\,v_{\rm EW}^2\,\mphi^4}
+  \tag{Paper Eq.~6}
+\end{equation}
+
+Enhancement factor $(m_h/\mphi)^4 \approx 1.5\times 10^{16}$ for $\mphi = 11\MeV$.
+LZ requires $\sin\theta < 6\times 10^{-10}$; BBN requires $\sin\theta > 2\times 10^{-5}$.
+\textbf{Mutually exclusive by $\sim 3\times 10^4$} $\Rightarrow$ secluded model.
+
+\subsection{Cannibal Annihilation}
+% Paper Eq.~(5)
+
+\begin{equation}\label{eq:cannibal}
+  \langle\sigma v^2\rangle_{3\to 2}
+  = \frac{25\sqrt{5}}{512\pi(4\pi)^6}\,\frac{\mu_3^6}{\mphi^{11}}
+  \tag{Paper Eq.~5}
+\end{equation}
+
+Effective for $\mu_3/\mphi \gtrsim 1.7$; depletes $\phi$ population before BBN.
+
+\subsection{Maxwell--Boltzmann Velocity Averaging}
+% Paper Appendix D
+
+\begin{equation}
+  \langle\sigmam\rangle_{\rm MB}
+  = \frac{\int_0^\infty (\sigmam)(v)\,v^3\,e^{-v^2/2v_0^2}\,dv}
+         {\int_0^\infty v^3\,e^{-v^2/2v_0^2}\,dv}
+\end{equation}
+
+where $v_0 = v_{\rm char}/\sqrt{2}$ is the 1D velocity dispersion.
+
+% ============================================================
+\section{Model Parameters Table}
+\label{sec:parameters}
+% Source: arxiv/main.tex Section 2
+% ============================================================
+
+\subsection{Lagrangian Parameters}
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Parameter & Range & Physical meaning & Sector \\
+\midrule
+$\mchi$ & $10$--$100\GeV$ & DM mass & Self-interaction, relic \\
+$\mphi$ & $1$--$50\MeV$ & Mediator mass & Self-interaction \\
+$\alpha_s = y_s^2/(4\pi)$ & $10^{-5}$--$5\times 10^{-2}$ & Scalar dark fine-structure constant & Self-interaction, relic \\
+$\alpha_p = y_p^2/(4\pi)$ & --- (derived from relic) & Pseudoscalar coupling & Relic only \\
+$\mu_3$ & $\gtrsim 1.7\,\mphi$ & Cubic self-coupling & Mediator cosmology only \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Sector decoupling:}
+\begin{enumerate}
+  \item Self-interactions depend only on $(\mchi,\mphi,\alpha_s)$.
+  \item Relic density depends on $\alpha_s\alpha_p$ (one extra constraint).
+  \item Mediator cosmology depends on $\mu_3$ alone.
+  \item No SM-coupling parameters.
+\end{enumerate}
+
+\subsection{Raw Scan Ranges (core/v22\_raw\_scan.py)}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Parameter & Range & Grid points \\
+\midrule
+$\mchi$ & $[0.1, 100]\GeV$ (log-spaced) & $50$ \\
+$\mphi$ & $[0.1, 200]\MeV$ (log-spaced) & $70$ \\
+Resonance bands & $\lam_{\rm crit}\in\{1.68, 6.45, 14.7, 26.0\}$ & $4$ \\
+$\alpha_s$ per band & $\pm 30\%$ log-window around $\lam_{\rm crit}$ & $200$ \\
+\midrule
+Total evaluations & $50\times 70\times 4\times 200$ & $2{,}800{,}000$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{SIDM Selection Criteria}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Cut & Value \\
+\midrule
+$\sigmam(30\kms)$ lower & $\geq 0.5\cmg$ \\
+$\sigmam(30\kms)$ upper & $\leq 10.0\cmg$ \\
+$\sigmam(1000\kms)$ upper & $< 0.47\cmg$ \\
+BBN-safe & $\mphi > 2m_e = 1.022\MeV$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Scan Results}
+
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Quantity & Count \\
+\midrule
+Raw viable samples & 80,142 \\
+BBN-safe & 50,751 \\
+Representative (1/cell) & 646 \\
+BBN-safe representative & 394 \\
+Relic-constrained viable & 17 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Named Benchmark Points}
+
+From \texttt{data/global\_config.json}:
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+Label & $\mchi$ [GeV] & $\mphi$ [MeV] & $\alpha_s$ & $\lam = \alpha_s\mchi/\mphi$ \\
+\midrule
+BP1 & 54.556 & 12.975 & $2.645\times 10^{-3}$ & 11.12 \\
+BP9 & 48.329 & 8.657 & $2.350\times 10^{-3}$ & 13.12 \\
+BP16 & 14.384 & 5.047 & $7.555\times 10^{-4}$ & 2.15 \\
+MAP & 98.19 & 9.66 & $3.274\times 10^{-3}$ & 33.2 \\
+MAP\_relic & 98.19 & 9.66 & $3.274\times 10^{-3}$ & 33.2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Island of Viability}
+
+\begin{equation}
+  \mchi\in [10, 100]\GeV, \quad \mphi\in [7.6, 14.8]\MeV, \quad \lam\in [0.73, 32.4]
+\end{equation}
+
+17 benchmark points with $\OmH = 0.120$ and $\chi^2/\nu < 0.68$ for all 13 astrophysical systems.
+
+% ============================================================
+\section{Variable Dictionary}
+\label{sec:variables}
+% Source: core/README.md, core/global_config.py, data/global_config.json
+% ============================================================
+
+\subsection{Physics Parameters — Code vs.\ Theory}
+
+\begin{longtable}{lllll}
+\toprule
+Code name & Symbol & Units & Value/Range & Description \\
+\midrule
+\endhead
+\texttt{m\_chi\_GeV}, \texttt{m\_chi} & $\mchi$ & GeV & $0.1$--$100$ & DM mass \\
+\texttt{m\_phi\_GeV}, \texttt{m\_phi} & $\mphi$ & GeV & $10^{-4}$--$0.2$ & Mediator mass \\
+\texttt{m\_phi\_MeV} & $\mphi$ & MeV & $0.1$--$200$ & Mediator mass (alt.\ unit) \\
+\texttt{alpha}, \texttt{alpha\_d} & $\alpha_s$ & --- & $10^{-6}$--$5\times10^{-3}$ & Dark fine-structure constant \\
+\texttt{alpha\_p} & $\alpha_p$ & --- & (derived) & Pseudoscalar coupling \\
+\texttt{y}, \texttt{y\_s} & $y_s$ & --- & $\sqrt{4\pi\alpha_s}$ & Scalar Yukawa coupling \\
+\texttt{y\_p} & $y_p$ & --- & $\sqrt{4\pi\alpha_p}$ & Pseudoscalar Yukawa coupling \\
+\texttt{v\_km\_s} & $\vrel$ & km/s & $1$--$5000$ & Relative velocity \\
+\texttt{mu3} & $\mu_3$ & GeV & $\gtrsim 1.7\,\mphi$ & Cubic self-coupling \\
+\texttt{lam\_Hphi} & $\lambda_{H\phi}$ & --- & 0 (secluded) & Higgs portal coupling \\
+\bottomrule
+\end{longtable}
+
+\subsection{Dimensionless VPM Variables}
+
+\begin{longtable}{llll}
+\toprule
+Code name & Symbol & Definition & Description \\
+\midrule
+\endhead
+\texttt{x} & $x$ & $\mphi\,r$ & Dimensionless radial coordinate \\
+\texttt{kappa} & $\kappa$ & $k/\mphi = \mu\vrel/\mphi$ & Dimensionless momentum \\
+\texttt{lam} & $\lam$ & $\alpha_s\mchi/\mphi$ & Dimensionless coupling \\
+\texttt{delta} & $\delta_\ell$ & --- & Partial-wave phase shift \\
+\texttt{l} & $\ell$ & --- & Orbital angular momentum quantum number \\
+\texttt{z} & $z$ & $\kappa x$ & Argument of Bessel functions \\
+\texttt{j\_hat} & $\hat\jmath_\ell$ & $z\,j_\ell(z)$ & Riccati--Bessel (1st kind) \\
+\texttt{n\_hat} & $\hat n_\ell$ & $-z\,y_\ell(z)$ & Riccati--Bessel (2nd kind) \\
+\texttt{weight} & $w_\ell$ & 1 (even $\ell$), 3 (odd $\ell$) & Majorana spin weight \\
+\bottomrule
+\end{longtable}
+
+\subsection{Physical Constants (from \texttt{data/global\_config.json})}
+
+\begin{longtable}{lll}
+\toprule
+Code key & Value & Description \\
+\midrule
+\endhead
+\texttt{GEV2\_to\_cm2} & $3.8938\times 10^{-28}$ & $\text{GeV}^{-2} \to \text{cm}^2$ \\
+\texttt{GeV\_in\_g} & $1.78266\times 10^{-24}$ & $1\;\text{GeV} = 1.783\times 10^{-24}\;\text{g}$ \\
+\texttt{c\_km\_s} & $299792.458$ & Speed of light [km/s] \\
+\texttt{c\_cm\_s} & $2.9979\times 10^{10}$ & Speed of light [cm/s] \\
+\texttt{hbar\_GeV\_s} & $6.582\times 10^{-25}$ & $\hbar$ [GeV$\cdot$s] \\
+\texttt{alpha\_em} & $7.297\times 10^{-3}$ & EM fine-structure constant \\
+\texttt{m\_e\_GeV} & $5.11\times 10^{-4}$ & Electron mass [GeV] \\
+\texttt{m\_mu\_GeV} & $0.1057$ & Muon mass [GeV] \\
+\texttt{m\_H\_GeV} & $125.25$ & Higgs mass [GeV] \\
+\texttt{v\_ew\_GeV} & $246.22$ & EW vev [GeV] \\
+\texttt{S0\_cm3} & $2891.2$ & $s_0$ today [cm$^{-3}$] \\
+\texttt{rho\_crit\_h2\_GeV\_cm3} & $1.0539\times 10^{-5}$ & $\rho_{\rm crit}/h^2$ [GeV/cm$^3$] \\
+\texttt{m\_pl\_GeV} & $1.22089\times 10^{19}$ & Planck mass [GeV] \\
+\bottomrule
+\end{longtable}
+
+\subsection{Cosmological Constants}
+
+\begin{longtable}{lll}
+\toprule
+Code key & Value & Description \\
+\midrule
+\endhead
+\texttt{h\_hubble} & $0.674$ & $H_0 = 100h\;\text{km/s/Mpc}$ \\
+\texttt{omega\_h2\_target} & $0.1200$ & Planck 2018 $\OmH$ \\
+\texttt{T\_BBN\_GeV} & $10^{-3}$ & BBN temperature [GeV] \\
+\texttt{g\_chi\_Majorana} & $2$ & Majorana internal DOF \\
+\texttt{SM\_Neff} & $3.044$ & SM neutrino $N_{\rm eff}$ \\
+\texttt{planck2018\_Neff} & $2.99\pm 0.17$ & Planck measurement \\
+\texttt{g\_star\_s\_above\_top} & $106.75$ & $g_{*S}$ above top threshold \\
+\texttt{g\_star\_s\_20\_90\_GeV} & $86.25$ & $g_{*S}$ at $20$--$90$ GeV \\
+\texttt{g\_star\_s\_nu\_decoupling} & $10.75$ & $g_{*S}$ at $\nu$ decoupling \\
+\bottomrule
+\end{longtable}
+
+
+% ============================================================
+\section{Core Code Function Signatures}
+\label{sec:functions}
+% ============================================================
+
+\subsection{core/v22\_raw\_scan.py — VPM Phase-Shift Solver}
+
+\begin{lstlisting}
+# Spherical Bessel functions (Numba JIT)
+def sph_jn_numba(l, z)           # j_l(z) — spherical Bessel 1st kind
+def sph_yn_numba(l, z)           # y_l(z) — spherical Bessel 2nd kind
+
+# VPM ODE right-hand side
+def _vpm_rhs(l, kappa, lam, x, delta)
+    # d(delta_l)/dx for Yukawa potential
+
+# Phase shift integrator (RK4)
+def vpm_phase_shift(l, kappa, lam, x_max=50.0, N_steps=4000)
+    # Returns delta_l for given (l, kappa, lambda)
+
+# Main cross-section function
+def sigma_T_vpm(m_chi, m_phi, alpha, v_km_s)
+    # -> sigma_T/m [cm^2/g] for identical Majorana fermions
+    # Units: m_chi [GeV], m_phi [GeV], alpha [-], v_km_s [km/s]
+    # Sums partial waves: w=1 (even l), w=3 (odd l)
+    # Adaptive l_max, x_max, N_steps based on kappa
+
+# Parameter scan functions
+def scan_one_mchi_raw(mc, m_phi_arr, lam_crits, n_phi, n_res, n_alpha,
+                      sigma_cut_30_lo, sigma_cut_30_hi, sigma_cut_1000)
+    # Scan all (m_phi, alpha) for fixed m_chi
+
+# Validation
+def _scipy_ref(l, kappa, lam, x_max=50.0)
+    # Reference implementation via scipy.integrate.solve_ivp
+def section_0_validation()        # Free-particle + Born + scipy tests
+def section_1_scan()              # Full parameter-space scan
+def section_2_analysis(raw_points, rep_points)
+    # Post-scan analysis & CSV output
+def main()                        # Entry point
+\end{lstlisting}
+
+\subsection{core/v22\_raw\_scan\_fast.py — Parallelized VPM Solver}
+
+Same VPM solver as above, with per-grain parallelization:
+
+\begin{lstlisting}
+def sph_jn_numba(l, z)
+def sph_yn_numba(l, z)
+def _vpm_rhs(l, kappa, lam, x, delta)
+def vpm_phase_shift(l, kappa, lam, x_max=50.0, N_steps=4000)
+def sigma_T_vpm(m_chi, m_phi, alpha, v_km_s)
+    # Same as v22, identical output
+
+def scan_one_grain(mc, mp, lam_crits, n_res, n_alpha,
+                   sigma_cut_30_lo, sigma_cut_30_hi, sigma_cut_1000)
+    # Scan all alpha for one (m_chi, m_phi) cell
+
+def _grain_worker(ic, ip, mc, mp, cuts)
+    # Worker for parallel grain processing
+
+def _scipy_ref(l, kappa, lam, x_max=50.0)
+def section_0_validation()
+def section_1_scan(cuts, n_workers)
+def section_2_analysis(raw_points, rep_points)
+def main()
+\end{lstlisting}
+
+\subsection{core/v27\_boltzmann\_relic.py — Boltzmann Relic Density Solver}
+
+\begin{lstlisting}
+# g_*(T) interpolation (Drees, Hajkarim & Schmitz 2015)
+def g_star_rho(T)                # g_*(T) for energy density
+def g_star_S(T)                  # g_*S(T) for entropy density
+
+# Equilibrium yield
+def Y_eq_full(x, m_chi, g_chi=2)
+    # Y_eq = 45/(4pi^4) * g/g_*S * sqrt(pi/2) * x^(3/2) * exp(-x)
+
+# Annihilation cross section
+def sigma_v_swave(alpha_d, m_chi, x_fo=20.0)
+    # <sigma v>_0 = pi*alpha^2/(4*m_chi^2) * S_Sommerfeld(beta_fo)
+    # Includes Coulomb Sommerfeld correction at freeze-out
+
+# Boltzmann equation
+def dYdx(x, Y, m_chi, sv0, g_chi=2)
+    # dY/dx for s-wave annihilation
+def solve_boltzmann(m_chi, sv0, x_start=1.0, x_end=1000.0,
+                    n_steps=10000, g_chi=2)
+    # RK4 solver -> (x_arr, Y_arr)
+
+# Conversions
+def Y_to_omega_h2(Y_inf, m_chi)
+    # Y_inf -> Omega h^2
+
+# Analytic approximation
+def kolb_turner_swave(m_chi, sv0, g_chi=2, g_star_fo=None)
+    # Iterative x_fo, Y_inf = x_fo / (lambda * sv0)
+    # Returns (x_fo, Y_inf)
+
+# Test suite
+def test_1_numerical_vs_analytic()
+def test_2_required_coupling()
+def test_3_gstar_sensitivity()
+def test_4_benchmark()
+def test_5_overlap()
+def test_6_cmb_indirect()
+def test_7_summary()
+def main()
+\end{lstlisting}
+
+\subsection{core/sigma\_cut\_sensitivity.py — Post-Scan Cut Analysis}
+
+\begin{lstlisting}
+def find_latest_raw_csv()
+    # Locates latest all_viable_raw_v8_*.csv in data/archive/
+
+def analyse(csv_path)
+    # Sweeps sigma/m(1000) cut from 0.05 to max
+    # Prints N_viable, N_BBN_safe, N_representative per cut
+    # Saves plot
+
+def analyse_lower_bound(csv_path)
+    # Similar sweep for lower-bound sensitivity
+
+def main()
+\end{lstlisting}
+
+\subsection{core/global\_config.py — Global Configuration Singleton}
+
+\begin{lstlisting}
+class _GlobalConfig:
+    def benchmark(label: str) -> dict
+        # Returns {'m_chi_GeV', 'm_phi_MeV', 'alpha', 'label'}
+        # Labels: BP1, BP9, BP16, MAP, MAP_relic
+    def benchmarks(*labels) -> list
+    def all_benchmarks() -> list
+
+    def observations() -> list         # 13 systems as list of dicts
+    def observations_as_tuples() -> list
+        # [(name, v_km_s, central, lo, hi, ref), ...]
+
+    def sidm_cuts() -> dict
+        # {'sigma_m_30_lo', 'sigma_m_30_hi', 'sigma_m_1000_hi'}
+
+    def csv_path(name: str) -> Path
+        # Keys: all_viable_raw, all_viable_repr, relic_all,
+        #        relic_viable, results, benchmarks_v30
+
+    def physical_constants() -> dict
+    def cosmological_constants() -> dict
+    def constants() -> dict            # alias
+    def fornax_halo() -> dict
+    def walker2009_fornax() -> dict
+
+GC = _GlobalConfig()  # module-level singleton
+\end{lstlisting}
+
+\subsection{cross\_checks/sommerfeld.py — Sommerfeld Enhancement}
+
+\begin{lstlisting}
+def _sommerfeld_ode(kappa, lam)
+    # Solve l=0 radial ODE for Yukawa potential
+    # u'' + [kappa^2 + lambda*exp(-x)/x] u = 0
+    # Returns S_0 = 1/(kappa^2 * A^2)
+
+def sommerfeld_yukawa(m_chi_GeV, m_phi_GeV, alpha, v_km_s)
+    # Hybrid: ODE for kappa<10, Coulomb analytic for kappa>=10
+    # Returns S_0 (l=0 Sommerfeld factor)
+
+def sommerfeld_coulomb_analytic(alpha, v_km_s)
+    # S = 2*pi*eta / (1 - exp(-2*pi*eta)), eta = alpha/(2v)
+
+def validate()   # Tests against known limits
+def main()
+\end{lstlisting}
+
+\subsection{cross\_checks/velocity\_averaged.py — MB Averaging \& $\chi^2$}
+
+\begin{lstlisting}
+def sigma_m_averaged(m_chi, m_phi_GeV, alpha, v_char_km_s, n_gauss=30)
+    # <sigma/m>_MB via Gauss-Legendre quadrature over MB distribution
+    # v0 = v_char / sqrt(2) (1D dispersion)
+    # Integration range: [1, 5*v_char] km/s
+
+def compute_chi2(sigma_dict)
+    # chi^2 against 13 observational systems
+    # sigma_dict: {v_km_s: sigma_m_value}
+    # Handles asymmetric errors and one-sided upper limits
+
+def main()
+\end{lstlisting}
+
+\subsection{cosmology/mediator\_cosmology.py — Higgs Portal \& $\phi$ Lifetime}
+
+\begin{lstlisting}
+def sin_theta(lam_Hphi, m_phi_GeV)
+    # Higgs-phi mixing angle
+
+def gamma_phi_ff(m_phi_GeV, stheta, m_f, N_c=1)
+    # phi -> f fbar decay width via Higgs mixing
+
+def gamma_phi_gammagamma(m_phi_GeV, stheta)
+    # phi -> gamma gamma via W + top loops
+
+def phi_total_width(m_phi_GeV, stheta)
+    # Sum of all partial widths
+
+def phi_lifetime_s(m_phi_GeV, stheta)
+    # tau = hbar / Gamma [seconds]
+
+def g_star_simple(T_GeV)    # Simple g_* lookup
+def hubble(T_GeV)           # H(T) = sqrt(pi^2 g_*/90) T^2/M_Pl
+
+# Test suite
+def test_1_lifetime()
+def test_2_thermal_equilibrium()
+def test_3_neff()
+def test_4_entropy()
+def test_5_summary()
+def main()
+\end{lstlisting}
+
+\subsection{cosmology/bsf\_estimate.py — Bound-State Formation}
+
+\begin{lstlisting}
+def sommerfeld_s_wave(alpha_d, v, m_phi, m_chi)
+    # S-wave Sommerfeld via Hulthen approximation
+    # eps_v = v/(2*alpha), eps_phi = m_phi/(alpha*m_chi)
+
+def sommerfeld_p_wave(alpha_d, v, m_phi, m_chi)
+    # P-wave: S_1 ~ S_0 * (1 + alpha^2/v^2) / 9
+
+# Test suite
+def test_1_perturbative_annihilation()
+def test_2_bsf_cross_section()
+def test_3_ratio_at_freezeout()
+def test_4_relic_density_impact()
+def test_5_late_time()
+def test_6_summary()
+def main()
+\end{lstlisting}
+
+
+% ============================================================
+\section{Observational Data}
+\label{sec:observations}
+% Source: data/global_config.json
+% ============================================================
+
+\begin{center}
+\begin{longtable}{lcccl}
+\toprule
+System & $v$ [km/s] & $\sigmam$ [cm$^2$/g] & 68\% CL & Ref. \\
+\midrule
+\endhead
+Draco dSph     &   12 & 0.6  & [0.1, 2.0]  & KTY16 \\
+Fornax dSph    &   12 & 0.8  & [0.2, 3.0]  & KTY16 \\
+NGC 2976       &   60 & 2.0  & [0.5, 5.0]  & KTY16 \\
+NGC 1560       &   55 & 3.0  & [1.0, 8.0]  & KTY16 \\
+IC 2574        &   50 & 1.5  & [0.3, 5.0]  & KTY16 \\
+NGC 720 (group)&  250 & 0.5  & [0.1, 1.5]  & KTY16 \\
+NGC 1332 (group)& 280 & 0.3  & [0.05, 1.0] & KTY16 \\
+Abell 611      & 1200 & 0.1  & [0.02, 0.3] & KTY16 \\
+Abell 2537     & 1100 & 0.15 & [0.03, 0.4] & KTY16 \\
+Diverse RC band&   40 & 3.0  & [0.5, 10.0] & KKPY17 \\
+Bullet Cluster$^*$& 4700& 0.7 & $<1.25$     & Randall+08 \\
+72 mergers$^*$ & 1000 & 0.2  & $<0.47$     & Harvey+15 \\
+TBTF dwarfs    &   30 & 1.0  & [0.5, 5.0]  & Elbert+15 \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+$^*$One-sided upper limits ($\texttt{lo}=0$): no $\chi^2$ penalty when theory $<$ upper bound.
+
+
+% ============================================================
+\section{CP-Separation Band}
+\label{sec:cp_band}
+% Source: arxiv/main.tex §6.6, lagrangian_derivation.md §7
+% ============================================================
+
+The relic constraint fixes $\alpha_s\alpha_p = \langle\sigma v\rangle_0\,\mchi^2/(2\pi)$
+while self-interactions depend only on $\alpha_s$.  This creates a one-parameter family:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Benchmark & $\alpha_s/\alpha_p$ range & Dynamic range \\
+\midrule
+BP1 & $13$--$212$ & 1.22 decades \\
+MAP & $1.8$--$11{,}532$ & 3.81 decades \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{CP violation is a generic prediction}, not fine-tuning.
+
+% ============================================================
+\section{Summary of Key Results}
+\label{sec:summary}
+% ============================================================
+
+\begin{itemize}
+  \item \textbf{3-parameter model}: $(\mchi,\mphi,\alpha_s)$ fully specifies SIDM phenomenology.
+  \item \textbf{80,142 viable points} from raw scan; \textbf{17 relic-constrained benchmarks}.
+  \item \textbf{Best $\chi^2$ fit}: $\chi^2/\nu = 0.12$ (unconstrained), $0.38$ (relic-constrained) to 13 systems.
+  \item \textbf{Secluded}: $\sigma_{\rm SI} = \sigma_{\rm SD} = 0$ exactly. Higgs portal excluded by $3\times 10^4$.
+  \item \textbf{Majorana fingerprint}: $\sigma_T^{\rm Maj}/\sigma_T^{\rm Dir} = 2.2$ at $v\approx 60\kms$.
+  \item \textbf{Triplet dominance}: CP-odd channel carries 82\% at rotation-curve velocities.
+  \item \textbf{Sommerfeld}: $S_0 < 1.026$ at freeze-out $\to$ tree-level relic density valid.
+  \item \textbf{BSF}: $\sigma v_{\rm BSF}/\langle\sigma v\rangle_{\rm ann} \sim 10^{-12}$ $\to$ negligible.
+  \item \textbf{SMBH seeding}: unambiguously negative ($t_{\rm gc}/t_{\rm universe} > 10^4$).
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,6 @@
+run_id,timestamp_start,script,test,params_json,output_files,status,duration_sec,git_hash,key_result,notes
+1,2026-03-27 16:32:43,vev_alignment_stability.py,Test 17 - VEV Alignment Stability,{},C:\Users\omerp\source\omer_mind\dark-energy-T-breaking\data\output\vev_alignment_stability_2026_03_27_163242.txt,FAILED,0.06,cd4e10a,,
+2,2026-03-27 16:32:43,qcd_scale_coincidence.py,Test 19 - QCD Scale Coincidence,{},C:\Users\omerp\source\omer_mind\dark-energy-T-breaking\data\output\qcd_scale_coincidence_2026_03_27_163243.txt,FAILED,0.06,cd4e10a,,
+3,2026-03-27 16:34:15,vev_alignment_stability.py,Test 17 - VEV Alignment Stability,{},C:\Users\omerp\source\omer_mind\dark-energy-T-breaking\data\output\vev_alignment_stability_2026_03_27_163346.txt,FAILED,28.91,cd4e10a,,
+4,2026-03-27 16:34:15,qcd_scale_coincidence.py,Test 19 - QCD Scale Coincidence,{},C:\Users\omerp\source\omer_mind\dark-energy-T-breaking\data\output\qcd_scale_coincidence_2026_03_27_163415.txt,FAILED,0.11,cd4e10a,,
+5,2026-03-27 16:34:50,qcd_scale_coincidence.py,Test 19 - QCD Scale Coincidence,{},C:\Users\omerp\source\omer_mind\dark-energy-T-breaking\data\output\qcd_scale_coincidence_2026_03_27_163450.txt,OK,0.1,cd4e10a,=================================================================,

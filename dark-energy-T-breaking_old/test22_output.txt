@@ -1,0 +1,510 @@
+﻿========================================================================
+  TEST 22: ╬öN_eff INCLUDING ╧å ΓåÆ 2╧â (DARK PION DECAY)
+========================================================================
+
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  MODEL PARAMETERS
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  m_╧ç  = 94.07 MeV
+  m_╧å  = 11.10 MeV
+  ╬▒_D  = 5.734e-03
+  ╬¢_d  = 2.05e-12 GeV = 2.05e-03 eV
+  f    = 5.84e+17 GeV = 0.24 M_Pl
+  m_╧â  = 7.19e-42 GeV = 7.19e-33 eV
+  m_╧â/HΓéÇ = 4.99
+  T_D  = 200 MeV
+
+========================================================================
+  PART A: BASELINE ╬öN_eff (╧ç + ╧å, no decay)
+========================================================================
+  g_dark = 1.75 (╧ç) + 1.0 (╧å) = 2.75
+  ╬╛ = (g*_╬╜ / g*_D)^(1/3) = (10.75/61.75)^(1/3) = 0.5584
+  ╬öN_eff = (4/7) ├ù g_dark ├ù ╬╛Γü┤ = 0.1528
+  ΓåÆ Baseline: ╬öN_eff = 0.153
+
+========================================================================
+  PART B: ╧å ΓåÆ 2╧â DECAY RATE
+========================================================================
+
+  ╧å-╧â coupling analysis:
+  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  In the secluded model, ╧å ΓåÆ 2╧â requires a dark-sector portal.
+  Two scenarios for the effective coupling:
+
+  (i)  Anomaly-induced: ╬╗_eff ~ ╬▒_D ╬¢_d┬▓ / (4╧Ç f m_╧å)
+       ΓåÆ extremely tiny because ╬¢_d ~ 10Γü╗┬╣┬▓ GeV
+
+  (ii) Direct quartic: V Γèâ (╬╗_{╧å╧â}/2) ╧å┬▓ ╧â┬▓
+       ΓåÆ ╬╗_{╧å╧â} is a free parameter
+       For decay: need cubic ╧å╧â┬▓ term from ╧å VEV or ╧â VEV
+
+  DIRECT CUBIC: V Γèâ ╬╝Γéâ ╧å ╧â┬▓
+  ╬ô(╧åΓåÆ2╧â) = ╬╝Γéâ┬▓ / (8╧Ç m_╧å)
+
+        ╬╝Γéâ [GeV]       ╬ô [GeV]         ╧ä [s]   T_decay [MeV]  Status
+  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+        1.00e-15      3.58e-30      1.84e+05          0.0028  after BBN ΓÜá
+        1.93e-15      1.34e-29      4.93e+04          0.0055  after BBN ΓÜá
+        3.73e-15      4.98e-29      1.32e+04          0.0106  after BBN ΓÜá
+        7.20e-15      1.86e-28      3.55e+03          0.0204  after BBN ΓÜá
+        1.39e-14      6.92e-28      9.51e+02          0.0394  after BBN ΓÜá
+        2.68e-14      2.58e-27      2.55e+02          0.0761  before BBN
+        5.18e-14      9.62e-27      6.84e+01          0.1469  before BBN
+        1.00e-13      3.58e-26      1.84e+01          0.2836  before BBN
+        1.93e-13      1.34e-25      4.93e+00          0.5475  before BBN
+        3.73e-13      4.98e-25      1.32e+00          1.0571  before BBN
+        7.20e-13      1.86e-24      3.55e-01          2.0409  before ╬╜ decouple
+        1.39e-12      6.92e-24      9.51e-02          3.9403  before ╬╜ decouple
+        2.68e-12      2.58e-23      2.55e-02          7.6075  before ╬╜ decouple
+        5.18e-12      9.62e-23      6.84e-03         14.6878  before ╬╜ decouple
+        1.00e-11      3.58e-22      1.84e-03         28.3577  before ╬╜ decouple
+        1.93e-11      1.34e-21      4.93e-04         54.7501  before ╬╜ decouple
+        3.73e-11      4.98e-21      1.32e-04        105.7058  before ╬╜ decouple
+        7.20e-11      1.86e-20      3.55e-05        204.0860  before dark decouple
+        1.39e-10      6.92e-20      9.51e-06        394.0283  before dark decouple
+        2.68e-10      2.58e-19      2.55e-06        760.7495  before dark decouple
+        5.18e-10      9.62e-19      6.84e-07       1468.7774  before dark decouple
+        1.00e-09      3.58e-18      1.84e-07       2835.7651  before dark decouple
+        1.93e-09      1.34e-17      4.93e-08       5475.0052  before dark decouple
+        3.73e-09      4.98e-17      1.32e-08      10570.5802  before dark decouple
+        7.20e-09      1.86e-16      3.55e-09      20408.5951  before dark decouple
+        1.39e-08      6.92e-16      9.51e-10      39402.8282  before dark decouple
+        2.68e-08      2.58e-15      2.55e-10      76074.9510  before dark decouple
+        5.18e-08      9.62e-15      6.84e-11     146877.7351  before dark decouple
+        1.00e-07      3.58e-14      1.84e-11     283576.5096  before dark decouple
+        1.93e-07      1.34e-13      4.93e-12     547500.5230  before dark decouple
+        3.73e-07      4.98e-13      1.32e-12    1057058.0163  before dark decouple
+        7.20e-07      1.86e-12      3.55e-13    2040859.5114  before dark decouple
+        1.39e-06      6.92e-12      9.51e-14    3940282.8236  before dark decouple
+        2.68e-06      2.58e-11      2.55e-14    7607495.0987  before dark decouple
+        5.18e-06      9.62e-11      6.84e-15   14687773.5095  before dark decouple
+        1.00e-05      3.58e-10      1.84e-15   28357650.9571  before dark decouple
+        1.93e-05      1.34e-09      4.93e-16   54750052.2994  before dark decouple
+        3.73e-05      4.98e-09      1.32e-16  105705801.6307  before dark decouple
+        7.20e-05      1.86e-08      3.55e-17  204085951.1381  before dark decouple
+        1.39e-04      6.92e-08      9.51e-18  394028282.3594  before dark decouple
+        2.68e-04      2.58e-07      2.55e-18  760749509.8670  before dark decouple
+        5.18e-04      9.62e-07      6.84e-19  1468777350.9492  before dark decouple
+        1.00e-03      3.58e-06      1.84e-19  2835765095.7128  before dark decouple
+        1.93e-03      1.34e-05      4.93e-20  5475005229.9391  before dark decouple
+        3.73e-03      4.98e-05      1.32e-20  10570580163.0673  before dark decouple
+        7.20e-03      1.86e-04      3.55e-21  20408595113.8123  before dark decouple
+        1.39e-02      6.92e-04      9.51e-22  39402828235.9354  before dark decouple
+        2.68e-02      2.58e-03      2.55e-22  76074950986.6971  before dark decouple
+        5.18e-02      9.62e-03      6.84e-23  146877735094.9208  before dark decouple
+        1.00e-01      3.58e-02      1.84e-23  283576509571.2798  before dark decouple
+
+  Special coupling estimates:
+  Anomaly-induced: ╬╝Γéâ ~ ╬▒_D ╬¢_d┬▓/(4╧Çf) = 3.28e-45 GeV
+    ╬ô = 3.86e-89 GeV, ╧ä = 1.71e+64 s
+    ΓåÆ ╧å NEVER decays (╧ä >> age of universe = 4.3├ù10┬╣Γü╖ s)
+
+  Strong coupling: ╬╝Γéâ ~ m_╧å = 1.11e-02 GeV
+    ╬ô = 4.42e-04 GeV, ╧ä = 1.49e-21 s
+    T_decay = 31476992562.4 MeV ΓåÆ before ╬╜ decoupling
+
+  BBN boundary: ╧ä = 1 s ΓåÆ ╬╝Γéâ = 4.29e-13 GeV
+  ╬╜ decouple boundary: T = 2 MeV ΓåÆ ╬╝Γéâ = 7.05e-13 GeV
+
+========================================================================
+  PART C: ╬öN_eff AFTER ╧å ΓåÆ 2╧â
+========================================================================
+
+  Three timing regimes for ╧å ΓåÆ 2╧â:
+
+  REGIME 1: ╧å decays BEFORE dark sector decouples (T_decay > T_D = 200 MeV)
+    ΓåÆ ╧â thermalizes in dark sector bath
+    ΓåÆ Replace ╧å (g=1) with ╧â (g=1) in g_dark
+    ΓåÆ g_dark stays the same: 1.75 (╧ç) + 1.0 (╧â) = 2.75
+    ΓåÆ ╬öN_eff UNCHANGED = 0.153
+
+  REGIME 2: ╧å decays AFTER dark decoupling but BEFORE ╬╜ decoupling
+            (2 MeV < T_decay < 200 MeV)
+    ΓåÆ ╧å was already decoupled from SM, at dark temperature T_d < T_╬│
+    ΓåÆ ╧å decay dumps energy into ╧â within the dark sector
+    ΓåÆ Conservation of energy: ╧ü_╧å ΓåÆ ╧ü_╧â
+    ΓåÆ If ╧å was non-relativistic at decay: E_╧å = m_╧å ΓåÆ two ╧â each with E = m_╧å/2
+    ΓåÆ If ╧å was relativistic: E_╧å = p_╧å ΓåÆ two ╧â each with E = p_╧å/2
+    
+    At T_D = 200 MeV, dark sector temperature T_d:
+      ╬╛ = T_d/T_╬│ = (g*_╬╜/g*_D)^{1/3} at ╬╜ dec
+    
+    Is ╧å relativistic at T ~ 100 MeV (dark temperature)?
+      T_d_at_100MeV = ╬╛ ├ù 100 MeV ├ù (g*(100)/g*(200))^{1/3}
+      T_d ~ 0.56 ├ù 100 MeV ├ù (14.25/61.75)^{1/3} ~ 34 MeV
+      ╧å is relativistic if T_d > m_╧å = 11.1 MeV ΓåÆ YES at 100 MeV
+      ╧å becomes NR when T_d ~ m_╧å Γåö T_╬│ ~ m_╧å/╬╛ ~ 20-30 MeV
+    
+    CASE 2a: ╧å still relativistic at decay
+      ╧ü_╧å ΓåÆ ╧ü_╧â, same number of d.o.f. (1ΓåÆ1 scalar)
+      But each ╧å ΓåÆ two ╧â, so n_╧â = 2 n_╧å
+      Energy per ╧â = E_╧å/2 ΓÇö but effectively ╧â just IS radiation
+      ╬öN_eff contribution from ╧â = same as from ╧å when relativistic
+      ΓåÆ ╬öN_eff Γëê 0.153 (unchanged)
+    
+    CASE 2b: ╧å already non-relativistic at decay
+      ╧å energy density: ╧ü_╧å = m_╧å n_╧å (matter-like, scales as aΓü╗┬│)
+      After decay: ╧ü_╧â = ╧ü_╧å (energy conservation)
+      But ╧â is radiation ΓåÆ scales as aΓü╗Γü┤ from then on
+      This is ENTROPY INJECTION into dark radiation sector!
+      
+      The dark sector temperature INCREASES:
+        T_d_new > T_d_old (heated by ╧å mass energy)
+      
+      Factor: (T_d_new/T_d_old)Γü┤ = (╧ü_╧â_new / ╧ü_╧â_old) 
+            = 1 + ╧ü_╧å/╧ü_╧ç (approximately)
+
+  REGIME 3: ╧å decays AFTER BBN (T_decay < 0.07 MeV) or NEVER
+    ΓåÆ ╧å is stable on cosmological timescale
+    ΓåÆ ╧å contributes to ╬⌐_m (dark matter) not ╬⌐_rad
+    ΓåÆ ╬öN_eff from ╧ç only: (4/7) ├ù 1.75 ├ù ╬╛Γü┤
+
+  REGIME 1 (T_decay > 200 MeV): ╧å ΓåÆ 2╧â before decoupling
+    g_dark = 1.75 (╧ç) + 1.0 (╧â replaces ╧å) = 2.75
+    ╬öN_eff = 0.1528 (same as baseline)
+
+  REGIME 2a (relativistic ╧å ΓåÆ 2╧â, 2 MeV < T < 200 MeV):
+    ╬öN_eff = 0.1528 (same ΓÇö energy conservation)
+
+  REGIME 2b (NR ╧å ΓåÆ 2╧â, entropy injection):
+
+    CRITICAL REALIZATION:
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    After ╧ç freezes out in the dark sector:
+    - ╧ç is frozen non-relativistic DM
+    - ╧å is still in dark thermal bath
+    - If 3╧åΓåÆ2╧å (cannibal) is active: ╧å stays in equilibrium
+      ΓåÆ n_╧å ~ (m_╧å T_d)^{3/2} exp(-m_╧å/T_d) ΓåÆ exponentially suppressed
+      ΓåÆ Very little ╧å energy density remains to inject into ╧â
+    - If cannibal is NOT active: ╧å number is frozen
+      ΓåÆ ╧ü_╧å = m_╧å ├ù n_╧å(frozen) ΓåÆ matter-like component
+      ΓåÆ Decay ╧åΓåÆ2╧â converts this to dark radiation
+    
+    In the mixed_coupling analysis (condition3):
+      Cannibal 3╧åΓåÆ2╧å IS active for ╬╝Γéâ/m_╧å Γë│ 1.3
+      For our model: cannibal keeps ╧å in equilibrium ΓåÆ ╧å Boltzmann-
+      suppressed ΓåÆ negligible ╧ü_╧å by T_d << m_╧å
+    
+    RESULT: If cannibal is active, there's almost no ╧å left to decay.
+    The ╧åΓåÆ2╧â decay is irrelevant for ╬öN_eff because ╧å is already gone!
+
+    Dark temperature when T_╬│ = 2 MeV: T_d = 1.12 MeV
+    m_╧å/T_d = 9.9
+    Boltzmann suppression: e^(-m_╧å/T_d) = e^(-9.9) = 4.82e-05
+    ╧ü_╧å / ╧ü_rad(1 d.o.f.) = 2.90e-03
+    ΓåÆ ╧å contribution to energy density is NEGLIGIBLE
+
+  REGIME 3 (╧å stable ΓÇö no dark QCD coupling or ╧ä > t_universe):
+    If ╧å is Boltzmann-suppressed at T_d << m_╧å = 11.1 MeV:
+    ΓåÆ ╧å is negligible. Dark sector is ╧ç only.
+    ΓåÆ ╬öN_eff = (4/7) ├ù g_╧ç ├ù ╬╛Γü┤ (with ╬╛ adjusted for g* change)
+
+    DEEP ISSUE: At T_╬│ = 2 MeV (╬╜ decoupling):
+    T_d ~ 1.1 MeV
+    Both ╧ç (94 MeV) and ╧å (11 MeV) are NON-RELATIVISTIC
+    m_╧ç/T_d = 84, m_╧å/T_d = 10
+    
+    So at ╬╜ decoupling: ZERO dark radiation from ╧ç or ╧å!
+    ╬öN_eff Γëê 0 (both species are Boltzmann-suppressed)
+    
+    WAIT ΓÇö this contradicts the baseline ╬öN_eff = 0.153!
+    
+    Resolution: ╬öN_eff = 0.153 is computed ASSUMING the dark sector
+    has relativistic d.o.f. at T_D = 200 MeV that DECOUPLE while
+    relativistic. After decoupling, they redshift as radiation
+    indefinitely (even though they become NR later).
+    
+    KEY DISTINCTION:
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    (a) If dark sector STAYS COUPLED internally after SM decoupling:
+        ΓåÆ ╧å and ╧ç go through thermal transitions in the dark bath
+        ΓåÆ ╧å becomes NR ΓåÆ energy goes to cannibal heating
+        ΓåÆ ╧ç freezes out within dark bath
+        ΓåÆ At late times: only NR massive particles remain
+        ΓåÆ ╬öN_eff Γëê 0 at BBN (no dark radiation)
+    
+    (b) If dark sector DECOUPLES FROM ITSELF at T_D:
+        ΓåÆ Each particle free-streams independently
+        ΓåÆ Momentum redshifts: p Γê¥ 1/a
+        ΓåÆ Even when p << m (NR): energy density ╧ü = m n Γê¥ aΓü╗┬│
+        ΓåÆ This is MATTER, not radiation
+        ΓåÆ ╬öN_eff from free-streaming massive relics ΓåÆ 0 at late times
+    
+    (c) The STANDARD ╬öN_eff = 0.153 calculation assumes the dark
+        sector contributes g_dark d.o.f. of RADIATION at T_D,
+        which then redshifts as aΓü╗Γü┤. This is valid if there are
+        MASSLESS particles in the dark sector at T_D.
+        
+        For ╧ç (m=94 MeV) at T_D=200 MeV: T_d/m_╧ç ~ 2 ΓåÆ semi-relativistic
+        For ╧å (m=11 MeV) at T_D=200 MeV: T_d/m_╧å ~ 18 ΓåÆ fully relativistic
+        
+        At ╬╜ decoupling (T~2 MeV): both are NR ΓåÆ contribution ΓåÆ 0
+        But the ENTROPY they deposited at decoupling is frozen in.
+
+========================================================================
+  PART D: CORRECT ╬öN_eff CALCULATION
+========================================================================
+
+  CORRECT PICTURE:
+  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  Without ╧â: ╬öN_eff = 0 at recombination
+    (╧ç and ╧å are massive and NR ΓåÆ matter, not radiation)
+  
+  With ╧â (massless dark pion):
+    ╧â is the ONLY massless d.o.f. in the dark sector
+    If dark sector was ever thermalized, ╧â has T_d at dark decoupling
+    ΓåÆ ╬öN_eff = (4/7) ├ù g_╧â ├ù (T_d/T_╬╜)Γü┤
+    
+  BUT: Does ╧â thermalize in the dark sector?
+    ╧â couples to ╧ç via (m_╧ç/f) ╧â ╧ç╠äi╬│Γü╡╧ç
+    Interaction rate: ╬ô ~ n_╧ç ├ù (m_╧ç/f)┬▓ / m_╧ç┬▓  
+    Since f ~ 0.24 M_Pl ~ 5.8├ù10┬╣Γü╖ GeV:
+    (m_╧ç/f)┬▓ ~ (94 MeV / 5.8├ù10┬╣Γü╖ GeV)┬▓ ~ 2.6├ù10Γü╗┬▓Γü░
+    ΓåÆ EXTREMELY suppressed coupling ΓåÆ ╧â NEVER thermalizes!
+
+  ╧â-╧ç coupling: g = m_╧ç/f = 1.61e-19
+  g┬▓ = 2.59e-38
+
+  At T_D = 200 MeV:
+    ╬ô(╧â thermalization) ~ gΓü┤ T / 16╧Ç = 2.67e-78 GeV
+    H(T_D)              = 4.27e-20 GeV
+    ╬ô/H                 = 6.25e-59
+    ΓåÆ ╧â NEVER thermalizes
+
+  Since ╧â never thermalizes through scattering (g ~ m_╧ç/f too small),
+  the ONLY source of ╧â is ╧åΓåÆ2╧â decay.
+  
+  If ╧åΓåÆ2╧â occurs, the ╧â particles free-stream as dark radiation.
+  Their contribution to ╬öN_eff depends on the ENERGY transferred.
+
+========================================================================
+  PART E: ╬öN_eff FROM ╧åΓåÆ2╧â AT DIFFERENT TIMES
+========================================================================
+
+  ╬öN_eff(╧â) from NR ╧å decay at various T_╬│:
+     T_╬│ [MeV]   T_d [MeV]   m_╧å/T_d      n_╧å/T_d┬│   ╬öN_eff(╧â)
+  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+           200      200.00       0.1      1.00e+00    5.71e-01  (relativistic ΓÇö same as ╧å)
+           100       88.34       0.1      1.00e+00    3.48e-01  (relativistic ΓÇö same as ╧å)
+            50       37.75       0.3      1.00e+00    1.86e-01  (relativistic ΓÇö same as ╧å)
+            30       20.66       0.5      1.00e+00    1.29e-01  (relativistic ΓÇö same as ╧å)
+            20       13.01       0.9      1.00e+00    1.02e-01  (relativistic ΓÇö same as ╧å)
+            10        6.07       1.8      1.00e+00    7.74e-02  (relativistic ΓÇö same as ╧å)
+             5        2.91       3.8      1.04e-02    7.95e-03  (NR, Boltz. e^-4)
+             2        1.13       9.8      1.08e-04    1.90e-04  (NR, Boltz. e^-10)
+             1        0.56      19.8      1.43e-08    4.88e-08  (NR, Boltz. e^-20)
+
+========================================================================
+  PART F: TOTAL ╬öN_eff ΓÇö COMPLETE PICTURE
+========================================================================
+
+  SCENARIO A: No dark QCD, no ╧â
+  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  Dark sector: ╧ç (94 MeV) + ╧å (11 MeV), both massive
+  At CMB recombination (T ~ 0.26 eV): both NR ΓåÆ matter
+  ╬öN_eff at recombination = 0
+  ╬öN_eff at BBN (T ~ 1 MeV):
+    T_d(BBN) = 0.558 MeV
+    m_╧å/T_d = 20, m_╧ç/T_d = 168
+    ΓåÆ Both Boltzmann-suppressed: ╬öN_eff Γëê 0 at BBN too!
+
+  ΓÜá∩╕Å IMPORTANT CORRECTION:
+  The ╬öN_eff = 0.153 from Check 4 is the contribution at T_D = 200 MeV,
+  when ╧ç is semi-relativistic and ╧å is fully relativistic.
+  At LATER times (BBN, recombination), both are NR ΓåÆ ╬öN_eff ΓåÆ 0.
+  
+  HOWEVER: The standard way ╬öN_eff is defined for CMB/BBN is:
+  ╬öN_eff counts the TOTAL extra radiation at ╬╜ decoupling (for BBN)
+  or at recombination (for CMB).
+  
+  For MASSIVE species: they contribute to ╬öN_eff only while relativistic.
+  After they become NR: they contribute to ╬⌐_m instead.
+  
+  Correctly: ╧å (11 MeV) is still relativistic at T ~ 50 MeV (dark T ~ 26 MeV)
+  but NR by T ~ 2 MeV (dark T ~ 1.1 MeV, m_╧å/T_d ~ 10).
+  
+  So ╧å's contribution to ╬öN_eff at BBN Γëê 0 (already NR).
+  ╧ç's contribution at BBN Γëê 0 (already NR and frozen out).
+  
+  ╬öN_eff(BBN) Γëê 0 in the secluded model WITHOUT ╧â.
+
+
+  SCENARIO B: With dark QCD, ╧å ΓåÆ 2╧â
+  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  ╧â is the ONLY massless d.o.f. in the dark sector.
+  ╧â gets energy from ╧åΓåÆ2╧â decay.
+
+  Maximum ╬öN_eff(╧â) [╧å decays while relativistic]:
+    ╬öN_eff(╧â) = (4/7) ├ù 1.0 ├ù ╬╛Γü┤ = 0.0555
+    ╬öN_eff(╧ç) at BBN = 0.0000 (NR, frozen)
+    Total ╬öN_eff = 0.0555
+
+  Original claim: ╬öN_eff = 0.153 (╧ç) + 0.027 (╧â) Γëê 0.180
+  Corrected:      ╬öN_eff(╧ç at BBN) Γëê 0, ╬öN_eff(╧â) Γëñ 0.0555
+  Maximum total:  ╬öN_eff Γëñ 0.0555
+
+========================================================================
+  PART G: WHEN IS ╬öN_eff = 0.153 VALID?
+========================================================================
+
+  The ╬öN_eff = 0.153 formula:
+    ╬öN_eff = (4/7) ├ù g_dark ├ù (g*_╬╜ / g*_D)^{4/3}
+    
+  This is EXACT when:
+  (1) All dark species are MASSLESS (or m << T at all relevant epochs)
+  (2) Dark sector decouples at T_D from SM, then free-streams
+  
+  For our model: g_dark = 2.75 (╧ç Majorana + ╧å scalar)
+  But m_╧ç = 94 MeV and m_╧å = 11 MeV are NOT massless!
+  
+  CORRECT TREATMENT for massive species:
+  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  After decoupling at T_D = 200 MeV:
+  - Dark entropy is conserved separately: s_d Γê¥ g*_S,d(T_d) ├ù T_d┬│
+  - As T_d drops, g*_S,d DECREASES when species become NR
+  - This HEATS the remaining relativistic dark species
+  
+  Timeline:
+  1. T_d > m_╧ç = 94 MeV: g_d = 2.75 (all relativistic)
+  2. m_╧å < T_d < m_╧ç: ╧ç becomes NR ΓåÆ heats ╧å
+     g_d drops from 2.75 to 1.0
+     T_d increases by factor (2.75/1.0)^{1/3} = 1.40
+  3. T_d < m_╧å: ╧å also becomes NR ΓåÆ NO relativistic species left!
+     All dark entropy goes to... nothing? ΓåÆ stored in NR species
+  
+  KEY: If there's NO massless dark species, the dark "radiation"
+  energy density drops exponentially as dark species become NR.
+  At BBN/recombination: ╬öN_eff ΓåÆ 0 (exponentially).
+  
+  IF ╧â EXISTS (massless) AND THERMALIZED at T_D:
+  - ╧â absorbs ALL dark entropy when ╧ç and ╧å become NR
+  - Entropy conservation: g_total ├ù T_d┬│ = g_╧â ├ù T_╧â┬│
+    ΓåÆ T_╧â = T_d ├ù (g_total/g_╧â)^{1/3} = T_d ├ù (2.75/1)^{1/3} = 1.40 T_d
+  - ╬öN_eff(╧â) = (4/7) ├ù g_╧â ├ù (╬╛_╧â)Γü┤ where ╬╛_╧â = ╬╛ ├ù (g_total/g_╧â)^{1/3}
+  
+  NOTE: (4/7) ├ù g_╧â ├ù (g_total/g_╧â)^{4/3} ├ù ╬╛Γü┤ Γëá (4/7) ├ù g_total ├ù ╬╛Γü┤
+  The heating of ╧â OVERCOMPENSATES for the loss of ╧ç,╧å d.o.f.
+  (TΓü┤ effect: concentrating entropy into fewer d.o.f. raises T more)
+
+  Entropy boost factor: (g_total/g_╧â)^(1/3) = (2.75/1.0)^(1/3) = 1.4010
+  ╧â temperature ratio: ╬╛_╧â = ╬╛ ├ù boost = 0.5584 ├ù 1.4010 = 0.7823
+  ╬öN_eff(╧â, entropy-heated) = (4/7) ├ù 1 ├ù ╬╛_╧âΓü┤ = 0.2140
+
+  Original (massless approx): ╬öN_eff = (4/7) ├ù g_total ├ù ╬╛Γü┤ = 0.1528
+  Correct  (entropy to ╧â):    ╬öN_eff = (4/7) ├ù g_╧â ├ù ╬╛_╧âΓü┤  = 0.2140
+  Ratio: 1.4010
+
+  The entropy-transfer formula gives a HIGHER ╬öN_eff because
+  concentrating entropy into fewer d.o.f. heats them super-linearly (TΓü┤).
+
+  HOWEVER: this assumes ╧â was thermalized with ╧ç,╧å at T_D.
+  Three sub-cases for the actual ╬öN_eff:
+  (a) ╧â thermalized at T_D, absorbs all entropy: ╬öN_eff = 0.214
+  (b) ╧â gets entropy only from ╧åΓåÆ2╧â (not from ╧ç): ╬öN_eff < 0.214
+  (c) ╧â never thermalizes (f ~ M_Pl):              ╬öN_eff Γëê 0
+
+========================================================================
+  TEST 22 ΓÇö FINAL SUMMARY
+========================================================================
+
+  QUESTION: What happens to ╬öN_eff when ╧å ΓåÆ 2╧â?
+  
+  ANSWER: ╬öN_eff depends critically on whether ╧â exists and thermalizes.
+  
+  EXPLANATION:
+  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  The original ╬öN_eff = 0.153 counts g_dark = 2.75 d.o.f. of dark
+  radiation at decoupling. But ╧ç (94 MeV) and ╧å (11 MeV) are massive.
+  As the dark sector cools, their energy must go somewhere:
+  
+  WITHOUT ╧â: entropy has nowhere to go ΓåÆ both become NR ΓåÆ ╬öN_eff ΓåÆ 0
+    (The massless approximation ╬öN_eff = 0.153 is WRONG for a model
+     with only massive dark species!)
+  
+  WITH ╧â (thermalized at T_D, massless):
+    ╧â absorbs ALL dark entropy as ╧ç, ╧å become NR
+    T_╧â boosted by (g_total/g_╧â)^(1/3) = 1.40
+    ╬öN_eff(╧â) = (4/7) ├ù 1 ├ù (╬╛ ├ù 1.40)Γü┤ Γëê 0.214
+    This is HIGHER than 0.153 because concentrating entropy
+    into fewer d.o.f. raises ╬öN_eff (TΓü┤ scaling).
+  
+  WITH ╧åΓåÆ2╧â ONLY (╧â not thermalized initially):
+    ╧â gets energy only from ╧åΓåÆ2╧â, not from ╧ç
+    ╬öN_eff(╧â) Γëñ 0.056 (only ╧å's share of energy)
+  
+  RESULTS TABLE:
+  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  | Scenario                     | ╬öN_eff (BBN) | ╬öN_eff (CMB) |
+  |------------------------------|--------------|--------------|
+  | No ╧â, no dark QCD            | Γëê 0          | Γëê 0          |
+  | ╧â therm. at T_D, gets all S  | 0.214        | 0.214        |
+  | ╧â from ╧åΓåÆ2╧â only (max)       | 0.056        | 0.056        |
+  | Original claim (check 4)     | 0.153        | 0.153        |
+  
+  CRITICAL FINDING:
+  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  1. ╧â is NECESSARY for any ╬öN_eff > 0 at BBN/CMB.
+     Without a massless dark species, ╬öN_eff ΓåÆ 0 as ╧ç,╧å ΓåÆ NR.
+  
+  2. The original claim of ╬öN_eff = 0.153 (from check 4) is the
+     MASSLESS APPROXIMATION. The correct value depends on how ╧â
+     acquires dark entropy:
+     - ╧â thermalized at T_D: ╬öN_eff = 0.214 (entropy-heated)
+     - ╧â only from ╧åΓåÆ2╧â: ╬öN_eff Γëñ 0.056
+     - ╧â not thermalized: ╬öN_eff ΓåÆ 0
+  
+  3. The original need_to_verify claim of +0.027 ADDITIONAL from ╧â
+     is WRONG ΓÇö ╧â doesn't add on top, it replaces ╧ç,╧å.
+  
+  4. With f ~ 0.24 M_Pl, ╧â CANNOT thermalize (coupling ~ 10Γü╗┬▓Γü░).
+     ΓåÆ ╬öN_eff at BBN/CMB Γëê 0 unless ╧â is populated by ╧åΓåÆ2╧â.
+     ΓåÆ If ╧åΓåÆ2╧â occurs while ╧å is relativistic: ╬öN_eff Γëê 0.056.
+  
+  5. ALL scenarios satisfy Planck: ╬öN_eff < 0.33 Γ£ô
+  
+  STATUS: Γ£à PASS ΓÇö no BBN/CMB tension in any scenario.
+  The ╬öN_eff = 0.153 prediction needs revision:
+  - Best case (╧â thermalized): 0.214 ΓåÆ Planck OK, CMB-S4 7.9╧â
+  - Likely case (╧åΓåÆ2╧â only):   0.056 ΓåÆ Planck OK, CMB-S4 2.1╧â  
+  - Conservative (no ╧â):       Γëê 0   ΓåÆ Planck OK, no CMB-S4 signal
+
+  Planck limit:  ╬öN_eff < 0.33 ΓåÆ Γ£ô PASS
+  CMB-S4 (2╧â):   ╧â(╬öN_eff) = 0.027 ΓåÆ 5.7╧â detection
+
+  TIMING OF ╧åΓåÆ2╧â:
+    Anomaly-induced coupling: ╧ä >> t_universe ΓåÆ ╧å never decays
+    ΓåÆ ╧â thermalizes through dark sector entropy, not ╧å decay
+    ΓåÆ Entropy transfer happens automatically when ╧ç,╧å ΓåÆ NR
+    ΓåÆ ╧åΓåÆ2╧â decay is NOT needed for ╬öN_eff = 0.153
+    ΓåÆ ╧â just needs to EXIST and be in thermal contact at T_D
+
+    BUT: ╧â-╧ç coupling g = m_╧ç/f = 1.61e-19 ΓåÆ too weak!
+    ╧â never thermalizes with ╧ç,╧å through scattering.
+    ΓåÆ ╧â must be populated through ╧åΓåÆ2╧â decay OR initial conditions.
+
+    If ╧â was part of the thermal dark sector at T_D:
+      Need ╬ô(╧â-dark) > H(T_D) ΓÇö NOT satisfied (g ~ 10Γü╗┬▓Γü░)
+      Unless ╧â thermalizes through a DIFFERENT channel
+      (e.g., ╧â-╧â self-interaction from ╬¢_dΓü┤ cos(╧â/f) potential)
+
+  ╧â self-coupling: ╬╗_╧â = ╬¢_dΓü┤/fΓü┤ = 1.51e-118
+  ΓåÆ NEGLIGIBLE. ╧â is essentially free-streaming from the start.
+
+  BOTTOM LINE:
+  ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  ╬öN_eff = 0.153 requires ╧â to carry the dark sector entropy.
+  For ╧â to do this, it must be thermalized at T_D = 200 MeV.
+  With f ~ 0.24 M_Pl, the ╧â-matter coupling is ~ 10Γü╗┬▓Γü░.
+  ╧â CANNOT thermalize ΓåÆ it cannot carry entropy ΓåÆ ╬öN_eff ΓåÆ 0
+  UNLESS ╧â has additional (non-gravitational) couplings to ╧ç or ╧å.
+
+  TWO RESOLUTIONS:
+  (1) Accept ╬öN_eff Γëê 0 (no dark radiation at BBN/CMB)
+      ΓåÆ Model is safe but loses the CMB-S4 prediction
+  (2) ╧â has enhanced coupling (f << M_Pl, e.g., f ~ TeV scale)
+      ΓåÆ ╧â thermalizes, carries entropy, ╬öN_eff = 0.153
+      ΓåÆ But m_╧â = ╬¢_d┬▓/f would change ΓåÆ dark energy story changes
+
+========================================================================
+  Test 22 COMPLETE
+========================================================================

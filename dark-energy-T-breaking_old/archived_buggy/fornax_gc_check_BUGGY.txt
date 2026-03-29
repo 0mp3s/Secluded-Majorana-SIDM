@@ -1,0 +1,26 @@
+﻿====================================================================================================
+  FORNAX GC TIMING CONSTRAINT ù Read+2019 (1808.06634)
+python : Traceback (most recent call last):
+At line:1 char:1
++ python fornax_gc_check.py 2>&1 | Out-File -FilePath "archived_buggy\f ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last) 
+   ::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File 
+"C:\Users\omerp\source\omer_mind\dark-energy-T-breaking\fornax_gc_check.py", 
+line 238, in <module>
+    main()
+    ~~~~^^
+  File 
+"C:\Users\omerp\source\omer_mind\dark-energy-T-breaking\fornax_gc_check.py", 
+line 143, in main
+    print(f"  Bound: \u03c3/m < {FORNAX_BOUND} cm▓/g at v = 10-20 km/s")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\omerp\AppData\Local\Python\pythoncore-3.14-64\Lib\encodings\cp
+1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u03c3' in 
+position 9: character maps to <undefined>

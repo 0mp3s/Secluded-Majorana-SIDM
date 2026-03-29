@@ -1,0 +1,109 @@
+=== Test 19 — QCD Scale Coincidence ===
+Script : qcd_scale_coincidence.py
+Started: 2026-03-27 16:34:50
+Elapsed: 0.1s
+Exit   : 0
+============================================================
+
+=================================================================
+TEST 19: QCD SCALE COINCIDENCE — NUMERICAL CHECK
+=================================================================
+
+--- PART 1: Mass Ratios vs QCD Scale ---
+  m_χ / Λ_QCD                    = 0.4703 ← O(1) ✓
+  m_φ / Λ_QCD                    = 0.0555
+  m_φ / m_χ                      = 0.1180
+  m_χ / T_QCD_crossover          = 0.6069 ← O(1) ✓
+  m_χ / m_π⁰                     = 0.6970 ← O(1) ✓
+  m_χ / m_μ                      = 0.8903 ← O(1) ✓
+  Λ_QCD / m_χ                    = 2.1261 ← O(1) ✓
+
+  Note: m_χ ≈ Λ_QCD / 2.13  (suspiciously close to 1/2)
+        m_φ ≈ Λ_QCD / 18    (much lighter — SIDM window)
+
+--- PART 2: g*_S Table (Standard Model) ---
+     T (MeV)    g*_S  Description
+     1000000  106.75  T >> 1 GeV: all SM + top/bottom/charm
+        1000   96.25  T ~ 1 GeV: t quark decoupled
+         400   75.75  T ~ 400 MeV: b,c quarks still present
+         200   61.75  T ~ 200 MeV: u,d,s quarks + gluons (just above QCD)
+         160   61.75  T ~ 160 MeV: just above QCD crossover
+         150   17.25  T ~ 150 MeV: just below QCD crossover (pions still)
+         100   14.25  T ~ 100 MeV: μ± still present
+          50   10.75  T ~ 50 MeV: above ν decoupling, below μ threshold
+           3   10.75  T ~ 3 MeV: just before ν decoupling
+           2   10.75  T ~ 2 MeV: neutrino decoupling epoch
+           0    3.91  T ~ 0.5 MeV: after ν decoupling, before e± ann.
+
+--- PART 3: Dark Sector Degrees of Freedom ---
+  χ Majorana (2 helicities × 7/8) = 1.7500
+  φ real scalar                   = 1.0000
+  g_dark total                    = 2.7500
+
+--- PART 4: ΔN_eff(T_D) ---
+  Planck 2018:  N_eff = 2.99 ± 0.17  →  ΔN_eff < 0.33 (2σ)
+  CMB-S4 goal:  σ(N_eff) ~ 0.027     →  detectable if ΔN_eff > 0.06
+
+     T_D (MeV)   g*S(T_D)    T_d/T_ν    ΔN_eff    CMB-S4  Note
+           200      61.75     0.5584    0.1528  ✓ detect  just above QCD crossover  ← OUR HYPOTHESIS
+           155      61.75     0.5584    0.1528  ✓ detect  QCD crossover temperature
+           150      17.25     0.8542    0.8365  ✓ detect  just below QCD crossover
+           100      14.25     0.9103    1.0792  ✓ detect  above ν decoupling, μ± threshold
+            10      10.75     1.0000    1.5714  ✓ detect  well below QCD, above ν dec
+           400      75.75     0.5216    0.1163  ✓ detect  T ~ 400 MeV (b,c quarks)
+          1000      96.25     0.4816    0.0845  ✓ detect  T ~ 1 GeV
+
+  KEY RESULT: T_D = 200 MeV → ΔN_eff = 0.1528
+    → Consistent with Planck 2018 (within 1σ margin)
+    → Detectable by CMB-S4 at ~5.7σ
+
+--- PART 5: SIDM Cross Section (Classical Regime, β >> 1) ---
+  Parameters: m_χ = 94.07 MeV, m_φ = 11.1 MeV, α_D = 5.7340e-03
+
+    v (km/s)         β      σ/m Born     σ/m Classical        Regime
+                             (cm²/g)           (cm²/g)              
+          10    2913.7          2.24            142.32     classical
+          30     971.2          2.24            105.82     classical
+         100     291.4          2.24             72.02     classical
+         300      97.1          2.24             46.83     classical
+        1000      29.1          2.24             25.44     classical
+        3000       9.7          2.24             11.61     classical
+
+  SIDM observational targets:
+    Bullet Cluster:      σ/m < 1.25   cm²/g  (@ v ~ 3000 km/s)
+    Galaxy clusters:     σ/m ~ 0.1-1  cm²/g  (@ v ~ 1000 km/s)
+    Milky Way dwarfs:    σ/m ~ 1-50   cm²/g  (@ v ~ 30-100 km/s)
+    Core-cusp / TBTF:    σ/m ~ 1-10   cm²/g  (@ v ~ 30-100 km/s)
+
+=================================================================
+SUMMARY: QCD COINCIDENCE CHECK
+=================================================================
+
+  Claim: Λ_Z2 ~ Λ_QCD ~ 200 MeV → dark sector decoupled at T_D ~ 200 MeV
+
+  Mass ratios:
+    m_χ / Λ_QCD  = 0.470   (= 1/2.1)   ← O(1) ✓
+    m_φ / Λ_QCD  = 0.056   (= 1/18)   ← suppressed by A₄ structure
+    m_χ / m_π⁰   = 0.697   ← dark matter ≈ 0.7 × neutral pion mass
+
+  ΔN_eff prediction:
+    g_dark = 2.750  (χ Majorana + φ scalar)
+    T_dark/T_ν = 0.5584  (if T_D = 200 MeV)
+    ΔN_eff = 0.1528
+
+    Status vs Planck 2018   (limit < 0.33):  CONSISTENT ✓
+    Status vs CMB-S4        (σ ~ 0.027):     DETECTABLE at ~5.7σ ✓
+
+  Physical interpretation:
+    If T_D = 200 MeV, SM receives QCD entropy dump → SM heats up
+    Dark sector does NOT → T_dark/T_SM falls by factor 0.654
+    This suppresses ΔN_eff to safe level while keeping it measurable
+
+  Conclusion:
+    QCD scale coincidence m_χ ~ Λ_QCD/2 is NOT trivial.
+    It predicts ΔN_eff ≈ 0.153 — a CMB-S4 target.
+    This is Test 19 prediction: CMB-S4 should see ΔN_eff > 0.
+
+=================================================================
+Test 19 COMPLETE
+=================================================================

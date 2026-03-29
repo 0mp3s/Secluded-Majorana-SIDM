@@ -1,0 +1,233 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!70!black,
+  citecolor=blue!70!black,
+  urlcolor=blue!70!black
+}
+
+\newcommand{\Mpl}{M_{\mathrm{Pl}}}
+\newcommand{\Ld}{\Lambda_d}
+\newcommand{\meV}{\,\mathrm{meV}}
+\newcommand{\GeV}{\,\mathrm{GeV}}
+\newcommand{\MeV}{\,\mathrm{MeV}}
+\newcommand{\kms}{\,\mathrm{km/s/Mpc}}
+
+\title{\textbf{Dark Energy from the Secluded Majorana SIDM Lagrangian}\\[6pt]
+\large Summary of the \texttt{dark-energy-T-breaking} module}
+\author{Omer Pesach\\
+\small \texttt{ORCID: 0009-0004-8178-8131}}
+\date{March 28, 2026}
+
+\begin{document}
+\maketitle
+
+%=====================================================================
+\section{Context: Paper~1 --- Secluded Majorana SIDM}
+%=====================================================================
+
+The companion paper~\cite{paper1} establishes a \emph{secluded} Majorana dark matter model with a light scalar mediator $\phi$:
+\begin{equation}
+\mathcal{L}_{\mathrm{SIDM}} = \tfrac{1}{2}\bar\chi(i\!\not\!\partial - m_\chi)\chi + \tfrac{1}{2}(\partial\phi)^2 - V_0(\phi) - \tfrac{1}{2}\bar\chi\bigl(y_s + iy_p\gamma^5\bigr)\chi\,\phi
+\end{equation}
+with three free parameters $(m_\chi,\,m_\phi,\,\alpha_s)$ determining self-interactions. The Variable Phase Method (VPM) solver, Majorana spin statistics ($w_\ell^{\mathrm{even}}=1$, $w_\ell^{\mathrm{odd}}=3$), and Boltzmann relic density are all implemented and validated. Key results:
+\begin{itemize}[nosep]
+  \item 80{,}142 viable points from a 2.8M-point scan; 17 relic-constrained benchmarks with $\Omega_\chi h^2=0.120$ and $\chi^2/\nu<0.68$ for 13 astrophysical systems.
+  \item MAP benchmark: $m_\chi=98.19\GeV$, $m_\phi=9.66\MeV$, $\alpha_D=3.274\times10^{-3}$.
+  \item Majorana fingerprint: $\sigma_T^{\mathrm{Maj}}/\sigma_T^{\mathrm{Dir}}=2.2$ at $v\approx60$~km/s (triplet dominance 82\%).
+  \item Fully secluded: $\sigma_{\mathrm{SI}}=\sigma_{\mathrm{SD}}=0$ (Higgs portal excluded by $3\times10^4$).
+\end{itemize}
+Published data and code: Zenodo DOI \texttt{10.5281/zenodo.19225823}.
+
+%=====================================================================
+\section{Extension: Dark Energy from the Same Lagrangian}
+%=====================================================================
+
+\subsection{Core idea}
+We promote the CP phase $\theta$ in the Yukawa coupling to a dynamical field $\sigma$ (a dark axion / dark pion):
+\begin{equation}\label{eq:promotion}
+  y_s + iy_p\gamma^5 \;\longrightarrow\; y\,e^{i\gamma^5\sigma/f}
+  \;=\; y\cos\!\Bigl(\frac{\sigma}{f}\Bigr) + iy\sin\!\Bigl(\frac{\sigma}{f}\Bigr)\gamma^5
+\end{equation}
+where $f$ is the decay constant, and $\sigma$ acquires a potential from dark QCD chiral symmetry breaking:
+\begin{equation}\label{eq:potential}
+  \boxed{V(\sigma) = \Ld^4\Bigl(1 - \cos\frac{\sigma}{f}\Bigr)}
+\end{equation}
+with $\Ld$ the dark QCD confinement scale and $m_\sigma = \Ld^2/f$ the dark pion mass.
+
+\subsection{Dark QCD sector}
+A confining dark gauge group SU(2)$_d$ with 3 Majorana quarks produces the dark pion $\sigma$.
+The confinement scale is set by dimensional transmutation:
+\begin{equation}\label{eq:transmutation}
+  \Ld = \mu\cdot\exp\!\Bigl(-\frac{2\pi}{b_0\,\alpha_d(\mu)}\Bigr),
+  \qquad b_0 = \tfrac{19}{3}\;\text{(SU(2)$_d$, 3 Majorana)}
+\end{equation}
+With $\alpha_d(m_\chi)\approx0.032$ and $\mu=m_\chi=98\GeV$, this yields $\Ld\approx2\meV$ ---
+the dark energy scale --- \emph{without} fine-tuning. The coupling $\alpha_d\sim 0.03$ is comparable to $\alpha_{\mathrm{EM}}$.
+
+\subsection{Cosmological misalignment}
+At reheating, $\sigma$ sits at a misalignment angle $\theta_i \equiv \sigma_i/f \sim 3$~rad (near the CP-preserving hilltop at $\theta=\pi$). While $H\gg m_\sigma$, the field is frozen by Hubble friction. Today $V(\sigma_{\mathrm{today}})\approx\rho_\Lambda$.
+
+%=====================================================================
+\section{The Coupled ODE: $\sigma(t)\otimes$Friedmann $\to H_0$}
+%=====================================================================
+
+We solve a coupled ODE system in $N = \ln a$ (e-fold time):
+\begin{align}
+  \frac{d\sigma}{dN} &= p, \\
+  \frac{dp}{dN} &= -(3-\varepsilon)\,p - \frac{V'(\sigma)}{H^2}, \\
+  H^2 &= \frac{\rho_r + \rho_m + V(\sigma)}{3\Mpl^2 - \tfrac{1}{2}p^2}, \\
+  \varepsilon &= \frac{\tfrac{4}{3}\rho_r + \rho_m + H^2 p^2}{2\Mpl^2 H^2}
+\end{align}
+where $\rho_r\propto a^{-4}$, $\rho_m = \rho_\chi(a) + \rho_b(a) \propto a^{-3}$.
+
+\medskip
+\noindent
+\textbf{Inputs} (6 Lagrangian parameters):
+\[
+  \underbrace{m_\chi,\;m_\phi,\;\alpha_D}_{\text{SIDM sector}\;\to\;\Omega_\chi h^2}
+  \;,\qquad
+  \underbrace{f,\;\Ld,\;\theta_i}_{\text{dark QCD}\;\to\;V(\sigma)}
+\]
+
+\noindent
+\textbf{Output}: $H_0$ [km/s/Mpc] --- derived, not input.
+
+%=====================================================================
+\section{Key Results (Tests 23--34)}
+%=====================================================================
+
+\subsection{$H_0$ as a prediction}
+With $\Ld=2\meV$, $f=0.27\,\Mpl$:
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+$\theta_i$ [rad] & $H_0$ [km/s/Mpc] & Comparison \\
+\midrule
+3.0 (near hilltop) & $\sim71$ & Between Planck and SH0ES \\
+3.1               & $\sim73$ & SH0ES-compatible \\
+2.887 (DESI fit)  & $\sim66.5$ & Planck-compatible \\
+$\pi$ (exact hilltop) & $\sim67.4$ & $\equiv$ ΛCDM limit \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{DESI DR1 match (Test~27)}
+The benchmark $\theta_i=2.887$ rad reproduces the DESI DR1 equation-of-state:
+\begin{equation}
+  w_0 = -0.727 \quad\text{(DESI mean: $-0.727 \pm 0.067$)}
+\end{equation}
+Our model \emph{naturally predicts quintessence} ($w > -1$), distinguishing it from $\Lambda$CDM.
+
+\subsection{Dark energy is transient (Test~32)}
+Unlike $\Lambda$CDM, the dark energy in our model \emph{dies}: $\sigma$ eventually oscillates around $V=0$.
+\begin{itemize}[nosep]
+  \item Acceleration stops at $a\approx1.57$ ($\sim5$~Gyr from now)
+  \item $\langle w\rangle\to 0$ after oscillations begin (pressureless matter)
+  \item No Big Rip, no heat death --- eternal decelerated expansion
+\end{itemize}
+
+\subsection{Sensitivity analysis (Test~33)}
+\begin{center}
+\begin{tabular}{@{}lrl@{}}
+\toprule
+Parameter & $\partial H_0/\partial x$ & Role \\
+\midrule
+$\theta_i$ & $+12.1\kms$/rad & Primary dial (initial condition) \\
+$\ln\Ld$ & $+90.7\kms$/e-fold & Amplitude ($V\propto\Ld^4$) \\
+$\ln f$ & $+3.0\kms$/e-fold & Mass scale (barely matters) \\
+\bottomrule
+\end{tabular}
+\end{center}
+Hubble tension = $\Delta\theta_i\approx0.47$ rad. \emph{Not fine-tuning}: $\theta_i$ is a continuous initial condition set by inflation.
+
+\subsection{$\Ld\sim\meV$ from transmutation (Test~34)}
+The 122-order hierarchy $\Mpl^4/\rho_\Lambda \sim 10^{122}$ is traded for:
+\begin{enumerate}[nosep]
+  \item A moderate gauge coupling $\alpha_d\sim0.03$ (comparable to $\alpha_{\mathrm{EM}}$)
+  \item A standard hierarchy $m_\chi/\Mpl\sim10^{-16}$
+\end{enumerate}
+Both are unremarkable in particle physics.
+
+\subsection{Additional checks}
+\begin{itemize}[nosep]
+  \item \textbf{$\Delta N_{\mathrm{eff}}\approx 0$} (Test~30): natural couplings give $\Gamma/H = 10^{-143}$ --- $\sigma$ never thermalizes.
+  Full thermalization would give $\Delta N_{\mathrm{eff}}=3.23$ (excluded by Planck); validates secluded nature.
+  \item \textbf{2-loop $\beta$-function} (Test~31): $b_1=33.08$, shifts $\alpha_d$ by $-9\%$. Physics unchanged; amplification factor = 1002.
+  \item \textbf{$f$ from self-consistency} (Test~29): $f$ is not free once $\theta_i$ is known. At DESI $\theta_i=2.9$: $f\approx0.17\,\Mpl$ (satisfies the Weak Gravity Conjecture $f<\Mpl$).
+\end{itemize}
+
+%=====================================================================
+\section{Model summary}
+%=====================================================================
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\multicolumn{2}{c}{\textbf{Free parameters}} \\
+\midrule
+$m_\chi,\,m_\phi,\,\alpha_D$ & Fixed by Paper~1 SIDM + relic \\
+$\alpha_d$ (dark gauge coupling) & $\to\Ld$ via transmutation \\
+$\theta_i$ (misalignment angle) & Set by inflation (cosmological IC) \\
+\midrule
+$f$ & Derived from $V(\theta_i)=\rho_\Lambda$ (not free) \\
+$H_0$ & \textbf{Output} of the coupled ODE \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent
+The model adds \textbf{2 genuinely new parameters} ($\alpha_d$, $\theta_i$) to the 3-parameter SIDM model, and \emph{derives} $H_0$ and the dark energy equation of state $w(z)$.
+
+%=====================================================================
+\section{Comparison with $\Lambda$CDM}
+%=====================================================================
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Property & $\Lambda$CDM & This model \\
+\midrule
+$w$ today & $-1$ (exact) & $\approx-0.95$ (quintessence) \\
+$w$ future & $-1$ (always) & $\to 0$ (oscillates) \\
+DE fate & Eternal & \textbf{Transient} (dies) \\
+Acceleration & Eternal & Transient ($\sim5$ Gyr more) \\
+Origin of DE & Bare $\Lambda$ (fine-tuned $10^{-122}$) & Transmutation ($\alpha_d\sim0.03$) \\
+Falsifiable by $w\neq-1$? & No & \textbf{Yes} (DESI, Euclid) \\
+Parameter count for DE & 1 ($\Lambda$) & 2 ($\alpha_d$, $\theta_i$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%=====================================================================
+\section{Code and data}
+%=====================================================================
+
+All code is available in the \texttt{dark-energy-T-breaking/} submodule:
+\begin{itemize}[nosep]
+  \item \texttt{hunt\_H0/layer8\_cosmic\_ode.py} --- coupled $\sigma$--Friedmann ODE solver
+  \item \texttt{hunt\_H0/rg\_transmutation.py} --- $\Ld$ from $\alpha_d$ via RG
+  \item \texttt{hunt\_H0/desi\_comparison.py} --- DESI DR1 $w(z)$ match
+  \item \texttt{hunt\_H0/sensitivity\_H0.py} --- Jacobian $\partial H_0/\partial(\mathrm{params})$
+  \item \texttt{hunt\_H0/future\_universe.py} --- cosmic fate / transient DE
+  \item Research journal: 34 tests documenting the full discovery path
+\end{itemize}
+
+\noindent
+Paper~1 code and data: \url{https://zenodo.org/records/19225823}\\
+Layer~8 code and data: Zenodo DOI \texttt{10.5281/zenodo.19274637}
+
+\begin{thebibliography}{9}
+\bibitem{paper1} O.~Pesach, \emph{Secluded Majorana SIDM: Constraints and Predictions}, Zenodo (2026). DOI: 10.5281/zenodo.19225823.
+\end{thebibliography}
+
+\end{document}
