@@ -175,13 +175,37 @@ def run():
     random.seed(42)
     random.shuffle(all_tasks)
 
-    results = []
+    # ============================================================
+    # CHECKPOINT: resume from previous crash
+    # ============================================================
+    _CKPT = os.path.join(_DIR, "_chi2_fit_checkpoint.csv")
+    _ckpt_vcols = [f"sigma_m_{v}" for v in OBS_VELOCITIES]
+    _ckpt_hdr = ['chi2', 'm_chi_GeV', 'm_phi_GeV', 'alpha'] + _ckpt_vcols
+    _ckpt_done = {}
+    if os.path.exists(_CKPT):
+        with open(_CKPT, newline='') as _cf:
+            for _row in csv.DictReader(_cf):
+                try:
+                    _mc = float(_row['m_chi_GeV']); _mp = float(_row['m_phi_GeV']); _al = float(_row['alpha'])
+                    _sv = {v: float(_row[f'sigma_m_{v}']) for v in OBS_VELOCITIES}
+                    _ckpt_done[(_mc, _mp, _al)] = (float(_row['chi2']), _mc, _mp, _al, _sv)
+                except Exception:
+                    continue
+        if _ckpt_done:
+            print(f"  Checkpoint: resuming from {len(_ckpt_done)} already-done points", flush=True)
+    _new_tasks = [(mc, mp, al) for mc, mp, al in all_tasks if (mc, mp, al) not in _ckpt_done]
+    _ckpt_f = open(_CKPT, 'a', newline='')
+    _ckpt_w = csv.writer(_ckpt_f)
+    if not _ckpt_done:
+        _ckpt_w.writerow(_ckpt_hdr)
+
+    results = list(_ckpt_done.values())
     relic_results = []
     n_sample = len(sample)
-    done = 0
+    done = len(_ckpt_done)
 
     with mp_lib.Pool(processes=nworkers, initializer=_init_worker) as pool:
-        for i, res in enumerate(pool.imap_unordered(_eval_one, all_tasks, chunksize=32)):
+        for i, res in enumerate(pool.imap_unordered(_eval_one, _new_tasks, chunksize=32)):
             done += 1
             if done % 500 == 0 or done == total_pts:
                 elapsed = time.time() - t0
@@ -191,6 +215,12 @@ def run():
             if res is None:
                 continue
             results.append(res)
+            _c2r, _mcr, _mpr, _alr, _svr = res
+            _ckpt_w.writerow([f"{_c2r:.6f}", f"{_mcr:.6f}", f"{_mpr:.10f}", f"{_alr:.6e}"] +
+                             [f"{_svr.get(v, 0):.6e}" for v in OBS_VELOCITIES])
+            if done % 100 == 0:
+                _ckpt_f.flush()
+    _ckpt_f.close()
 
     elapsed_scan = time.time() - t0
     print(f"\n  Scan done: {len(results)} valid / {total_pts} total in {elapsed_scan:.1f}s")
@@ -260,6 +290,8 @@ def run():
             row += [f"{sv.get(v, 0):.6e}" for v in OBS_VELOCITIES]
             w.writerow(row)
     print(f"\n  Saved CSV -> {csv_out}  ({len(free_results) + len(relic_results)} rows)")
+    if os.path.exists(_CKPT):
+        os.remove(_CKPT)
 
     # ============================================================
     # RESULTS: FREE BEST FIT
