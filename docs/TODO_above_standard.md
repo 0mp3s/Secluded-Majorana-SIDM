@@ -44,8 +44,10 @@
   - **priority: CRITICAL**
 
 - [ ] **Vacuum stability → explicit assumption**
-  - רקע: $\mu_3/m_\phi \gtrsim 1.7$ (cannibal) + bounded from below ⇒ $\lambda_\phi \gtrsim 0.54$
-  - מטרה: פסקה במאמר שמציינת את התנאי. אנליטי — לא צריך קוד
+  - רקע: $\mu_3/m_\phi \gtrsim 1.7$ (cannibal) + bounded from below ⇒ $\lambda_\phi \gtrsim 0.96$ (נומרי) / $\gtrsim 1.08$ (אנליטי)
+  - ⚠️ **תיקון:** הערך 0.54 שהופיע בעבר (Agent A) הוא **שגוי** — לא נגזר מהלגרנז'יאן. ראה §VS-1 ביומן (30 מרץ 2026).
+  - הלגרנז'יאן: $V = \frac{1}{2}m_\phi^2\phi^2 + \frac{\mu_3}{6}\phi^3 + \frac{\lambda_\phi}{24}\phi^4$ → threshold: $\lambda_\phi \gtrsim \frac{3\mu_3^2}{8m_\phi^2}\approx 1.08$
+  - מטרה: פסקה במאמר עם הערך הנכון. אנליטי — לא צריך קוד נוסף
   - effort: ~15 דקות | impact: גבוה — reviewer יתפוס
   - **priority: HIGH**
 
