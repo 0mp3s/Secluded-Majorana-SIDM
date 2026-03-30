@@ -40,7 +40,7 @@ import matplotlib.pyplot as plt
 
 from config_loader import load_config
 from global_config import GC
-from v22_raw_scan import sigma_T_vpm
+from v22_raw_scan_fast import sigma_T_vpm   # FAST: full JIT on sigma_T_vpm
 from output_manager import get_latest, timestamped_path, _MCMC_ARCHIVE
 
 # Warm up JIT
@@ -68,7 +68,7 @@ def _init_worker():
     core = os.path.join(root, 'core')
     if core not in sys.path:
         sys.path.insert(0, core)
-    from v22_raw_scan import sigma_T_vpm
+    from v22_raw_scan_fast import sigma_T_vpm   # FAST
     _solver = sigma_T_vpm
     _solver(20.0, 10e-3, 1e-3, 100.0)  # warm up
 
